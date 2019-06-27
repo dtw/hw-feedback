@@ -1,0 +1,65 @@
+/* CSS for the Healthwatch Rate and Review plugin */
+
+
+
+/* Rate and Review form
+----------------------------------- */	
+
+#commentform select {
+	font-family: FontAwesome, Open Sans, serif;
+	}
+
+#commentform label[for=rating],
+#commentform label[for=comment] {
+	}
+
+.form-allowed-tags {
+	display: none;
+	}
+	
+#commentform p {
+	margin-bottom: 1rem;
+	}
+
+.response {
+	margin-left: 3rem;
+	margin-bottom: 3rem;
+	padding: 2rem 2rem 1rem 2rem;
+	background-color: rgba(0,0,0,0.05);
+	border-radius: 5px;
+	}
+
+/* Ratings
+------------------------------------------------- */
+
+.rate-and-review-scores span {
+	width: 200px;
+	display: inline-block;
+	}
+
+/* Icons
+------------------------------------------------- */
+	
+.fa.green {
+	color: #84BF41;
+	}
+
+/* ReCaptcha 
+------------------------------------------------- */
+
+.bwp-recaptcha {
+	display: inline-block;
+	margin-bottom: 4rem;
+	}
+
+.rc-anchor-alert {
+	font-weight: bold;
+	}
+
+
+/* Widgets
+------------------------------------------------- */
+
+#sidebar .col-md-3 {
+	width: 100%;
+	}

@@ -1,0 +1,242 @@
+<?php
+
+
+// Register 'Recently Rated Services' widget
+add_action( 'widgets_init', 'init_hw_recent_comments' );
+function init_hw_recent_comments() { return register_widget('hw_recent_comments'); }
+
+class hw_recent_comments extends WP_Widget {
+	/** constructor */
+	function hw_recent_comments() {
+		parent::WP_Widget( 'rcp_recent_comments', $name = 'HW recent comments' );
+	}
+
+
+	/**
+	* This is our Widget
+	**/
+	function widget( $args, $instance ) {
+		global $post;
+		extract($args);
+
+		// Widget options
+		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title		
+		$number	 = $instance['number']; // Number of posts to show
+		
+        // Output
+		echo $before_widget;
+		
+	    if ( $title ) echo $before_title . $title . $after_title;
+
+
+$args = array(
+	'status' => 'approve',
+	'post_type' => 'local_services',
+	'number' => 4,
+);
+
+// The Query
+$comments_query = new WP_Comment_Query;
+$comments = $comments_query->query( $args );
+
+
+// Comment Loop
+if ( $comments ) {
+
+echo "<div class='row'>";
+
+		
+	foreach ( $comments as $comment ) { ?>
+
+
+<div class="col-md-3 col-sm-6 col-xs-12" style="min-height: 350px;"> 
+
+
+
+<?php												// Display icon for taxonomy term	
+
+$term_ids = get_the_terms( $comment->comment_post_ID, 'service_types' );	// Find taxonomies
+$term_id = $term_ids[0]->term_id;											// Get taxonomy ID
+$term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
+		?>
+        
+	<div class="text-center"><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">
+    <img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php the_title(); ?>" />
+    </a></div>
+
+
+
+
+
+
+	<h3 style="margin: 0; padding-bottom: .5rem;"><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>"><?php echo get_the_title($comment->comment_post_ID); ?></a></h3>
+
+
+
+
+<?php // Display star rating
+$individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true ); ?>
+
+<?php if ($individual_rating) { ?>
+    
+    <p class="star-rating p-rating">
+    <?php if ($individual_rating < 1.25 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 1.25 && $individual_rating < 1.75 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-half-empty fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 1.75 && $individual_rating < 2.25 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 2.25 && $individual_rating < 2.75 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-half-empty fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+        
+    <?php if ($individual_rating >= 2.75 && $individual_rating < 3.25 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 3.25 && $individual_rating < 3.75 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-half-empty fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 3.75 && $individual_rating < 4.25 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-o fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 4.25 && $individual_rating < 4.75 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star-half-empty fa-lg"></i>
+        <?php } ?> 
+    
+    <?php if ($individual_rating >= 4.75 ) { ?>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <i class="fa fa-star fa-lg"></i>
+        <?php } ?> 
+     </p> 
+       <p><strong><?php echo human_time_diff( strtotime($comment->comment_date), current_time( 'timestamp' ) ); ?> ago</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+	<?php } // end of if there is a rating ?>
+
+        <p><?php echo mb_strimwidth($comment->comment_content,0,200," ..."); ?></p>
+
+
+
+<?php if (get_comment_meta( $comment->comment_ID, 'feedback_response', true )) { ?>
+	<div class="response">
+    <img width="100" height="100" class="alignright" src="<?php bloginfo(url) ?>/wp-content/themes/scaffold/images/icons/colour/response-small.png" alt="Response" />
+	<p><?php echo get_the_title($comment->comment_post_ID); ?> has responded to this feedback:</p>
+	<blockquote><em><?php echo mb_strimwidth ( get_comment_meta( $comment->comment_ID, 'feedback_response', true ),0,180," ..." ); ?></em>	<a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">read more</a></blockquote>
+</div><!-- end of response -->
+	<?php } ?>
+
+			</div><!-- end of col -->
+
+<?php	 } // end of loop?
+
+echo "</div><!-- end of row -->";
+
+} else {
+	echo 'No comments found.';
+}
+
+
+?>
+
+
+
+		<?php
+		// echo widget closing tag
+		echo $after_widget;
+	}
+
+	/** Widget control update */
+	function update( $new_instance, $old_instance ) {
+		$instance    = $old_instance;
+		
+		//Let's turn that array into something the Wordpress database can store
+		$instance['title']  = strip_tags( $new_instance['title'] );
+		$instance['number'] = strip_tags( $new_instance['number'] );
+		return $instance;
+	}
+	
+	/**
+	* Widget settings
+	**/
+	function form( $instance ) {	
+	
+		    // instance exist? if not set defaults
+		    if ( $instance ) {
+				$title  = $instance['title'];
+		        $number = $instance['number'];
+		    } else {
+			    //These are our defaults
+				$title  = '';
+		        $number = '4';
+		    }
+			
+			// The widget form
+			?>
+			<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __( 'Title:' ); ?></label>
+			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" class="widefat" />
+			</p>
+			<p>
+			<label for="<?php echo $this->get_field_id('number'); ?>"><?php echo __( 'How many services?' ); ?></label>
+			<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" />
+			</p>
+	<?php 
+	}
+
+} // class hw_recent_comments
+
+?>
