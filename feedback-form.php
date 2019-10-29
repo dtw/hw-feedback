@@ -1,13 +1,13 @@
 <?php
 
-/* 
+/*
 	- Default comment form elements are hidden when user is logged in
-	- Check whether the page template is single-local_services.php 
-	- Add fields after default fields above the comment box, always visible	
+	- Check whether the page template is single-local_services.php
+	- Add fields after default fields above the comment box, always visible
 	- Save the comment meta data along with comment
 	- Add an edit option in comment edit screen
 	- Update comment meta data from COMMENT EDIT SCREEN
-	- Add the comment meta (saved earlier) to the comment text 
+	- Add the comment meta (saved earlier) to the comment text
 	- Remove URL field
 	- Move the COMMENT FIELD to the top
 */
@@ -45,7 +45,7 @@ if ( is_singular( 'local_services' ) ) {
 
 
 			} // end of check for being a singular page
-	
+
 
 				} // End of function
 
@@ -60,7 +60,7 @@ add_action( 'comment_form_top', 'additional_fields' );
 function additional_fields () {
 
 if ( is_singular( 'local_services' ) ) {
-	
+
 	echo '<p class="comment-form-rating">
 
 			<label for="rating">How would you rate this service overall? Choose from 1 to 5 stars.</label>
@@ -113,13 +113,13 @@ function save_comment_meta_data( $comment_id ) {
 }
 
 
-// Add an edit option in comment edit screen  
+// Add an edit option in comment edit screen
 
 add_action( 'add_meta_boxes_comment', 'extend_comment_add_meta_box' );
 function extend_comment_add_meta_box() {
     add_meta_box( 'title', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
 }
- 
+
 function extend_comment_meta_box ( $comment ) {
     $phone = get_comment_meta( $comment->comment_ID, 'feedback_phone', true );
     $address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
@@ -159,7 +159,7 @@ function extend_comment_meta_box ( $comment ) {
 			<?php for( $i=1; $i <= 5; $i++ ) {
 				echo '<span class="commentrating"><input type="radio" name="rating" id="rating" value="'. $i .'"';
 				if ( $rating == $i ) echo ' checked="checked"';
-				echo ' />'. $i .' </span> '; 
+				echo ' />'. $i .' </span> ';
 				}
 			?>
 			</span>
@@ -187,26 +187,26 @@ function extend_comment_meta_box ( $comment ) {
 
 
 
-// Update comment meta data from COMMENT EDIT SCREEN 
+// Update comment meta data from COMMENT EDIT SCREEN
 
 add_action( 'edit_comment', 'extend_comment_edit_metafields' );
 function extend_comment_edit_metafields( $comment_id ) {
     if( ! isset( $_POST['extend_comment_update'] ) || ! wp_verify_nonce( $_POST['extend_comment_update'], 'extend_comment_update' ) ) return;
 
-	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') ) : 
+	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') ) :
 	$phone = wp_filter_nohtml_kses($_POST['phone']);
 	update_comment_meta( $comment_id, 'feedback_phone', $phone );
 	else :
 	delete_comment_meta( $comment_id, 'feedback_phone');
 	endif;
 
-	if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') ) : 
+	if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') ) :
 	$address = wp_filter_nohtml_kses($_POST['address']);
 	update_comment_meta( $comment_id, 'feedback_address', $address );
 	else :
 	delete_comment_meta( $comment_id, 'feedback_address');
 	endif;
-		
+
 	if ( ( isset( $_POST['rating'] ) ) && ( $_POST['rating'] != '') ):
 	$rating = wp_filter_nohtml_kses($_POST['rating']);
 	update_comment_meta( $comment_id, 'feedback_rating', $rating );
@@ -234,11 +234,11 @@ function extend_comment_edit_metafields( $comment_id ) {
 	else :
 	delete_comment_meta( $comment_id, 'feedback_response');
 	endif;
-		
+
 }
 
-// Add the comment meta (saved earlier) to the comment text 
-// You can also output the comment meta values directly in comments template  
+// Add the comment meta (saved earlier) to the comment text
+// You can also output the comment meta values directly in comments template
 
 	if ( is_admin() ) {
 
@@ -262,9 +262,9 @@ function modify_comment( $text ){
 	if( $commentwhen = get_comment_meta( get_comment_ID(), 'feedback_when', true ) ) {
 		$commentwhen = '<strong>When? </strong>' . esc_attr( $commentwhen ) . '<br/><br/>';
 
-	} 
+	}
 
-// if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; } 
+// if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
 
 
 		$text = $text . "<br /><br />" . $commentphone . $commentaddress . $commentwhen . $commentwho;
@@ -273,10 +273,10 @@ function modify_comment( $text ){
 		$commentrating = '<p class="comment-rating">	<img src="'. $plugin_url_path .
 		'/healthwatchfeedback/images/'. $commentrating . 'star.gif"/><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
 		$text = $text . $commentrating;
-		return $text;		
+		return $text;
 	} else {
-		return $text;		
-	}	 
+		return $text;
+	}
 }
 
 }
@@ -306,7 +306,7 @@ function hw_move_textarea( $input = array () ) {
 
     if ( 'comment_form_defaults' === current_filter() ) {
         $textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea required tabindex="3" id="comment" name="comment" cols="45" rows="8" aria-required=true"></textarea></p>';
-        $input['comment_field'] = '';	
+        $input['comment_field'] = '';
         return $input;
     }
     if ( is_singular( 'local_services' ) ) {
@@ -323,8 +323,8 @@ function hw_move_textarea( $input = array () ) {
 
 
     }
-	
-	
+
+
 	else {
         echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="8" aria-required=true"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="2" /></p>';
@@ -334,5 +334,5 @@ function hw_move_textarea( $input = array () ) {
 }
 
 add_action( 'comment_form_defaults',	'hw_move_textarea' );
-add_action( 'comment_form_top',		'hw_move_textarea' );  
+add_action( 'comment_form_top',		'hw_move_textarea' );
 ?>
