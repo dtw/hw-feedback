@@ -24,14 +24,14 @@ function custom_fields($fields) {
 if ( is_singular( 'local_services' ) ) {
 
 		$fields[ 'author' ] = '<p class="comment-form-author">'.
-			'<label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" type="text" size="30" tabindex="6" /></p>';
-		
+			'<label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="6" /></p>';
+
 		$fields[ 'email' ] = '<p class="comment-form-email">'.
-			'<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" type="email" size="30" tabindex="7" /></p>';
-			
+			'<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="7" /></p>';
+
 		$fields[ 'phone' ] = '<p class="comment-form-phone">'.
 			'<label for="phone">Phone</label>'.
-			'<input placeholder="Your phone number (optional)" id="phone" name="phone" type="text" size="30"  tabindex="8" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';		
+			'<input placeholder="Your phone number (optional)" id="phone" name="phone" autocomplete="off" type="text" size="30"  tabindex="8" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 
 //		$fields[ 'address' ] = '<p class="comment-form-address">'.
 //			'<label for="address">Address</label>'.
@@ -135,17 +135,17 @@ function extend_comment_meta_box ( $comment ) {
 
     <p>
         <label for="phone">Phone</label>
-        <input type="text" name="phone" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
+        <input type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
     </p>
 
     <p>
         <label for="address">Address</label>
-        <input type="text" name="address" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
+        <input type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
     </p>
 
     <p>
         <label for="when">When did it happen?</label>
-        <input type="text" name="when" value="<?php echo esc_attr( $when ); ?>" class="widefat" />
+        <input type="text" name="when" autocomplete="off" value="<?php echo esc_attr( $when ); ?>" class="widefat" />
     </p>
 
     <!--<p>
@@ -327,10 +327,10 @@ function hw_move_textarea( $input = array () ) {
 	
 	else {
         echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="8" aria-required=true"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
-		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" type="text" size="30" tabindex="2" /></p>';
-		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
-		} 
-	
+		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="2" /></p>';
+		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
+		}
+
 }
 
 add_action( 'comment_form_defaults',	'hw_move_textarea' );
