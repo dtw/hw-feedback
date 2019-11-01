@@ -10,7 +10,7 @@
  * Description: Takes three arguments to output star ratings for hw-feedback
  */
 
-  function feedbackstarrating($float,$type = 'individual',$colour = NULL) {
+  function feedbackstarrating($float,$type = 'individual',$colour = '') {
     // check the type is valid
     if ( $type !== 'individual' or $type !== 'average' ) {
       die("Invalid type argument");
