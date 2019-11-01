@@ -64,10 +64,10 @@ class hw_enter_and_view extends WP_Widget {
 
 			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true ); 
 				for ($i = 1; $i <= $rating; ++$i)  { 
-				echo "<i class='fa fa-star fa-2x green'></i> "; 
+				echo "<i class='fas fa-star fa-2x green'></i> ";
+				for ($i = 1; $i <= (5 - $rating); ++$i)  {
+				echo "<i class='far fa-star fa-2x green'></i> ";
 				}
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { 
-				echo "<i class='fa fa-star-o fa-2x green'></i> "; 
 				} 
 			?>
 
