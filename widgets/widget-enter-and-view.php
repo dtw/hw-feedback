@@ -1,4 +1,4 @@
-<?php // Lists ENTER & VIEW 
+<?php // Lists ENTER & VIEW
 
 // Register ENTER AND VIEW widget
 add_action( 'widgets_init', 'init_hw_enter_and_view' );
@@ -63,12 +63,7 @@ class hw_enter_and_view extends WP_Widget {
 <h3 style="margin:0; padding-bottom: .5rem;"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
 
 			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
-				for ($i = 1; $i <= $rating; ++$i)  {
-				echo "<i class='fas fa-star fa-2x green'></i> ";
-				}
-				for ($i = 1; $i <= (5 - $rating); ++$i)  {
-				echo "<i class='far fa-star fa-2x green'></i> ";
-				}
+				feedbackstarrating($rating,'green');
 			?>
 
 <?php // get_template_part("elements/comments-rating-average"); ?>
