@@ -18,7 +18,7 @@
     // has a colour been passed?
     if ( isset($colour)) {
       // add a leading space
-      $colour = ' '.$colour
+      $colour = ' '.$colour;
     }
     // output the stars
     // we never want less than one star
