@@ -13,6 +13,8 @@
  */
 
   function feedbackstarrating($rating,$colour = '') {
+    // if the rating is a float then we're working with an average rating
+    $average = is_float($rating);
     // has a colour been passed?
     if ( isset($colour)) {
       // add a leading space
@@ -28,8 +30,8 @@
 				echo '<i class="fas fa-star fa-lg' . $colour . '"></i> ';
 				$star_count++;
 			}
-      if ( $type === 'average' ) {
       // if rating is average, check if half a star needed
+      if ( $average) {
   			if (($rating - floor($rating)) >= 0.25 && ($rating - floor($rating)) < 0.75) {
   				echo '<i class="fas fa-star-half-alt fa-lg' . $colour . '"></i> ';
   				$star_count++;
