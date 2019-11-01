@@ -32,8 +32,8 @@
 			}
       // if type is average, check if half a star needed
       if ( $type === 'average' ) {
-  			if (($float - floor($float)) >= 0.25 && $float < 0.75) {
   				echo '<i class="fa fa-star-half-empty fa-lg' . $colour . '"></i> ';
+  			if (($float - floor($float)) >= 0.25 && ($float - floor($float)) < 0.75) {
   				$star_count++;
   			}
       }
