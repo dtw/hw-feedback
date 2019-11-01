@@ -33,6 +33,9 @@ include('widgets/widget-recent-comments.php');
 
 include('shortcodes/shortcode-ratings-block.php');
 
+// Add functions
+
+require_once('functions/functions-star-rating.php');
 
 // Enqueue CSS
 
