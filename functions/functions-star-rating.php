@@ -8,16 +8,11 @@
  * @copyright 2019 Phil Thiselton
  *
  * Description: Takes three arguments to output star ratings for hw-feedback
- * @param float $float Takes any number
- * @param string $type Must be 'average' or 'individual'
+ * @param float $rating Takes any number
  * @param string $colour A colour to pass as a CSS class e.g. 'green'
  */
 
-  function feedbackstarrating($float,$type = 'individual',$colour = '') {
-    // check the type is valid
-    if ( $type != 'individual' && $type != 'average' ) {
-      die("Invalid type argument");
-    }
+  function feedbackstarrating($rating,$colour = '') {
     // has a colour been passed?
     if ( isset($colour)) {
       // add a leading space
@@ -25,17 +20,17 @@
     }
     // output the stars
     // we never want less than one star
-		if ($float < 1) {
+		if ($rating < 1) {
 			echo '<i class="fas fa-star fa-lg' . $colour . '"></i>';
 		} else {
       // output whole stars based on the integer value of float
-			for ($int_count = 1; $int_count <= floor($float); $int_count++) {
+			for ($int_count = 1; $int_count <= floor($rating); $int_count++) {
 				echo '<i class="fas fa-star fa-lg' . $colour . '"></i> ';
 				$star_count++;
 			}
-      // if type is average, check if half a star needed
       if ( $type === 'average' ) {
-  			if (($float - floor($float)) >= 0.25 && ($float - floor($float)) < 0.75) {
+      // if rating is average, check if half a star needed
+  			if (($rating - floor($rating)) >= 0.25 && ($rating - floor($rating)) < 0.75) {
   				echo '<i class="fas fa-star-half-alt fa-lg' . $colour . '"></i> ';
   				$star_count++;
   			}
