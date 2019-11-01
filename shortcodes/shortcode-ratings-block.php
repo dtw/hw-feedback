@@ -21,8 +21,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_how_people_treated', true );
-				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
+				feedbackstarrating($rating,'individual','green');
 					?>
 				</div></div>
 
@@ -32,8 +31,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true );
-				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
+				feedbackstarrating($rating,'individual','green');
 					?>
 						</div></div>
 
@@ -45,8 +43,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true );
-				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
+				feedbackstarrating($rating,'individual','green');
 					?>
 					</div></div>
 
@@ -56,8 +53,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true );
-				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
+			  feedbackstarrating($rating,'individual','green');
 					?>
 					</div></div>
 
@@ -68,8 +64,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true );
-				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
-				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
+			  feedbackstarrating($rating,'individual','green');
 					?>
 					</div></div>
 
