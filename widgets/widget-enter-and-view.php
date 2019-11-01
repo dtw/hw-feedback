@@ -8,14 +8,14 @@ class hw_enter_and_view extends WP_Widget {
 	/** constructor */
 	function hw_enter_and_view() {
 		parent::WP_Widget(
-		
-			'hw_enter_and_view', 
+
+			'hw_enter_and_view',
 			$name = 'HW Enter and View',
 				array(
 					'classname'   => 'scaffold_widget_enter_and_view widget_enter_and_view',
 					'description' => 'Lists the most recent Enter and View reports, with star rating'
 					)
-			
+
 			);
 	}
 
@@ -28,14 +28,14 @@ class hw_enter_and_view extends WP_Widget {
 		extract($args);
 
 		// Widget options
-		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title		
+		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title
 		$number	 = $instance['number']; // Number of posts to show
-		
+
         // Output
 		echo $before_widget;
-		
+
 	    if ( $title ) echo $before_title . $title . $after_title;
-		$mlq = new WP_Query(array( 
+		$mlq = new WP_Query(array(
 			'post_type' => 'Local_services',
 			// 'orderby' => 'rand',
 			'showposts' => $number,
@@ -49,7 +49,7 @@ class hw_enter_and_view extends WP_Widget {
 			)
 		);
 
-		if( $mlq->have_posts() ) : 
+		if( $mlq->have_posts() ) :
 		?>
 
 <div class='row'>
@@ -62,13 +62,13 @@ class hw_enter_and_view extends WP_Widget {
 
 <h3 style="margin:0; padding-bottom: .5rem;"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
 
-			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true ); 
-				for ($i = 1; $i <= $rating; ++$i)  { 
+			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
+				for ($i = 1; $i <= $rating; ++$i)  {
 				echo "<i class='fas fa-star fa-2x green'></i> ";
+				}
 				for ($i = 1; $i <= (5 - $rating); ++$i)  {
 				echo "<i class='far fa-star fa-2x green'></i> ";
 				}
-				} 
 			?>
 
 <?php // get_template_part("elements/comments-rating-average"); ?>
@@ -80,12 +80,12 @@ class hw_enter_and_view extends WP_Widget {
 
 
 
-		<?php wp_reset_query(); 
+		<?php wp_reset_query();
 		endwhile; ?>
 
 </div><!-- end of row -->
-			
-		<?php endif; ?>			
+
+		<?php endif; ?>
 		<?php
 		// echo widget closing tag
 		echo $after_widget;
@@ -94,18 +94,18 @@ class hw_enter_and_view extends WP_Widget {
 	/** Widget control update */
 	function update( $new_instance, $old_instance ) {
 		$instance    = $old_instance;
-		
+
 		//Let's turn that array into something the Wordpress database can store
 		$instance['title']  = strip_tags( $new_instance['title'] );
 		$instance['number'] = strip_tags( $new_instance['number'] );
 		return $instance;
 	}
-	
+
 	/**
 	* Widget settings
 	**/
-	function form( $instance ) {	
-	
+	function form( $instance ) {
+
 		    // instance exist? if not set defaults
 		    if ( $instance ) {
 				$title  = $instance['title'];
@@ -115,7 +115,7 @@ class hw_enter_and_view extends WP_Widget {
 				$title  = '';
 		        $number = '4';
 		    }
-			
+
 			// The widget form
 			?>
 			<p>
@@ -126,7 +126,7 @@ class hw_enter_and_view extends WP_Widget {
 			<label for="<?php echo $this->get_field_id('number'); ?>"><?php echo __( 'How many services?' ); ?></label>
 			<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" />
 			</p>
-	<?php 
+	<?php
 	}
 
 } // class hw_enter_and_view

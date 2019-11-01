@@ -20,12 +20,12 @@ class hw_recent_comments extends WP_Widget {
 		extract($args);
 
 		// Widget options
-		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title		
+		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title
 		$number	 = $instance['number']; // Number of posts to show
-		
+
         // Output
 		echo $before_widget;
-		
+
 	    if ( $title ) echo $before_title . $title . $after_title;
 
 
@@ -45,21 +45,21 @@ if ( $comments ) {
 
 echo "<div class='row'>";
 
-		
+
 	foreach ( $comments as $comment ) { ?>
 
 
-<div class="col-md-3 col-sm-6 col-xs-12" style="min-height: 350px;"> 
+<div class="col-md-3 col-sm-6 col-xs-12" style="min-height: 350px;">
 
 
 
-<?php												// Display icon for taxonomy term	
+<?php												// Display icon for taxonomy term
 
 $term_ids = get_the_terms( $comment->comment_post_ID, 'service_types' );	// Find taxonomies
 $term_id = $term_ids[0]->term_id;											// Get taxonomy ID
 $term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
 		?>
-        
+
 	<div class="text-center"><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">
     <img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php the_title(); ?>" />
     </a></div>
@@ -78,7 +78,7 @@ $term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
 $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true ); ?>
 
 <?php if ($individual_rating) { ?>
-    
+
     <p class="star-rating p-rating">
     <?php if ($individual_rating < 1.25 ) { ?>
         <i class="fas fa-star fa-lg"></i>
@@ -202,18 +202,18 @@ echo "</div><!-- end of row -->";
 	/** Widget control update */
 	function update( $new_instance, $old_instance ) {
 		$instance    = $old_instance;
-		
+
 		//Let's turn that array into something the Wordpress database can store
 		$instance['title']  = strip_tags( $new_instance['title'] );
 		$instance['number'] = strip_tags( $new_instance['number'] );
 		return $instance;
 	}
-	
+
 	/**
 	* Widget settings
 	**/
-	function form( $instance ) {	
-	
+	function form( $instance ) {
+
 		    // instance exist? if not set defaults
 		    if ( $instance ) {
 				$title  = $instance['title'];
@@ -223,7 +223,7 @@ echo "</div><!-- end of row -->";
 				$title  = '';
 		        $number = '4';
 		    }
-			
+
 			// The widget form
 			?>
 			<p>
@@ -234,7 +234,7 @@ echo "</div><!-- end of row -->";
 			<label for="<?php echo $this->get_field_id('number'); ?>"><?php echo __( 'How many services?' ); ?></label>
 			<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" />
 			</p>
-	<?php 
+	<?php
 	}
 
 } // class hw_recent_comments

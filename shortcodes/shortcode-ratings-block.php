@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function hw_shortcode_ratings_block() {
 
@@ -9,18 +9,18 @@ $id = get_the_id();
 
 
 if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
-			
 
-            
+
+
             <div class="rate-and-review-scores">
-            
+
 
 		<div class="row">
         	<div class="col-md-6">
 	            <p>How people are treated:</p>
     		        </div>
 			<div class="col-md-6">
-			<?php $rating = get_post_meta( $id, 'hw_services_how_people_treated', true ); 
+			<?php $rating = get_post_meta( $id, 'hw_services_how_people_treated', true );
 				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
 				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
 					?>
@@ -31,7 +31,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 	            <p>Personal choice:</p>
     		        </div>
 			<div class="col-md-6">
-			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true ); 
+			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true );
 				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
 				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
 					?>
@@ -44,7 +44,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 
-			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true ); 
+			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true );
 				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
 				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
 					?>
@@ -55,7 +55,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 	            <p>Privacy:</p>
     		        </div>
 			<div class="col-md-6">
-			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true ); 
+			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true );
 				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
 				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
 					?>
@@ -67,7 +67,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 
-			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true ); 
+			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true );
 				for ($i = 1; $i <= $rating; ++$i)  { echo "<i class='fas fa-star fa-lg green'></i> "; }
 				for ($i = 1; $i <= (5 - $rating); ++$i)  { echo "<i class='far fa-star fa-lg green'></i> "; }
 					?>
@@ -78,8 +78,8 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
                 	</div><!-- end of rate and review panel -->
 
 
-	
-		
+
+
             			<?php } ?>
 
 
