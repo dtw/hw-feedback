@@ -8,6 +8,9 @@
  * @copyright 2019 Phil Thiselton
  *
  * Description: Takes three arguments to output star ratings for hw-feedback
+ * @param float $float Takes any number
+ * @param string $type Must be 'average' or 'individual'
+ * @param string $colour A colour to pass as a CSS class e.g. 'green'
  */
 
   function feedbackstarrating($float,$type = 'individual',$colour = '') {
