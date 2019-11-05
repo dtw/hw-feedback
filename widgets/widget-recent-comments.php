@@ -167,7 +167,11 @@ $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', 
 
 	<?php } // end of if there is a rating ?>
 
-        <p><?php echo mb_strimwidth($comment->comment_content,0,200," ..."); ?></p>
+        <p><?php // mb_strimwidth trims comment to 300 (if needed) and adds an ellipsis
+					// wpautop converts double line breaks to <p></p>
+					// i.e. this keeps line breaks in the comment
+					echo wpautop(mb_strimwidth($comment->comment_content,0,300," ..."), true); ?>
+				</p>
 
 
 
