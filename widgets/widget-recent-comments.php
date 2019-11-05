@@ -32,7 +32,7 @@ class hw_recent_comments extends WP_Widget {
 $args = array(
 	'status' => 'approve',
 	'post_type' => 'local_services',
-	'number' => 4,
+	'number' => $number,
 );
 
 // The Query
