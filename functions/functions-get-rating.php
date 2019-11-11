@@ -7,11 +7,33 @@
  * @license   GPL-2.0+
  * @copyright 2019 Phil Thiselton
  *
- * Description: Takes a Post ID and returns the ratings count and ratings total
- * @param int $postID
+ * Description: Takes a post and returns the ratings count and ratings total
+ * @param array $post
  */
 
-  function getrating($postID) {
-    
+  function getrating($post) {
+    // Set TOTAL and COUNT to zero
+    $rating['total'] = 0;
+    $rating['count'] = 0;
+
+    // QUERY the COMMENTS for current single post
+    $args = array (
+    	'post_id' => $post->ID,
+    	'status' => 'approve'
+    	);
+    $comments = get_comments($args);
+
+    // LOOP comments
+    foreach($comments as $comment) {
+  		// Get comment META for RATING field
+  		$feedback_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
+  		// Add to TOTAL
+  		$rating['total'] = $rating['total'] + $feedback_rating;
+  		// Increase COUNT by 1
+  		$rating['count'] = $rating['count'] + 1;
+  		} // End of comments LOOP
+    //get the average
+    $rating['average'] = $rating['total'] / $rating['count'];
+    return $rating;
   }
 ?>
