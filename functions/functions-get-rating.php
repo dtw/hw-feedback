@@ -15,6 +15,7 @@
     // Set TOTAL and COUNT to zero
     $rating['total'] = 0;
     $rating['count'] = 0;
+    $rating['average'] = 0;
 
     // QUERY the COMMENTS for current single post
     $args = array (
@@ -33,7 +34,9 @@
   		$rating['count'] = $rating['count'] + 1;
   		} // End of comments LOOP
     //get the average
-    $rating['average'] = $rating['total'] / $rating['count'];
+    if ( $rating['count'] > 0 ) {
+      $rating['average'] = $rating['total'] / $rating['count']
+    }
     return $rating;
   }
 ?>
