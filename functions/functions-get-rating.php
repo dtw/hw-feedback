@@ -35,7 +35,7 @@
   		} // End of comments LOOP
     //get the average
     if ( $rating['count'] > 0 ) {
-      $rating['average'] = $rating['total'] / $rating['count']
+      $rating['average'] = $rating['total'] / $rating['count'];
     }
     return $rating;
   }
