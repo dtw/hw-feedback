@@ -36,6 +36,7 @@ include('shortcodes/shortcode-ratings-block.php');
 // Add functions
 
 require_once('functions/functions-star-rating.php');
+require_once('functions/functions-get-rating.php');
 
 // Enqueue CSS
 
