@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.2] - 2019-11-05
 ### Changed
-- update to use feedbackstarrating() function
+- update to use feedbackstarrating() function throughout
 - update how line breaks are handled in trimmed comments
 
 ## [1.1.1] - 2019-11-01
