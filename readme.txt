@@ -28,12 +28,3 @@ Yes.
 = Will deactivating or deleting the plugin delete the feedback from the website? =
 
 No. As soon as you re-upload and/or activate the plugin, the feedback will reappear.
-
-
-== Changelog ==
-
-= 1.1 =
-* Removed unnecessary personal data fields from Feedback form.
-
-= 1.0 =
-* The first version.
