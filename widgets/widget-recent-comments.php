@@ -80,7 +80,7 @@ $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', 
 <?php if ($individual_rating) { ?>
 
     <p class="star-rating p-rating">
-    	<?php feedbackstarrating($individual_rating); ?>
+    	<?php echo feedbackstarrating($individual_rating); ?>
     </p>
 		<p>
 			<strong>

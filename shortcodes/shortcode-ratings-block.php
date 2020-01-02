@@ -21,7 +21,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_how_people_treated', true );
-				feedbackstarrating($rating,'green');
+				echo feedbackstarrating($rating,'green');
 					?>
 				</div></div>
 
@@ -31,7 +31,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true );
-				feedbackstarrating($rating,'green');
+				echo feedbackstarrating($rating,'green');
 					?>
 						</div></div>
 
@@ -43,7 +43,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true );
-				feedbackstarrating($rating,'green');
+				echo feedbackstarrating($rating,'green');
 					?>
 					</div></div>
 
@@ -53,7 +53,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true );
-			  feedbackstarrating($rating,'green');
+			  echo feedbackstarrating($rating,'green');
 					?>
 					</div></div>
 
@@ -64,7 +64,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true );
-			  feedbackstarrating($rating,'green');
+			  echo feedbackstarrating($rating,'green');
 					?>
 					</div></div>
 
