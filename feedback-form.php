@@ -31,7 +31,7 @@ if ( is_singular( 'local_services' ) ) {
 
 		$fields[ 'phone' ] = '<p class="comment-form-phone">'.
 			'<label for="phone">Phone</label>'.
-			'<input placeholder="Your phone number (optional)" id="phone" name="phone" autocomplete="off" type="text" size="30"  tabindex="8" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
+			'<input placeholder="Your phone number (optional)" id="phone" name="phone" autocomplete="off" type="text" size="30"  tabindex="8" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">privacy policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 
 //		$fields[ 'address' ] = '<p class="comment-form-address">'.
 //			'<label for="address">Address</label>'.
