@@ -270,9 +270,8 @@ function modify_comment( $text ){
 		$text = $text . "<br /><br />" . $commentphone . $commentaddress . $commentwhen . $commentwho;
 
 	if( $commentrating = get_comment_meta( get_comment_ID(), 'feedback_rating', true ) ) {
-		$commentrating = '<p class="comment-rating">	<img src="'. $plugin_url_path .
-		'/healthwatchfeedback/images/'. $commentrating . 'star.gif"/><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
-		$text = $text . $commentrating;
+		$commentratingtxt = '<p class="star-rating p-rating">' . feedbackstarrating($commentrating) . '</p><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
+		$text = $text . $commentratingtxt;
 		return $text;
 	} else {
 		return $text;

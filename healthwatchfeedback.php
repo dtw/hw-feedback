@@ -58,4 +58,12 @@ function load_form_validation_js()
 }
 add_action( 'wp_enqueue_scripts', 'load_form_validation_js' );
 
+// add fontawesome on edit-comments.php
+function add_fontawesome_edit_comments( $hook ) {
+    if ( 'edit-comments.php' != $hook ) {
+        return;
+    }
+		wp_enqueue_script( 'fontawesome_5_cdn_admin', 'https://kit.fontawesome.com/c1c5370dea.js');
+}
+add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
 ?>
