@@ -3,7 +3,7 @@
 Plugin Name: Healthwatch Feedback
 Version: 1.1
 Description: Implements a Rate and Review centre on Healthwatch websites. <strong>DO NOT DELETE !</strong>
-Author: Jason King
+Author: Phil Thiselton & Jason King
 */
 
 defined( 'ABSPATH' ) or die( 'Sorry, nothing to see here.' );
