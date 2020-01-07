@@ -29,14 +29,11 @@ include('widgets/widget-enter-and-view.php');
 
 include('widgets/widget-recent-comments.php');
 
-// Include shortcodes
-
-include('shortcodes/shortcode-ratings-block.php');
-
 // Add functions
 
 require_once('functions/functions-star-rating.php');
 require_once('functions/functions-get-rating.php');
+require_once('functions/shortcodes.php');
 
 // Enqueue CSS
 
