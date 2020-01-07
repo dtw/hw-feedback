@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- moved shortcode code to functions/
+
+### Removed
+- remove unused form validation js
+
 ## [1.5.0] - 2020-01-06
 ### Changed
 - feedbackstarrating() function now returns code rather than echos
