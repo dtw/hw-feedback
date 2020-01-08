@@ -41,10 +41,11 @@ function hw_enqueue_css() {
     wp_enqueue_style( 'prefix-style', plugins_url('css/style.css', __FILE__) );
 }
 add_action( 'wp_enqueue_scripts', 'hw_enqueue_css' );
+add_action( 'admin_enqueue_scripts', 'hw_enqueue_css' );
 
 // add fontawesome on edit-comments.php
 function add_fontawesome_edit_comments( $hook ) {
-    if ( 'edit-comments.php' != $hook ) {
+    if ( 'edit-comments.php' != $hook && 'edit.php' != $hook ) {
         return;
     }
 		wp_enqueue_script( 'fontawesome_5_cdn_admin', 'https://kit.fontawesome.com/c1c5370dea.js');
