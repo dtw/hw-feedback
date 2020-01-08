@@ -37,10 +37,10 @@ require_once('functions/shortcodes.php');
 
 // Enqueue CSS
 
- add_action( 'wp_enqueue_scripts', 'hw_enqueue_css' );
-    function hw_enqueue_css() {
-        wp_enqueue_style( 'prefix-style', plugins_url('css/style.css', __FILE__) );
-    }
+function hw_enqueue_css() {
+    wp_enqueue_style( 'prefix-style', plugins_url('css/style.css', __FILE__) );
+}
+add_action( 'wp_enqueue_scripts', 'hw_enqueue_css' );
 
 // add fontawesome on edit-comments.php
 function add_fontawesome_edit_comments( $hook ) {
