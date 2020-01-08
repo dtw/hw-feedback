@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or die( 'Sorry, nothing to see here.' );
 
 // Includes
 
-include('post-types-taxononmies.php');
+include('post-types-taxonomies.php');
 
 include('taxonomy-icons.php');
 
