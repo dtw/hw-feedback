@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - moved shortcode code to functions/
+- rename post-types-taxonomies.php
+- rename some clashing CSS classes
+- merge styles from colours.css
 
 ### Removed
 - remove unused form validation js
