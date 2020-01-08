@@ -63,7 +63,7 @@ class hw_enter_and_view extends WP_Widget {
 <h3 style="margin:0; padding-bottom: .5rem;"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
 
 			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
-				echo feedbackstarrating($rating,'green');
+				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
 			?>
 
 <?php // get_template_part("elements/comments-rating-average"); ?>

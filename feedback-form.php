@@ -270,7 +270,7 @@ function modify_comment( $text ){
 		$text = $text . "<br /><br />" . $commentphone . $commentaddress . $commentwhen . $commentwho;
 
 	if( $commentrating = get_comment_meta( get_comment_ID(), 'feedback_rating', true ) ) {
-		$commentratingtxt = '<p class="star-rating p-rating">' . feedbackstarrating($commentrating) . '</p><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
+		$commentratingtxt = '<p class="star-rating p-rating">' . feedbackstarrating($commentrating, array()) . '</p><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
 		$text = $text . $commentratingtxt;
 		return $text;
 	} else {
