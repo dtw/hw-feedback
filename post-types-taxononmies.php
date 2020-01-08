@@ -570,7 +570,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
     if( $column_name == 'rated' ) {
 		$col_rating = get_post_meta( $post_id, 'hw_services_overall_rating', true );
-				for ($i = 1; $i <= $col_rating; ++$i)  { echo "<span class='dashicons dashicons-star-filled' style='font-size: 1rem; width: auto; color: green;'></span> "; }
+    if($col_rating > 0){echo '<p>'.feedbackstarrating($col_rating,array('colour' => 'green')).'</p>';}
 
 	}
 
