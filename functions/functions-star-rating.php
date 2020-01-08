@@ -17,7 +17,7 @@
     //set $defaults
     $defaults = array(
       'colour' => '',
-      'size' = ''
+      'size' => ''
     );
     // merge passed arguements with defaults
     $config = array_merge($defaults, $options);
