@@ -327,7 +327,7 @@ function hw_move_textarea( $input = array () ) {
 	else {
         echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="8" aria-required=true"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your first and last names (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="2" /></p>';
-		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/data-protection-privacy-policy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
+		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 		}
 
 }
