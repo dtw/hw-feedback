@@ -27,12 +27,12 @@
     // has a colour been passed?
     if ( $config['colour'] != '') {
       // add a leading space
-      $colour = ' '.$colour;
+      $colour = ' '.$config['colour'];
     }
     // has a size been passed?
     if ( $config['size'] != '') {
       // add a leading space
-      $size = ' '.$size;
+      $size = ' '.$config['size'];
     }
     // output the stars
     $output .= '';
