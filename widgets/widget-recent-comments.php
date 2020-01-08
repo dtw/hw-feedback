@@ -98,7 +98,7 @@ $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', 
 
 
 <?php if (get_comment_meta( $comment->comment_ID, 'feedback_response', true )) { ?>
-	<div class="response">
+	<div class="feedback-response">
     <img width="100" height="100" class="alignright" src="<?php bloginfo(url) ?>/wp-content/themes/scaffold/images/icons/colour/response-small.png" alt="Response" />
 	<p><?php echo get_the_title($comment->comment_post_ID); ?> has responded to this feedback:</p>
 	<blockquote><em><?php echo mb_strimwidth ( get_comment_meta( $comment->comment_ID, 'feedback_response', true ),0,180," ..." ); ?></em>	<a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">read more</a></blockquote>
