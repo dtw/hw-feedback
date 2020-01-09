@@ -51,4 +51,17 @@ function add_fontawesome_edit_comments( $hook ) {
 		wp_enqueue_script( 'fontawesome_5_cdn_admin', 'https://kit.fontawesome.com/c1c5370dea.js');
 }
 add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
+
+/**
+ * Disable the "local_services" custom post type feed
+ *
+ * @since 1.0.0
+ * @param object $query
+ */
+function disable_local_services_feed( $query ) {
+    if ( $query->is_feed() && in_array( 'local_services', (array) $query->get( 'post_type' ) ) ) {
+        die( 'Feed disabled' );
+    }
+}
+add_action( 'pre_get_posts', 'disable_local_services_feed' );
 ?>
