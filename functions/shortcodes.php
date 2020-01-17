@@ -22,7 +22,9 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_how_people_treated', true );
 				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
-					?>
+        if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
+			?>
 				</div></div>
 
 		<div class="row">
@@ -32,7 +34,9 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true );
 				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
-					?>
+        if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
+			?>
 						</div></div>
 
 
@@ -44,7 +48,9 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 
 			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true );
 				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
-					?>
+        if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
+			?>
 					</div></div>
 
 		<div class="row">
@@ -54,7 +60,9 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6">
 			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true );
 			  echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
-					?>
+        if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
+			?>
 					</div></div>
 
 		<div class="row">
@@ -65,7 +73,9 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 
 			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true );
 			  echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
-					?>
+        if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
+			?>
 					</div></div>
 
 

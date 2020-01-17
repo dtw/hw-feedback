@@ -64,6 +64,8 @@ class hw_enter_and_view extends WP_Widget {
 
 			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
 				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
+				if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
+				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>
 
 <?php // get_template_part("elements/comments-rating-average"); ?>
