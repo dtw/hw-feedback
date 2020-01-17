@@ -60,7 +60,7 @@ $term_id = $term_ids[0]->term_id;											// Get taxonomy ID
 $term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
 		?>
 
-	<div class="text-center"><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">
+	<div class="text-center"><a class="img-anchor" href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">
     <img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php the_title(); ?>" />
     </a></div>
 
