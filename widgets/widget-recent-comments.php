@@ -49,7 +49,7 @@ echo "<div class='row'>";
 	foreach ( $comments as $comment ) { ?>
 
 
-<div class="col-md-3 col-sm-6 col-xs-12" style="min-height: 350px;">
+<div class="review-container col-md-3 col-sm-6 col-xs-12">
 
 
 
@@ -69,7 +69,7 @@ $term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
 
 
 
-	<h3 style="margin: 0; padding-bottom: .5rem;"><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>"><?php echo get_the_title($comment->comment_post_ID); ?></a></h3>
+	<h3><a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>"><?php echo get_the_title($comment->comment_post_ID); ?></a></h3>
 
 
 

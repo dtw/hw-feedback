@@ -69,3 +69,11 @@
 #sidebar .col-md-3 {
 	width: 100%;
 	}
+
+#sidebar .review-container {
+	min-height: 350px;
+	}
+
+#sidebar .review-container h3 {
+	padding-bottom: .5rem;
+	}
