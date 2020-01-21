@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2020-01-21
+### Added
+- screen reader hints for ratings to all star ratings
+
 ## [1.6.0] - 2020-01-10
 ### Added
 - feedbackstarrating() now takes an array of arguments including size and colour which correspond to CSS styles
