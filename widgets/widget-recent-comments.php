@@ -57,11 +57,12 @@ echo "<div class='row'>";
 
 $term_ids = get_the_terms( $comment->comment_post_ID, 'service_types' );	// Find taxonomies
 $term_id = $term_ids[0]->term_id;											// Get taxonomy ID
+$term_name = $term_ids[0]->name;											// Get taxonomy name
 $term_icon = get_term_meta( $term_id, 'icon', true );						// Get meta
 		?>
 
-    <img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php the_title(); ?>" />
 	<div class="text-center"><a class="img-anchor" href="<?php echo get_the_permalink($comment->comment_post_ID); ?>" aria-hidden="true">
+    <img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php echo $term_name?>"  />
     </a></div>
 
 
