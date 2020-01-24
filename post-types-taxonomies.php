@@ -96,7 +96,7 @@ function taxonomies_init() {
 			'show_in_quick_edit' => true,
 			'show_admin_column' => true,
 			'hierarchical' => true,
-			
+
 		)
 	);
 
@@ -173,7 +173,7 @@ add_action('edit_form_after_title', 'hw_move_meta_box');
 
 /**
  * Prints the box content.
- * 
+ *
  * @param WP_Post $post The object for the current post/page.
  */
 function hw_meta_box_callback( $post ) {
@@ -190,7 +190,7 @@ function hw_meta_box_callback( $post ) {
 // ADDRESS FIELDS
 echo "<br /><h2 class='hndle'><strong>Address</strong></h2><br /><br />";
 
-	
+
 	// ADDRESS LINE 1
 	$value = get_post_meta( $post->ID, 'hw_services_address_line_1', true );
 		echo '<label for="hw_services_address_line_1">Address line 1 </label>';
@@ -218,7 +218,7 @@ echo "<br /><br />";
 		echo '<input type="text" id="hw_services_county" name="hw_services_county" value="' . esc_attr( $value ) . '" size="60" />';
 
 echo "<br /><br />";
-	
+
 	// POSTCODE
 	$value = get_post_meta( $post->ID, 'hw_services_postcode', true );
 		echo '<label for="hw_services_postcode">Postcode </label>';
@@ -308,7 +308,7 @@ echo "<br /><br />";
 		echo '5 <input type="radio" name="hw_services_being_home" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
 
 echo "<br /><br />";
-	
+
 	// PRIVACY
 	$value = get_post_meta( $post->ID, 'hw_services_privacy', true );
 		echo '<label for="hw_services_privacy">Privacy </label>';
@@ -406,17 +406,17 @@ function hw_save_meta_box_data( $post_id ) {
 		// Make sure that FIELD is SET.
 		// SANITIZE user input.
 		// UPDATE the meta field in the database.
-		
+
 		// ADDRESS LINE 1
 		if ( ! isset( $_POST['hw_services_address_line_1'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_address_line_1'] );
 		update_post_meta( $post_id, 'hw_services_address_line_1', $my_data );
 
-		// ADDRESS LINE 2	
+		// ADDRESS LINE 2
 		if ( ! isset( $_POST['hw_services_address_line_2'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_address_line_2'] );
 		update_post_meta( $post_id, 'hw_services_address_line_2', $my_data );
-		
+
 		// CITY
 		if ( ! isset( $_POST['hw_services_city'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_city'] );
@@ -426,12 +426,12 @@ function hw_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['hw_services_county'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_county'] );
 		update_post_meta( $post_id, 'hw_services_county', $my_data );
-		
+
 		// POSTCODE
 		if ( ! isset( $_POST['hw_services_postcode'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_postcode'] );
 		update_post_meta( $post_id, 'hw_services_postcode', $my_data );
-	
+
 		// PHONE
 		if ( ! isset( $_POST['hw_services_phone'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_phone'] );
@@ -534,14 +534,14 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
 
     if( $column_name == 'contact' ) {
-        
-	
+
+
 		$address_city = get_post_meta( $post_id, 'hw_services_city', true );
 		$address_county = get_post_meta( $post_id, 'hw_services_county', true );
-	
-		if ($address_city) { echo $address_city; } 				
-		if ($address_county) { echo ",<br />" . $address_county; } 				
-	
+
+		if ($address_city) { echo $address_city; }
+		if ($address_county) { echo ",<br />" . $address_county; }
+
 		echo $col_address;
 
 		echo "<br /><span class='dashicons dashicons-phone' style='font-size: 1rem; width: auto; '></span> <strong>";
