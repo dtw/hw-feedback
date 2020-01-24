@@ -240,7 +240,7 @@ echo "<br /><br />";
 	// WEBSITE
 	$value = get_post_meta( $post->ID, 'hw_services_website', true );
 		echo '<label for="hw_services_website">Website </label>';
-		echo '<input type="text" id="hw_services_website" placeholder="Begins www" name="hw_services_website" value="' . esc_attr( $value ) . '" size="50" />';
+		echo '<input type="text" id="hw_services_website" name="hw_services_website" value="' . esc_attr( $value ) . '" size="50" />';
 
 
 // CQC LOCATION CODE FIELD
