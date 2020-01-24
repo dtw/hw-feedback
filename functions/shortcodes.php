@@ -16,6 +16,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 
 
 		<div class="row">
+          <span class="screen-reader-text">Out of 5 stars</span>
         	<div class="col-md-6">
 	            <p>How people are treated:</p>
     		        </div>
