@@ -65,11 +65,11 @@ if ( is_singular( 'local_services' ) ) {
 
 			<label for="rating">How would you rate this service overall? Choose from 1 to 5 stars.</label>
 			<select required id="rating" name="rating" tabindex="2">
-			<option value="1" class="rate-1" name="rate-1">&#9733; Terrible</option>
-			<option value="2" class="rate-2" name="rate-2">&#9733;&#9733; Poor</option>
-			<option value="3" selected="selected" class="rate-3" name="rate-3">&#9733;&#9733;&#9733; Average</option>
-			<option value="4" class="rate-4" name="rate-4">&#9733;&#9733;&#9733;&#9733; Good</option>
-			<option value="5" class="rate-5" name="rate-5">&#9733;&#9733;&#9733;&#9733;&#9733; Excellent</option>
+			<option value="1" class="rate-1" id="rate-1">&#9733; Terrible</option>
+			<option value="2" class="rate-2" id="rate-2">&#9733;&#9733; Poor</option>
+			<option value="3" selected="selected" class="rate-3" id="rate-3">&#9733;&#9733;&#9733; Average</option>
+			<option value="4" class="rate-4" id="rate-4">&#9733;&#9733;&#9733;&#9733; Good</option>
+			<option value="5" class="rate-5" id="rate-5">&#9733;&#9733;&#9733;&#9733;&#9733; Excellent</option>
 	</select>
 	</p>';
 
