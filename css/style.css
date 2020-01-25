@@ -42,12 +42,12 @@
 .fa-star,
 .fa-star-half-alt,
 .fa-star-o {
-	color: #e73e97;
+	color: var(--hw-pink);
 	}
 
 .fas.green,
 .far.green {
-	color: #84BF41;
+	color: var(--hw-green);
 	}
 
 /* ReCaptcha
