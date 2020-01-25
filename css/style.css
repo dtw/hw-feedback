@@ -77,3 +77,8 @@
 #sidebar .review-container h3 {
 	padding-bottom: .5rem;
 	}
+
+#recent-reviews-container .review-container {
+	min-height: 0;
+	margin-bottom: 1.5rem;
+	}
