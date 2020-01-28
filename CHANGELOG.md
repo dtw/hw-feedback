@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2020-01-28
+### Changed
+- fixed issue with fussy service URLs
+- update multiple styles with altered colours to improve contrast based on WCAG2
+- switched hex colour codes to colour names where possible (e.g. white)
+- multiple changes to validate HTML
+
 ## [1.6.1] - 2020-01-21
 ### Added
 - screen reader hints for ratings to all star ratings
