@@ -64,7 +64,7 @@ if ( is_singular( 'local_services' ) ) {
 	echo '<p class="comment-form-rating">
 
 			<label for="rating">How would you rate this service overall? Choose from 1 to 5 stars.</label>
-			<select required id="rating" name="rating" tabindex="2" size="5">
+			<select required id="rating" name="rating" tabindex="2">
 			<option value="1" class="rate-1" id="rate-1">&#9733; Terrible</option>
 			<option value="2" class="rate-2" id="rate-2">&#9733;&#9733; Poor</option>
 			<option value="3" selected="selected" class="rate-3" id="rate-3">&#9733;&#9733;&#9733; Average</option>
