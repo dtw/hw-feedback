@@ -50,7 +50,11 @@
   			if (($rating - floor($rating)) >= 0.25 && ($rating - floor($rating)) < 0.75) {
   				$output .= '<i class="fas fa-star-half-alt' . $size . $colour . '"></i> ';
   				$star_count++;
-  			}
+        // do we need to round up a star?
+        } else if (($rating - floor($rating)) >= 0.75) {
+          $output .= '<i class="fas fa-star' . $size . $colour . '"></i> ';
+          $star_count++;
+        }
       }
       // add empty stars up to 5
 			while ($star_count < 5) {
