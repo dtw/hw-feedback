@@ -43,6 +43,7 @@
 .fa-star-half-alt,
 .fa-star-o {
 	color: var(--hw-pink);
+	/*font-size: 1.33333em;*/
 	}
 
 .fas.green,
