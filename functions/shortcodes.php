@@ -34,7 +34,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6 col-sm-6 col-xs-5 star-rating">
 			<?php $rating = get_post_meta( $id, 'hw_services_personal_choice', true );
-				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
+				echo feedbackstarrating($rating,array('colour' => 'green','size' => ''));
         if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
 				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>
@@ -48,7 +48,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6 col-sm-6 col-xs-5 star-rating">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_being_home', true );
-				echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
+				echo feedbackstarrating($rating,array('colour' => 'green','size' => ''));
         if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
 				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>
@@ -60,7 +60,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
     		        </div>
 			<div class="col-md-6 col-sm-6 col-xs-5 star-rating">
 			<?php $rating = get_post_meta( $id, 'hw_services_privacy', true );
-			  echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
+			  echo feedbackstarrating($rating,array('colour' => 'green','size' => ''));
         if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
 				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>
@@ -73,7 +73,7 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 			<div class="col-md-6 col-sm-6 col-xs-5 star-rating">
 
 			<?php $rating = get_post_meta( $id, 'hw_services_quality_life', true );
-			  echo feedbackstarrating($rating,array('colour' => 'green','size' => 'fa-lg'));
+			  echo feedbackstarrating($rating,array('colour' => 'green','size' => ''));
         if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
 				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>

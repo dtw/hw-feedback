@@ -51,6 +51,12 @@
 	color: var(--hw-green);
 	}
 
+.rate-and-review-scores .fa-star,
+.rate-and-review-scores .fa-star-half-alt,
+.rate-and-review-scores .fa-star-o {
+	font-size: 1.33333em;
+}
+
 /* ReCaptcha
 ------------------------------------------------- */
 
