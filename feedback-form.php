@@ -170,7 +170,7 @@ function extend_comment_meta_box ( $comment ) {
 
     <p>
         <label for="response">Response from the Service</label>
-        <textarea name="response" class="widefat"><?php echo esc_attr( $response ); ?></textarea>
+        <textarea name="response" class="widefat"><?php echo esc_html($response); ?></textarea>
     </p>
 
 
@@ -230,7 +230,7 @@ function extend_comment_edit_metafields( $comment_id ) {
 	endif;
 
 	if ( ( isset( $_POST['response'] ) ) && ( $_POST['response'] != '') ):
-	$response = wp_filter_nohtml_kses($_POST['response']);
+	$response = wp_filter_post_kses($_POST['response']);
 	update_comment_meta( $comment_id, 'feedback_response', $response );
 	else :
 	delete_comment_meta( $comment_id, 'feedback_response');
