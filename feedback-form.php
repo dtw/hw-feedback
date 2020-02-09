@@ -128,6 +128,7 @@ function extend_comment_meta_box ( $comment ) {
     $when = get_comment_meta( $comment->comment_ID, 'feedback_when', true );
     $who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
     $response = get_comment_meta( $comment->comment_ID, 'feedback_response', true );
+		$hw_reply = get_comment_meta( $comment->comment_ID, 'feedback_hw_reply', true );
 
 
     wp_nonce_field( 'extend_comment_update', 'extend_comment_update', false );
@@ -172,6 +173,11 @@ function extend_comment_meta_box ( $comment ) {
         <label for="response">Response from the Service</label>
         <textarea name="response" class="widefat"><?php echo esc_html($response); ?></textarea>
     </p>
+
+		<p>
+				<label for="hw_reply">Response from Local Healthwatch</label>
+				<textarea name="hw_reply" class="widefat"><?php echo esc_html($hw_reply); ?></textarea>
+		</p>
 
 
 
@@ -236,6 +242,12 @@ function extend_comment_edit_metafields( $comment_id ) {
 	delete_comment_meta( $comment_id, 'feedback_response');
 	endif;
 
+	if ( ( isset( $_POST['hw_reply'] ) ) && ( $_POST['hw_reply'] != '') ):
+	$hw_reply = wp_filter_post_kses($_POST['hw_reply']);
+	update_comment_meta( $comment_id, 'feedback_hw_reply', $hw_reply );
+	else :
+	delete_comment_meta( $comment_id, 'feedback_hw_reply');
+	endif;
 }
 
 // Add the comment meta (saved earlier) to the comment text
