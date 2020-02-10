@@ -118,81 +118,63 @@ function save_comment_meta_data( $comment_id ) {
 
 add_action( 'add_meta_boxes_comment', 'extend_comment_add_meta_box' );
 function extend_comment_add_meta_box() {
-		add_meta_box( 'title', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
+	add_meta_box( 'title', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
 }
 
 function extend_comment_meta_box ( $comment ) {
-		$phone = get_comment_meta( $comment->comment_ID, 'feedback_phone', true );
-		$address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
-		$rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
-		$when = get_comment_meta( $comment->comment_ID, 'feedback_when', true );
-		$who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
-		$response = get_comment_meta( $comment->comment_ID, 'feedback_response', true );
-		$hw_reply = get_comment_meta( $comment->comment_ID, 'feedback_hw_reply', true );
+	$phone = get_comment_meta( $comment->comment_ID, 'feedback_phone', true );
+	$address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
+	$rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
+	$when = get_comment_meta( $comment->comment_ID, 'feedback_when', true );
+	$who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
+	$response = get_comment_meta( $comment->comment_ID, 'feedback_response', true );
+	$hw_reply = get_comment_meta( $comment->comment_ID, 'feedback_hw_reply', true );
 
+	wp_nonce_field( 'extend_comment_update', 'extend_comment_update', false );
+	?>
 
-		wp_nonce_field( 'extend_comment_update', 'extend_comment_update', false );
+	<p>
+		<label for="phone">Phone</label>
+		<input type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
+	</p>
+
+	<p>
+		<label for="address">Address</label>
+		<input type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
+	</p>
+
+	<p>
+		<label for="when">When did it happen?</label>
+		<input type="text" name="when" autocomplete="off" value="<?php echo esc_attr( $when ); ?>" class="widefat" />
+	</p>
+
+	<!--<p>
+			<label for="who">Who was involved?</label>
+			<input type="text" name="who" value="<?php echo esc_attr( $who ); ?>" class="widefat" />
+	</p>-->
+
+	<p>
+		<label for="rating"><?php _e( 'Rating: ' ); ?></label>
+		<span class="commentratingbox">
+		<?php for( $i=1; $i <= 5; $i++ ) {
+			echo '<span class="commentrating"><input type="radio" name="rating" id="rating" value="'. $i .'"';
+			if ( $rating == $i ) echo ' checked="checked"';
+			echo ' />'. $i .' </span> ';
+			}
 		?>
+		</span>
+	</p>
+	<p>
+		<label for="response">Response from the Service</label>
+		<textarea name="response" class="widefat"><?php echo esc_html($response); ?></textarea>
+	</p>
 
-
-		<p>
-				<label for="phone">Phone</label>
-				<input type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
-		</p>
-
-		<p>
-				<label for="address">Address</label>
-				<input type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
-		</p>
-
-		<p>
-				<label for="when">When did it happen?</label>
-				<input type="text" name="when" autocomplete="off" value="<?php echo esc_attr( $when ); ?>" class="widefat" />
-		</p>
-
-		<!--<p>
-				<label for="who">Who was involved?</label>
-				<input type="text" name="who" value="<?php echo esc_attr( $who ); ?>" class="widefat" />
-		</p>-->
-
-		<p>
-				<label for="rating"><?php _e( 'Rating: ' ); ?></label>
-			<span class="commentratingbox">
-			<?php for( $i=1; $i <= 5; $i++ ) {
-				echo '<span class="commentrating"><input type="radio" name="rating" id="rating" value="'. $i .'"';
-				if ( $rating == $i ) echo ' checked="checked"';
-				echo ' />'. $i .' </span> ';
-				}
-			?>
-			</span>
-		</p>
-
-
-
-		<p>
-				<label for="response">Response from the Service</label>
-				<textarea name="response" class="widefat"><?php echo esc_html($response); ?></textarea>
-		</p>
-
-		<p>
-				<label for="hw_reply">Response from Local Healthwatch</label>
-				<textarea name="hw_reply" class="widefat"><?php echo esc_html($hw_reply); ?></textarea>
-		</p>
-
-
-
-
-
+	<p>
+		<label for="hw_reply">Response from Local Healthwatch</label>
+		<textarea name="hw_reply" class="widefat"><?php echo esc_html($hw_reply); ?></textarea>
+	</p>
 		<?php
 }
-
-
-
-
-
-
-
-
 
 // Update comment meta data from COMMENT EDIT SCREEN
 
@@ -298,8 +280,8 @@ function modify_comment( $text ){
 
 // Remove URL field
 function remove_comment_fields($fields) {
-		unset($fields['url']);
-		return $fields;
+	unset($fields['url']);
+	return $fields;
 }
 
 
@@ -313,32 +295,32 @@ function remove_comment_fields($fields) {
 add_filter('comment_form_default_fields', 'remove_comment_fields');
 
 function hw_move_textarea( $input = array () ) {
-		static $textarea = '';
+	static $textarea = '';
 
 
-		if ( 'comment_form_defaults' === current_filter() ) {
-				$textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea tabindex="3" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
-				$input['comment_field'] = '';
-				return $input;
-		}
-		if ( is_singular( 'local_services' ) ) {
-				print $textarea;
+	if ( 'comment_form_defaults' === current_filter() ) {
+			$textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea tabindex="3" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
+			$input['comment_field'] = '';
+			return $input;
+	}
+	if ( is_singular( 'local_services' ) ) {
+			print $textarea;
 
-		echo '<p class="comment-form-when">'.
-			'<label for="whenhappened">When did it happen?</label>'.
-			'<input required id="whenhappened" name="whenhappened" type="text" size="30"  tabindex="4" /></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your feedback, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
+	echo '<p class="comment-form-when">'.
+		'<label for="whenhappened">When did it happen?</label>'.
+		'<input required id="whenhappened" name="whenhappened" type="text" size="30"  tabindex="4" /></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your feedback, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 
-		// echo '<p class="comment-form-how">'.
-			// '<label for="whoinvolved">Who was involved?</label>'.
-			// '<input required placeholder="e.g. Dr Smith" id="whoinvolved" name="whoinvolved" type="text" size="30"  tabindex="5" /></p><hr />';
+	// echo '<p class="comment-form-how">'.
+		// '<label for="whoinvolved">Who was involved?</label>'.
+		// '<input required placeholder="e.g. Dr Smith" id="whoinvolved" name="whoinvolved" type="text" size="30"  tabindex="5" /></p><hr />';
 
 
 
-		}
+	}
 
 
 	else {
-				echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="4" required="required"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
+		echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="4" required="required"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your full name (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="2" /></p>';
 		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 		}
