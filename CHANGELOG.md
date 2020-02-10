@@ -5,8 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.7.0] - 2020-02-10
 ### Changed
 - strip URLs from comments
+- fixed rounding for half stars
+- changed wp_filter to allow URLs in responses
+- updated bootstrap classes
+- set small stars on DIC ratings
+
+### Added
+- a new field for hw_reply, distinct from provider replies
 
 ## [1.6.2] - 2020-01-28
 ### Changed
