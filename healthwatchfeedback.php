@@ -64,4 +64,58 @@ function disable_local_services_feed( $query ) {
     }
 }
 add_action( 'pre_get_posts', 'disable_local_services_feed' );
+
+// Add new admin columns
+
+add_filter( 'manage_edit-comments_columns', 'hw_add_comments_columns' );
+
+function hw_add_comments_columns( $my_cols ){
+	// $my_cols is the array of all column IDs and labels
+	// if you know arrays, you can add, remove or change column order with no problems
+	// like this:
+	/*
+	$my_cols = array(
+		'cb' => '', // do not forget about the CheckBox
+		'author' => 'Author',
+		'comment' => 'Comment',
+		'm_comment_id' => 'ID', // added
+		'm_parent_id' => 'Parent ID', // added
+		'response' => 'In reply to',
+		'date' => 'Date'
+	);
+	*/
+	// but the above way is not so good - there could be problems when plugins would like to hook the comment columns
+	// so, better like this:
+	$hw_columns = array(
+		'feedback_response_boolean' => 'Provider reply',
+		'feedback_hw_reply_boolean' => 'LHW reply'
+	);
+	$my_cols = array_slice( $my_cols, 0, 3, true ) + $hw_columns + array_slice( $my_cols, 3, NULL, true );
+
+	// if you want to remove a column, you can just use:
+	// unset( $my_cols['response'] );
+
+	// return the result
+	return $my_cols;
+}
+
+add_action( 'manage_comments_custom_column', 'hw_add_comment_columns_content', 10, 2 );
+
+function hw_add_comment_columns_content( $column, $comment_ID ) {
+	global $comment;
+	switch ( $column ) :
+		case 'feedback_response_boolean' : {
+      if (get_comment_meta( $comment->comment_ID, 'feedback_response', true ) != "" ) {
+        echo '<a class="checkmark-wrapper" title="Edit comment" href="' . get_edit_comment_link() . '"><i class="fas fa-check fa-lg checkmark"></i><span class="screen-reader-text">TRUE</span></a>';  // this will be printed inside the column
+			}
+			break;
+		}
+		case 'feedback_hw_reply_boolean' : {
+      if (get_comment_meta( $comment->comment_ID, 'feedback_hw_reply', true ) != "" ) {
+        echo '<a class="checkmark-wrapper" title="Edit comment" href="' . get_edit_comment_link() . '"><i class="fas fa-check fa-lg checkmark"></i><span class="screen-reader-text">TRUE</span></a>';  // this will be printed inside the column
+      }
+			break;
+		}
+	endswitch;
+}
 ?>
