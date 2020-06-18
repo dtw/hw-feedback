@@ -6,7 +6,7 @@ function init_hw_enter_and_view() { return register_widget('hw_enter_and_view');
 
 class hw_enter_and_view extends WP_Widget {
 	/** constructor */
-	function hw_enter_and_view() {
+	function __construct() {
 		parent::WP_Widget(
 
 			'hw_enter_and_view',
@@ -19,6 +19,9 @@ class hw_enter_and_view extends WP_Widget {
 			);
 	}
 
+	function hw_enter_and_view () {
+		self::__construct();
+	}
 
 	/**
 	* This is our Widget

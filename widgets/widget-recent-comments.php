@@ -7,10 +7,13 @@ function init_hw_recent_comments() { return register_widget('hw_recent_comments'
 
 class hw_recent_comments extends WP_Widget {
 	/** constructor */
-	function hw_recent_comments() {
+	function __construct() {
 		parent::WP_Widget( 'rcp_recent_comments', $name = 'HW recent comments' );
 	}
 
+	function hw_recent_comments () {
+		self::__construct();
+	}
 
 	/**
 	* This is our Widget
