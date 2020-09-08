@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2020-04-07
+### Added
+- new column in the admin area to show whether a hw or provider reply has been entered against a comment.
+
+### Changed
+- check the feedback_rating is numericbefore doing math on it
+
 ## [1.7.0] - 2020-02-10
 ### Changed
 - strip URLs from comments

@@ -6,19 +6,22 @@ function init_hw_most_rated() { return register_widget('hw_most_rated'); }
 
 class hw_most_rated extends WP_Widget {
 	/** constructor */
-	function hw_most_rated() {
+	function __construct() {
 		parent::WP_Widget(
-		
-			'hw_most_rated', 
+
+			'hw_most_rated',
 			$name = 'HW Most Rated',
 				array(
 					'classname'   => 'scaffold_widget_most_rated widget_most_rated',
 					'description' => 'Lists the most rated services, with star rating'
 					)
-			
+
 			);
 	}
 
+	function hw_most_rated () {
+		self::__construct();
+	}
 
 	/**
 	* This is our Widget
@@ -28,21 +31,21 @@ class hw_most_rated extends WP_Widget {
 		extract($args);
 
 		// Widget options
-		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title		
+		$title 	 = apply_filters('widget_title', $instance['title'] ); // Title
 		$number	 = $instance['number']; // Number of posts to show
-		
+
         // Output
 		echo $before_widget;
-		
+
 	    if ( $title ) echo $before_title . $title . $after_title;
-			
-		$mlq = new WP_Query(array( 
+
+		$mlq = new WP_Query(array(
 			'post_type' => 'Local_services',
 			'orderby' => 'rand',
-			'showposts' => $number 
+			'showposts' => $number
 			)
 			);
-		if( $mlq->have_posts() ) : 
+		if( $mlq->have_posts() ) :
 		?>
 
 
@@ -53,13 +56,13 @@ class hw_most_rated extends WP_Widget {
 <?php include (TEMPLATEPATH . '/elements/comments-rating-average.php'); ?>
 
 
-		<?php wp_reset_query(); 
+		<?php wp_reset_query();
 		endwhile; ?>
 
 
 
-			
-		<?php endif; ?>			
+
+		<?php endif; ?>
 		<?php
 		// echo widget closing tag
 		echo $after_widget;
@@ -68,18 +71,18 @@ class hw_most_rated extends WP_Widget {
 	/** Widget control update */
 	function update( $new_instance, $old_instance ) {
 		$instance    = $old_instance;
-		
+
 		//Let's turn that array into something the Wordpress database can store
 		$instance['title']  = strip_tags( $new_instance['title'] );
 		$instance['number'] = strip_tags( $new_instance['number'] );
 		return $instance;
 	}
-	
+
 	/**
 	* Widget settings
 	**/
-	function form( $instance ) {	
-	
+	function form( $instance ) {
+
 		    // instance exist? if not set defaults
 		    if ( $instance ) {
 				$title  = $instance['title'];
@@ -89,7 +92,7 @@ class hw_most_rated extends WP_Widget {
 				$title  = '';
 		        $number = '5';
 		    }
-			
+
 			// The widget form
 			?>
 			<p>
@@ -100,7 +103,7 @@ class hw_most_rated extends WP_Widget {
 			<label for="<?php echo $this->get_field_id('number'); ?>"><?php echo __( 'How many services?' ); ?></label>
 			<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" />
 			</p>
-	<?php 
+	<?php
 	}
 
 } // class hw_most_rated

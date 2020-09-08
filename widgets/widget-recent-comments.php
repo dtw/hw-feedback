@@ -7,10 +7,13 @@ function init_hw_recent_comments() { return register_widget('hw_recent_comments'
 
 class hw_recent_comments extends WP_Widget {
 	/** constructor */
-	function hw_recent_comments() {
+	function __construct() {
 		parent::WP_Widget( 'rcp_recent_comments', $name = 'HW recent comments' );
 	}
 
+	function hw_recent_comments () {
+		self::__construct();
+	}
 
 	/**
 	* This is our Widget
@@ -83,7 +86,7 @@ echo "<div class='row'>";
 		</p>
 		<?php if (get_comment_meta( $comment->comment_ID, 'feedback_response', true )) { ?>
 			<div class="feedback-response">
-				<img width="100" height="100" class="alignright" src="<?php bloginfo(url) ?>/wp-content/themes/scaffold/images/icons/colour/response-small.png" alt="Response" />
+				<img width="100" height="100" class="alignright" src="<?php bloginfo('url') ?>/wp-content/themes/scaffold/images/icons/colour/response-small.png" alt="Response" />
 				<p><?php echo get_the_title($comment->comment_post_ID); ?> has responded to this feedback:</p>
 				<blockquote><em><?php echo mb_strimwidth ( get_comment_meta( $comment->comment_ID, 'feedback_response', true ),0,180," ..." ); ?></em>	<a href="<?php echo get_the_permalink($comment->comment_post_ID); ?>">read more</a></blockquote>
 			</div><!-- end of response -->

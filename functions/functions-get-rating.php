@@ -28,10 +28,13 @@
     foreach($comments as $comment) {
   		// Get comment META for RATING field
   		$feedback_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
-  		// Add to TOTAL
-  		$rating['total'] = $rating['total'] + $feedback_rating;
-  		// Increase COUNT by 1
-  		$rating['count'] = $rating['count'] + 1;
+      // check there is a numeric value for $feedback_rating
+      if (is_numeric($feedback_rating)) {
+    		// Add to TOTAL
+    		$rating['total'] = $rating['total'] + $feedback_rating;
+    		// Increase COUNT by 1
+    		$rating['count'] = $rating['count'] + 1;
+        }
   		} // End of comments LOOP
     //get the average
     if ( $rating['count'] > 0 ) {
