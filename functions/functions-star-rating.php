@@ -39,7 +39,7 @@
       $size = '';
     }
     // output the stars
-    $output .= '';
+    $output = '';
     // count how many stars so far
     $star_count = 0;
     // we never want less than one star
