@@ -28,14 +28,20 @@
     if ( $config['colour'] != '') {
       // add a leading space
       $colour = ' '.$config['colour'];
+    } else {
+      $colour = '';
     }
     // has a size been passed?
     if ( $config['size'] != '') {
       // add a leading space
       $size = ' '.$config['size'];
+    } else {
+      $size = '';
     }
     // output the stars
     $output .= '';
+    // count how many stars so far
+    $star_count = 0;
     // we never want less than one star
 		if ($rating < 1) {
 			$output .= '<i class="fas fa-star' . $size . $colour . '"></i>';
