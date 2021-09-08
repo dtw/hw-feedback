@@ -134,7 +134,7 @@ function extend_comment_meta_box ( $comment ) {
 		wp_nonce_field( 'extend_comment_update', 'extend_comment_update', false );
 		?>
 
-
+		<p>CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span></p>
 		<p>
 				<label for="phone">Phone</label>
 				<input type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
