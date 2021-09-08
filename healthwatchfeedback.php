@@ -60,10 +60,10 @@ add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
  */
 function disable_local_services_feed( $query ) {
     if ( $query->is_feed() && in_array( 'local_services', (array) $query->get( 'post_type' ) ) ) {
-        die( 'Feed disabled' );
+        die( 'Local Service - feed disabled' );
     }
 }
-add_action( 'pre_get_posts', 'disable_local_services_feed' );
+//add_action( 'pre_get_posts', 'disable_local_services_feed' );
 
 // Add new admin columns
 
