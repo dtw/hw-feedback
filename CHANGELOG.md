@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.8.2] - 2020-11-26
 ### Changed
-- Fix PHP debug notices for uninitiated variables
+- fix PHP debug notices for uninitiated variables
 
 ## [1.8.1] - 2020-06-18
 ### Changed
-- Updates for PHP7.0 compatibility
+- updates for PHP7.0 compatibility
 
 ## [1.8.0] - 2020-04-07
 ### Added
