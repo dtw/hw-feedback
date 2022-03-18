@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Healthwatch Feedback
-Version: 1.8.2
+Version: 1.9
 Description: Implements a Rate and Review centre on Healthwatch websites. <strong>DO NOT DELETE !</strong>
 Author: Phil Thiselton & Jason King
 */
@@ -60,10 +60,10 @@ add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
  */
 function disable_local_services_feed( $query ) {
     if ( $query->is_feed() && in_array( 'local_services', (array) $query->get( 'post_type' ) ) ) {
-        die( 'Feed disabled' );
+        die( 'Local Service - feed disabled' );
     }
 }
-add_action( 'pre_get_posts', 'disable_local_services_feed' );
+//add_action( 'pre_get_posts', 'disable_local_services_feed' );
 
 // Add new admin columns
 
@@ -86,11 +86,15 @@ function hw_add_comments_columns( $my_cols ){
 	*/
 	// but the above way is not so good - there could be problems when plugins would like to hook the comment columns
 	// so, better like this:
-	$hw_columns = array(
+  $hw_columns_a = array(
+    'feedback_author_ip_check' => 'IP Check'
+  );
+	$hw_columns_b = array(
 		'feedback_response_boolean' => 'Provider reply',
 		'feedback_hw_reply_boolean' => 'LHW reply'
 	);
-	$my_cols = array_slice( $my_cols, 0, 3, true ) + $hw_columns + array_slice( $my_cols, 3, NULL, true );
+	//$my_cols = array_slice( $my_cols, 0, 2, true ) + $hw_columns_a + array_slice( $my_cols, 2, 2, true ) + $hw_columns_b + array_slice( $my_cols, 3, NULL, true );
+  	$my_cols = array_slice( $my_cols, 0, 2, true ) + $hw_columns_a + array_slice( $my_cols, 2, 2, true ) + $hw_columns_b + array_slice( $my_cols, 3, NULL, true );
 
 	// if you want to remove a column, you can just use:
 	// unset( $my_cols['response'] );
@@ -116,6 +120,19 @@ function hw_add_comment_columns_content( $column, $comment_ID ) {
       }
 			break;
 		}
+    case 'feedback_author_ip_check' : {
+      $string = get_comment_author_ip($comment->comment_ID);
+      $pattern = "/208\.127\.19[2-9]\.(\d{1,3})/";
+      if (preg_match($pattern, $string) ) {
+        echo '<i class="fas fa-clinic-medical fa-lg nhs"></i><span class="screen-reader-text">NHS IP Address</span>';  // this will be printed inside the column
+      }
+      break;
+    }
 	endswitch;
 }
+
+/* Enqueue JS
+------------------------------------------------------------------------------ */
+wp_enqueue_script( 'scaffold_copy_civicrm_subject_code', plugin_dir_url( __FILE__ ) . 'js/copy_civicrm_subject_code.js');
+
 ?>

@@ -6,13 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9] - 2021-11-03
+### Added
+- column in comment admin to identify comments from NHS subnet
+
+## [1.8.3] - 2021-09-08
+### Added
+- CiviCRM subject code prompt and copy to clipboard button
+### Changed
+- (Re-)Enable feed on Local Services
+
 ## [1.8.2] - 2020-11-26
 ### Changed
-- Fix PHP debug notices for uninitiated variables
+- fix PHP debug notices for uninitiated variables
 
 ## [1.8.1] - 2020-06-18
 ### Changed
-- Updates for PHP7.0 compatibility
+- updates for PHP7.0 compatibility
 
 ## [1.8.0] - 2020-04-07
 ### Added
