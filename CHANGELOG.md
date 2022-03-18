@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.9] - 2021-11-03
+### Added
+- column in comment admin to identify comments from NHS subnet
+
 ## [1.8.3] - 2021-09-08
 ### Added
 - CiviCRM subject code prompt and copy to clipboard button
