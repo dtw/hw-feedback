@@ -6,7 +6,7 @@
 ----------------------------------- */
 
 #commentform select {
-	font-family: FontAwesome, Open Sans, serif;
+	font-family: FontAwesome, 'Open Sans', serif;
 	}
 
 #commentform label[for=rating],
