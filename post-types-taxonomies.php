@@ -213,6 +213,8 @@ foreach(
 // CONTACT FIELDS
 echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
+generatemetaboxformfield(array('hw_services_phone','Phone',$objcqcapiquery->mainPhoneNumber),$post->ID,'20');
+generatemetaboxformfield(array('hw_services_website','Website',$objcqcapiquery->website),$post->ID,'30');
 
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
@@ -224,24 +226,12 @@ echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
 echo "<br /><br />";
 
-	// PHONE
-	$value = get_post_meta( $post->ID, 'hw_services_phone', true );
-		echo '<label for="hw_services_phone">Phone </label>';
-		echo '<input type="text" id="hw_services_phone" name="hw_services_phone" value="' . esc_attr( $value ) . '" size="30" />';
 	// LINK TO FULL REPORT
 	$value = get_post_meta( $post->ID, 'hw_services_full_report', true );
 		echo '<label for="hw_services_full_report">Link to full report </label>';
 		echo '<input placeholder="Begins http://" type="url" id="hw_services_full_report" name="hw_services_full_report" value="' . esc_attr( $value ) . '" size="90" />';
 
 echo "<br /><br />";
-
-	// WEBSITE
-	$value = get_post_meta( $post->ID, 'hw_services_website', true );
-		echo '<label for="hw_services_website">Website </label>';
-		echo '<input type="text" id="hw_services_website" name="hw_services_website" value="' . esc_attr( $value ) . '" size="50" />';
-
-
-
 
 	// OVERALL RATING
 	$value = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
