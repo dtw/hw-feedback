@@ -181,6 +181,11 @@ function hw_meta_box_callback( $post ) {
 	// Add a NONCE field so we can check for it later.
 	wp_nonce_field( 'hw_meta_box', 'hw_meta_box_nonce' );
 
+  echo "<h2><strong>CQC Information</strong></h2><br />";
+  // CQC LOCATION CODE
+	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
+		echo '<label for="hw_services_cqc_location">Location ID </label>';
+		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><p id="hw_services_cqc_location_alert">Save this Service to see updated values from CQC!</p>';
 
 
 	// Use get_post_meta() to retrieve existing values
@@ -211,6 +216,8 @@ echo "<br /><br />";
 		echo '<input type="text" id="hw_services_city" name="hw_services_city" value="' . esc_attr( $value ) . '" size="60" />';
 
 echo "<br /><br />";
+// CONTACT FIELDS
+echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
 	// COUNTY
 	$value = get_post_meta( $post->ID, 'hw_services_county', true );
@@ -218,22 +225,28 @@ echo "<br /><br />";
 		echo '<input type="text" id="hw_services_county" name="hw_services_county" value="' . esc_attr( $value ) . '" size="60" />';
 
 echo "<br /><br />";
+// RATE AND REVIEW FIELDS
+	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
 
 	// POSTCODE
 	$value = get_post_meta( $post->ID, 'hw_services_postcode', true );
 		echo '<label for="hw_services_postcode">Postcode </label>';
 		echo '<input type="text" id="hw_services_postcode" name="hw_services_postcode" value="' . esc_attr( $value ) . '" size="20" />';
+  // DATE OF VISIT
+	$value = get_post_meta( $post->ID, 'hw_services_date_visited', true );
+		echo '<label for="hw_services_date_visited">Date of visit </label>';
+		echo '<input placeholder="2nd May 2016" type="text" id="hw_services_date_visited" name="hw_services_date_visited" value="' . esc_attr( $value ) . '" size="30" />';
 
 echo "<br /><br />";
-
-
-// CONTACT FIELDS
-echo "<br /><h2 class='hndle'><strong>Contact details</strong></h2><br /><br />";
 
 	// PHONE
 	$value = get_post_meta( $post->ID, 'hw_services_phone', true );
 		echo '<label for="hw_services_phone">Phone </label>';
 		echo '<input type="text" id="hw_services_phone" name="hw_services_phone" value="' . esc_attr( $value ) . '" size="30" />';
+	// LINK TO FULL REPORT
+	$value = get_post_meta( $post->ID, 'hw_services_full_report', true );
+		echo '<label for="hw_services_full_report">Link to full report </label>';
+		echo '<input placeholder="Begins http://" type="url" id="hw_services_full_report" name="hw_services_full_report" value="' . esc_attr( $value ) . '" size="90" />';
 
 echo "<br /><br />";
 
@@ -243,21 +256,6 @@ echo "<br /><br />";
 		echo '<input type="text" id="hw_services_website" name="hw_services_website" value="' . esc_attr( $value ) . '" size="50" />';
 
 
-// CQC LOCATION CODE FIELD
-
-echo "<br /><br /><br /><br /><h2 class='hndle'><strong>CQC Location code</strong></h2><br /><br />";
-
-
-	// CQC LOCATION CODE
-	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
-		echo '<label for="hw_services_cqc_location">CQC Location </label>';
-		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="30" />';
-
-
-
-
-// RATE AND REVIEW FIELDS
-	echo "<br /><br /><br /><br /><h2 class='hndle'><strong>How you rated this service</strong></h2><br /><br />";
 
 
 	// OVERALL RATING
@@ -330,20 +328,6 @@ echo "<br /><br />";
 		echo '3 <input type="radio" name="hw_services_quality_life" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
 		echo '4 <input type="radio" name="hw_services_quality_life" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
 		echo '5 <input type="radio" name="hw_services_quality_life" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
-
-echo "<br /><br />";
-
-	// DATE OF VISIT
-	$value = get_post_meta( $post->ID, 'hw_services_date_visited', true );
-		echo '<label for="hw_services_date_visited">Date of visit </label>';
-		echo '<input placeholder="2nd May 2016" type="text" id="hw_services_date_visited" name="hw_services_date_visited" value="' . esc_attr( $value ) . '" size="30" />';
-
-echo "<br /><br />";
-
-	// LINK TO FULL REPORT
-	$value = get_post_meta( $post->ID, 'hw_services_full_report', true );
-		echo '<label for="hw_services_full_report">Link to full report </label>';
-		echo '<input placeholder="Begins http://" type="url" id="hw_services_full_report" name="hw_services_full_report" value="' . esc_attr( $value ) . '" size="90" />';
 
 echo "<br /><br />";
 
