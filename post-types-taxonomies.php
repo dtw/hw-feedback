@@ -187,51 +187,36 @@ function hw_meta_box_callback( $post ) {
 		echo '<label for="hw_services_cqc_location">Location ID </label>';
 		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><p id="hw_services_cqc_location_alert">Save this Service to see updated values from CQC!</p>';
 
+$objcqcapiquery = json_decode(cqcapiquery('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
 
 	// Use get_post_meta() to retrieve existing values
 	// from the database and use the value for the form
 
 
+
 // ADDRESS FIELDS
-echo "<br /><h2 class='hndle'><strong>Address</strong></h2><br /><br />";
+echo "<br /><h2><strong>Address</strong></h2><br />";
+
+foreach(
+  array(
+    array('hw_services_address_line_1','Address line 1',$objcqcapiquery->postalAddressLine1),
+    array('hw_services_address_line_2','Address line 2',$objcqcapiquery->postalAddressLine2),
+    array('hw_services_city','City',$objcqcapiquery->postalAddressTownCity),
+    array('hw_services_county','County',$objcqcapiquery->postalAddressCounty),
+    array('hw_services_postcode','Postcode',$objcqcapiquery->postalCode)
+  ) as $row
+) {
+  generatemetaboxformfield($row,$post->ID,'60');
+}
 
 
-	// ADDRESS LINE 1
-	$value = get_post_meta( $post->ID, 'hw_services_address_line_1', true );
-		echo '<label for="hw_services_address_line_1">Address line 1 </label>';
-		echo '<input type="text" id="hw_services_address_line_1" name="hw_services_address_line_1" value="' . esc_attr( $value ) . '" size="60" />';
-
-echo "<br /><br />";
-
-	// ADDRESS LINE 2
-	$value = get_post_meta( $post->ID, 'hw_services_address_line_2', true );
-		echo '<label for="hw_services_address_line_2">Address line 2 </label>';
-		echo '<input type="text" id="hw_services_address_line_2" name="hw_services_address_line_2" value="' . esc_attr( $value ) . '" size="60" />';
-
-echo "<br /><br />";
-
-	// CITY
-	$value = get_post_meta( $post->ID, 'hw_services_city', true );
-		echo '<label for="hw_services_city">City </label>';
-		echo '<input type="text" id="hw_services_city" name="hw_services_city" value="' . esc_attr( $value ) . '" size="60" />';
-
-echo "<br /><br />";
 // CONTACT FIELDS
 echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
-	// COUNTY
-	$value = get_post_meta( $post->ID, 'hw_services_county', true );
-		echo '<label for="hw_services_county">County </label>';
-		echo '<input type="text" id="hw_services_county" name="hw_services_county" value="' . esc_attr( $value ) . '" size="60" />';
 
-echo "<br /><br />";
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
 
-	// POSTCODE
-	$value = get_post_meta( $post->ID, 'hw_services_postcode', true );
-		echo '<label for="hw_services_postcode">Postcode </label>';
-		echo '<input type="text" id="hw_services_postcode" name="hw_services_postcode" value="' . esc_attr( $value ) . '" size="20" />';
   // DATE OF VISIT
 	$value = get_post_meta( $post->ID, 'hw_services_date_visited', true );
 		echo '<label for="hw_services_date_visited">Date of visit </label>';
