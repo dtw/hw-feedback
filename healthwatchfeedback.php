@@ -136,5 +136,13 @@ function hw_add_comment_columns_content( $column, $comment_ID ) {
 /* Enqueue JS
 ------------------------------------------------------------------------------ */
 wp_enqueue_script( 'scaffold_copy_civicrm_subject_code', plugin_dir_url( __FILE__ ) . 'js/copy_civicrm_subject_code.js');
+/* this adds a class to the metabox too (there is an ID already so...) */
+
+function add_metabox_classes($classes) {
+    array_push($classes,'hw_services_meta_box');
+    return $classes;
+}
+
+add_filter('postbox_classes_local_services_hw_services_meta_box','add_metabox_classes');
 
 ?>
