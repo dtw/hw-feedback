@@ -33,6 +33,7 @@ include('widgets/widget-recent-comments.php');
 
 require_once('functions/functions-star-rating.php');
 require_once('functions/functions-get-rating.php');
+require_once('functions/functions-cqc-api-query.php');
 require_once('functions/shortcodes.php');
 
 // Enqueue CSS
