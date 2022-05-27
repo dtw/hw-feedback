@@ -189,10 +189,14 @@ function hw_meta_box_callback( $post ) {
 
 $objcqcapiquery = json_decode(cqcapiquery('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
 
-	// Use get_post_meta() to retrieve existing values
-	// from the database and use the value for the form
+echo "<br /><h3>API Checks</h3>";
 
+$apioutputarray = array('Registration Status'=>$objcqcapiquery->registrationStatus,'Registration Date'=>$objcqcapiquery->registrationDate);
+//'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
 
+foreach($apioutputarray as $x => $val) {
+  echo '<div class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$val.'</div></div>';
+}
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";

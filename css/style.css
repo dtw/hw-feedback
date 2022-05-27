@@ -108,3 +108,16 @@
 	font-size: 1rem;
 }
 
+.api-output-label {
+	font-weight: bold;
+	width: 150px;
+	display: inline-block;
+}
+
+.api-output-value {
+	display: inline-block;
+}
+
+.api-output {
+	padding-bottom: 0.5rem;
+}
