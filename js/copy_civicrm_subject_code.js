@@ -8,3 +8,7 @@ async function copy_civicrm_subject_code() {
    /* Copy the text inside the text field */
   await navigator.clipboard.writeText(copyText.value);
 }
+
+async function update_from_cqc($target, $source) {
+  document.getElementById($target).value = document.getElementById($source).value;
+}

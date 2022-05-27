@@ -108,6 +108,11 @@
 	font-size: 1rem;
 }
 
+.ed_button.button.button-small {
+	margin: 0 7px;
+	height: 30px;
+}
+
 .api-output-label {
 	font-weight: bold;
 	width: 150px;
