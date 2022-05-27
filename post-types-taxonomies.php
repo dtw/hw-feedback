@@ -561,7 +561,14 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
     if( $column_name == 'cqc_location' ) {
         $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_location', true );
-        echo $col_cqc_location;
+        $obj_cqc_api_query = json_decode(cqcapiquery('locations',esc_attr($col_cqc_location)));
+        if ($obj_cqc_api_query->registrationStatus != 'Registered'){
+          echo '<a href="https://www.cqc.org.uk/location/' . $col_cqc_location . '?referer=widget4">' . $obj_cqc_api_query->registrationStatus . '</a>';
+        } else if ($obj_cqc_api_query->message == 'No Locations found on the given Location ID') {
+          echo "<strong>Not found</strong>";
+        } else {
+          echo $col_cqc_location;
+        }
 		echo "<br />";
 
     }
