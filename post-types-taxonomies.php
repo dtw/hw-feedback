@@ -197,6 +197,12 @@ $apioutputarray = array('Registration Status'=>$objcqcapiquery->registrationStat
 foreach($apioutputarray as $x => $val) {
   echo '<div class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$val.'</div></div>';
 }
+//echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
+//echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
+if ($objcqcapiquery->registrationStatus == 'Deregistered'){
+  echo '<div class="api-output"><div class="api-output-label">Deregistration Date:</div><div class="api-output-value">'.$objcqcapiquery->deregistrationDate.'</div></div>';
+  echo '<p><a href="https://www.cqc.org.uk/location/'. $objcqcapiquery->locationId . '?referer=widget4" target="_blank">View Location on CQC website</a>';
+}
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";
