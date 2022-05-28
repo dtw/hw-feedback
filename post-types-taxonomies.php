@@ -532,7 +532,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
         $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         $obj_cqc_api_query = json_decode(cqcapiquery('locations',esc_attr($col_cqc_location)));
         if ($obj_cqc_api_query->registrationStatus != 'Registered'){
-          echo '<a href="https://www.cqc.org.uk/location/' . $col_cqc_location . '?partnerCode=HW_BUCKS">' . $obj_cqc_api_query->registrationStatus . '</a>';
+          echo '<a href="https://www.cqc.org.uk/location/' . $col_cqc_location . '?referer=HW_BUCKS" target="_blank">' . $obj_cqc_api_query->registrationStatus . '</a>';
         } else if ($obj_cqc_api_query->message == 'No Locations found on the given Location ID') {
           echo "<strong>Not found</strong>";
         } else {
