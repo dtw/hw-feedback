@@ -185,7 +185,7 @@ function hw_meta_box_callback( $post ) {
   // CQC LOCATION CODE
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
 		echo '<label for="hw_services_cqc_location">Location ID </label>';
-		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><p id="hw_services_cqc_location_alert">Save this Service to see updated values from CQC!</p>';
+		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw_services_cqc_location_alert" role="alert">Save this Service to see updated values from CQC!</div>';
 
 $objcqcapiquery = json_decode(cqcapiquery('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
 
