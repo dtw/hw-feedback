@@ -135,7 +135,18 @@ function hw_add_comment_columns_content( $column, $comment_ID ) {
 
 /* Enqueue JS
 ------------------------------------------------------------------------------ */
-wp_enqueue_script( 'scaffold_copy_civicrm_subject_code', plugin_dir_url( __FILE__ ) . 'js/copy_civicrm_subject_code.js');
+// add accordion_scroll script
+function add_scaffold_copy_civicrm_subject_code() {
+    wp_enqueue_script(
+        'scaffold_copy_civicrm_subject_code', // name your script so that you can attach other scripts and de-register, etc.
+        plugin_dir_url( __FILE__ ) . 'js/copy_civicrm_subject_code.js', // this is the location of your script file
+        array('jquery'), // this array lists the scripts upon which your script depends
+        '0.1'
+    );
+}
+
+add_action( 'admin_enqueue_scripts', 'add_scaffold_copy_civicrm_subject_code' );
+
 /* this adds a class to the metabox too (there is an ID already so...) */
 
 function add_metabox_classes($classes) {
