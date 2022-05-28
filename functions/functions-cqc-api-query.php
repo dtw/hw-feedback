@@ -13,8 +13,8 @@
 
   function cqcapiquery($collection_name,$id) {
     // CQC API root
-    $url = 'https://api.cqc.org.uk/public/v1/';
-    $request_url = $url . '/' . $collection_name . '/' . $id;
+    $url = 'https://api.cqc.org.uk/public/v1';
+    $request_url = $url . '/' . $collection_name . '/' . $id . '?partnerCode=HW_BUCKS';
     $curl = curl_init($request_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     // no auth needed
