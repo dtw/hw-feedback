@@ -39,7 +39,7 @@ class hw_enter_and_view extends WP_Widget {
 
 	    if ( $title ) echo $before_title . $title . $after_title;
 		$mlq = new WP_Query(array(
-			'post_type' => 'Local_services',
+			'post_type' => 'local_services',
 			// 'orderby' => 'rand',
 			'showposts' => $number,
 			'meta_query' => array(
