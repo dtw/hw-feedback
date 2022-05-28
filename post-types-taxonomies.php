@@ -555,7 +555,28 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
 }
 
+// add a sort to the cqc_location column
+add_filter('manage_edit-local_services_sortable_columns','sort_by_cqc_location');
 
+function sort_by_cqc_location($columns) {
+  $columns['cqc_location'] = 'cqc_location_sort';
+  return $columns;
+};
+
+//make the sort work
+add_action('pre_get_posts','query_sort_by_cqc_location');
+
+function query_sort_by_cqc_location($query) {
+    if (!is_admin()) {
+        return;
+    }
+
+    $orderby = $query->get('orderby');
+    if ($orderby == 'cqc_location_sort') {
+        $query->set('meta_key', 'hw_services_cqc_location');
+        $query->set('orderby', 'meta_value');
+    }
+};
 
 
 
