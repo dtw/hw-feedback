@@ -645,6 +645,39 @@ function hw_convert_id_to_term_in_query($query) {
 	}
 }
 
+// Create a cron job in order to check the custom field of 'job_listing_closing_date'
+// against today's date. If the date has passed, set the job status to 'closed' and display different content on front-end.
+
+// Scheduled Action Hook
+function check_cqc_registration_status() {
+
+  global $post;
+
+  $args = array(
+    'post_type'       => 'local_services',
+    'posts_per_page'  => -1,
+    //'meta_key' => 'hw_services_cqc_location',
+    //'meta_value' => '',
+    //'meta_operator' => '!='
+  );
+
+  $services = get_posts( $args );
+    foreach($services as $post) : setup_postdata($post);
+
+  // get location id
+  $location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
+  // call API
+  $api_response = json_decode(cqcapiquery('locations',$location_id));
+  // get current status or nothing
+  $reg_status = get_post_meta( $post->ID, 'hw_services_cqc_reg_status', true ) || '';
+  if ( $api_response->registrationStatus ) {
+        if ( $api_response->registrationStatus != $reg_status ) :
+            update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
+        endif;
+      }
+    endforeach;
+
+}
 
 
 
