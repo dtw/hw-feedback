@@ -492,7 +492,7 @@ function bs_local_services_table_head( $columns ) {
     $columns['rated']  = 'Rated';
     $columns['contact']  = 'Contact';
     $columns['website']  = 'Website';
-    $columns['cqc_location']  = 'CQC location';
+    $columns['cqc_reg_status']  = 'CQC Reg. Status';
     return $columns;
 
 }
@@ -528,15 +528,15 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 		echo "</a>";
     }
 
-    if( $column_name == 'cqc_location' ) {
-        $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_location', true );
-        $obj_cqc_api_query = json_decode(cqcapiquery('locations',esc_attr($col_cqc_location)));
-        if ($obj_cqc_api_query->registrationStatus != 'Registered'){
-          echo '<a href="https://www.cqc.org.uk/location/' . $col_cqc_location . '?referer=HW_BUCKS" target="_blank">' . $obj_cqc_api_query->registrationStatus . '</a>';
-        } else if ($obj_cqc_api_query->message == 'No Locations found on the given Location ID') {
-          echo "<strong>Not found</strong>";
+    if( $column_name == 'cqc_reg_status' ) {
+        $cqc_location = get_post_meta( $post_id, 'hw_services_cqc_location', true );
+        $col_cqc_reg_status = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
+        if ($col_cqc_reg_status == ''){
+          echo "<strong>Not registered</strong>";
+        } else if ($col_cqc_reg_status != 'Registered') {
+          echo '<a href="https://www.cqc.org.uk/location/' . $cqc_location . '?referer=HW_BUCKS" target="_blank">' . $col_cqc_reg_status . '</a>';
         } else {
-          echo $col_cqc_location;
+          echo $col_cqc_reg_status;
         }
 		echo "<br />";
 
