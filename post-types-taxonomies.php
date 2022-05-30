@@ -506,10 +506,8 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
 
 		$address_city = get_post_meta( $post_id, 'hw_services_city', true );
-		$address_county = get_post_meta( $post_id, 'hw_services_county', true );
 
 		if ($address_city) { echo $address_city; }
-		if ($address_county) { echo ",<br />" . $address_county; }
 
 		echo $col_address;
 
