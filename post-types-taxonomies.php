@@ -501,9 +501,7 @@ add_action( 'manage_local_services_posts_custom_column', 'bs_local_services_tabl
 // Fill data into ADMIN COLUMNS for local services
 function bs_local_services_table_content( $column_name, $post_id ) {
 
-
-    if( $column_name == 'contact' ) {
-
+  if( $column_name == 'contact' ) {
 
 		$address_city = get_post_meta( $post_id, 'hw_services_city', true );
 
