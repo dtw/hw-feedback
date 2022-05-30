@@ -554,8 +554,8 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
 
 }
-
-// add a sort to the cqc_location column
+/* 7. Add a sort to the cqc_location column
+--------------------------------------------------------- */
 add_filter('manage_edit-local_services_sortable_columns','sort_by_cqc_location');
 
 function sort_by_cqc_location($columns) {
@@ -645,7 +645,8 @@ function hw_convert_id_to_term_in_query($query) {
 	}
 }
 
-// Scheduled Action Hook
+/* 9. Add a function to query CQC reg status and update service
+--------------------------------------------------------- */
 function check_cqc_registration_status() {
 
   global $post;
@@ -679,8 +680,8 @@ function check_cqc_registration_status() {
 
 }
 
-// Schedule Cron Job Event
-
+/* 10. Add cron job to run check_cqc_registration_status
+--------------------------------------------------------- */
 if ( ! wp_next_scheduled( 'cqc_reg_check_cron_job' ) ) {
     // set the first run 2 minutes from "now"
     wp_schedule_event( time()+120, 'weekly', 'cqc_reg_check_cron_job' );
