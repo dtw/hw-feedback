@@ -89,9 +89,17 @@ function taxonomies_init() {
 		'local_services',
 		array(
 			'label' => 'Service Types',
-			'singular_name' => 'Service Type',
+      'labels' => array(
+        'singular_name' => 'Service Type',
+        'all_items' => 'All Service Types',
+        'edit_item' => 'Edit Service Type',
+        'view_item' => 'View Service Type',
+        'update_item' => 'Update Service Type',
+        'add_new_item' => 'Add new Service Type',
+        'new_item_name' => 'New Service Type',
+        'search_items' => 'Search Service Types'
+      ),
 			'rewrite' => array( 'slug' => 'type' ),
-			'edit_item' => 'Edit Service Type',
 			'show_in_nav_menus' => true,
 			'show_in_quick_edit' => true,
 			'show_admin_column' => true,
