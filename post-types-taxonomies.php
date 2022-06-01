@@ -289,9 +289,22 @@ echo "<br /><br />";
 
 echo "<br /><br />";
 
-	// OVERALL RATING
-	$value = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
-		echo '<label for="hw_services_overall_rating">Overall rating </label>';
+  // list DiC rating fields and labels
+  $ratingareas = array (
+    'hw_services_overall_rating' => 'Overall rating',
+    'hw_services_how_people_treated' => 'How people are treated',
+    'hw_services_personal_choice' => 'Personal choice',
+    'hw_services_being_home' => 'Just like being at home',
+    'hw_services_privacy' => 'Privacy',
+    'hw_services_quality_life' => 'Quality of life',
+  );
+
+  foreach ($ratingareas as $field => $label) {
+  	// get value of field
+  	$value = get_post_meta( $post->ID, $field, true );
+    // print label (with space after)
+  	echo '<label for="'.$field.'">'.$label.' </label>';
+    // generate metabox radio field
     generatemetaboxradiofield(array (
       'No rating' => '',
       '1' => 1,
@@ -299,81 +312,10 @@ echo "<br /><br />";
       '3' => 3,
       '4' => 4,
       '5' => 5
-    ), 'hw_services_overall_rating', $value);
-
-echo "<br /><br />";
-
-	// HOW PEOPLE ARE TREATED
-	$value = get_post_meta( $post->ID, 'hw_services_how_people_treated', true );
-		echo '<label for="hw_services_how_people_treated">How people are treated </label>';
-    generatemetaboxradiofield(array (
-      'No rating' => '',
-      '1' => 1,
-      '2' => 2,
-      '3' => 3,
-      '4' => 4,
-      '5' => 5
-    ), 'hw_services_how_people_treated', $value);
-
-
-echo "<br /><br />";
-
-	// PERSONAL CHOICE
-	$value = get_post_meta( $post->ID, 'hw_services_personal_choice', true );
-		echo '<label for="hw_services_personal_choice">Personal choice </label>';
-    generatemetaboxradiofield(array (
-      'No rating' => '',
-      '1' => 1,
-      '2' => 2,
-      '3' => 3,
-      '4' => 4,
-      '5' => 5
-    ), 'hw_services_personal_choice', $value);
-
-echo "<br /><br />";
-
-	// JUST LIKE BEING AT HOME
-	$value = get_post_meta( $post->ID, 'hw_services_being_home', true );
-		echo '<label for="hw_services_being_home">Just like being at home </label>';
-    generatemetaboxradiofield(array (
-      'No rating' => '',
-      '1' => 1,
-      '2' => 2,
-      '3' => 3,
-      '4' => 4,
-      '5' => 5
-    ), 'hw_services_being_home', $value);
-
-echo "<br /><br />";
-
-	// PRIVACY
-	$value = get_post_meta( $post->ID, 'hw_services_privacy', true );
-		echo '<label for="hw_services_privacy">Privacy </label>';
-    generatemetaboxradiofield(array (
-      'No rating' => '',
-      '1' => 1,
-      '2' => 2,
-      '3' => 3,
-      '4' => 4,
-      '5' => 5
-    ), 'hw_services_privacy', $value);
-
-echo "<br /><br />";
-
-	// QUALITY OF LIFE
-	$value = get_post_meta( $post->ID, 'hw_services_quality_life', true );
-		echo '<label for="hw_services_quality_life">Quality of life </label>';
-    generatemetaboxradiofield(array (
-      'No rating' => '',
-      '1' => 1,
-      '2' => 2,
-      '3' => 3,
-      '4' => 4,
-      '5' => 5
-    ), 'hw_services_quality_life', $value);
-
-echo "<br /><br />";
-
+    ), $field, $value);
+    // add some space
+    echo "<br /><br />";
+  }
 }
 
 
