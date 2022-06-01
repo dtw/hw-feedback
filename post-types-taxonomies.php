@@ -146,10 +146,10 @@ function taxonomies_init() {
 add_action( 'init', 'taxonomies_init' );
 
 /* Add default terms to cqc_reg_status taxonomy */
-wp_insert_term('Registered','cqc_reg_status', $args => array('description'=>'Registered with CQC', 'slug' => 'registered')
-wp_insert_term('Deregistered','cqc_reg_status', $args => array('description'=>'Deregistered with CQC', 'slug' => 'deregistered')
-wp_insert_term('Not registered','cqc_reg_status', $args => array('description'=>'Not registered with CQC', 'slug' => 'not-registered')
-wp_insert_term('Not applicable','cqc_reg_status', $args => array('description'=>'Not required to register with CQC', 'slug' => 'not-applicable')
+  wp_insert_term('Registered','cqc_reg_status', array('description'=>'Registered with CQC', 'slug' => 'registered'));
+  wp_insert_term('Deregistered','cqc_reg_status', array('description'=>'Deregistered with CQC', 'slug' => 'deregistered'));
+  wp_insert_term('Not registered','cqc_reg_status', array('description'=>'Not registered with CQC', 'slug' => 'not-registered'));
+  wp_insert_term('Not applicable','cqc_reg_status', array('description'=>'Not required to register with CQC', 'slug' => 'not-applicable'));
 
 
 
@@ -719,16 +719,16 @@ function check_cqc_registration_status() {
       // get current reg status from meta data or nothing
       //$reg_status = get_post_meta( $post->ID, 'hw_services_cqc_reg_status', true ) || '';
       // get post tax terms as names
-      $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" )
+      $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" ));
       // if there is a reg status from the api
       if ( $api_response->registrationStatus ) {
         // is it different from the current status
-        if ( $api_response->registrationStatus != $tax_terms[0] ) :
+        if ( $api_response->registrationStatus != $tax_terms[0] ) {
           // update the field
           update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
           // set new terms - takes names of terms not slugs...
           wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
-        endif;
+        }
       // otherwise, it has an id but that is not listed
       } else {
         // set new terms - takes names of terms not slugs...
