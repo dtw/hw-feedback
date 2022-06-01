@@ -19,4 +19,11 @@ function generatemetaboxformfield($array,$id,$size) {
       echo '<input type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" />';
       //switch to HTML ?><button class="ed_button button button-small" type="button" onclick="update_from_cqc('<?php echo $array[0]?>','<?php echo $array[0]?>_cqc_field')"><= Update</button><input type="text" value="<?php echo $array[2]?>" id="<?php echo $array[0]?>_cqc_field" size="<?php echo $size?>" readonly>
       <br /><br />
-<?php } ?>
+<?php }
+
+function generatemetaboxradiofield($array,$name,$value){
+  foreach ($array as $key => $val) {
+    echo $key .' <input type="radio" name="' . $name . '" value="' . strval($val) . '" '; if ($value == $val) { echo 'checked'; }; echo '> ';
+  }
+}
+?>
