@@ -127,9 +127,8 @@ function taxonomies_init() {
       ),
 			'rewrite' => array( 'slug' => 'type' ),
 			'edit_item' => 'Edit CQC Registration Status',
-      //'public' => false,
-			//'show_in_nav_menus' => false,
-			//'show_in_quick_edit' => false,
+			'show_in_nav_menus' => true,
+			'show_in_quick_edit' => false,
 			'show_admin_column' => true,
       'show_tagcloud' => false,
       'capabilities' => array (
