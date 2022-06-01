@@ -704,9 +704,10 @@ function check_cqc_registration_status() {
   $args = array(
     'post_type'       => 'local_services',
     'posts_per_page'  => -1,
-    //'meta_key' => 'hw_services_cqc_location',
-    //'meta_value' => '',
-    //'meta_operator' => '!='
+    // must have a location id that isn't blank
+    'meta_key' => 'hw_services_cqc_location',
+    'meta_value' => '',
+    'meta_operator' => '!='
   );
 
   $services = get_posts( $args );
