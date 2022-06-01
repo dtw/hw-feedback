@@ -292,24 +292,28 @@ echo "<br /><br />";
 	// OVERALL RATING
 	$value = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
 		echo '<label for="hw_services_overall_rating">Overall rating </label>';
-		echo 'No rating <input type="radio" name="hw_services_overall_rating" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_overall_rating" value="1" '; if ($value == 1) { echo "checked"; }; echo '>  ';
-		echo '2 <input type="radio" name="hw_services_overall_rating" value="2" '; if ($value == 2) { echo "checked"; }; echo '>  ';
-		echo '3 <input type="radio" name="hw_services_overall_rating" value="3" '; if ($value == 3) { echo "checked"; }; echo '>  ';
-		echo '4 <input type="radio" name="hw_services_overall_rating" value="4" '; if ($value == 4) { echo "checked"; }; echo '>  ';
-		echo '5 <input type="radio" name="hw_services_overall_rating" value="5" '; if ($value == 5) { echo "checked"; }; echo '>  ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_overall_rating', $value);
 
 echo "<br /><br />";
 
 	// HOW PEOPLE ARE TREATED
 	$value = get_post_meta( $post->ID, 'hw_services_how_people_treated', true );
 		echo '<label for="hw_services_how_people_treated">How people are treated </label>';
-		echo 'No rating <input type="radio" name="hw_services_how_people_treated" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_how_people_treated" value="1" '; if ($value == 1) { echo "checked"; }; echo '> ';
-		echo '2 <input type="radio" name="hw_services_how_people_treated" value="2" '; if ($value == 2) { echo "checked"; }; echo '> ';
-		echo '3 <input type="radio" name="hw_services_how_people_treated" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
-		echo '4 <input type="radio" name="hw_services_how_people_treated" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
-		echo '5 <input type="radio" name="hw_services_how_people_treated" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_how_people_treated', $value);
 
 
 echo "<br /><br />";
@@ -317,48 +321,56 @@ echo "<br /><br />";
 	// PERSONAL CHOICE
 	$value = get_post_meta( $post->ID, 'hw_services_personal_choice', true );
 		echo '<label for="hw_services_personal_choice">Personal choice </label>';
-		echo 'No rating <input type="radio" name="hw_services_personal_choice" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_personal_choice" value="1" '; if ($value == 1) { echo "checked"; }; echo '> ';
-		echo '2 <input type="radio" name="hw_services_personal_choice" value="2" '; if ($value == 2) { echo "checked"; }; echo '> ';
-		echo '3 <input type="radio" name="hw_services_personal_choice" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
-		echo '4 <input type="radio" name="hw_services_personal_choice" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
-		echo '5 <input type="radio" name="hw_services_personal_choice" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_personal_choice', $value);
 
 echo "<br /><br />";
 
 	// JUST LIKE BEING AT HOME
 	$value = get_post_meta( $post->ID, 'hw_services_being_home', true );
 		echo '<label for="hw_services_being_home">Just like being at home </label>';
-		echo 'No rating <input type="radio" name="hw_services_being_home" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_being_home" value="1" '; if ($value == 1) { echo "checked"; }; echo '> ';
-		echo '2 <input type="radio" name="hw_services_being_home" value="2" '; if ($value == 2) { echo "checked"; }; echo '> ';
-		echo '3 <input type="radio" name="hw_services_being_home" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
-		echo '4 <input type="radio" name="hw_services_being_home" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
-		echo '5 <input type="radio" name="hw_services_being_home" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_being_home', $value);
 
 echo "<br /><br />";
 
 	// PRIVACY
 	$value = get_post_meta( $post->ID, 'hw_services_privacy', true );
 		echo '<label for="hw_services_privacy">Privacy </label>';
-		echo 'No rating <input type="radio" name="hw_services_privacy" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_privacy" value="1" '; if ($value == 1) { echo "checked"; }; echo '> ';
-		echo '2 <input type="radio" name="hw_services_privacy" value="2" '; if ($value == 2) { echo "checked"; }; echo '> ';
-		echo '3 <input type="radio" name="hw_services_privacy" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
-		echo '4 <input type="radio" name="hw_services_privacy" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
-		echo '5 <input type="radio" name="hw_services_privacy" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_privacy', $value);
 
 echo "<br /><br />";
 
 	// QUALITY OF LIFE
 	$value = get_post_meta( $post->ID, 'hw_services_quality_life', true );
 		echo '<label for="hw_services_quality_life">Quality of life </label>';
-		echo 'No rating <input type="radio" name="hw_services_quality_life" value="" '; if ($value == "") { echo "checked"; }; echo '> ';
-		echo '1 <input type="radio" name="hw_services_quality_life" value="1" '; if ($value == 1) { echo "checked"; }; echo '> ';
-		echo '2 <input type="radio" name="hw_services_quality_life" value="2" '; if ($value == 2) { echo "checked"; }; echo '> ';
-		echo '3 <input type="radio" name="hw_services_quality_life" value="3" '; if ($value == 3) { echo "checked"; }; echo '> ';
-		echo '4 <input type="radio" name="hw_services_quality_life" value="4" '; if ($value == 4) { echo "checked"; }; echo '> ';
-		echo '5 <input type="radio" name="hw_services_quality_life" value="5" '; if ($value == 5) { echo "checked"; }; echo '> ';
+    generatemetaboxradiofield(array (
+      'No rating' => '',
+      '1' => 1,
+      '2' => 2,
+      '3' => 3,
+      '4' => 4,
+      '5' => 5
+    ), 'hw_services_quality_life', $value);
 
 echo "<br /><br />";
 
