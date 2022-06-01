@@ -108,6 +108,38 @@ function taxonomies_init() {
 		)
 	);
 
+/* This will create a "hidden" taxonomy that cannot be edited by anyone except Admin (activate_plugins) capabilities */
+  // for REG STATUS
+	register_taxonomy(
+		'cqc_reg_status',
+		'local_services',
+		array(
+			'label' => 'CQC Registration Status',
+      'labels' => array(
+        'singular_name' => 'Registration Status',
+        'all_items' => 'All Registration Status',
+        'edit_item' => 'Edit Registration Status',
+        'view_item' => 'View Registration Status',
+        'update_item' => 'Update Registration Status',
+        'add_new_item' => 'Add new Registration Status',
+        'new_item_name' => 'New Registration Status',
+        'search_items' => 'Search Registration Status'
+      ),
+			'rewrite' => array( 'slug' => 'type' ),
+			'edit_item' => 'Edit CQC Registration Status',
+      //'public' => false,
+			//'show_in_nav_menus' => false,
+			//'show_in_quick_edit' => false,
+			'show_admin_column' => true,
+      'show_tagcloud' => false,
+      'capabilities' => array (
+        'manage_terms' => 'activate_plugins',
+        'edit_terms' => 'activate_plugins',
+        'delete_terms' => 'activate_plugins',
+        'assign_terms' => 'activate_plugins',
+      ),
+		)
+	);
 
 
 }
