@@ -145,8 +145,11 @@ function taxonomies_init() {
 }
 add_action( 'init', 'taxonomies_init' );
 
-
-
+/* Add default terms to cqc_reg_status taxonomy */
+wp_insert_term('Registered','cqc_reg_status', $args => array('description'=>'Registered with CQC', 'slug' => 'registered')
+wp_insert_term('Deregistered','cqc_reg_status', $args => array('description'=>'Deregistered with CQC', 'slug' => 'deregistered')
+wp_insert_term('Not registered','cqc_reg_status', $args => array('description'=>'Not registered with CQC', 'slug' => 'not-registered')
+wp_insert_term('Not applicable','cqc_reg_status', $args => array('description'=>'Not required to register with CQC', 'slug' => 'not-applicable')
 
 
 
