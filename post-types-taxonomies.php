@@ -686,19 +686,22 @@ function hw_feedback_check_cqc_registration_status() {
       //$reg_status = get_post_meta( $post->ID, 'hw_services_cqc_reg_status', true ) || '';
       // get post tax terms as names
       $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" ));
-      // if there is a reg status from the api
-      if ( $api_response->registrationStatus ) {
-        // is it different from the current status
-        if ( $api_response->registrationStatus != $tax_terms[0] ) {
-          // update the field
-          update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
+      // some error checks
+      if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
+        // if there is a reg status from the api
+        if ( $api_response->registrationStatus ) {
+          // is it different from the current status
+          if ( $api_response->registrationStatus != $tax_terms[0] ) {
+            // update the meta field
+            update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
+            // set new terms - takes names of terms not slugs...
+            wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+          }
+        // otherwise, it has an id but that is not listed
+        } else {
           // set new terms - takes names of terms not slugs...
-          wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+          wp_set_post_terms( $post->ID, 'Not Registered' , 'cqc_reg_status', false );
         }
-      // otherwise, it has an id but that is not listed
-      } else {
-        // set new terms - takes names of terms not slugs...
-        wp_set_post_terms( $post->ID, 'Not Registered' , 'cqc_reg_status', false );
       }
     endforeach;
 
