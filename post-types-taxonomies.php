@@ -697,10 +697,10 @@ function hw_feedback_check_cqc_registration_status() {
 
 /* 10. Add cron job to run check_cqc_registration_status
 --------------------------------------------------------- */
-if ( ! wp_next_scheduled( 'cqc_reg_check_cron_job' ) ) {
+if ( ! wp_next_scheduled( 'hw_feedback_cqc_reg_check_cron_job' ) ) {
     // set the first run 2 minutes from "now"
-    wp_schedule_event( time()+120, 'weekly', 'cqc_reg_check_cron_job' );
+    wp_schedule_event( time()+120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job' );
 }
-add_action( 'cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
 
 ?>
