@@ -541,12 +541,17 @@ function bs_local_services_table_content( $column_name, $post_id ) {
         $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
-        if ($tax_terms[0] == 'Not registered'){
-          echo "-";
-        } else if ($tax_terms[0] != 'Registered') {
-          echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
+        // some error checks
+        if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
+          if ($tax_terms[0] == 'Not registered'){
+            echo "-";
+          } else if ($tax_terms[0] != 'Registered') {
+            echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
+          } else {
+            echo $tax_terms[0];
+          }
         } else {
-          echo $tax_terms[0];
+          echo '#Error!';
         }
 		echo "<br />";
 
