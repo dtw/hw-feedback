@@ -140,6 +140,7 @@ function hw_feedback_taxonomies_init() {
 		)
 	);
 
+  //unregister_taxonomy('cqc_reg_status');
 
 }
 add_action( 'init', 'hw_feedback_taxonomies_init' );
