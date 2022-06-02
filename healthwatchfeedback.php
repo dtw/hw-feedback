@@ -135,7 +135,7 @@ function hw_feedback_add_comment_columns_content( $column, $comment_ID ) {
 
 /* Enqueue JS
 ------------------------------------------------------------------------------ */
-// add accordion_scroll script
+// add copy_civicrm_subject_code script
 function hw_feedback_add_copy_civicrm_subject_code() {
     wp_enqueue_script(
         'scaffold_copy_civicrm_subject_code', // name your script so that you can attach other scripts and de-register, etc.

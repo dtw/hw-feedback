@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 
@@ -62,7 +62,6 @@ function hw_feedback_edit_term_icon_field( $term ) {
 
     $icon   = hw_feedback_get_term_icon( $term->term_id, true );
 
-		
 		?>
 
     <tr class="form-field hw-term-icon-wrap">
@@ -130,7 +129,7 @@ function hw_feedback_manage_term_custom_column( $out, $column, $term_id ) {
         $icon = hw_feedback_get_term_icon( $term_id, true );
 
         if ( $icon ) {
-     
+
         $out = sprintf( '<img width="40" height="40" src="%s" alt="Icon" />', esc_attr( $icon ) );
 			}
 

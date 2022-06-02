@@ -1,18 +1,18 @@
 <?php
 /**
- * Output feedback star rating
+ * Generate metabox fields
  *
  * @package   hw-feedback
  * @author    Phil Thiselton <dibblethewrecker@gmail.com>
  * @license   GPL-2.0+
  * @copyright 2022 Phil Thiselton
  *
- * Description: Takes an $array contains field_id, label, value from CQC api plus post ID and size of the form field
+ * Description: Generate different metabox fields - used in loops in post-types-taxonomies.php
 
  * @param array $post
  */
 
-/* $array contains field_id, label, value from CQC api */
+/* $array contains field_id, label, value from CQC api plus post ID and size of the form field */
 function hw_feedback_generate_metabox_form_field($array,$id,$size) {
     $value = get_post_meta( $id, $array[0], true );
       echo '<label for="'.$array[0].'">' . $array[1] . ' </label>';
