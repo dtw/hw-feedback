@@ -39,20 +39,20 @@ require_once('functions/shortcodes.php');
 
 // Enqueue CSS
 
-function hw_enqueue_css() {
+function hw_feedback_enqueue_css() {
     wp_enqueue_style( 'prefix-style', plugins_url('css/style.css', __FILE__) );
 }
-add_action( 'wp_enqueue_scripts', 'hw_enqueue_css' );
-add_action( 'admin_enqueue_scripts', 'hw_enqueue_css' );
+add_action( 'wp_enqueue_scripts', 'hw_feedback_enqueue_css' );
+add_action( 'admin_enqueue_scripts', 'hw_feedback_enqueue_css' );
 
 // add fontawesome on edit-comments.php
-function add_fontawesome_edit_comments( $hook ) {
+function hw_feedback_add_fontawesome_edit_comments( $hook ) {
     if ( 'edit-comments.php' != $hook && 'edit.php' != $hook ) {
         return;
     }
 		wp_enqueue_script( 'fontawesome_5_cdn_admin', 'https://kit.fontawesome.com/c1c5370dea.js');
 }
-add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
+add_action( 'admin_enqueue_scripts', 'hw_feedback_add_fontawesome_edit_comments' );
 
 /**
  * Disable the "local_services" custom post type feed
@@ -60,18 +60,18 @@ add_action( 'admin_enqueue_scripts', 'add_fontawesome_edit_comments' );
  * @since 1.0.0
  * @param object $query
  */
-function disable_local_services_feed( $query ) {
+function hw_feedback_disable_local_services_feed( $query ) {
     if ( $query->is_feed() && in_array( 'local_services', (array) $query->get( 'post_type' ) ) ) {
         die( 'Local Service - feed disabled' );
     }
 }
-//add_action( 'pre_get_posts', 'disable_local_services_feed' );
+//add_action( 'pre_get_posts', 'hw_feedback_disable_local_services_feed' );
 
 // Add new admin columns
 
-add_filter( 'manage_edit-comments_columns', 'hw_add_comments_columns' );
+add_filter( 'manage_edit-comments_columns', 'hw_feedback_add_comments_columns' );
 
-function hw_add_comments_columns( $my_cols ){
+function hw_feedback_add_comments_columns( $my_cols ){
 	// $my_cols is the array of all column IDs and labels
 	// if you know arrays, you can add, remove or change column order with no problems
 	// like this:
@@ -105,9 +105,9 @@ function hw_add_comments_columns( $my_cols ){
 	return $my_cols;
 }
 
-add_action( 'manage_comments_custom_column', 'hw_add_comment_columns_content', 10, 2 );
+add_action( 'manage_comments_custom_column', 'hw_feedback_add_comment_columns_content', 10, 2 );
 
-function hw_add_comment_columns_content( $column, $comment_ID ) {
+function hw_feedback_add_comment_columns_content( $column, $comment_ID ) {
 	global $comment;
 	switch ( $column ) :
 		case 'feedback_response_boolean' : {
@@ -136,7 +136,7 @@ function hw_add_comment_columns_content( $column, $comment_ID ) {
 /* Enqueue JS
 ------------------------------------------------------------------------------ */
 // add accordion_scroll script
-function add_scaffold_copy_civicrm_subject_code() {
+function hw_feedback_add_copy_civicrm_subject_code() {
     wp_enqueue_script(
         'scaffold_copy_civicrm_subject_code', // name your script so that you can attach other scripts and de-register, etc.
         plugin_dir_url( __FILE__ ) . 'js/copy_civicrm_subject_code.js', // this is the location of your script file
@@ -145,15 +145,15 @@ function add_scaffold_copy_civicrm_subject_code() {
     );
 }
 
-add_action( 'admin_enqueue_scripts', 'add_scaffold_copy_civicrm_subject_code' );
+add_action( 'admin_enqueue_scripts', 'hw_feedback_add_copy_civicrm_subject_code' );
 
 /* this adds a class to the metabox too (there is an ID already so...) */
 
-function add_metabox_classes($classes) {
+function hw_feedback_add_metabox_classes($classes) {
     array_push($classes,'hw_services_meta_box');
     return $classes;
 }
 
-add_filter('postbox_classes_local_services_hw_services_meta_box','add_metabox_classes');
+add_filter('postbox_classes_local_services_hw_services_meta_box','hw_feedback_add_metabox_classes');
 
 ?>

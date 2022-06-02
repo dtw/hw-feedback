@@ -13,7 +13,7 @@
  */
 
 /* $array contains field_id, label, value from CQC api */
-function generatemetaboxformfield($array,$id,$size) {
+function hw_feedback_generate_metabox_form_field($array,$id,$size) {
     $value = get_post_meta( $id, $array[0], true );
       echo '<label for="'.$array[0].'">' . $array[1] . ' </label>';
       echo '<input type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" />';
@@ -21,7 +21,7 @@ function generatemetaboxformfield($array,$id,$size) {
       <br /><br />
 <?php }
 
-function generatemetaboxradiofield($array,$name,$value){
+function hw_feedback_generate_metabox_radio_field($array,$name,$value){
   foreach ($array as $key => $val) {
     echo $key .' <input type="radio" name="' . $name . '" value="' . strval($val) . '" '; if ($value == $val) { echo 'checked'; }; echo '> ';
   }

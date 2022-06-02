@@ -13,7 +13,7 @@
  * @param string $size A size corresponding to fontawesome styles https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons
  */
 
-  function feedbackstarrating($rating, $options = array()) {
+  function hw_feedback_star_rating($rating, $options = array()) {
     //set $defaults
     $defaults = array(
       'colour' => '',

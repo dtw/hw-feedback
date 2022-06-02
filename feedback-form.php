@@ -16,8 +16,8 @@
 
 // Default comment form elements are hidden when user is logged in
 
-add_filter('comment_form_default_fields','custom_fields');
-function custom_fields($fields) {
+add_filter('comment_form_default_fields','hw_feedback_custom_fields');
+function hw_feedback_custom_fields($fields) {
 
 // Check whether the page template is single-local_services.php
 
@@ -54,10 +54,10 @@ if ( is_singular( 'local_services' ) ) {
 // Add fields after default fields above the comment box, always visible
 
 
-add_action( 'comment_form_logged_in_before', 'additional_fields' );
-add_action( 'comment_form_top', 'additional_fields' );
+add_action( 'comment_form_logged_in_before', 'hw_feedback_additional_fields' );
+add_action( 'comment_form_top', 'hw_feedback_additional_fields' );
 
-function additional_fields () {
+function hw_feedback_additional_fields () {
 
 if ( is_singular( 'local_services' ) ) {
 
@@ -88,8 +88,8 @@ if ( is_singular( 'local_services' ) ) {
 
 // Save the comment meta data along with comment
 
-add_action( 'comment_post', 'save_comment_meta_data' );
-function save_comment_meta_data( $comment_id ) {
+add_action( 'comment_post', 'hw_feedback_save_comment_meta_data' );
+function hw_feedback_save_comment_meta_data( $comment_id ) {
 
 	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') )
 	$phone = wp_filter_nohtml_kses($_POST['phone']);
@@ -116,8 +116,8 @@ function save_comment_meta_data( $comment_id ) {
 
 // Add an edit option in comment edit screen
 
-add_action( 'add_meta_boxes_comment', 'extend_comment_add_meta_box' );
-function extend_comment_add_meta_box() {
+add_action( 'add_meta_boxes_comment', 'hw_feedback_extend_comment_add_meta_box' );
+function hw_feedback_extend_comment_add_meta_box() {
 	add_meta_box( 'title', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
 }
 
@@ -179,8 +179,8 @@ function extend_comment_meta_box ( $comment ) {
 
 // Update comment meta data from COMMENT EDIT SCREEN
 
-add_action( 'edit_comment', 'extend_comment_edit_metafields' );
-function extend_comment_edit_metafields( $comment_id ) {
+add_action( 'edit_comment', 'hw_feedback_extend_comment_edit_metafields' );
+function hw_feedback_extend_comment_edit_metafields( $comment_id ) {
 		if( ! isset( $_POST['extend_comment_update'] ) || ! wp_verify_nonce( $_POST['extend_comment_update'], 'extend_comment_update' ) ) return;
 
 	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') ) :
@@ -238,11 +238,11 @@ function extend_comment_edit_metafields( $comment_id ) {
 
 	if ( is_admin() ) {
 
-add_filter( 'comment_text', 'modify_comment');
+add_filter( 'comment_text', 'hw_feedback_modify_comment');
 
 
 
-function modify_comment( $text ){
+function hw_feedback_modify_comment( $text ){
 
 
 	$plugin_url_path = WP_PLUGIN_URL;
@@ -266,7 +266,7 @@ function modify_comment( $text ){
 		$text = $text . "<br /><br />" . $commentphone . $commentaddress . $commentwhen . $commentwho;
 
 	if( $commentrating = get_comment_meta( get_comment_ID(), 'feedback_rating', true ) ) {
-		$commentratingtxt = '<p class="star-rating p-rating">' . feedbackstarrating($commentrating, array()) . '</p><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
+		$commentratingtxt = '<p class="star-rating p-rating">' . hw_feedback_star_rating($commentrating, array()) . '</p><br/>Rating: <strong>'. $commentrating .' / 5</strong></p>';
 		$text = $text . $commentratingtxt;
 		return $text;
 	} else {
@@ -280,7 +280,7 @@ function modify_comment( $text ){
 
 
 // Remove URL field
-function remove_comment_fields($fields) {
+function hw_feedback_remove_comment_fields($fields) {
 	unset($fields['url']);
 	return $fields;
 }
@@ -293,9 +293,9 @@ function remove_comment_fields($fields) {
 // Move the COMMENT FIELD to the top
 
 
-add_filter('comment_form_default_fields', 'remove_comment_fields');
+add_filter('comment_form_default_fields', 'hw_feedback_remove_comment_fields');
 
-function hw_move_textarea( $input = array () ) {
+function hw_feedback_move_textarea( $input = array () ) {
 	static $textarea = '';
 
 
@@ -328,6 +328,6 @@ function hw_move_textarea( $input = array () ) {
 
 }
 
-add_action( 'comment_form_defaults',	'hw_move_textarea' );
-add_action( 'comment_form_top',		'hw_move_textarea' );
+add_action( 'comment_form_defaults',	'hw_feedback_move_textarea' );
+add_action( 'comment_form_top',		'hw_feedback_move_textarea' );
 ?>

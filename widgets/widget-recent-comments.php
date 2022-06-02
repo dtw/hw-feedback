@@ -68,7 +68,7 @@ echo "<div class='row'>";
 		$individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
 		if ($individual_rating) { ?>
 	  <p class="star-rating p-rating">
-	  	<?php echo feedbackstarrating($individual_rating,array('size' => 'fa-lg'));
+	  	<?php echo hw_feedback_star_rating($individual_rating,array('size' => 'fa-lg'));
 				if ($individual_rating == 1) echo '<span class="screen-reader-text">'.$individual_rating.' star</span>';
 				else echo '<span class="screen-reader-text">'.$individual_rating.' stars</span>';
 			?>

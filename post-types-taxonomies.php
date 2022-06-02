@@ -16,8 +16,8 @@
 /* 1. Create Local Services CUSTOM POST TYPE
 -------------------------------------------------- */
 
-add_action( 'init', 'hw_create_post_type' );
-function hw_create_post_type() {
+add_action( 'init', 'hw_feedback_create_post_type' );
+function hw_feedback_create_post_type() {
   register_post_type( 'local_services',
     array(
 
@@ -53,8 +53,8 @@ function hw_create_post_type() {
 /* 2. Put Local Services on the AT A GLANCE section of the dashboard
 --------------------------------------------------------------------------- */
 
-add_action( 'dashboard_glance_items', 'cpad_at_glance_content_table_end' );
-function cpad_at_glance_content_table_end() {
+add_action( 'dashboard_glance_items', 'hw_feedback_at_glance_content_table_end' );
+function hw_feedback_at_glance_content_table_end() {
     $args = array(
         'public' => true,
         '_builtin' => false
@@ -82,7 +82,7 @@ function cpad_at_glance_content_table_end() {
 		- service types
 ------------------------------------------------------------------ */
 
-function taxonomies_init() {
+function hw_feedback_taxonomies_init() {
 	// for SERVICE TYPES
 	register_taxonomy(
 		'service_types',
@@ -142,7 +142,7 @@ function taxonomies_init() {
 
 
 }
-add_action( 'init', 'taxonomies_init' );
+add_action( 'init', 'hw_feedback_taxonomies_init' );
 
 /* Add default terms to cqc_reg_status taxonomy */
 function hw_feedback_register_default_terms () {
@@ -185,7 +185,7 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
 /* 4. Add ADDRESS AND CONTACT DETAILS META BOX to LOCAL SERVICES edit screen
 --------------------------------------------------------------- */
 
-function hw_add_meta_box() {
+function hw_feedback_add_meta_box() {
 
 		add_meta_box(
 			'hw_services_meta_box',		// Unique ID
@@ -196,12 +196,12 @@ function hw_add_meta_box() {
 			'high'		// Priority
 		);
 }
-add_action( 'add_meta_boxes', 'hw_add_meta_box' );
+add_action( 'add_meta_boxes', 'hw_feedback_add_meta_box' );
 
 
 
 // MOVES THE META BOX above the Post Editor
-function hw_move_meta_box() {
+function hw_feedback_move_meta_box() {
         # Get the globals:
         global $post, $wp_meta_boxes;
 
@@ -212,7 +212,7 @@ function hw_move_meta_box() {
         unset($wp_meta_boxes['post']['hw_services_meta_box']);
     }
 
-add_action('edit_form_after_title', 'hw_move_meta_box');
+add_action('edit_form_after_title', 'hw_feedback_move_meta_box');
 
 
 
@@ -222,7 +222,7 @@ add_action('edit_form_after_title', 'hw_move_meta_box');
  *
  * @param WP_Post $post The object for the current post/page.
  */
-function hw_meta_box_callback( $post ) {
+function hw_feedback_meta_box_callback( $post ) {
 
 	// Add a NONCE field so we can check for it later.
 	wp_nonce_field( 'hw_meta_box', 'hw_meta_box_nonce' );
@@ -233,7 +233,7 @@ function hw_meta_box_callback( $post ) {
 		echo '<label for="hw_services_cqc_location">Location ID </label>';
 		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw_services_cqc_location_alert" role="alert">Save this Service to see updated values from CQC!</div>';
 
-$objcqcapiquery = json_decode(cqcapiquery('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
+$objcqcapiquery = json_decode(hw_feedback_cqc_api_query('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
 
 echo "<br /><h3>API Checks</h3>";
 
@@ -262,15 +262,15 @@ foreach(
     array('hw_services_postcode','Postcode',$objcqcapiquery->postalCode)
   ) as $row
 ) {
-  generatemetaboxformfield($row,$post->ID,'60');
+  hw_feedback_generate_metabox_form_field($row,$post->ID,'60');
 }
 
 
 // CONTACT FIELDS
 echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
-generatemetaboxformfield(array('hw_services_phone','Phone',$objcqcapiquery->mainPhoneNumber),$post->ID,'20');
-generatemetaboxformfield(array('hw_services_website','Website',$objcqcapiquery->website),$post->ID,'30');
+hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',$objcqcapiquery->mainPhoneNumber),$post->ID,'20');
+hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',$objcqcapiquery->website),$post->ID,'30');
 
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
@@ -305,7 +305,7 @@ echo "<br /><br />";
     // print label (with space after)
   	echo '<label for="'.$field.'">'.$label.' </label>';
     // generate metabox radio field
-    generatemetaboxradiofield(array (
+    hw_feedback_generate_metabox_radio_field(array (
       'No rating' => '',
       '1' => 1,
       '2' => 2,
@@ -325,7 +325,7 @@ echo "<br /><br />";
  *
  * @param int $post_id The ID of the post being saved.
  */
-function hw_save_meta_box_data( $post_id ) {
+function hw_feedback_save_meta_box_data( $post_id ) {
 
 	/*
 	 * We need to verify this came from our screen and with proper authorization,
@@ -552,7 +552,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
     if( $column_name == 'rated' ) {
 		$col_rating = get_post_meta( $post_id, 'hw_services_overall_rating', true );
-    if($col_rating > 0){echo '<p>'.feedbackstarrating($col_rating,array('colour' => 'green')).'</p>';}
+    if($col_rating > 0){echo '<p>'.hw_feedback_star_rating($col_rating,array('colour' => 'green')).'</p>';}
 
 	}
 
@@ -617,8 +617,8 @@ add_filter('months_dropdown_results', '__return_empty_array' );
  * @author Mike Hemberger
  * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
  */
-add_action('restrict_manage_posts', 'hw_filter_post_type_by_taxonomy');
-function hw_filter_post_type_by_taxonomy() {
+add_action('restrict_manage_posts', 'hw_feedback_filter_post_type_by_taxonomy');
+function hw_feedback_filter_post_type_by_taxonomy() {
 	global $typenow;
 	$post_type = 'local_services'; // change to your post type
 	$taxonomy  = 'service_types'; // change to your taxonomy
@@ -639,8 +639,8 @@ function hw_filter_post_type_by_taxonomy() {
 /**
  * Filter posts by taxonomy in admin
  */
-add_filter('parse_query', 'hw_convert_id_to_term_in_query');
-function hw_convert_id_to_term_in_query($query) {
+add_filter('parse_query', 'hw_feedback_convert_id_to_term_in_query');
+function hw_feedback_convert_id_to_term_in_query($query) {
 	global $pagenow;
 	$post_type = 'local_services'; // change to your post type
 	$taxonomy  = 'service_types'; // change to your taxonomy
@@ -653,7 +653,7 @@ function hw_convert_id_to_term_in_query($query) {
 
 /* 9. Add a function to query CQC reg status and update service
 --------------------------------------------------------- */
-function check_cqc_registration_status() {
+function hw_feedback_check_cqc_registration_status() {
 
   global $post;
 
@@ -672,7 +672,7 @@ function check_cqc_registration_status() {
       // get location id
       $location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
       // call API
-      $api_response = json_decode(cqcapiquery('locations',$location_id));
+      $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
       // get current reg status from meta data or nothing
       //$reg_status = get_post_meta( $post->ID, 'hw_services_cqc_reg_status', true ) || '';
       // get post tax terms as names
@@ -701,6 +701,6 @@ if ( ! wp_next_scheduled( 'cqc_reg_check_cron_job' ) ) {
     // set the first run 2 minutes from "now"
     wp_schedule_event( time()+120, 'weekly', 'cqc_reg_check_cron_job' );
 }
-add_action( 'cqc_reg_check_cron_job', 'check_cqc_registration_status' );
+add_action( 'cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
 
 ?>

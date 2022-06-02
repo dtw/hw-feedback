@@ -11,7 +11,7 @@
  * @param array $post
  */
 
-  function getrating($post) {
+  function hw_feedback_get_rating($post) {
     // Set TOTAL and COUNT to zero
     $rating['total'] = 0;
     $rating['count'] = 0;
