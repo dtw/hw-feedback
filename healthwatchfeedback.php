@@ -16,6 +16,9 @@ include('taxonomy-icons.php');
 
 include('feedback-form.php');
 
+// DASHBOARD
+require_once('includes/dash.php');
+
 	// include('widgets/widget-list-services.php');
 
 // Include widgets
