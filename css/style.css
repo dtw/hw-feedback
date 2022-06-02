@@ -135,3 +135,41 @@
 .api-output {
 	padding-bottom: 0.5rem;
 }
+
+
+/* Dashboard box */
+
+.dashboard_local_services_flex-container {
+  display: flex;
+	margin-bottom: 0.5rem;
+}
+
+.count_label {
+  text-align: left;
+  width: 40%;
+}
+
+.total_value,
+.count_value {
+  text-align: right;
+  width: 30%;
+}
+
+.dashboard_local_services_header {
+	font-weight: 600;
+}
+
+#dashboard_local_services_header {
+  border-bottom: 1px solid #c3c4c7;
+  padding-bottom: 3px;
+	margin-bottom: 2px;
+}
+
+#dashboard_local_services_footer {
+  padding-top: 3px;
+  border-top: 1px solid #c3c4c7;
+}
+
+#count_label_footer {
+  font-weight: 600;
+}
