@@ -535,15 +535,14 @@ function bs_local_services_table_content( $column_name, $post_id ) {
     }
 
     if( $column_name == 'cqc_location' ) {
-        $cqc_location = get_post_meta( $post_id, 'hw_services_cqc_location', true );
+        $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
         $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
         if ($tax_terms[0] == 'Not registered'){
           echo "-";
         } else if ($tax_terms[0] != 'Registered') {
-          echo '<a href="https://www.cqc.org.uk/location/' . $cqc_location . '?referer=HW_BUCKS" target="_blank">' . $cqc_location . '</a>';
+          echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
         } else {
-          echo $col_cqc_reg_status;
           echo $tax_terms[0];
         }
 		echo "<br />";
