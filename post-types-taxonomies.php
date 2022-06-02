@@ -190,7 +190,7 @@ function hw_feedback_add_meta_box() {
 		add_meta_box(
 			'hw_services_meta_box',		// Unique ID
 			'Additional fields',		// Title
-			'hw_meta_box_callback',		// Callback function
+			'hw_feedback_meta_box_callback',		// Callback function
 			'local_services',	// Which custom post type?
 			'moved',	// Placement on editing page
 			'high'		// Priority
@@ -458,7 +458,7 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 
 }
 
-add_action( 'save_post', 'hw_save_meta_box_data' );
+add_action( 'save_post', 'hw_feedback_save_meta_box_data' );
 
 
 
