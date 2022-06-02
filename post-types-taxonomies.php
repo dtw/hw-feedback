@@ -150,6 +150,7 @@ function hw_feedback_register_default_terms () {
   wp_insert_term('Deregistered','cqc_reg_status', array('description'=>'Deregistered with CQC', 'slug' => 'deregistered'));
   wp_insert_term('Not registered','cqc_reg_status', array('description'=>'Not registered with CQC', 'slug' => 'not-registered'));
   wp_insert_term('Not applicable','cqc_reg_status', array('description'=>'Not required to register with CQC', 'slug' => 'not-applicable'));
+  wp_insert_term('Closed','cqc_reg_status', array('description'=>'No longer registered with CQC', 'slug' => 'closed'));
 }
 
 add_action('wp_loaded', 'hw_feedback_register_default_terms');
