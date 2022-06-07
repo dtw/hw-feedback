@@ -108,7 +108,7 @@ function hw_feedback_taxonomies_init() {
         'manage_terms' => 'activate_plugins',
         'edit_terms' => 'activate_plugins',
         'delete_terms' => 'activate_plugins',
-        'assign_terms' => 'post',
+        'assign_terms' => 'edit_posts',
       ),
 		)
 	);
