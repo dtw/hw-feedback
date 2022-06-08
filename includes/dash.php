@@ -12,9 +12,9 @@
 add_action('wp_dashboard_setup', 'hw_feedback_custom_dashboard_widgets');
 
 function hw_feedback_custom_dashboard_widgets() {
-global $wp_meta_boxes;
+  global $wp_meta_boxes;
 
-wp_add_dashboard_widget('hw_feedback_local_services_widget', 'Deregistered Local Services', 'hw_feedback_custom_dashboard_local_services');
+  wp_add_dashboard_widget('hw_feedback_local_services_widget', 'Deregistered Local Services', 'hw_feedback_custom_dashboard_local_services');
 }
 
 function hw_feedback_custom_dashboard_local_services() {
