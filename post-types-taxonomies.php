@@ -671,8 +671,8 @@ function hw_feedback_check_cqc_registration_status() {
       if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
-          // is it different from the current status
-          if ( $api_response->registrationStatus != $tax_terms[0] ) {
+          // is it different from the current status AND NOT Archived
+          if ( $api_response->registrationStatus != $tax_terms[0] && $tax_terms[0] != 'Archived') {
             // update the meta field
             update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
             // set new terms - takes names of terms not slugs...
