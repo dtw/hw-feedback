@@ -92,4 +92,4 @@ if ( get_post_meta( $id, 'hw_services_overall_rating', true ) )  { ?>
 <?php return ob_get_clean(); ?>
 <? }
 
-add_shortcode( 'ratings', 'hw_shortcode_ratings_block' ); ?>
+add_shortcode( 'ratings', 'hw_feedback_shortcode_ratings_block' ); ?>
