@@ -61,4 +61,14 @@ function hw_feedback_custom_dashboard_local_services() {
   echo '</div>';
 }
 
+/* 2. Tidy
+------------------------------------------------------------------------------ */
+
+// Remove meta boxes
+function hw_feedback_remove_meta_boxes() {
+	remove_meta_box( 'postcustom' , 'local_services' , 'normal' );
+	remove_meta_box( 'commentstatusdiv' , 'local_services' , 'normal' );
+}
+add_action( 'admin_menu' , 'hw_feedback_remove_meta_boxes' );
+
 ?>
