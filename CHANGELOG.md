@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0 rc1] - 2021-06-09
+### Added
+- function to query CQC API to get location information
+- add button to copy data from API into local_service in edit screen
+- function and cronjob to update cqc_reg_status from CQC API
+- new taxonomy for cqc_reg_status, available terms are Registered, Deregistered, Not registered, Not applicable and Archived.
+- new dashboard widget show cqc_reg_status by local_services
+
+
+### Changed
+- show updated information in CQC Location column in admin
+- mask phone numbers in Contact column
+- major changes to edit screen for local_services including: improved generation, reordered fields, show info from CQC API,
+- enqueue copy_civicrm_subject_code to only run in admin
+- new labels on local_services taxonomy
+- The Great Function Rename 2022 (renamed functions in line with plugin name)
+
+### Removed
+- don't show County in Contact column in admin
+
 ## [1.9] - 2021-11-03
 ### Added
 - column in comment admin to identify comments from NHS subnet
