@@ -679,6 +679,8 @@ function hw_feedback_check_cqc_registration_status() {
           // set new terms - takes names of terms not slugs...
           wp_set_post_terms( $post->ID, 'Not Registered' , 'cqc_reg_status', false );
         }
+      } else {
+        wp_set_post_terms( $post->ID, 'Not applicable' , 'cqc_reg_status', false );
       }
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
