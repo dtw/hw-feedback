@@ -541,19 +541,22 @@ function bs_local_services_table_content( $column_name, $post_id ) {
     if( $column_name == 'cqc_location' ) {
         // get location id
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
-        // get post tax terms as names
-        $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
-        // some error checks
-        if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
-          if ($tax_terms[0] == 'Not registered'){
-            echo "-";
-          } else if ($tax_terms[0] != 'Registered') {
-            echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
+        // check there is location_id
+        if ( ! empty( $location_id ) || $location_id != '') {
+          // get post tax terms as names
+          $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
+          // some error checks
+          if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
+            if ($tax_terms[0] != 'Registered') {
+              echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
+            } else {
+              echo $tax_terms[0];
+            }
           } else {
-            echo $tax_terms[0];
+            echo $location_id;
           }
         } else {
-          echo $location_id;
+          echo '-';
         }
 		echo "<br />";
 
