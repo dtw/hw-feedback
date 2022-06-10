@@ -677,7 +677,7 @@ function hw_feedback_check_cqc_registration_status() {
         // otherwise, it has a location id locally but that is not listed by CQC
         } else {
           // set new terms - takes names of terms not slugs...
-          wp_set_post_terms( $post->ID, 'Not Registered' , 'cqc_reg_status', false );
+          wp_set_post_terms( $post->ID, 'Not registered' , 'cqc_reg_status', false );
         }
       } else {
         wp_set_post_terms( $post->ID, 'Not applicable' , 'cqc_reg_status', false );
