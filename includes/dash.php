@@ -32,15 +32,18 @@ function hw_feedback_custom_dashboard_local_services() {
       'post_type' => 'local_services',
       'posts_per_page' => -1,
       'tax_query' => array(
+        'relation' => 'AND',
         array(
           'taxonomy' => 'service_types',
           'field'    => 'slug',
           'terms'    => $term->slug,
+        ),
+        array(
+          'taxonomy' => 'cqc_reg_status',
+          'field'    => 'slug',
+          'terms'    => 'deregistered',
         )
-      ),
-      'meta_key' => 'hw_services_cqc_reg_status',
-      'meta_value' => 'Deregistered',
-      'meta_operator' => '='
+      )
     );
     $query = new WP_Query($args);
     $count = $query->post_count;
