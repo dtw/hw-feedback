@@ -542,7 +542,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
         // get location id
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         // this will be deleted
-        $col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
+        //$col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
         // some error checks
@@ -663,18 +663,14 @@ function hw_feedback_check_cqc_registration_status() {
       $location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
       // call API
       $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
-      // get current reg status from meta data or nothing
-      //$reg_status = get_post_meta( $post->ID, 'hw_services_cqc_reg_status', true ) || '';
-      // get post tax terms as names
-      $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" ));
+      // get post tax terms as names or nothing
+      $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" )) || '';
       // some error checks
       if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
           if ( $api_response->registrationStatus != $tax_terms[0] && $tax_terms[0] != 'Archived') {
-            // update the meta field
-            update_post_meta( $post->ID, 'hw_services_cqc_reg_status', sanitize_text_field($api_response->registrationStatus) );
             // set new terms - takes names of terms not slugs...
             wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
           }
