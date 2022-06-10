@@ -541,8 +541,6 @@ function bs_local_services_table_content( $column_name, $post_id ) {
     if( $column_name == 'cqc_location' ) {
         // get location id
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
-        // this will be deleted
-        //$col_cqc_location = get_post_meta( $post_id, 'hw_services_cqc_reg_status', true );
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
         // some error checks
