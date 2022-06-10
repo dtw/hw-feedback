@@ -666,7 +666,7 @@ function hw_feedback_check_cqc_registration_status() {
       // get post tax terms as names or nothing
       $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" )) || '';
       // some error checks
-      if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
+      if ( ! empty( $location_id ) || $location_id != '') {
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
