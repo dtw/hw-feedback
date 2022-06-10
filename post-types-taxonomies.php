@@ -661,12 +661,12 @@ function hw_feedback_check_cqc_registration_status() {
     foreach($services as $post) : setup_postdata($post);
       // get location id
       $location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
-      // call API
-      $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
-      // get post tax terms as names or nothing
-      $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" )) || '';
       // some error checks
       if ( ! empty( $location_id ) || $location_id != '') {
+        // call API
+        $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
+        // get post tax terms as names or nothing
+        $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" )) || '';
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
