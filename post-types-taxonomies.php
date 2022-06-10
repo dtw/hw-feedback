@@ -555,7 +555,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
             echo $tax_terms[0];
           }
         } else {
-          echo '#Error!';
+          echo $location_id;
         }
 		echo "<br />";
 
