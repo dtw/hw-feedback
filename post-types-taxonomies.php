@@ -670,7 +670,7 @@ function hw_feedback_check_cqc_registration_status() {
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
-          if ( $api_response->registrationStatus != $tax_terms[0] && $tax_terms[0] != 'Archived') {
+          if ( $tax_terms[0]  != $api_response->registrationStatus && $tax_terms[0] != 'Archived') {
             // set new terms - takes names of terms not slugs...
             wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
           }
