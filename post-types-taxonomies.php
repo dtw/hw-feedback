@@ -234,8 +234,6 @@ function hw_feedback_meta_box_callback( $post ) {
   echo "<h2><strong>CQC Information</strong></h2><br />";
   // CQC LOCATION CODE
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
-		echo '<label for="hw_services_cqc_location">Location ID </label>';
-		echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw_services_cqc_location_alert" role="alert">Save this Service to see updated values from CQC!</div>';
 
 $objcqcapiquery = json_decode(hw_feedback_cqc_api_query('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
 
@@ -253,6 +251,8 @@ if ($objcqcapiquery->registrationStatus == 'Deregistered'){
   echo '<div class="api-output"><div class="api-output-label">Deregistration Date:</div><div class="api-output-value">'.$objcqcapiquery->deregistrationDate.'</div></div>';
   echo '<p><a href="https://www.cqc.org.uk/location/'. $objcqcapiquery->locationId . '?referer=widget4" target="_blank">View Location on CQC website</a>';
 }
+	echo '<label for="hw_services_cqc_location">Location ID </label>';
+	echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw_services_cqc_location_alert" role="alert">Save this Service to see updated values from CQC!</div>';
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";
@@ -681,7 +681,6 @@ function hw_feedback_check_cqc_registration_status() {
       }
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
-
     endforeach;
 
 }
