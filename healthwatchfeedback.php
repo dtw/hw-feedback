@@ -159,4 +159,27 @@ function hw_feedback_add_metabox_classes($classes) {
 
 add_filter('postbox_classes_local_services_hw_services_meta_box','hw_feedback_add_metabox_classes');
 
+/**
+ * Activate the plugin.
+ */
+function hw_feedback_activate() {
+  /* Add cron job to run check_cqc_registration_status
+  --------------------------------------------------------- */
+  if ( ! wp_next_scheduled( 'hw_feedback_cqc_reg_check_cron_job' ) ) {
+      // set the first run 2 minutes from "now"
+      wp_schedule_event( time()+120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job' );
+  }
+}
+register_activation_hook( __FILE__, 'hw_feedback_activate' );
+
+/**
+ * Deactivate the plugin.
+ */
+function hw_feedback_deactivate() {
+    // Remove the cronjob
+    wp_clear_scheduled_hook('hw_feedback_cqc_reg_check_cron_job' );
+}
+register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
+register_uninstall_hook( __FILE__, 'hw_feedback_deactivate' );
+
 ?>
