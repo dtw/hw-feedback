@@ -234,25 +234,24 @@ function hw_feedback_meta_box_callback( $post ) {
   echo "<h2><strong>CQC Information</strong></h2><br />";
   // CQC LOCATION CODE
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
-
-$objcqcapiquery = json_decode(hw_feedback_cqc_api_query('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
-
-echo "<br /><h3>API Checks</h3>";
-
-$apioutputarray = array('Registration Status'=>$objcqcapiquery->registrationStatus,'Registration Date'=>$objcqcapiquery->registrationDate);
-//'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
-
-foreach($apioutputarray as $x => $val) {
-  echo '<div class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$val.'</div></div>';
-}
-//echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
-//echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
-if ($objcqcapiquery->registrationStatus == 'Deregistered'){
-  echo '<div class="api-output"><div class="api-output-label">Deregistration Date:</div><div class="api-output-value">'.$objcqcapiquery->deregistrationDate.'</div></div>';
-  echo '<p><a href="https://www.cqc.org.uk/location/'. $objcqcapiquery->locationId . '?referer=widget4" target="_blank">View Location on CQC website</a>';
-}
 	echo '<label for="hw_services_cqc_location">Location ID </label>';
 	echo '<input type="text" id="hw_services_cqc_location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw_services_cqc_location_alert" role="alert">Save this Service to see updated values from CQC!</div>';
+  // only check API and show fields if there is a location id
+  if ($value != '') {
+    $objcqcapiquery = json_decode(hw_feedback_cqc_api_query('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
+    echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
+    $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Registration Date'=>'registrationDate');
+    //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
+    foreach($apioutputarray as $x => $val) {
+      echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
+    }
+    //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
+    //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
+    if ($objcqcapiquery->registrationStatus == 'Deregistered'){
+      echo '<div class="api-output"><div class="api-output-label">Deregistration Date:</div><div class="api-output-value">'.$objcqcapiquery->deregistrationDate.'</div></div>';
+      echo '<p><a href="https://www.cqc.org.uk/location/'. $objcqcapiquery->locationId . '?referer=widget4" target="_blank">View Location on CQC website</a>';
+    }
+  }
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";
@@ -687,10 +686,6 @@ function hw_feedback_check_cqc_registration_status() {
 
 /* 10. Add cron job to run check_cqc_registration_status
 --------------------------------------------------------- */
-if ( ! wp_next_scheduled( 'hw_feedback_cqc_reg_check_cron_job' ) ) {
-    // set the first run 2 minutes from "now"
-    wp_schedule_event( time()+120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job' );
-}
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
 
 ?>
