@@ -136,6 +136,15 @@
 	padding-bottom: 0.5rem;
 }
 
+/*
+#api-output-name.api-output div.api-output-value::after {
+	content: "\f14c ";
+	font-family: "Dashicons";
+	font-size: 1rem;
+	padding-left: .5rem;
+	vertical-align: middle;
+}
+*/
 
 /* Dashboard box */
 
