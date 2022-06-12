@@ -652,29 +652,29 @@ function hw_feedback_check_cqc_registration_status() {
   );
 
   $services = get_posts( $args );
-    foreach($services as $post) : setup_postdata($post);
+    foreach($services as $hw_feedback_post) : setup_postdata($hw_feedback_post);
       // get location id
-      $location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
+      $location_id = get_post_meta( $hw_feedback_post->ID, 'hw_services_cqc_location', true );
       // some error checks
       if ( ! empty( $location_id ) || $location_id != '') {
         // call API
         $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
         // get post tax terms as names
-        $tax_terms = wp_get_post_terms( $post->ID, 'cqc_reg_status', array( "fields" => "names" ));
+        $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
           if ( $tax_terms[0]  != $api_response->registrationStatus && $tax_terms[0] != 'Archived') {
             // set new terms - takes names of terms not slugs...
-            wp_set_post_terms( $post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+            wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
           }
         // otherwise, it has a location id locally but that is not listed by CQC
         } else {
           // set new terms - takes names of terms not slugs...
-          wp_set_post_terms( $post->ID, 'Not registered' , 'cqc_reg_status', false );
+          wp_set_post_terms( $hw_feedback_post->ID, 'Not registered' , 'cqc_reg_status', false );
         }
       } else {
-        wp_set_post_terms( $post->ID, 'Not applicable' , 'cqc_reg_status', false );
+        wp_set_post_terms( $hw_feedback_post->ID, 'Not applicable' , 'cqc_reg_status', false );
       }
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
