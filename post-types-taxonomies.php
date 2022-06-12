@@ -644,10 +644,8 @@ function hw_feedback_convert_id_to_term_in_query($query) {
 /* 9. Add a function to query CQC reg status and update service
 --------------------------------------------------------- */
 function hw_feedback_check_cqc_registration_status() {
-
   global $post;
-
-// get local_services
+  // get local_services
   $args = array(
     'post_type'       => 'local_services',
     'posts_per_page'  => -1,
