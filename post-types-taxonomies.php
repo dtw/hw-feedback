@@ -687,11 +687,47 @@ function hw_feedback_check_cqc_registration_status() {
     endforeach;
     // restore the hw_feedback_check_cqc_registration_status_single function hook
     //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+}
 
+function hw_feedback_check_cqc_registration_status_single() {
+  $single_local_service = get_post($post_id);
+  // get location id
+  $location_id = get_post_meta( $single_local_service->ID, 'hw_services_cqc_location', true );
+  // some error checks
+  if ( ! empty( $location_id ) || $location_id != '') {
+    // call API
+    $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
+    // get post tax terms as names
+    $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
+    // if there is a reg status from the api
+    if ( $api_response->registrationStatus ) {
+      // is it different from the current status AND NOT Archived
+      if ( $tax_terms[0]  != $api_response->registrationStatus && $tax_terms[0] != 'Archived') {
+        // set new terms - takes names of terms not slugs...
+        wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+      }
+    // otherwise, it has a location id locally but that is not listed by CQC
+    } else {
+      // set new terms - takes names of terms not slugs...
+      wp_set_post_terms( $single_local_service->ID, 'Not registered' , 'cqc_reg_status', false );
+    }
+  } else {
+    wp_set_post_terms( $single_local_service->ID, 'Not applicable' , 'cqc_reg_status', false );
+  }
 }
 
 /* 10. Link cron job to function check_cqc_registration_status
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+
+/* Run CQC update when local_services are saved */
+
+function hw_feedback_save_local_services_meta($meta_id, $object_id, $meta_key, $_meta_value) {
+  if ($meta_key == 'hw_services_cqc_location') {
+    hw_feedback_check_cqc_registration_status_single();
+  }
+}
+
+add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
 ?>
