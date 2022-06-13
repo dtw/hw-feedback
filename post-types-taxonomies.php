@@ -644,6 +644,12 @@ function hw_feedback_convert_id_to_term_in_query($query) {
 /* 9. Add a function to query CQC reg status and update service
 --------------------------------------------------------- */
 function hw_feedback_check_cqc_registration_status() {
+
+  /* unhook the hw_feedback_check_cqc_registration_status_single function
+  not sure but this might start an infinite loop otherwise
+  error_log('hw_feedback: unhook the hw_feedback_check_cqc_registration_status_single function');
+  remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta'); */
+
   global $post;
   // get local_services
   $args = array(
@@ -679,6 +685,8 @@ function hw_feedback_check_cqc_registration_status() {
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
     endforeach;
+    // restore the hw_feedback_check_cqc_registration_status_single function hook
+    //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
 }
 
