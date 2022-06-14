@@ -667,10 +667,14 @@ function hw_feedback_check_cqc_registration_status() {
         $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
+        // if service is Archived (which is done manually) bail
+        if ( $tax_terms[0] == 'Archived' ) {
+          return;
+        }
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
           // is it different from the current status AND NOT Archived
-          if ( $tax_terms[0]  != $api_response->registrationStatus && $tax_terms[0] != 'Archived') {
+          if ( $tax_terms[0]  != $api_response->registrationStatus) {
             // set new terms - takes names of terms not slugs...
             wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
           }
@@ -699,10 +703,14 @@ function hw_feedback_check_cqc_registration_status_single() {
     $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
     // get post tax terms as names
     $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
+    // if service is Archived (which is done manually) bail
+    if ( $tax_terms[0] == 'Archived' ) {
+      return;
+    }
     // if there is a reg status from the api
     if ( $api_response->registrationStatus ) {
       // is it different from the current status AND NOT Archived
-      if ( $tax_terms[0]  != $api_response->registrationStatus && $tax_terms[0] != 'Archived') {
+      if ( $tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
       }
