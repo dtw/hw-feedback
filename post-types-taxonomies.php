@@ -736,6 +736,8 @@ function hw_feedback_save_local_services_meta($meta_id, $object_id, $meta_key, $
   }
 }
 
+// fires when meta data updated, which is not the same as...
 add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
-
+// fires when meta data is added to a post
+add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 ?>
