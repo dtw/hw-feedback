@@ -7,7 +7,7 @@ function init_hw_enter_and_view() { return register_widget('hw_enter_and_view');
 class hw_enter_and_view extends WP_Widget {
 	/** constructor */
 	function __construct() {
-		parent::WP_Widget(
+		parent::__construct(
 
 			'hw_enter_and_view',
 			$name = 'HW Enter and View',

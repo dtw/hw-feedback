@@ -7,7 +7,7 @@ function init_hw_most_rated() { return register_widget('hw_most_rated'); }
 class hw_most_rated extends WP_Widget {
 	/** constructor */
 	function __construct() {
-		parent::WP_Widget(
+		parent::__construct(
 
 			'hw_most_rated',
 			$name = 'HW Most Rated',

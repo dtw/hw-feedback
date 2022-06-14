@@ -7,7 +7,7 @@ function init_hw_list_categories() { return register_widget('hw_list_categories'
 class hw_list_categories extends WP_Widget {
 	/** constructor */
 	function __construct() {
-		parent::WP_Widget(
+		parent::__construct(
 			'hw_list_categories',
 			$name = 'HW List Service Types',
 			array(
