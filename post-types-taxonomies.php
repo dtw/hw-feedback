@@ -515,15 +515,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
     $col_phone = get_post_meta( $post_id, 'hw_services_phone', true );
     if ($col_phone) {
       echo "<br /><span class='dashicons dashicons-phone' style='font-size: 1rem; width: auto; '></span> <strong>";
-      $col_phone = str_replace(' ', '', $col_phone);
-      $col_phone = str_replace(')', '', $col_phone);
-      $col_phone = str_replace('(', '', $col_phone);
-      if (str_starts_with($col_phone,'020')) {
-        $mask = "%s%s%s %s%s%s%s %s%s%s%s";
-      } else {
-        $mask = "%s%s%s%s%s %s%s%s %s%s%s";
-      }
-      $col_phone = vsprintf($mask, str_split($col_phone));
+      $col_phone = format_telephone(sanitize_telephone($col_phone));
       echo $col_phone; echo "</strong>";
     }
   }
