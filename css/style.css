@@ -182,3 +182,24 @@
 #count_label_footer {
   font-weight: 600;
 }
+
+/* callout-review */
+
+.media.callout-review {
+  border: 1px solid var(--hw-green);
+  background-color: white;
+  border-radius: 3px;
+}
+
+.media.callout-review .city {
+  color: #666;
+  font-weight: 600;
+}
+
+.media.callout-review .media-left .fa-star {
+  color: black;
+}
+
+#content .media.callout-review a[href*="sharepoint"]{
+  padding: 0.6rem 1rem;
+}
