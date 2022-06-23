@@ -31,6 +31,10 @@ include('widgets/widget-most-rated.php');
 include('widgets/widget-enter-and-view.php');
 
 include('widgets/widget-recent-comments.php');
+// WIDGET for displaying a DIC VISIT - moved from scaffold-widget-tweaks
+include('widgets/widget-latest-dic-visit-hwbucks.php');
+// WIDGET for displaying RECENT FEEDBACK - moved from scaffold-widget-tweaks
+include('widgets/widget-recent-feedback-hwbucks.php');
 
 // Add functions
 
