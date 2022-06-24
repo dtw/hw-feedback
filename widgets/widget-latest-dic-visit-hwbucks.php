@@ -44,7 +44,7 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 	 * @param array $instance 	Saved values from database.
 	 */
 	function widget( $args, $instance ) {
-		//extract( $args );
+		extract( $args );
 		$title = $instance['title'] ;
 		$bg_colour = $instance['bg_colour'] ;
 		$border_colour = $instance['border_colour'] ;
@@ -65,10 +65,10 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 		));
 
 		// no use of $before_widget
-		echo '<div class="row latest-dic-visit">';
 		if( $dic_query->have_posts() ) :
 			while($dic_query->have_posts()) : $dic_query->the_post();
 			$dic = get_post(); ?>
+				<div class="row latest-dic-visit">
 					<div class="panel col-md-12 col-sm-12 col-xs-12 panel-<?php echo $bg_colour ?>" id="dignity-in-care"><!-- start panel -->
 						<div class="row">
 						<?php $img_orient = orientation_check(get_post_thumbnail_id($post->post_ID));
