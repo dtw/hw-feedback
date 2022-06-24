@@ -90,6 +90,16 @@
 	margin-bottom: 1.5rem;
 	}
 
+.service-info-container-sm h3 {
+	margin: 0;
+	padding-bottom: .5rem;
+}
+
+.enter-and-view-title {
+	margin:0;
+	padding-bottom: .5rem;
+}
+
 /* Comment editor
 ------------------------------------------------- */
 
@@ -181,6 +191,12 @@
 
 #count_label_footer {
   font-weight: 600;
+}
+
+/* Admin area */
+.admin-dashicons-phone {
+	font-size: 1rem;
+	width: auto;
 }
 
 /* callout-review */

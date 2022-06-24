@@ -63,7 +63,7 @@ class hw_enter_and_view extends WP_Widget {
 
 <div class="col-md-3 col-sm-6 col-xs-12">
 
-<h3 style="margin:0; padding-bottom: .5rem;"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
+<h3 class="enter-and-view-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
 
 			<?php $rating = get_post_meta( $post->ID, 'hw_services_overall_rating', true );
 				echo hw_feedback_star_rating($rating,array('colour' => 'green','size' => 'fa-lg'));

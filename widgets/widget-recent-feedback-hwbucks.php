@@ -158,7 +158,7 @@ class SF_HWBucks_Recent_Feedback_Widget extends WP_Widget {
 							</a>
 				<?php } else { ?>
 					<div class="col-md-9 col-sm-9 col-xs-12 service-info-container-sm">
-						<h3 style="margin: 0; padding-bottom: .5rem;">
+						<h3>
 							<a href="
 								<?php echo get_the_permalink($comment->comment_post_ID); ?>">
 								<?php echo get_the_title($comment->comment_post_ID); ?>

@@ -514,7 +514,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
     $col_phone = get_post_meta( $post_id, 'hw_services_phone', true );
     if ($col_phone) {
-      echo "<br /><span class='dashicons dashicons-phone' style='font-size: 1rem; width: auto; '></span> <strong>";
+      echo "<br /><span class='dashicons dashicons-phone admin-dashicons-phone'></span> <strong>";
       $col_phone = format_telephone(sanitize_telephone($col_phone));
       echo $col_phone; echo "</strong>";
     }
