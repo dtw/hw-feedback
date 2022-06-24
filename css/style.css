@@ -215,3 +215,7 @@
 #content .media.callout-review a[href*="sharepoint"]{
   padding: 0.6rem 1rem;
 }
+
+.panel-star-rating {
+	margin-top: 10px;
+}

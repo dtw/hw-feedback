@@ -105,7 +105,7 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 										echo '<a class="title-link" href="' . get_the_permalink() . '" rel="bookmark">' . $title_link_string . '</a>'
 									?>
 									<p class="panel-excerpt"> <?php echo get_the_excerpt(); ?> </p>
-									<p>
+									<p class="panel-star-rating">
 										<?php $rating = get_post_meta( $dic->ID, 'hw_services_overall_rating', true );
 											echo hw_feedback_star_rating($rating,array('colour' => 'green','size' => 'fa-lg'));
 											if ($rating == 1) echo '<span class="screen-reader-text">'.$rating.' star</span>';
