@@ -46,7 +46,8 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		//extract( $args );
 		$title = $instance['title'] ;
-		$panel_colour = $instance['panel_colour'] ;
+		$bg_colour = $instance['bg_colour'] ;
+		$border_colour = $instance['border_colour'] ;
 
 		// The Query - gets the first service with a hw_services_overall_rating greater than or equal to 1
 		$dic_query = new WP_Query(array(
@@ -68,8 +69,8 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 		if( $dic_query->have_posts() ) :
 			while($dic_query->have_posts()) : $dic_query->the_post();
 			$dic = get_post(); ?>
-				<div class="panel col-md-12 col-sm-12 col-xs-12 panel-<?php echo $panel_colour ?>" id="dignity-in-care"><!-- start panel -->
-					<div class="row">
+					<div class="panel col-md-12 col-sm-12 col-xs-12 panel-<?php echo $bg_colour ?>" id="dignity-in-care"><!-- start panel -->
+						<div class="row">
 						<?php $img_orient = orientation_check(get_post_thumbnail_id($post->post_ID));
 						if ( $img_orient == 'ls') {
 							echo '<!--ls--><div class="col-md-4 col-sm-6 hidden-xs panel-icon-left">';
@@ -81,7 +82,7 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 						?>
 							<a class="img-anchor" href="
 								<?php the_permalink(); ?>" rel="bookmark">
-								<?php the_post_thumbnail('medium', array('class' => 'panel-icon-img')); ?>
+								<?php the_post_thumbnail('medium', array('class' => 'panel-icon-img border-colour-'.$border_colour)); ?>
 							</a>
 						</div>
 						<?php if ( $img_orient == 'ls') {
@@ -135,27 +136,46 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = wp_strip_all_tags( $new_instance['title'] );
-		$instance['panel_colour'] = wp_strip_all_tags( $new_instance['panel_colour'] );
+		$instance['bg_colour'] = wp_strip_all_tags( $new_instance['bg_colour'] );
+		$instance['border_colour'] = wp_strip_all_tags( $new_instance['border_colour'] );
 		return $instance;
 	}
 	function form( $instance ) {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : 'Latest Dignity in Care visit';
-		$panel_colour = ! empty( $instance['panel_colour'] ) ? $instance['panel_colour'] : 'green';
+		$bg_colour = ! empty( $instance['bg_colour'] ) ? $instance['bg_colour'] : 'teal';
+		$border_colour = ! empty( $instance['border_colour'] ) ? $instance['border_colour'] : 'none';
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Content title:</label>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('panel_colour'); ?>">Panel colour:
-				<select class='widefat' id="<?php echo $this->get_field_id('panel_colour'); ?>"
-						 name="<?php echo $this->get_field_name('panel_colour'); ?>" type="text">
+			<label for="<?php echo $this->get_field_id('bg_colour'); ?>">Background colour:
+				<select class='widefat' id="<?php echo $this->get_field_id('bg_colour'); ?>"
+						 name="<?php echo $this->get_field_name('bg_colour'); ?>" type="text">
 					<?php
 					/* This array and loop generates the rows for the dropdown menu. Blue results in panel-blue. Matching styles required in CSS */
-					$colourArray = ["Grey", "Orange", "Blue", "Green", "Pink", "Turquoise"];
+					$colourArray = ["Light-Blue", "Pink", "Gold", "Teal"];
 						foreach ($colourArray as $colour)  {
 							echo "<option value='" . strtolower($colour) . "'";
-							echo ($panel_colour==strtolower($colour))?'selected':'';
+							echo ($bg_colour==strtolower($colour))?'selected':'';
+							echo ">" . $colour . "</option>";
+						}
+					?>
+				</select>
+			</label>
+		</p>
+		<!-- Image border colour -->
+		<p>
+			<label for="<?php echo $this->get_field_id('border_colour'); ?>">Border colour:
+				<select class='widefat' id="<?php echo $this->get_field_id('border_colour'); ?>"
+						 name="<?php echo $this->get_field_name('border_colour'); ?>" type="text">
+					<?php
+					/* This array and loop generates the rows for the dropdown menu. Blue results in panel-blue. Matching styles required in CSS */
+						$colourArray = ["None", "Pink", "Blue", "Gold", "Teal"];
+						foreach ($colourArray as $colour)  {
+							echo "<option value='" . strtolower($colour) . "'";
+							echo ($border_colour==strtolower($colour))?'selected':'';
 							echo ">" . $colour . "</option>";
 						}
 					?>
