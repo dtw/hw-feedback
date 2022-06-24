@@ -100,13 +100,10 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 							</div>
 							<div class="row">
 								<div class="col-md-12 panel-content-right">
-									<span class="city">
-										<a class="title-link" href="
-											<?php the_permalink(); ?>" rel="bookmark">
-											<?php the_title(); ?>
-										</a>
-										<?php $city = get_post_meta( $dic->ID, 'hw_services_city', true ); if ($city) { echo $city; }?>
-									</span>
+									<?php	$city = get_post_meta( $dic->ID, 'hw_services_city', true );
+										$title_link_string = ($city) ? get_the_title() . ' ('.$city.')' : get_the_title();
+										echo '<a class="title-link" href="' . get_the_permalink() . '" rel="bookmark">' . $title_link_string . '</a>'
+									?>
 									<p class="panel-excerpt"> <?php echo get_the_excerpt(); ?> </p>
 									<p>
 										<?php $rating = get_post_meta( $dic->ID, 'hw_services_overall_rating', true );
