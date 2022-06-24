@@ -90,12 +90,8 @@
 	margin-bottom: 1.5rem;
 	}
 
-.service-info-container-sm h3 {
-	margin: 0;
-	padding-bottom: .5rem;
-}
-
-.enter-and-view-title {
+.home .row h3.service-info-container-sm,
+.home .row h3.enter-and-view-title {
 	margin:0;
 	padding-bottom: .5rem;
 }
