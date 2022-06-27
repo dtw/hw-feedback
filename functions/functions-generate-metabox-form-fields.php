@@ -16,11 +16,20 @@
 function hw_feedback_generate_metabox_form_field($array,$id,$size) {
     $value = get_post_meta( $id, $array[0], true );
       echo '<label for="'.$array[0].'">' . $array[1] . ' </label>';
-      echo '<input type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" />';
-      // check there is a value from the api before generating the api fields
+      // check there is a value from the api
       if ($array[2] != '') {
-        //switch to HTML ?><button class="ed_button button button-small" type="button" onclick="update_from_cqc('<?php echo $array[0]?>','<?php echo $array[0]?>_cqc_field')"><= Update</button><input type="text" value="<?php echo $array[2]?>" id="<?php echo $array[0]?>_cqc_field" size="<?php echo $size?>" readonly>
-      <?php } ?>
+        // there is an api value - does it match the existing value?
+        if ($array[2] == $value) {
+          // yes
+          echo '<input type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" /><span class="dashicons dashicons-yes-alt api-match" title="Matches API value" aria-hidden="true"></span><span class="screen-reader-text">Matches API value</span>';
+        } else {
+          // no
+          echo '<input class="no-api-match" type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" />';
+        //switch to HTML ?><button class="ed_button button button-small" type="button" onclick="update_from_cqc('<?php echo $array[0];?>','<?php echo $array[0];?>_cqc_field')"><= Update</button><input type="text" value="<?php echo $array[2];?>" id="<?php echo $array[0];?>_cqc_field" size="<?php echo $size;?>" readonly>
+      <?php }} else {
+        // there is no api value
+        echo '<input type="text" id="'.$array[0].'" name="'.$array[0].'" value="' . esc_attr( $value ) . '" size="' . $size . '" />';
+      } ?>
       <br /><br />
 <?php }
 

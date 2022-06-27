@@ -219,3 +219,8 @@
 .panel-star-rating {
 	margin-top: 10px;
 }
+
+.dashicons.dashicons-yes-alt.api-match {
+	vertical-align: middle;
+	color: green;
+}
