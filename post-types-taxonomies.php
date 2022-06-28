@@ -135,6 +135,7 @@ function hw_feedback_taxonomies_init() {
 			'show_in_nav_menus' => true,
 			'show_in_quick_edit' => false,
 			'show_admin_column' => true,
+      'meta_box_cb' => 'hw_feedback_cqc_reg_status_meta_box_callback',
       'show_tagcloud' => false,
       'capabilities' => array (
         'manage_terms' => 'activate_plugins',
@@ -160,30 +161,44 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
 
 
 
+/**
+ * Prints the hw_cqc_reg_status_meta_box content.
+ *
+ * @param WP_Post $post
+ * @param array $box
+ *
+ * https://codebriefly.com/display-wordpress-custom-taxonomy-dropdown/
+ * I don't fully understand how this works but it does.
+ */
+function hw_feedback_cqc_reg_status_meta_box_callback($post, $box) {
+  $defaults = array('taxonomy' => 'category');
 
+  if (!isset($box['args']) || !is_array($box['args']))
+      $args = array();
+  else
+      $args = $box['args'];
 
+  extract(wp_parse_args($args, $defaults), EXTR_SKIP);
 
+  $tax = get_taxonomy($taxonomy);
+  $selected = wp_get_object_terms($post->ID, $taxonomy, array('fields' => 'ids'));
 
+  // https://codebriefly.com/display-wordpress-custom-taxonomy-dropdown/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //$tax = get_taxonomy('cqc_reg_status');
+  if (current_user_can($tax->cap->edit_terms)) {
+    ?>
+    <select name="<?php echo "tax_input[$taxonomy][]"; ?>" class="widefat">
+      <option value="0"></option>
+      <?php foreach (get_terms($taxonomy, array('hide_empty' => false)) as $term): ?>
+        <option value="<?php echo esc_attr($term->slug); ?>" <?php echo selected($term->term_id, count($selected) >= 1 ? $selected[0] : ''); ?>><?php echo esc_html($term->name); ?></option>
+      <?php endforeach; ?>
+    </select>
+  <?php
+  } else {
+    echo "You don't have permission to edit this";
+  }
+}
 
 
 /* 4. Add ADDRESS AND CONTACT DETAILS META BOX to LOCAL SERVICES edit screen
