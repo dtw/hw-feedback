@@ -264,7 +264,7 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
 /* 4. Add ADDRESS AND CONTACT DETAILS META BOX to LOCAL SERVICES edit screen
 --------------------------------------------------------------- */
 
-function hw_feedback_add_meta_box() {
+function hw_feedback_add_cpt_fields_meta_box() {
 
 		add_meta_box(
 			'hw_services_meta_box',		// Unique ID
@@ -275,7 +275,7 @@ function hw_feedback_add_meta_box() {
 			'high'		// Priority
 		);
 }
-add_action( 'add_meta_boxes', 'hw_feedback_add_meta_box' );
+add_action( 'add_meta_boxes', 'hw_feedback_add_cpt_fields_meta_box' );
 
 
 
