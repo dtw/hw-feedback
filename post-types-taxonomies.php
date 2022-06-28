@@ -189,18 +189,18 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
 /* 4. Add ADDRESS AND CONTACT DETAILS META BOX to LOCAL SERVICES edit screen
 --------------------------------------------------------------- */
 
-function hw_feedback_add_meta_box() {
+function hw_feedback_add_cpt_fields_meta_box() {
 
 		add_meta_box(
 			'hw_services_meta_box',		// Unique ID
 			'Additional fields',		// Title
-			'hw_feedback_meta_box_callback',		// Callback function
+			'hw_feedback_cpt_fields_meta_box_callback',		// Callback function
 			'local_services',	// Which custom post type?
 			'moved',	// Placement on editing page
 			'high'		// Priority
 		);
 }
-add_action( 'add_meta_boxes', 'hw_feedback_add_meta_box' );
+add_action( 'add_meta_boxes', 'hw_feedback_add_cpt_fields_meta_box' );
 
 
 
@@ -226,7 +226,7 @@ add_action('edit_form_after_title', 'hw_feedback_move_meta_box');
  *
  * @param WP_Post $post The object for the current post/page.
  */
-function hw_feedback_meta_box_callback( $post ) {
+function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 
 	// Add a NONCE field so we can check for it later.
 	wp_nonce_field( 'hw_meta_box', 'hw_meta_box_nonce' );
