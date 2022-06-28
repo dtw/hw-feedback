@@ -352,17 +352,8 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 	}
 
 	// Check the user's PERMISSIONS.
-	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
-
-		if ( ! current_user_can( 'edit_page', $post_id ) ) {
-			return;
-		}
-
-	} else {
-
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
+	if ( ! current_user_can( 'edit_page', $post_id ) ) {
+		return;
 	}
 
 
