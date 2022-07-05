@@ -14,9 +14,9 @@ async function update_from_cqc($target, $source) {
 }
 
 jQuery(document).ready(function ($) {
-  $("#hw_services_cqc_location").change(function(){
-    if ($("#hw_services_cqc_location").value != ''){
-      $("#hw_services_cqc_location_alert").css("display", "inline-block");
+  $("#hw-services-cqc-location").change(function(){
+    if ($("#hw-services-cqc-location").value != ''){
+      $("#hw-services-cqc-location-alert").css("display", "inline-block");
     }
   });
 });
