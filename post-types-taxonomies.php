@@ -182,11 +182,36 @@ add_action( 'init', 'hw_feedback_taxonomies_init' );
 
 /* Add default terms to cqc_reg_status taxonomy */
 function hw_feedback_register_default_terms () {
+  // cqc_reg_status
   wp_insert_term('Registered','cqc_reg_status', array('description'=>'Registered with CQC', 'slug' => 'registered'));
   wp_insert_term('Deregistered','cqc_reg_status', array('description'=>'Deregistered with CQC', 'slug' => 'deregistered'));
   wp_insert_term('Not registered','cqc_reg_status', array('description'=>'Not registered with CQC', 'slug' => 'not-registered'));
   wp_insert_term('Not applicable','cqc_reg_status', array('description'=>'Not required to register with CQC', 'slug' => 'not-applicable'));
   wp_insert_term('Archived','cqc_reg_status', array('description'=>'No longer registered with CQC', 'slug' => 'archived'));
+  // cqc_inspection_category
+  wp_insert_term('P1','cqc_inspection_category', array('description'=>'Dentists', 'slug' => 'p1'));
+  wp_insert_term('P2','cqc_inspection_category', array('description'=>'GP Practices', 'slug' => 'p2'));
+  wp_insert_term('P3','cqc_inspection_category', array('description'=>'Out of hours', 'slug' => 'p3'));
+  wp_insert_term('P4','cqc_inspection_category', array('description'=>'Prison Healthcare', 'slug' => 'p4'));
+  wp_insert_term('P5','cqc_inspection_category', array('description'=>'Remote clinical advice', 'slug' => 'p5'));
+  wp_insert_term('P6','cqc_inspection_category', array('description'=>'Urgent care services & mobile doctors', 'slug' => 'p6'));
+  wp_insert_term('P7','cqc_inspection_category', array('description'=>'Independent consulting doctors', 'slug' => 'p7'));
+  wp_insert_term('P8','cqc_inspection_category', array('description'=>'Slimming Clinics', 'slug' => 'p8'));
+  wp_insert_term('S1','cqc_inspection_category', array('description'=>'Residential social care', 'slug' => 's1'));
+  wp_insert_term('S2','cqc_inspection_category', array('description'=>'Community based adult social care services', 'slug' => 's2'));
+  wp_insert_term('S3','cqc_inspection_category', array('description'=>'Hospice services', 'slug' => 's3'));
+  wp_insert_term('H1','cqc_inspection_category', array('description'=>'Acute hospital - NHS non-specialist', 'slug' => 'h1'));
+  wp_insert_term('H2','cqc_inspection_category', array('description'=>'Acute hospital - NHS specialist', 'slug' => 'h2'));
+  wp_insert_term('H3','cqc_inspection_category', array('description'=>'Acute hospital - Independent non-specialist', 'slug' => 'h3'));
+  wp_insert_term('H4','cqc_inspection_category', array('description'=>'Acute hospital - Independent specialist', 'slug' => 'h4'));
+  wp_insert_term('H5','cqc_inspection_category', array('description'=>'Ambulance service', 'slug' => 'h5'));
+  wp_insert_term('H6','cqc_inspection_category', array('description'=>'Community health - NHS & Independent', 'slug' => 'h6'));
+  wp_insert_term('H7','cqc_inspection_category', array('description'=>'Community substance misuse', 'slug' => 'h7'));
+  wp_insert_term('H8','cqc_inspection_category', array('description'=>'Mental health - community & hospital - independent', 'slug' => 'h8'));
+  wp_insert_term('H9','cqc_inspection_category', array('description'=>'Mental health - community & residential - NHS', 'slug' => 'h9'));
+  wp_insert_term('H10','cqc_inspection_category', array('description'=>'Residential substance misuse', 'slug' => 'h10'));
+  wp_insert_term('H11','cqc_inspection_category', array('description'=>'Acute Services - Non Hospital', 'slug' => 'h11'));
+  wp_insert_term('H12','cqc_inspection_category', array('description'=>'Hospice services', 'slug' => 'h12'));
 }
 
 add_action('wp_loaded', 'hw_feedback_register_default_terms');
