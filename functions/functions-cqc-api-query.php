@@ -120,3 +120,19 @@ function hw_feedback_inspection_category_to_service_type($inspection_category) {
   }
 }
 
+function hw_feedback_gac_category_to_service_type($gac_category) {
+  $gac_to_type_mapping = array(
+    'Community healthcare service' => 'Community Healthcare service',
+    'Hospice services' => 'Hospice service',
+    'Diagnostic and/or screening service' => 'Diagnostic / screening service', // must be added
+    'Domiciliary care service' => 'Home care agency', // must be added
+    'Supported living service' => 'Supported living service', // must be added
+    'Care home service with nursing' => 'Care home with nursing', // must be added
+    'Care home service without nursing' => 'Care home',
+  );
+  if (key_exists($gac_category,$gac_to_type_mapping)) {
+    return $gac_to_type_mapping[$gac_category];
+  } else {
+    return "Other";
+  }
+}

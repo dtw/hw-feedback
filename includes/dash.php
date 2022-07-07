@@ -123,12 +123,11 @@ function hwbucks_cqc_data_import_tool() {
         echo '<p>'. $location->locationName . ' (<a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
 
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
-
+				$cqc_gac_service_types = $location_api_response->gacServiceTypes[0]->description;
 				// we know what the primary category code is because we chose it
-				$service_types_term = hw_feedback_inspection_category_to_service_type($primary_inspection_category);
+				$service_types_term = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
 				// build an array of these
 				$cqc_inspection_category_terms = array();
-
 				foreach ($location_api_response->inspectionCategories as $inspection_category) {
 					array_push($cqc_inspection_category_terms,$inspection_category->code);
 				}
