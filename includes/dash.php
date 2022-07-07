@@ -23,35 +23,44 @@ function hwbucks_cqc_data_import_tool() {
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
     // create a simple form
     ?>
-    <div id="hwbucks_data_import_tool">
+    <div id="hwbucks-data-import-tool">
       <h1>CQC Data Import Tool</h1>
-      <div id="hwbucks_data_import_tool_instructions">
+      <div id="hwbucks-data-import-tool-instructions">
         <p>This tool adds Locations from the CQC API that are not currently listed as a Local Service in hw-feedback. Note that it ignores Locations that are not marked as "Registered".</p>
-        <p>To reduce system overhead, this tool is limited to adding 10 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
+        <p>To reduce system overhead, by default, this tool is limited to adding 10 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
 				<p>You can choose that category using the drop-down list.</p>
       </div>
-      <div id="hw-feedback-cqc-form" class="hw-feedback-form-row">
+      <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
         <form action="tools.php?page=cqc-data-import" method="post">
-          <label for="hw-feedback-form-inspection_category" class="hw-feedback-form-select">Select Inspection Category</label>
-          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
-          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
-						if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
-							echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'" selected>'.$term->name.' - '.$term->description.'</option>';
+					<div class="hw-feedback-cqc-import-form-row">
+	          <label for="hw-feedback-form-inspection_category">Select Inspection Category</label>
+	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
+	          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
+							if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
+								echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'" selected>'.$term->name.' - '.$term->description.'</option>';
+							} else {
+	            	echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->name.' - '.$term->description.'</option>';
+							}
+	          }
+	          ?>
+	          </select>
+					</div>
+					<div class="hw-feedback-cqc-import-form-row">
+						<label for="hw-feedback-show-matches">Show matched services?</label>
+						<?php if ( $show_matches ) {
+							echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true" checked>';
 						} else {
-            	echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->name.' - '.$term->description.'</option>';
-						}
-          }
-          ?>
-          </select><br>
-					<label for="hw-feedback-show-matches">Show matched services?</label>
-					<?php if ( $show_matches ) {
-						echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true" checked>';
-					} else {
-						echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true">';
-					} ?>
-					<label for="hw-feedback-preview-only">Preview ONLY!</label>
-					<input type="checkbox" id="hw-feedback-preview-only" class="hw-feedback-checkbox" name="hw-feedback-preview-only" value="true" checked>
-          <br><input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
+							echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true">';
+						} ?>
+					</div>
+					<div id="hw-feedback-preview-only-row" class="hw-feedback-cqc-import-form-row">
+						<label for="hw-feedback-preview-only">Preview ONLY!</label>
+						<input type="checkbox" id="hw-feedback-preview-only" class="hw-feedback-checkbox" name="hw-feedback-preview-only" value="true" checked>
+						<div id="hw-feedback-import-alert" role="alert">New locations will be imported to the database!</div>
+					</div>
+          <div class="hw-feedback-cqc-import-form-row">
+						<input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview">
+					</div>
         </form>
       </div>
     </div>
