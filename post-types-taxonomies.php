@@ -253,7 +253,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 	echo '<input type="text" id="hw-services-cqc-location" name="hw-services-cqc-location" value="' . esc-attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" role="alert">Save this Service to see updated values from CQC!</div>';
   // only check API and show fields if there is a location id
   if ($value != '') {
-    $objcqcapiquery = json_decode(hw_feedback_cqc_api_query('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
+    $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
     echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
     $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Registration Date'=>'registrationDate');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
@@ -662,7 +662,7 @@ function hw_feedback_check_cqc_registration_status() {
       // some error checks
       if ( ! empty( $location_id ) || $location_id != '') {
         // call API
-        $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
+        $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
         // if service is Archived (which is done manually) bail
@@ -698,7 +698,7 @@ function hw_feedback_check_cqc_registration_status_single() {
   // some error checks
   if ( ! empty( $location_id ) || $location_id != '') {
     // call API
-    $api_response = json_decode(hw_feedback_cqc_api_query('locations',$location_id));
+    $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
     // get post tax terms as names
     $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
     // if service is Archived (which is done manually) bail

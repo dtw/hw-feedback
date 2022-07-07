@@ -11,7 +11,7 @@
  * @param array $post
  */
 
-  function hw_feedback_cqc_api_query($collection_name,$id) {
+  function hw_feedback_cqc_api_query_by_id($collection_name,$id) {
     // CQC API root
     $url = 'https://api.cqc.org.uk/public/v1';
     $request_url = $url . '/' . $collection_name . '/' . $id . '?partnerCode=HW_BUCKS';
