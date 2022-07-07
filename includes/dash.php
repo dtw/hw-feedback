@@ -35,7 +35,7 @@ function hwbucks_cqc_data_import_tool() {
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
         <form action="tools.php?page=cqc-data-import" method="post">
 					<div class="hw-feedback-cqc-import-form-row">
-	          <label for="hw-feedback-form-inspection_category">Select Inspection Category</label>
+	          <label for="hw-feedback-form-inspection-category">Select Inspection Category</label>
 	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
 	          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
 							if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
