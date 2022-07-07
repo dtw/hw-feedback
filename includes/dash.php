@@ -171,7 +171,7 @@ function hwbucks_cqc_data_import_tool() {
       // Get finish time
       $executionEndTime = microtime(true);
       // The result will be in seconds and milliseconds.
-      $seconds = $executionEndTime - $executionStartTime;
+      $seconds = round($executionEndTime - $executionStartTime,2);
       // Print it out
       echo "<p>This script took $seconds seconds to execute.</p>";
     }
