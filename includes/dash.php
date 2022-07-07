@@ -122,6 +122,45 @@ function hwbucks_cqc_data_import_tool() {
       foreach ($locations as $location) {
         echo '<p>'. $location->locationName . ' (<a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
       }
+/*
+
+We need to use this:
+
+post-new.php?post_title=My+Title&post_type=local_services&excerpt=Short+excerpt
+
+// this adds an action when post-new loads
+add_action( 'load-post-new.php', 'myplugin_post_new' );
+
+// this action
+function myplugin_post_new(){
+    add_action( 'wp_insert_post', 'myplugin_wp_insert_post_default' );
+}
+// which runs this callback
+function myplugin_wp_insert_post_default( $post_id ){
+    //set category
+    $cat_id = $_REQUEST['tax-input']['event-category'];
+    wp_set_post_terms( $post_id, $cat_id, 'event-category' );
+
+    //set tags
+    wp_set_post_tags( $post_id, $_REQUEST['tags']);
+
+    //set custom field
+    add_post_meta( $post_id, 'myplugin_meta_key', $_REQUEST['meta_value'] );
+
+    //set thumbnail and use the one from parent post
+    if (!empty( $_GET['post_parent'] )) {
+        $parent_id = $_GET['post_parent'];
+        $attached_image = get_children( "post_parent=".$parent_id."&post_type=attachment&post_mime_type=image&numberposts=1" );
+        if ($attached_image) {
+            foreach ($attached_image as $attachment_id => $attachment) {
+                set_post_thumbnail($post_id, $attachment_id);
+            }
+        }
+    }
+}
+
+
+*/
 
       // Get finish time
       $executionEndTime = microtime(true);
