@@ -145,6 +145,38 @@ function hw_feedback_taxonomies_init() {
       ),
 		)
 	);
+
+  /* This will create a "hidden" taxonomy that cannot be edited by anyone except Admin (activate_plugins) capabilities */
+    // for REG STATUS
+  	register_taxonomy(
+  		'cqc_inspection_category',
+  		'local_services',
+  		array(
+  			'label' => 'CQC Inspection Category',
+        'labels' => array(
+          'singular_name' => 'Inspection Category',
+          'all_items' => 'All Inspection Categories',
+          'edit_item' => 'Edit Inspection Category',
+          'view_item' => 'View Inspection Category',
+          'update_item' => 'Update Inspection Category',
+          'add_new_item' => 'Add new Inspection Category',
+          'new_item_name' => 'New Inspection Category',
+          'search_items' => 'Search Inspection Category'
+        ),
+  			'rewrite' => array( 'slug' => 'type' ),
+  			'edit_item' => 'Edit CQC Inspection Category',
+  			'show_in_nav_menus' => true,
+  			'show_in_quick_edit' => false,
+  			'show_admin_column' => true,
+        'show_tagcloud' => false,
+        'capabilities' => array (
+          'manage_terms' => 'activate_plugins',
+          'edit_terms' => 'activate_plugins',
+          'delete_terms' => 'activate_plugins',
+          'assign_terms' => 'activate_plugins',
+        ),
+  		)
+  	);
 }
 add_action( 'init', 'hw_feedback_taxonomies_init' );
 
