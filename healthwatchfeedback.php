@@ -18,6 +18,7 @@ include('feedback-form.php');
 
 // ADMIN
 require_once('includes/admin.php');
+include('includes/dash.php');
 
 	// include('widgets/widget-list-services.php');
 
