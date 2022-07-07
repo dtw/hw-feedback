@@ -180,9 +180,8 @@ function hwbucks_cqc_data_import_tool() {
 					$date_stamp = strtotime($location_api_response->registrationDate);
 					// I don't want it to be midnight so - yeah really - this is the easiest way to add eight hours
 					$date_stamp = $date_stamp + (8*(60*60));
-
+					// format as an SQL date
 					$registration_date = date("Y-m-d H:i:s", $date_stamp);
-					// returns: string(19) "2001-09-11 00:00:00"
 
 					$post_arr = array(
 					    'post_title'   => $location_api_response->name,
