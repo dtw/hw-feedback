@@ -19,6 +19,7 @@ function hwbucks_cqc_data_import_tool() {
 	function hwbucks_cqc_data_import_contents() {
 		// save the hw-feedback-form-inspection-category from POST
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : false;
+		$show_matches = isset($_POST['hw-feedback-show-matches']) ? $_POST['hw-feedback-show-matches'] : false;
     // create a simple form
     ?>
     <div id="hwbucks_data_import_tool">
@@ -40,8 +41,14 @@ function hwbucks_cqc_data_import_tool() {
 						}
           }
           ?>
-          </select>
-          <input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
+          </select><br>
+					<label for="hw-feedback-show-matches">Show matched services?</label>
+					<?php if ( $show_matches ) {
+						echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true" checked>';
+					} else {
+						echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true">';
+					} ?>
+          <br><input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
         </form>
       </div>
     </div>
@@ -104,9 +111,11 @@ function hwbucks_cqc_data_import_tool() {
         $result = array_search($our_location_id, array_column($locations, 'locationId'));
         // $result can return empty which PHP can read as [0] - so check it is not empty
         if ($result !== false){
-          //$current_location_name = $locations[$result]->locationName;
-          //$current_location_id = $locations[$result]->locationId;
-          //echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
+					if ( $show_matches === "true" ) {
+	          $current_location_name = $locations[$result]->locationName;
+	          $current_location_id = $locations[$result]->locationId;
+	          echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
+					}
           // count the match
           $matched_count ++;
           // remove the service from $locations
