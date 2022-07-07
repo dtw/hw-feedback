@@ -20,7 +20,7 @@ function hwbucks_cqc_data_import_tool() {
     // create a simple form
     ?>
     <div id="hwbucks_url_tool">
-      <h1>Demographic Survey URL Tool</h1>
+      <h1>CQC Data Import Tool</h1>
       <div id="hwbucks_url_tool_intructions">
         <p>If you need to complete a demographic survey over the phone, the results will need to be linked to a CiviCRM Contact. This tool can be used to generate a link to the demographic survey based on URLs from CiviCRM.</p>
         <p>This tool will work with either:</p>
