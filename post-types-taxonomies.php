@@ -740,6 +740,10 @@ function hw_feedback_check_cqc_registration_status() {
             // update array
             array_push($registration_status_changed,$hw_feedback_post->ID);
           }
+          // update the cqc_inspection_category
+          foreach ($api_response->inspectionCategories as $inspection_category) {
+            wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($inspection_category->code) , 'cqc_inspection_category', true );
+          }
         // otherwise, it has a location id locally but that is not listed by CQC
         } else {
           // set new terms - takes names of terms not slugs...
