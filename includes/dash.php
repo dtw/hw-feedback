@@ -32,7 +32,7 @@ function hwbucks_cqc_data_import_tool() {
           <p>Click the "Reset" button before pasting a new URL.
       </div>
       <div id="hw-feedback-cqc-form" class="hw-feedback-form-row">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <form action="tools.php?page=cqc-data-import" method="post">
           <label for="hw-feedback-form-inspection_category" class="hw-feedback-form-select">Select Inspection Category</label>
           <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
           <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
