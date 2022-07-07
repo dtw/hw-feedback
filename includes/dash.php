@@ -136,14 +136,16 @@ function hwbucks_cqc_data_import_tool() {
 				    'post_status'  => 'draft',
 				    'post_author'  => get_current_user_id(),
 				    'tax_input'    => array(
-				        'service_types'     => $service_types_terms,
-				        'cqc_reg_status_terms' => $cqc_reg_status_terms_terms,
-								'$cqc_inspection_category' => $cqc_inspection_category_terms;
+				        'service_types'     => $service_types_term,
+				        'cqc_reg_status_terms' => $cqc_reg_status_terms,
+								'cqc_inspection_category' => $cqc_inspection_category_terms
 				    ),
 				    'meta_input'   => array(
 				        'hw_services_cqc_location' => $location->locationId,
 				    ),
 				);
+				print_r($post_arr);
+			}
 /*
 
 We need to use this:
