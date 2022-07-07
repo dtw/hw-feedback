@@ -124,10 +124,8 @@ function hwbucks_cqc_data_import_tool() {
 				$cqc_inspection_category_terms = array();
 
 				foreach ($location_api_response->inspectionCategories as $inspection_category) {
-					array_push($cqc_inspection_category_terms,hw_feedback_inspection_category_to_service_type($inspection_category));
-				}
-				if (empty($cqc_inspection_category_terms)) {
-					$final_cqc_inspection_category_terms = "Other";
+					array_push($cqc_inspection_category_terms,$inspection_category->code);
+					$service_types_term = ($inspection_category->primary) ? hw_feedback_inspection_category_to_service_type($inspection_category->code) : "Other";
 				}
 
 				$post_arr = array(
