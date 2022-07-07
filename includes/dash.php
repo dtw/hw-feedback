@@ -19,19 +19,30 @@ function hwbucks_cqc_data_import_tool() {
 	function hwbucks_cqc_data_import_contents() {
     // create a simple form
     ?>
-    <div class="hw-feedback-cqc-update hw-feedback-form">
-        <div class="hw-feedback-form-row">
-          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <label for="hw-feedback-form-inspection_category" class="hw-feedback-form-select">Select Inspection Category</label>
-            <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
-            <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
-              echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->description.'</option>';
-            }
-            ?>
-            </select>
-            <input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
-          </form>
-        </div>
+    <div id="hwbucks_url_tool">
+      <h1>Demographic Survey URL Tool</h1>
+      <div id="hwbucks_url_tool_intructions">
+        <p>If you need to complete a demographic survey over the phone, the results will need to be linked to a CiviCRM Contact. This tool can be used to generate a link to the demographic survey based on URLs from CiviCRM.</p>
+        <p>This tool will work with either:</p>
+          <ul>
+            <li>CiviCRM Client URLs - https://bucks.healthwatchcrm.co.uk/civicrm/contact/view?reset=1&cid=2000</li>
+            <li>CiviCRM Case view URLs - https://bucks.healthwatchcrm.co.uk/civicrm/contact/view/case?reset=1&id=488&cid=2000&action=view&context=case&selectedChild=case&key=somekey</li>
+          </ul>
+          <p>Copy the appropriate URL from your web browser and paste into the "CiviCRM URL" field and click "Generate Link". Once the link is generated, you can click through to the survey.</p>
+          <p>Click the "Reset" button before pasting a new URL.
+      </div>
+      <div id="hw-feedback-cqc-form" class="hw-feedback-form-row">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+          <label for="hw-feedback-form-inspection_category" class="hw-feedback-form-select">Select Inspection Category</label>
+          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
+          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
+            echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->description.'</option>';
+          }
+          ?>
+          </select>
+          <input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
+        </form>
+      </div>
     </div>
     <?php
 
