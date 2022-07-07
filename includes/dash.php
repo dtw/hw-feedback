@@ -42,7 +42,7 @@ function hwbucks_cqc_data_import_tool() {
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $inspection_category = $_POST["hw-feedback-form-inspection-category"];
+      $primary_inspection_category = $_POST["hw-feedback-form-inspection-category"];
       // Get start time
       $executionStartTime = microtime(true);
 
@@ -50,8 +50,8 @@ function hwbucks_cqc_data_import_tool() {
       $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
             'localAuthority' => 'Buckinghamshire',
             'page' => '1',
-            'perPage' => '20',
-            'primaryInspectionCategoryCode' => $inspection_category,
+            'perPage' => '10',
+            'primaryInspectionCategoryCode' => $primary_inspection_category,
             'partnerCode' => 'HW_BUCKS'
           )));
 
@@ -78,7 +78,7 @@ function hwbucks_cqc_data_import_tool() {
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
 
-      echo '<h1>'.$inspection_category.' Locations</h1>';
+      echo '<h1>'.$primary_inspection_category.' Locations</h1>';
       echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
 
       // query all local_services posts regardless of status
@@ -119,13 +119,13 @@ function hwbucks_cqc_data_import_tool() {
 
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 
-				$service_types_term = "Other";
+				// we know what the primary category code is because we chose it
+				$service_types_term = hw_feedback_inspection_category_to_service_type($primary_inspection_category) || "Other";
 				$cqc_reg_status_terms = 'Registered'; // set cqc_reg_status tax to Registered
 				$cqc_inspection_category_terms = array();
 
 				foreach ($location_api_response->inspectionCategories as $inspection_category) {
 					array_push($cqc_inspection_category_terms,$inspection_category->code);
-					$service_types_term = ($inspection_category->primary) ? hw_feedback_inspection_category_to_service_type($inspection_category->code) : "Other";
 				}
 
 				$post_arr = array(
