@@ -95,7 +95,7 @@ function hwbucks_cqc_data_import_tool() {
       );
 
       $services = get_posts( $args );
-      echo '<h2>Matched in hw-feedback</h2>';
+      //echo '<h2>Matched in hw-feedback</h2>';
       // loop the posts
       foreach($services as $hw_feedback_service) : setup_postdata($hw_feedback_service);
         // get the CQC Location ID from post_meta
@@ -113,11 +113,12 @@ function hwbucks_cqc_data_import_tool() {
           unset($locations[$result]);
         }
       endforeach;
-      echo '<p>Matched: ' . $matched_count . '/' . $registered_counter . '</p>';
+      echo '<h3>Matched: ' . $matched_count . '/' . $registered_counter . '</h3>';
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
 
-      echo '<h2>Un-matched / To be added</h2>';
+      //echo '<h2>Un-matched / To be added</h2>';
+			echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
       // loop the remaning $locations
       foreach ($locations as $location) {
         echo '<p>'. $location->locationName . ' (<a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
@@ -147,7 +148,9 @@ function hwbucks_cqc_data_import_tool() {
 				        'hw_services_cqc_location' => $location->locationId,
 				    ),
 				);
+				echo '<p>';
 				print_r($post_arr);
+				echo '</p>';
 			}
       // Get finish time
       $executionEndTime = microtime(true);
