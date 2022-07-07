@@ -20,6 +20,7 @@ function hwbucks_cqc_data_import_tool() {
 		// save the hw-feedback-form-inspection-category from POST
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : false;
 		$show_matches = isset($_POST['hw-feedback-show-matches']) ? $_POST['hw-feedback-show-matches'] : false;
+		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
     // create a simple form
     ?>
     <div id="hwbucks_data_import_tool">
@@ -48,6 +49,8 @@ function hwbucks_cqc_data_import_tool() {
 					} else {
 						echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true">';
 					} ?>
+					<label for="hw-feedback-preview-only">Preview ONLY!</label>
+					<input type="checkbox" id="hw-feedback-preview-only" class="hw-feedback-checkbox" name="hw-feedback-preview-only" value="true" checked>
           <br><input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Submit">
         </form>
       </div>
@@ -130,36 +133,40 @@ function hwbucks_cqc_data_import_tool() {
 			echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
       // loop the remaning $locations
       foreach ($locations as $location) {
-        echo '<p>'. $location->locationName . ' (<a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
-
+        //
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 				$cqc_gac_service_types = $location_api_response->gacServiceTypes[0]->description;
 				// we know what the primary category code is because we chose it
 				$service_types_term = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
-				// build an array of these
-				$cqc_inspection_category_terms = array();
-				foreach ($location_api_response->inspectionCategories as $inspection_category) {
-					array_push($cqc_inspection_category_terms,$inspection_category->code);
-				}
+				// do something different if this is just a preview
+				if ( $preview_only ) {
+					echo '<p>'. $location->locationName . ' (' . $service_types_term . ' - <a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
+				} else {
+					// build an array of these
+					$cqc_inspection_category_terms = array();
+					foreach ($location_api_response->inspectionCategories as $inspection_category) {
+						array_push($cqc_inspection_category_terms,$inspection_category->code);
+					}
 
-				$post_arr = array(
-				    'post_title'   => $location_api_response->name,
-				    'post_content' => '',
-				    'post_status'  => 'draft',
-				    'post_author'  => get_current_user_id(),
-				    'tax_input'    => array(
-				        'service_types'     => $service_types_term,
-								// we removed everything that was not Registered
-				        'cqc_reg_status' => 'Registered',
-								'cqc_inspection_category' => $cqc_inspection_category_terms
-				    ),
-				    'meta_input'   => array(
-				        'hw_services_cqc_location' => $location->locationId,
-				    ),
-				);
-				echo '<p>';
-				print_r($post_arr);
-				echo '</p>';
+					$post_arr = array(
+					    'post_title'   => $location_api_response->name,
+					    'post_content' => '',
+					    'post_status'  => 'draft',
+					    'post_author'  => get_current_user_id(),
+					    'tax_input'    => array(
+					        'service_types'     => $service_types_term,
+									// we removed everything that was not Registered
+					        'cqc_reg_status' => 'Registered',
+									'cqc_inspection_category' => $cqc_inspection_category_terms
+					    ),
+					    'meta_input'   => array(
+					        'hw_services_cqc_location' => $location->locationId,
+					    ),
+					);
+					echo '<p>';
+					print_r($post_arr);
+					echo '</p>';
+				}
 			}
       // Get finish time
       $executionEndTime = microtime(true);
