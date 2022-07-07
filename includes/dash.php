@@ -17,6 +17,8 @@ function hwbucks_cqc_data_import_tool() {
 	add_action( 'admin_menu', 'hwbucks_cqc_data_import_tool' );
 
 	function hwbucks_cqc_data_import_contents() {
+		// save the hw-feedback-form-inspection-category from POST
+		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : false;
     // create a simple form
     ?>
     <div id="hwbucks_data_import_tool">
@@ -31,7 +33,11 @@ function hwbucks_cqc_data_import_tool() {
           <label for="hw-feedback-form-inspection_category" class="hw-feedback-form-select">Select Inspection Category</label>
           <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
           <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
-            echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->name.' - '.$term->description.'</option>';
+						if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
+							echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'" selected>'.$term->name.' - '.$term->description.'</option>';
+						} else {
+            	echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->name.' - '.$term->description.'</option>';
+						}
           }
           ?>
           </select>
@@ -42,7 +48,6 @@ function hwbucks_cqc_data_import_tool() {
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $primary_inspection_category = $_POST["hw-feedback-form-inspection-category"];
       // Get start time
       $executionStartTime = microtime(true);
 
