@@ -166,10 +166,11 @@ function hwbucks_cqc_data_import_tool() {
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 				$cqc_gac_service_types = $location_api_response->gacServiceTypes[0]->description;
 				// we know what the primary category code is because we chose it
-				$service_types_term = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
+				$service_types_term_name = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
+				$service_types_term_id = get_term_by('name',$service_types_term_name,'service_types','ARRAY_A');
 				// do something different if this is just a preview
 				if ( $preview_only ) {
-					echo '<p>'. $location->locationName . ' (' . $service_types_term . ' - <a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
+					echo '<p>'. $location->locationName . ' (' . $service_types_term_name . ' - <a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
 				} else {
 					// build an array of these
 					$cqc_inspection_category_terms = array();
@@ -190,7 +191,7 @@ function hwbucks_cqc_data_import_tool() {
 					    'post_author'  => get_current_user_id(),
 							'post_date' => $registration_date,
 					    'tax_input'    => array(
-					        'service_types'     => $service_types_term,
+					        'service_types'     => $service_types_term_id,
 									// we removed everything that was not Registered
 					        'cqc_reg_status' => 'Registered',
 									'cqc_inspection_category' => $cqc_inspection_category_terms
