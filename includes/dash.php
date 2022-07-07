@@ -18,11 +18,11 @@ function hwbucks_cqc_data_import_tool() {
 
 	function hwbucks_cqc_data_import_contents() {
 		// save the hw-feedback-form-inspection-category from POST
-		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : false;
+		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : 'P1';
 		$show_matches = isset($_POST['hw-feedback-show-matches']) ? $_POST['hw-feedback-show-matches'] : false;
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
 		// default to 10
-		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 10;
+		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
     // create a simple form
     ?>
     <div id="hwbucks-data-import-tool">
