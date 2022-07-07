@@ -116,7 +116,34 @@ function hwbucks_cqc_data_import_tool() {
       // loop the remaning $locations
       foreach ($locations as $location) {
         echo '<p>'. $location->locationName . ' (<a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
-      }
+
+				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
+
+				$service_types_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
+				$cqc_reg_status_terms = 'Registered'; // set cqc_reg_status tax to Registered
+				$cqc_inspection_category_terms = array();
+
+				foreach ($location_api_response->inspectionCategories as $inspection_category) {
+					array_push($cqc_inspection_category_terms,hw_feedback_inspection_category_to_service_type($inspection_category));
+				}
+				if (empty($cqc_inspection_category_terms)) {
+					$final_cqc_inspection_category_terms = "Other";
+				}
+
+				$post_arr = array(
+				    'post_title'   => $location_api_response->name,
+				    'post_content' => '',
+				    'post_status'  => 'draft',
+				    'post_author'  => get_current_user_id(),
+				    'tax_input'    => array(
+				        'service_types'     => $service_types_terms,
+				        'cqc_reg_status_terms' => $cqc_reg_status_terms_terms,
+								'$cqc_inspection_category' => $cqc_inspection_category_terms;
+				    ),
+				    'meta_input'   => array(
+				        'hw_services_cqc_location' => $location->locationId,
+				    ),
+				);
 /*
 
 We need to use this:
