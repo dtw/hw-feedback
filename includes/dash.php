@@ -210,7 +210,14 @@ function hwbucks_cqc_data_import_tool() {
 									'cqc_inspection_category' => $cqc_inspection_category_terms
 					    ),
 					    'meta_input'   => array(
-					        'hw_services_cqc_location' => $location->locationId,
+								'hw_services_address_line_1' => $location_api_response->postalAddressLine1,
+								'hw_services_address_line_2' => $location_api_response->postalAddressLine2,
+								'hw_services_city' => $location_api_response->postalAddressTownCity,
+								'hw_services_county' => $location_api_response->postalAddressCounty,
+								'hw_services_postcode' => $location_api_response->postalCode,
+					      'hw_services_cqc_location' => $location->locationId,
+								'hw_services_phone' => $location_api_response->mainPhoneNumber,
+								'hw_services_website' => $location_api_response->website,
 					    ),
 					);
 					echo '<p>';
