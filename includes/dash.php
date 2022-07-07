@@ -176,12 +176,20 @@ function hwbucks_cqc_data_import_tool() {
 					foreach ($location_api_response->inspectionCategories as $inspection_category) {
 						array_push($cqc_inspection_category_terms,$inspection_category->code);
 					}
+					// get the registration date from API
+					$date_stamp = strtotime($location_api_response->registrationDate);
+					// I don't want it to be midnight so - yeah really - this is the easiest way to add eight hours
+					$date_stamp = $date_stamp + (8*(60*60));
+
+					$registration_date = date("Y-m-d H:i:s", $date_stamp);
+					// returns: string(19) "2001-09-11 00:00:00"
 
 					$post_arr = array(
 					    'post_title'   => $location_api_response->name,
 					    'post_content' => '',
 					    'post_status'  => 'draft',
 					    'post_author'  => get_current_user_id(),
+							'post_date' => $registration_date,
 					    'tax_input'    => array(
 					        'service_types'     => $service_types_term,
 									// we removed everything that was not Registered
