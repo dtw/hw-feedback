@@ -51,11 +51,6 @@ function hwbucks_cqc_data_import_tool() {
       // Get start time
       $executionStartTime = microtime(true);
 
-      // get the total count of results
-      $total = $api_response->total;
-      $registered_counter = 0;
-      $matched_count = 0;
-
       // Query CQC API
       $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
             'localAuthority' => 'Buckinghamshire',
@@ -67,6 +62,11 @@ function hwbucks_cqc_data_import_tool() {
 
       // Convert "JSON object" to array
       $locations = array_values($api_response->locations);
+
+      // get the total count of results
+      $total = $api_response->total;
+      $registered_counter = 0;
+      $matched_count = 0;
 
       // Clean out anything not Registered
       foreach ($locations as $key => $current_location) {
