@@ -119,7 +119,7 @@ function hwbucks_cqc_data_import_tool() {
 
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 
-				$service_types_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
+				$service_types_term = "Other";
 				$cqc_reg_status_terms = 'Registered'; // set cqc_reg_status tax to Registered
 				$cqc_inspection_category_terms = array();
 
