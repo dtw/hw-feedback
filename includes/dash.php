@@ -120,7 +120,7 @@ function hwbucks_cqc_data_import_tool() {
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 
 				// we know what the primary category code is because we chose it
-				$service_types_term = hw_feedback_inspection_category_to_service_type($primary_inspection_category) || "Other";
+				$service_types_term = hw_feedback_inspection_category_to_service_type($primary_inspection_category);
 				// build an array of these
 				$cqc_inspection_category_terms = array();
 
