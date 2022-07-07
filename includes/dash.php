@@ -202,6 +202,7 @@ function hwbucks_cqc_data_import_tool() {
 					    'post_status'  => 'publish',
 					    'post_author'  => get_current_user_id(),
 							'post_date' => $registration_date,
+							'post_type' => 'local_services',
 					    'tax_input'    => array(
 					        'service_types'     => $service_types_term_id,
 									// we removed everything that was not Registered
