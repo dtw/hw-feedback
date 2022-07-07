@@ -89,7 +89,7 @@ function hwbucks_cqc_data_import_tool() {
       $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
             'localAuthority' => 'Buckinghamshire',
             'page' => '1',
-            'perPage' => '10',
+            'perPage' => '700',
             'primaryInspectionCategoryCode' => $primary_inspection_category,
             'partnerCode' => 'HW_BUCKS'
           )));
