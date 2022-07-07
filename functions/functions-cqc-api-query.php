@@ -94,3 +94,29 @@
     return $response;
   }
 
+function hw_feedback_inspection_category_to_service_type($inspection_category) {
+  $category_to_type_mapping = array(
+    'P1' => 'Dentist',
+    'P2' => 'General practice',
+    'P3' => 'Urgent & emergency care',
+    'P6' => 'Urgent & emergency care',
+    'P7' => 'Independent consulting doctor', // must be added
+    //'S1' => 'Care home',
+    //'S2' => 'Home care agency',
+    'S3' => 'Hospice service', // must be added
+    'H1' => 'Hospital',
+    'H2' => 'Hospital',
+    'H3' => 'Hospital',
+    //'H4' => 'Hospital',
+    'H5' => 'Ambulance service', // must be added
+    'H6' => 'Community healthcare service', // must be added
+    'H8' => 'Mental Health',
+    'H9' => 'Mental Health'
+  );
+  if (key_exists($inspection_category,$category_to_type_mapping)) {
+    return $category_to_type_mapping[$inspection_category];
+  } else {
+    return false;
+  }
+}
+
