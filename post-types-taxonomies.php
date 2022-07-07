@@ -307,7 +307,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
   // CQC LOCATION CODE
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
 	echo '<label for="hw-services-cqc-location">Location ID </label>';
-	echo '<input type="text" id="hw-services-cqc-location" name="hw-services-cqc-location" value="' . esc-attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" role="alert">Save this Service to see updated values from CQC!</div>';
+	echo '<input type="text" id="hw-services-cqc-location" name="hw-services-cqc-location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" role="alert">Save this Service to see updated values from CQC!</div>';
   // only check API and show fields if there is a location id
   if ($value != '') {
     $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
