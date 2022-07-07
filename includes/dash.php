@@ -47,7 +47,7 @@ function hwbucks_cqc_data_import_tool() {
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      echo ( empty($_POST["hw-feedback-form-inspection-category"]) ) ? 'Win!' : 'Balls up!';
+      $inspection_category = $_POST["hw-feedback-form-inspection-category"];
       // Get start time
       $executionStartTime = microtime(true);
 
@@ -60,8 +60,8 @@ function hwbucks_cqc_data_import_tool() {
       $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
             'localAuthority' => 'Buckinghamshire',
             'page' => '1',
-            'perPage' => '550',
-            'primaryInspectionCategoryCode' => 'P1',
+            'perPage' => '20',
+            'primaryInspectionCategoryCode' => $inspection_category,
             'partnerCode' => 'HW_BUCKS'
           )));
 
@@ -83,7 +83,7 @@ function hwbucks_cqc_data_import_tool() {
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
 
-      echo '<h1>'.$term->name.' Locations</h1>';
+      echo '<h1>'.$inspection_category.' Locations</h1>';
       echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
 
       // query all local_services posts regardless of status
