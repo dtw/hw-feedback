@@ -98,7 +98,7 @@ function hwbucks_cqc_data_import_tool() {
         // search for the location_id in $locations
         $result = array_search($our_location_id, array_column($locations, 'locationId'));
         // $result can return empty which PHP can read as [0] - so check it is not empty
-        if ($result){
+        if ($result !== false){
           //$current_location_name = $locations[$result]->locationName;
           //$current_location_id = $locations[$result]->locationId;
           //echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
