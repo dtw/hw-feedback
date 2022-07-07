@@ -220,9 +220,9 @@ function hwbucks_cqc_data_import_tool() {
 								'hw_services_website' => $location_api_response->website,
 					    ),
 					);
-					echo '<p>';
-					print_r($post_arr);
-					echo '</p>';
+					//echo '<p>'.print_r($post_arr).'</p>';
+					$post_id = wp_insert_post( $post_arr );
+					echo '<p>'.$location_api_response->name.' (<a href="'.get_edit_post_link($post_id).'">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</p>';
 				}
 			}
       // Get finish time
