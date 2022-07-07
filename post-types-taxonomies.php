@@ -724,7 +724,7 @@ function hw_feedback_check_cqc_registration_status() {
         $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
         // if service is Archived (which is done manually) bail
         if ( $tax_terms[0] == 'Archived' ) {
-          return;
+          continue;
         }
         // if there is a reg status from the api
         if ( $api_response->registrationStatus ) {
