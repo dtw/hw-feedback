@@ -87,20 +87,19 @@ function hwbucks_cqc_data_import_tool() {
       echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
 
       // query all local_services posts regardless of status
-      $my_query = new WP_Query( array(
+      $args = array(
         'posts_per_page' => -1,
         'post_type' => 'local_services',
         'meta_key' => 'hw_services_cqc_location',
         'orderby' => 'meta_value'
-        )
       );
 
+      $services = get_posts( $args );
       echo '<h2>Matched in hw-feedback</h2>';
       // loop the posts
-      while ($my_query->have_posts()) {
-        $my_query->the_post();
+      foreach($services as $hw_feedback_service) : setup_postdata($hw_feedback_service);
         // get the CQC Location ID from post_meta
-        $our_location_id = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
+        $our_location_id = get_post_meta( $hw_feedback_service->ID, 'hw_services_cqc_location', true );
         // search for the location_id in $locations
         $result = array_search($our_location_id, array_column($locations, 'locationId'));
         // $result can return empty which PHP can read as [0] - so check it is not empty
@@ -113,7 +112,7 @@ function hwbucks_cqc_data_import_tool() {
           // remove the service from $locations
           unset($locations[$result]);
         }
-      }
+      endforeach;
       echo '<p>Matched: ' . $matched_count . '/' . $registered_counter . '</p>';
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
