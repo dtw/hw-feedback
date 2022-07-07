@@ -21,6 +21,8 @@ function hwbucks_cqc_data_import_tool() {
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : false;
 		$show_matches = isset($_POST['hw-feedback-show-matches']) ? $_POST['hw-feedback-show-matches'] : false;
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
+		// default to 10
+		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 10;
     // create a simple form
     ?>
     <div id="hwbucks-data-import-tool">
@@ -42,6 +44,19 @@ function hwbucks_cqc_data_import_tool() {
 	            	echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'">'.$term->name.' - '.$term->description.'</option>';
 							}
 	          }
+	          ?>
+	          </select>
+					</div>
+					<div class="hw-feedback-cqc-import-form-row">
+	          <label for="hw-feedback-form-import-number">Select number of Locations to check/import</label>
+	          <select class="hw-feedback-select" name="hw-feedback-form-import-number" id="hw-feedback-form-import-number">
+	          <?php foreach (array(1, 5, 10, 20, 30, 40, 50) as $option) {
+							if ($import_number && $import_number == $option ) {
+								echo '<option value=' . $option . ' id="hw-feedback-import-number-' . $option . '" selected>' . $option . '</option>';
+							} else {
+								echo '<option value=' . $option . ' id="hw-feedback-import-number-' . $option . '">' . $option . '</option>';
+							}
+						}
 	          ?>
 	          </select>
 					</div>
@@ -140,6 +155,11 @@ function hwbucks_cqc_data_import_tool() {
 
       //echo '<h2>Un-matched / To be added</h2>';
 			echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
+
+			// limit the number of results to $import_number
+			$locations = array_slice($locations,0,$import_number,true);
+			echo '<h3>Showing: ' . count($locations) . ' results</h3>';
+
       // loop the remaning $locations
       foreach ($locations as $location) {
         //
