@@ -21,15 +21,10 @@ function hwbucks_cqc_data_import_tool() {
     ?>
     <div id="hwbucks_data_import_tool">
       <h1>CQC Data Import Tool</h1>
-        <p>If you need to complete a demographic survey over the phone, the results will need to be linked to a CiviCRM Contact. This tool can be used to generate a link to the demographic survey based on URLs from CiviCRM.</p>
-        <p>This tool will work with either:</p>
-      <div id="hwbucks_data_import_tool_intructions">
-          <ul>
-            <li>CiviCRM Client URLs - https://bucks.healthwatchcrm.co.uk/civicrm/contact/view?reset=1&cid=2000</li>
-            <li>CiviCRM Case view URLs - https://bucks.healthwatchcrm.co.uk/civicrm/contact/view/case?reset=1&id=488&cid=2000&action=view&context=case&selectedChild=case&key=somekey</li>
-          </ul>
-          <p>Copy the appropriate URL from your web browser and paste into the "CiviCRM URL" field and click "Generate Link". Once the link is generated, you can click through to the survey.</p>
-          <p>Click the "Reset" button before pasting a new URL.
+      <div id="hwbucks_data_import_tool_instructions">
+        <p>This tool adds Locations from the CQC API that are not currently listed as a Local Service in hw-feedback. Note that it ignores Locations that are not marked as "Registered".</p>
+        <p>To reduce system overhead, this tool is limited to adding 10 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
+				<p>You can choose that category using the drop-down list.</p>
       </div>
       <div id="hw-feedback-cqc-form" class="hw-feedback-form-row">
         <form action="tools.php?page=cqc-data-import" method="post">
