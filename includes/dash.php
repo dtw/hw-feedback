@@ -121,7 +121,7 @@ function hwbucks_cqc_data_import_tool() {
 
 				// we know what the primary category code is because we chose it
 				$service_types_term = hw_feedback_inspection_category_to_service_type($primary_inspection_category) || "Other";
-				$cqc_reg_status_terms = 'Registered'; // set cqc_reg_status tax to Registered
+				// build an array of these
 				$cqc_inspection_category_terms = array();
 
 				foreach ($location_api_response->inspectionCategories as $inspection_category) {
@@ -135,7 +135,8 @@ function hwbucks_cqc_data_import_tool() {
 				    'post_author'  => get_current_user_id(),
 				    'tax_input'    => array(
 				        'service_types'     => $service_types_term,
-				        'cqc_reg_status_terms' => $cqc_reg_status_terms,
+								// we removed everything that was not Registered
+				        'cqc_reg_status' => 'Registered',
 								'cqc_inspection_category' => $cqc_inspection_category_terms
 				    ),
 				    'meta_input'   => array(
