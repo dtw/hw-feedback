@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2021-07-09
+### Changed
+- fixed incorrect field name
+
 ## [2.1] - 2021-07-09
 ### Added
 - automated email after registration update check has run
