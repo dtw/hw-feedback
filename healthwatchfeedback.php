@@ -16,6 +16,8 @@ include('taxonomy-icons.php');
 
 include('feedback-form.php');
 
+include('includes/shortcodes.php');
+
 // ADMIN
 require_once('includes/admin.php');
 
