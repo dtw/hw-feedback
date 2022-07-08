@@ -182,6 +182,23 @@ add_action( 'init', 'hw_feedback_taxonomies_init' );
 
 /* Add default terms to cqc_reg_status taxonomy */
 function hw_feedback_register_default_terms () {
+  // service_types
+  wp_insert_term('Ambulance service','service_types', array('description'=>'Provide medical care outside of hospital and patient transport services.', 'slug' => 'ambulance'));
+  wp_insert_term('Care home','service_types', array('description'=>'Care homes which offer a variety of personal care and accommodation', 'slug' => 'care-home'));
+  wp_insert_term('Care home with nursing','service_types', array('description'=>'Care homes which offer a variety of personal care and accommodation with nursing', 'slug' => 'care-home-with-nursing'));
+  wp_insert_term('Community healthcare service','service_types', array('description'=>'Provide healthcare support to people in their own home or in community settings ', 'slug' => 'community-healthcare'));
+  wp_insert_term('Dentist','service_types', array('description'=>'Includes registered dentists and dental care professionals', 'slug' => 'dentist'));
+  wp_insert_term('Diagnostic / screening service','service_types', array('description'=>'Provide individual health assessment and/or screening to people using X-rays, Magnetic resonance imaging (MRI), etc.', 'slug' => 'diagnostic-screening-service'));
+  wp_insert_term('General practice','service_types', array('description'=>'General practices', 'slug' => 'gp'));
+  wp_insert_term('Home care agency','service_types', array('description'=>'Provide personal care for people living in their own homes', 'slug' => 'home-care-agency'));
+  wp_insert_term('Hospice service','service_types', array('description'=>'Provide a range of services for conditions where curative treatment is no longer an option, and people are approaching the end of their life', 'slug' => 'hospice'));
+  wp_insert_term('Hospital','service_types', array('description'=>'NHS and independent hospitals including acute and non-acute, and community hospitals', 'slug' => 'hospital'));
+  wp_insert_term('Independent consulting doctor','service_types', array('description'=>'Private doctor services', 'slug' => 'private-doctor'));
+  wp_insert_term('Mental Health','service_types', array('description'=>'Provide care, treatment and support for people with mental health needs, including community and hospital settings', 'slug' => 'mental-health'));
+  wp_insert_term('Other','service_types', array('description'=>'Other services', 'slug' => 'other'));
+  wp_insert_term('Pharmacy','service_types', array('description'=>'Provide community pharmacy services including dispensing prescriptions and advice on treating minor illnesses', 'slug' => 'pharmacy'));
+  wp_insert_term('Supported living service','service_types', array('description'=>'Provide care and/or support services to persons living in their own home to promote their independence', 'slug' => 'supported-living-service'));
+  wp_insert_term('Urgent & emergency care','service_types', array('description'=>'Provide urgent or emergency medical help', 'slug' => 'urgent-care'));
   // cqc_reg_status
   wp_insert_term('Registered','cqc_reg_status', array('description'=>'Registered with CQC', 'slug' => 'registered'));
   wp_insert_term('Deregistered','cqc_reg_status', array('description'=>'Deregistered with CQC', 'slug' => 'deregistered'));
