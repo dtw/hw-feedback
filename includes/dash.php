@@ -190,7 +190,7 @@ function hwbucks_cqc_data_import_tool() {
 						$post_excerpt = "General practice";
 					} else {
 					$post_excerpt = $cqc_gac_service_types;
-						if ($number_of_beds !== 0) {
+						if ($number_of_beds !== 0 && $number_of_beds !== false) {
 							$post_excerpt .= ' - ' . $number_of_beds . ' beds';
 						}
 					}
