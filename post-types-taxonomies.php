@@ -336,9 +336,11 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     }
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
-    if ($objcqcapiquery->registrationStatus == 'Deregistered'){
-      echo '<div class="api-output"><div class="api-output-label">Deregistration Date:</div><div class="api-output-value">'.$objcqcapiquery->deregistrationDate.'</div></div>';
-      echo '<p><a href="https://www.cqc.org.uk/location/'. $objcqcapiquery->locationId . '?referer=widget4" target="_blank">View Location on CQC website</a>';
+    if ($objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
+      <div class="api-output-deregistered">
+        <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. <a href="https://www.cqc.org.uk/location/<?php echo $objcqcapiquery->locationId?>?referer=widget4" target="_blank">Check this registration on the CQC website</a>. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
+      </div><?
     }
   }
 
