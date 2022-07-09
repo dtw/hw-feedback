@@ -650,6 +650,9 @@ function hw_feedback_check_cqc_registration_status() {
   error_log('hw_feedback: unhook the hw_feedback_check_cqc_registration_status_single function');
   remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta'); */
 
+  // create array of local_services post_ids that have had their reg changed
+  $registration_status_changed = array();
+
   global $post;
   // get local_services
   $args = array(
@@ -677,6 +680,8 @@ function hw_feedback_check_cqc_registration_status() {
           if ( $tax_terms[0]  != $api_response->registrationStatus) {
             // set new terms - takes names of terms not slugs...
             wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+            // update array
+            array_push($registration_status_changed,$hw_feedback_post->ID);
           }
         // otherwise, it has a location id locally but that is not listed by CQC
         } else {
@@ -691,6 +696,21 @@ function hw_feedback_check_cqc_registration_status() {
     endforeach;
     // restore the hw_feedback_check_cqc_registration_status_single function hook
     //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+
+    // set php mailer variables
+    $to = get_option('admin_email');
+    $subject = "Local Services - registration updates (".get_bloginfo('name').")";
+    // set headers to allow HTML
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    // compose an email contain reg changes
+    $formatted_message = '<p>Hi!<br>The registration status of the following services was updated automatically ' . date('d/m/Y h:i:s a', time()).'</p><ul>';
+    foreach ($registration_status_changed as $post_id) {
+      $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
+      $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
+      $formatted_message .= '<a href="'.get_edit_post_link($post_id).'">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</li>';
+    }
+    $formatted_message .= '</ul><br><p>Hugs and kisses!</p>';
+    $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 }
 
 function hw_feedback_check_cqc_registration_status_single() {
