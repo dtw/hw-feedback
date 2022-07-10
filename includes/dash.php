@@ -19,7 +19,7 @@ function hwbucks_cqc_data_import_tool() {
 	function hwbucks_cqc_data_import_contents() {
 		// save the hw-feedback-form-inspection-category from POST
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : 'P1';
-		$show_matches = isset($_POST['hw-feedback-show-matches']) ? $_POST['hw-feedback-show-matches'] : false;
+		$force_refresh = isset($_POST['hw-feedback-force-refresh']) ? $_POST['hw-feedback-force-refresh'] : false;
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
 		// default to 10
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
@@ -61,11 +61,11 @@ function hwbucks_cqc_data_import_tool() {
 	          </select>
 					</div>
 					<div class="hw-feedback-cqc-import-form-row">
-						<label for="hw-feedback-show-matches">Show matched services?</label>
-						<?php if ( $show_matches ) {
-							echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true" checked>';
+						<label for="hw-feedback-force-refresh">Force refresh?</label>
+						<?php if ( $force_refresh ) {
+							echo '<input type="checkbox" id="hw-feedback-force-refresh" class="hw-feedback-checkbox" name="hw-feedback-force-refresh" value="true" checked>';
 						} else {
-							echo '<input type="checkbox" id="hw-feedback-show-matches" class="hw-feedback-checkbox" name="hw-feedback-show-matches" value="true">';
+							echo '<input type="checkbox" id="hw-feedback-force-refresh" class="hw-feedback-checkbox" name="hw-feedback-force-refresh" value="true">';
 						} ?>
 					</div>
 					<div id="hw-feedback-preview-only-row" class="hw-feedback-cqc-import-form-row">
@@ -138,7 +138,7 @@ function hwbucks_cqc_data_import_tool() {
         $result = array_search($our_location_id, array_column($locations, 'locationId'));
         // $result can return empty which PHP can read as [0] - so check it is not empty
         if ($result !== false){
-					if ( $show_matches === "true" ) {
+					if ( $force_refresh === "true" ) {
 	          $current_location_name = $locations[$result]->locationName;
 	          $current_location_id = $locations[$result]->locationId;
 	          echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
