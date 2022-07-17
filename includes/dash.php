@@ -23,6 +23,16 @@ function hwbucks_cqc_data_import_tool() {
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
 		// default to 10
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
+
+		// establish the api cache in UPLOADS dir
+		$upload_dir = wp_upload_dir();
+		$api_cache = $upload_dir['basedir'];
+		$api_cache .= "/api_cache/";
+		// create new directory with 744 permissions if it does not exist yet
+	  // owner will be the user/group the PHP script is run under
+	  if ( !file_exists($api_cache) ) {
+	      mkdir ($api_cache, 0744) or die("hw-feedback: Unable to create folder $api_cache");
+	  }
     // create a simple form
     ?>
     <div id="hw-feedback-data-import-tool">
