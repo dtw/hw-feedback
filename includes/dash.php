@@ -186,6 +186,12 @@ function hwbucks_cqc_data_import_tool() {
 			// Reindex array - THIS IS CRITICAL!
 			$locations = array_values($locations);
 
+			// be verbose
+			if ( $force_refresh === "true" ) {
+				echo '<h3>Matched: ' . $matched_count . '/' . $registered_counter . '</h3>';
+				echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
+			}
+
 
 			// limit the number of results to $import_number
 			$locations = array_slice($locations,0,$import_number,true);
