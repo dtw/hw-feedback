@@ -98,6 +98,16 @@ function hwbucks_cqc_data_import_tool() {
 			echo "<h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
+			// file get cache file modification time or create file
+			if (file_exists($api_filename)) {
+				$api_file_mod_time = filectime($api_filename);
+				error_log("hw-feedback: Time since last modification of $api_filename: ".time(). "/".$api_file_mod_time);
+			} else {
+				// create file
+				$api_file = fopen($api_filename, "w") or die("hw-feedback: Unable to create file $api_filename");
+				// and close it
+				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-creation");
+			}
 
       // Query CQC API
       $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
