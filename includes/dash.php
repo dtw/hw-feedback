@@ -111,8 +111,7 @@ function hwbucks_cqc_data_import_tool() {
       // Convert "JSON object" to array
       $locations = array_values($api_response->locations);
 
-      // get the total count of results
-      $total = $api_response->total;
+      // set some counters
       $registered_counter = 0;
       $matched_count = 0;
 
