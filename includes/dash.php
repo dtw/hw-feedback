@@ -183,8 +183,8 @@ function hwbucks_cqc_data_import_tool() {
           unset($locations[$result]);
         }
       endforeach;
-      // Reindex array - THIS IS CRITICAL!
-      $locations = array_values($locations);
+			// Reindex array - THIS IS CRITICAL!
+			$locations = array_values($locations);
 
 
 			// limit the number of results to $import_number
