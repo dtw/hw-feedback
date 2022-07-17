@@ -109,17 +109,31 @@ function hwbucks_cqc_data_import_tool() {
 				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-creation");
 			}
 
-      // Query CQC API
-      $api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
-            'localAuthority' => 'Buckinghamshire',
-            'page' => '1',
-            'perPage' => '700',
-            'primaryInspectionCategoryCode' => $primary_inspection_category,
-            'partnerCode' => 'HW_BUCKS'
-          )));
-
-      // Convert "JSON object" to array
-      $locations = array_values($api_response->locations);
+			// check if the last modification was less than a day ago (24*60*60) AND we're not doing a forced refresh
+			if ( time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
+				// open file for read
+				$api_file = fopen($api_filename, "r") or die("hw-feedback: Unable to open file $api_filename");
+				// read file and convert to array
+				$locations = array_values(json_decode(fread($api_file,filesize($api_filename))));
+				// close file again
+				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-read");
+				echo "<p>Locations read from <strong>file</strong>, last modified at ". date("Y-m-d H:i:s", $api_file_mod_time) . "</p>";
+				error_log("hw-feedback: Locations read from $api_filename");
+				if (empty($locations)){ die("hw-feedback: Unable to read locations from $api_filename");}
+			} else {
+				// Query CQC API
+				$api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
+	        'localAuthority' => 'Buckinghamshire',
+	        'page' => '1',
+	        'perPage' => '700',
+	        'primaryInspectionCategoryCode' => $primary_inspection_category,
+	        'partnerCode' => 'HW_BUCKS'
+	      )));
+				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
+				// Convert "JSON object" to array
+				$locations = array_values($api_response->locations);
+				error_log("hw-feedback: Locations fetched from API");
+			}
 
       // set some counters
       $registered_counter = 0;
