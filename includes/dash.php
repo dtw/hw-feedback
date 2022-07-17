@@ -91,10 +91,11 @@ function hwbucks_cqc_data_import_tool() {
 					</div>
         </form>
       </div>
-    </div>
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			echo '<div id="hw-feedback-cqc-import-results">';
+			echo "<h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
 
@@ -130,9 +131,6 @@ function hwbucks_cqc_data_import_tool() {
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
 
-      echo '<h1>'.$primary_inspection_category.' Locations</h1>';
-      echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
-
       // query all local_services posts regardless of status
       $args = array(
         'posts_per_page' => -1,
@@ -162,12 +160,9 @@ function hwbucks_cqc_data_import_tool() {
           unset($locations[$result]);
         }
       endforeach;
-      echo '<h3>Matched: ' . $matched_count . '/' . $registered_counter . '</h3>';
       // Reindex array - THIS IS CRITICAL!
       $locations = array_values($locations);
 
-      //echo '<h2>Un-matched / To be added</h2>';
-			echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
 
 			// limit the number of results to $import_number
 			$locations = array_slice($locations,0,$import_number,true);
@@ -244,6 +239,8 @@ function hwbucks_cqc_data_import_tool() {
       $seconds = round($executionEndTime - $executionStartTime,2);
       // Print it out
       echo "<p>This script took $seconds seconds to execute.</p>";
+			echo "</div> <!--hw-feedback-cqc-import-results -->";
     }
+		echo "</div> <!-- hwbucks-data-import-tool -->";
   }
 ?>
