@@ -33,6 +33,9 @@ function hwbucks_cqc_data_import_tool() {
 	  if ( !file_exists($api_cache) ) {
 	      mkdir ($api_cache, 0744) or die("hw-feedback: Unable to create folder $api_cache");
 	  }
+		// build filename for inspection category
+		$api_filename = $api_cache . 'cqc_api_locations_' . $primary_inspection_category . '.json';
+
     // create a simple form
     ?>
     <div id="hw-feedback-data-import-tool">
