@@ -192,6 +192,10 @@ function hwbucks_cqc_data_import_tool() {
 				echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
 			}
 
+			// now the locations are cleaned-up the locations to file as JSON object
+			$api_file = fopen($api_filename, "w") or die("hw-feedback: Unable to open file $api_filename");
+			fwrite($api_file,json_encode($locations));
+			fclose($api_file) && error_log("hw-feedback: $api_filename closed post-write");
 
 			// limit the number of results to $import_number
 			$locations = array_slice($locations,0,$import_number,true);
