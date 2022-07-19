@@ -98,7 +98,7 @@ function hwbucks_cqc_data_import_tool() {
 			echo "<h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
-			// file get cache file modification time or create file
+			// get cache file modification time or create file
 			if (file_exists($api_filename)) {
 				$api_file_mod_time = filectime($api_filename);
 				error_log("hw-feedback: Time since last modification of $api_filename: ".time(). "/".$api_file_mod_time);
