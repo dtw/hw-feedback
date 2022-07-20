@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - automated email after registration update check has run
 
+## [2.0.1] - 2021-07-07
+### Changed
+- fix critical error in cronjob function
+
+## [Released]
+
 ## [2.0] - 2021-06-28
 ### Added
 - activate and deactivate functions to better handle cronjob
