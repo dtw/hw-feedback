@@ -6,13 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2021-07-09
+### Added
+
+## [2.0] - 2021-06-28
+### Added
+- activate and deactivate functions to better handle cronjob
+- check cqc_reg_status changes on local_services save
+- widgets and shortcodes from scaffold-widget-tweaks
+- automated email after registration update check has run
+
+### Changed
+- cleaned up use of post_meta (deprecated)
+- minor bug fixes to CQC API query feature
+- updated content of cqc_location column in admin
+- fixed outdated constructors
+- layout of the "latest DIC visit" widget
+- some CSS inline with rebrand (mostly in hw-scaffold themes)
+- cqc_reg_status metabox to a dropdown
+
 ## [2.0 rc1] - 2021-06-09
 ### Added
 - function to query CQC API to get location information
 - button to copy data from API into local_service in edit screen
 - function and cronjob to update cqc_reg_status from CQC API
 - new taxonomy for cqc_reg_status, available terms are Registered, Deregistered, Not registered, Not applicable and Archived.
-- new dashboard widget show cqc_reg_status by local_services
+- new dashboard widget to show cqc_reg_status by local_services
 
 ### Changed
 - show updated information in CQC Location column in admin
