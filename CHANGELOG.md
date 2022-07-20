@@ -6,15 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.1] - 2021-07-09
+## [2.1] - 2021-07-09
 ### Added
+- automated email after registration update check has run
 
 ## [2.0] - 2021-06-28
 ### Added
 - activate and deactivate functions to better handle cronjob
 - check cqc_reg_status changes on local_services save
 - widgets and shortcodes from scaffold-widget-tweaks
-- automated email after registration update check has run
 
 ### Changed
 - cleaned up use of post_meta (deprecated)
