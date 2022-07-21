@@ -6,23 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.1.1] - 2021-07-09
+## [2.1.1] - 2022-07-09
 ### Changed
 - fixed incorrect field name
 
-## [2.1] - 2021-07-09
+## [2.1] - 2022-07-09
 ### Added
 - automated email after registration update check has run
 - new taxonomy based on CQC Inspection Categories
 - inspection categories are updated during the registration check introduced in 2.0 rc1
 
-## [2.0.1] - 2021-07-07
+## [2.0.1] - 2022-07-07
 ### Changed
 - fix critical error in cronjob function
 
 ## [Released]
 
-## [2.0] - 2021-06-28
+## [2.0] - 2022-06-28
 ### Added
 - activate and deactivate functions to better handle cronjob
 - check cqc_reg_status changes on local_services save
@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - some CSS inline with rebrand (mostly in hw-scaffold themes)
 - cqc_reg_status metabox to a dropdown
 
-## [2.0 rc1] - 2021-06-09
+## [2.0 rc1] - 2022-06-09
 ### Added
 - function to query CQC API to get location information
 - button to copy data from API into local_service in edit screen
