@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.2] - 2022-07-22
+### Changed
+- fixed includes method
+
 ## [2.1.1] - 2022-07-09
 ### Changed
 - fixed incorrect field name
