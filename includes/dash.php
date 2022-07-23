@@ -95,7 +95,7 @@ function hwbucks_cqc_data_import_tool() {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo '<div id="hw-feedback-cqc-import-results">';
-			echo "<h1>$primary_inspection_category Locations</h1>";
+			echo "<hr><h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
 			// get cache file modification time or create file
@@ -274,7 +274,7 @@ function hwbucks_cqc_data_import_tool() {
       // The result will be in seconds and milliseconds.
       $seconds = round($executionEndTime - $executionStartTime,2);
       // Print it out
-      echo "<p>This script took $seconds seconds to execute.</p>";
+      echo "<hr><p>This script took $seconds seconds to execute.</p>";
 			echo "</div> <!--hw-feedback-cqc-import-results -->";
     }
 		echo "</div> <!-- hwbucks-data-import-tool -->";
