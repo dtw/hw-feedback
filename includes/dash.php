@@ -1,20 +1,38 @@
 <?php
-/* 9. Add Management Page
--------------------------------------------------------- */
+/**
+ * Add the top level menu page.
+ */
+function hw_feedback_add_menus() {
+	add_menu_page(
+		'Healthwatch Feedback Settings',
+		'HW Feedback',
+		'manage_options',
+		'hw_feedback',
+		'hw_feedback_options_page_html'
+	);
+	//apparently we need to duplicate the top page (?) https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-446
+	add_submenu_page(
+		'hw_feedback',
+		'Healthwatch Feedback Settings',
+		'Settings',
+		'manage_options',
+		'hw_feedback'
+	);
+	// then add the submenu
+	add_submenu_page(
+		'hw_feedback',
+		'CQC Data Import',
+		'CQC Data Import',
+		'manage_options',
+		'cqc-data-import',
+		'hwbucks_cqc_data_import_contents',
+	);
+}
 
-
-
-function hwbucks_cqc_data_import_tool() {
-		add_management_page(
-			'CQC Data Import',
-			'CQC Data Import',
-			'read_private_posts',
-			'cqc-data-import',
-			'hwbucks_cqc_data_import_contents',
-		);
-	}
-
-	add_action( 'admin_menu', 'hwbucks_cqc_data_import_tool' );
+/**
+* Register our hw_feedback_add_menus to the admin_menu action hook.
+*/
+add_action( 'admin_menu', 'hw_feedback_add_menus' );
 
 	function hwbucks_cqc_data_import_contents() {
 		// save the hw-feedback-form-inspection-category from POST
