@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2] - 2022-07-23
+### Added
+- settings page for the plugin
+- CQC data import tool via CQC API
+    - preview and add services based on their Primary Inspection Category code (uses taxonomy added in 2.1)
+    - choose how many services to preview/add at a time (1, 5, 10, 20, 30, 40, 50)
+    - ignores Services not marked as Registered
+    - the Publication date of the local_service is set to the registration date with CQC
+    - service_types are set automatically based on CQC Primary Inspection Category (e.g. "P1" is a **dentist**) or, in some case, the GAC category (e.g. "Care home service without nursing" is a **Care Home**)
+    - (EXPERIMENTAL) adds a nice excerpt to the local_service
+
 ## [2.1.2] - 2022-07-22
 ### Changed
 - fixed includes method
