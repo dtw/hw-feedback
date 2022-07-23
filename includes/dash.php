@@ -64,7 +64,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				<p>You can choose that category using the drop-down list.</p>
       </div>
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
-        <form action="tools.php?page=cqc-data-import" method="post">
+        <form action="admin.php?page=cqc-data-import" method="post">
 					<div class="hw-feedback-cqc-import-form-row">
 	          <label for="hw-feedback-form-inspection-category">Select Inspection Category</label>
 	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
