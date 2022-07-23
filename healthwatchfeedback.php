@@ -315,25 +315,6 @@ function hw_feedback_field_partner_code_cb( $args ) {
     </p>
     <?php
 }
-/**
- * Add the top level menu page.
- */
-function hw_feedback_options_page() {
-    add_menu_page(
-        'Healthwatch Feedback Options',
-        'HW Feedback',
-        'manage_options',
-        'hw_feedback',
-        'hw_feedback_options_page_html'
-    );
-}
-
-
-/**
- * Register our hw_feedback_options_page to the admin_menu action hook.
- */
-add_action( 'admin_menu', 'hw_feedback_options_page' );
-
 
 /**
  * Top level menu callback function
