@@ -17,8 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1] - 2022-07-09
 ### Added
 - automated email after registration update check has run
+- admin guidance on how to process Deregistrations
 - new taxonomy based on CQC Inspection Categories
 - inspection categories are updated during the registration check introduced in 2.0 rc1
+- new shortcode for dual registration
 
 ## [2.0.1] - 2021-07-07
 ### Changed
