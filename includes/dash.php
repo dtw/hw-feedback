@@ -121,13 +121,16 @@ function hwbucks_cqc_data_import_tool() {
 				error_log("hw-feedback: Locations read from $api_filename");
 				if (empty($locations)){ die("hw-feedback: Unable to read locations from $api_filename");}
 			} else {
+				$options = get_option( 'hw_feedback_options' );
 				// Query CQC API
 				$api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
-	        'localAuthority' => 'Buckinghamshire',
+					// get the local authority name from options
+	        'localAuthority' => $options[hw_feedback_field_local_authority],
 	        'page' => '1',
 	        'perPage' => '700',
 	        'primaryInspectionCategoryCode' => $primary_inspection_category,
-	        'partnerCode' => 'HW_BUCKS'
+					// get the partner code from options
+	        'partnerCode' => $options[hw_feedback_field_partner_code]
 	      )));
 				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
 				// Convert "JSON object" to array
