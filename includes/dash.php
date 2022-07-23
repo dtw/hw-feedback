@@ -42,7 +42,7 @@ function hwbucks_cqc_data_import_tool() {
       <h1>CQC Data Import Tool</h1>
       <div id="hw-feedback-data-import-tool-instructions">
         <p>This tool adds Locations from the CQC API that are not currently listed as a Local Service in hw-feedback. Note that it ignores Locations that are not marked as "Registered".</p>
-        <p>To reduce system overhead, by default, this tool is limited to adding 10 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
+        <p>To reduce system overhead, by default, this tool is limited to adding 5 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
 				<p>You can choose that category using the drop-down list.</p>
       </div>
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
