@@ -136,3 +136,23 @@ function hw_feedback_gac_category_to_service_type($gac_category) {
     return "Other";
   }
 }
+
+function hw_feedback_generate_local_auth_options($args,$options) {
+  // get the api_cache dir in UPLOADS
+  $upload_dir = wp_upload_dir();
+  $api_cache = $upload_dir['basedir'];
+  $api_cache .= "/api_cache/";
+  // Our JSON file
+  $json_filename = $api_cache . 'CQC_Local_Authority_Names.json';
+  // open the file
+  $json_file = fopen($json_filename, "r") or die("hw-feedback: Unable to read file $json_filename");
+  // read file and convert to array
+  $local_authority_names = json_decode(fread($json_file,filesize($json_filename)));
+  fclose($json_file) && error_log("hw-feedback: $json_filename closed post-read");
+  foreach ($local_authority_names as $option) {
+    $local_authority = $option->LocalAuthority; ?>
+    <option value="<?php echo $local_authority ?>" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], $local_authority, false ) ) : ( '' ); ?>>
+        <?php echo $local_authority ?>
+    </option>
+  <?php }
+}

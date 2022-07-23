@@ -189,4 +189,187 @@ function hw_feedback_deactivate() {
 register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
 register_uninstall_hook( __FILE__, 'hw_feedback_deactivate' );
 
+/**
+ * https://developer.wordpress.org/plugins/settings/custom-settings-page/
+ *
+ * @internal never define functions inside callbacks.
+ * these functions could be run multiple times; this would result in a fatal error.
+ */
+
+/**
+ * custom option and settings
+ */
+function hw_feedback_settings_init() {
+    // Register a new setting for "hw_feedback" page.
+    register_setting( 'hw_feedback', 'hw_feedback_options' );
+
+    // Register a new section in the "hw_feedback" page.
+    add_settings_section(
+        'hw_feedback_section_developers',
+        __( 'CQC API settings', 'hw_feedback' ), 'hw_feedback_section_developers_callback',
+        'hw_feedback'
+    );
+
+    // Register a new field in the "hw_feedback_section_developers" section, inside the "hw_feedback" page.
+    add_settings_field(
+        'hw_feedback_field_local_authority', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'Local Authority', 'hw_feedback' ),
+        'hw_feedback_field_local_authority_cb',
+        'hw_feedback',
+        'hw_feedback_section_developers',
+        array(
+            'label_for'         => 'hw_feedback_field_local_authority',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
+    // Register a new field in the "hw_feedback_section_developers" section, inside the "hw_feedback" page.
+    add_settings_field(
+        'hw_feedback_field_partner_code', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'Partner Code', 'hw_feedback' ),
+        'hw_feedback_field_partner_code_cb',
+        'hw_feedback',
+        'hw_feedback_section_developers',
+        array(
+            'label_for'         => 'hw_feedback_field_partner_code',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
+}
+
+/**
+ * Register our hw_feedback_settings_init to the admin_init action hook.
+ */
+add_action( 'admin_init', 'hw_feedback_settings_init' );
+
+
+/**
+ * Custom option and settings:
+ *  - callback functions
+ */
+
+
+/**
+ * Developers section callback function.
+ *
+ * @param array $args  The settings array, defining title, id, callback.
+ */
+function hw_feedback_section_developers_callback( $args ) {
+    ?>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>">The CQC API must be configured for you local area. You can <a href="https://anypoint.mulesoft.com/exchange/portals/care-quality-commission-5/4d36bd23-127d-4acf-8903-ba292ea615d4/cqc-syndication-1/" target="_blank">read more about the API here</a>.</p>
+    <?php
+}
+
+/**
+ * local_authority field callbakc function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_local_authority_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <select
+            id="<?php echo esc_attr( $args['label_for'] ); ?>"
+            data-custom="<?php echo esc_attr( $args['hw_feedback_custom_data'] ); ?>"
+            name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+        <?php hw_feedback_generate_local_auth_options($args,$options); ?>
+    </select>
+    <!--<p class="description">
+        <?php // esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'hw_feedback' ); ?>
+    </p>
+    <p class="description">
+        <?php // esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'hw_feedback' ); ?>
+    </p> -->
+    <?php
+}
+
+/**
+ * partner_code field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_partner_code_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <input type="text"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
+    <p class="description">
+        <?php esc_html_e( "In order to provide CQC's public data services we ask that all organisations consuming this API add an additional query parameter to all requests. An informative but concise code representing your organisation should be chosen.", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+/**
+ * Add the top level menu page.
+ */
+function hw_feedback_options_page() {
+    add_menu_page(
+        'Healthwatch Feedback Options',
+        'HW Feedback',
+        'manage_options',
+        'hw_feedback',
+        'hw_feedback_options_page_html'
+    );
+}
+
+
+/**
+ * Register our hw_feedback_options_page to the admin_menu action hook.
+ */
+add_action( 'admin_menu', 'hw_feedback_options_page' );
+
+
+/**
+ * Top level menu callback function
+ */
+function hw_feedback_options_page_html() {
+    // check user capabilities
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    // add error/update messages
+
+    // check if the user have submitted the settings
+    // WordPress will add the "settings-updated" $_GET parameter to the url
+    if ( isset( $_GET['settings-updated'] ) ) {
+        // add settings saved message with the class of "updated"
+        add_settings_error( 'hw_feedback_messages', 'hw_feedback_message', __( 'Settings Saved', 'hw_feedback' ), 'updated' );
+    }
+
+    // show error/update messages
+    settings_errors( 'hw_feedback_messages' );
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <form action="options.php" method="post">
+            <?php
+            // output security fields for the registered setting "hw_feedback"
+            settings_fields( 'hw_feedback' );
+            // output setting sections and their fields
+            // (sections are registered for "hw_feedback", each field is registered to a specific section)
+            do_settings_sections( 'hw_feedback' );
+            // output save settings button
+            submit_button( 'Save Settings' );
+            ?>
+        </form>
+    </div>
+    <?php
+}
 ?>
