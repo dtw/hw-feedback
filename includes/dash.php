@@ -41,6 +41,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
 		// default to 10
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
+		// get options
+		$options = get_option( 'hw_feedback_options' );
 
 		// establish the api cache in UPLOADS dir
 		$upload_dir = wp_upload_dir();
@@ -51,8 +53,12 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 	  if ( !file_exists($api_cache) ) {
 	      mkdir ($api_cache, 0744) or die("hw-feedback: Unable to create folder $api_cache");
 	  }
+		// make the local authority name dir path friendly
+		$local_auth_name = $options[hw_feedback_field_local_authority];
+		$local_auth_name = str_replace(", ","_",$local_auth_name);
+		$local_auth_name = str_replace(" ","_",$local_auth_name);
 		// build filename for inspection category
-		$api_filename = $api_cache . 'cqc_api_locations_' . $primary_inspection_category . '.json';
+		$api_filename = $api_cache . 'cqc_api_locations_' . $local_auth_name . '_' . $primary_inspection_category . '.json';
 
     // create a simple form
     ?>
@@ -139,7 +145,6 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				error_log("hw-feedback: Locations read from $api_filename");
 				if (empty($locations)){ die("hw-feedback: Unable to read locations from $api_filename");}
 			} else {
-				$options = get_option( 'hw_feedback_options' );
 				// Query CQC API
 				$api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
 					// get the local authority name from options
