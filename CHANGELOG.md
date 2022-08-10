@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.3] - 2022-08-10
+### Changed
+- fixed call to missing file
+- fix slug rewrite in taxonomy
+
 ## [2.1.2] - 2022-07-22
 ### Changed
 - fixed includes method
