@@ -20,7 +20,7 @@ require_once(plugin_dir_path( __FILE__ ).'/includes/shortcodes.php');
 
 // ADMIN
 require_once(plugin_dir_path( __FILE__ ).'/includes/admin.php');
-require_once(plugin_dir_path( __FILE__ ).'/includes/dash.php');
+//require_once(plugin_dir_path( __FILE__ ).'/includes/dash.php');
 
 	// include('widgets/widget-list-services.php');
 
