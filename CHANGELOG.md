@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - service_types are set automatically based on CQC Primary Inspection Category (e.g. "P1" is a **dentist**) or, in some case, the GAC category (e.g. "Care home service without nursing" is a **Care Home**)
     - (EXPERIMENTAL) adds a nice excerpt to the local_service
 
+## [2.1.3] - 2022-08-10
+### Changed
+- fixed call to missing file
+- fix slug rewrite in taxonomy
+
 ## [2.1.2] - 2022-07-22
 ### Changed
 - fixed includes method
@@ -43,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [2.0] - 2021-06-28
+## [2.0] - 2022-06-28
 ### Added
 - activate and deactivate functions to better handle cronjob
 - check cqc_reg_status changes on local_services save
@@ -58,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - some CSS inline with rebrand (mostly in hw-scaffold themes)
 - cqc_reg_status metabox to a dropdown
 
-## [2.0 rc1] - 2021-06-09
+## [2.0 rc1] - 2022-06-09
 ### Added
 - function to query CQC API to get location information
 - button to copy data from API into local_service in edit screen

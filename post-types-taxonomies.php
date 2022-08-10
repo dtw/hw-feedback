@@ -130,7 +130,7 @@ function hw_feedback_taxonomies_init() {
         'new_item_name' => 'New Registration Status',
         'search_items' => 'Search Registration Status'
       ),
-			'rewrite' => array( 'slug' => 'type' ),
+			'rewrite' => array( 'slug' => 'status' ),
 			'edit_item' => 'Edit CQC Registration Status',
 			'show_in_nav_menus' => true,
 			'show_in_quick_edit' => false,
@@ -163,7 +163,6 @@ function hw_feedback_taxonomies_init() {
           'new_item_name' => 'New Inspection Category',
           'search_items' => 'Search Inspection Category'
         ),
-  			'rewrite' => array( 'slug' => 'type' ),
   			'edit_item' => 'Edit CQC Inspection Category',
   			'show_in_nav_menus' => true,
   			'show_in_quick_edit' => false,
