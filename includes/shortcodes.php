@@ -40,7 +40,7 @@ function hwbucks_shortcode_review_callout( $atts, $content = null ) {
 		$review_object .= '<p>' . hw_feedback_star_rating($rating,array('colour' => 'green','size' => 'fa-lg'));
 		if ($rating == 1) $review_object .= '<span class="screen-reader-text">'.$rating.' star</span>';
 		else $review_object .= '<span class="screen-reader-text">'.$rating.' stars</span>';
-		$review_object .= ' (<a class="review-link" href="' . get_the_permalink($content_post->ID) . '" rel="bookmark">Leave your own rating</a>)</p>';
+		$review_object .= ' (<a class="review-link" href="' . get_the_permalink($content_post->ID) . '" rel="bookmark">Write a review</a>)</p>';
 		$review_object .= '<p class="visit-date">Visited on <strong>' . $visit_date . '</strong></p>';
 		$review_object .= '<p><em>"' . get_the_excerpt($content_post->ID) . '"</em></p>';
 		$review_object .= '<p><a class="report-link" href="' . $report_link . '" rel="bookmark">Read our full report</a></p></div>
