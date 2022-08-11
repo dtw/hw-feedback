@@ -71,8 +71,6 @@ class hw_enter_and_view extends WP_Widget {
 				else echo '<span class="screen-reader-text">'.$rating.' stars</span>';
 			?>
 
-<?php // get_template_part("elements/comments-rating-average"); ?>
-
 <?php the_excerpt(); ?>
 
 </div><!-- end of column -->

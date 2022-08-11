@@ -116,7 +116,6 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget {
 										<?php echo the_date(); ?>
 									</p>
 								</div>
-								<?php // get_template_part("elements/comments-rating-average"); ?>
 							</div>
 						</div>
 					</div>
