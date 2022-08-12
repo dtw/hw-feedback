@@ -69,6 +69,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
         <p>To reduce system overhead, by default, this tool is limited to adding 5 Locations at a time. This should be plenty if the tool is used regularly. To further reduce overheads, the tool will only check for new Locations for one Inspection Category at a time.</p>
 				<p>You can choose that category using the drop-down list.</p>
       </div>
+			<?php // check the local_authority is set
+			if ( get_option( 'hw_feedback_field_local_authority' ) === false ) {// if no data saved ?>
+				<div id="hw-feedback-api-alert" class="hw-feedback-alert" role="alert">The Local Authority must be selected in <a href="<?php menu_page_url('hw_feedback');?>">Settings</a>.</div>
+			<?php } ?>
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
         <form action="admin.php?page=cqc-data-import" method="post">
 					<div class="hw-feedback-cqc-import-form-row">
