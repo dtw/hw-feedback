@@ -776,7 +776,7 @@ function hw_feedback_check_cqc_registration_status() {
 
     // set php mailer variables
     $to = get_option('admin_email');
-    $subject = "Local Services - registration updates (".get_bloginfo('name').")";
+    $subject = "Local Services - registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
     // set headers to allow HTML
     $headers = array('Content-Type: text/html; charset=UTF-8');
     // build the content
