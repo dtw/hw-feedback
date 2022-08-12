@@ -54,7 +54,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 	      mkdir ($api_cache, 0744) or die("hw-feedback: Unable to create folder $api_cache");
 	  }
 		// make the local authority name dir path friendly
-		$local_auth_name = $options[hw_feedback_field_local_authority];
+		$local_auth_name = $options['hw_feedback_field_local_authority'];
 		$local_auth_name = str_replace(", ","_",$local_auth_name);
 		$local_auth_name = str_replace(" ","_",$local_auth_name);
 		// build filename for inspection category
@@ -148,12 +148,12 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				// Query CQC API
 				$api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
 					// get the local authority name from options
-	        'localAuthority' => $options[hw_feedback_field_local_authority],
+	        'localAuthority' => $options['hw_feedback_field_local_authority'],
 	        'page' => '1',
 	        'perPage' => '700',
 	        'primaryInspectionCategoryCode' => $primary_inspection_category,
 					// get the partner code from options
-	        'partnerCode' => $options[hw_feedback_field_partner_code]
+	        'partnerCode' => $options['hw_feedback_field_partner_code']
 	      )));
 				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a>)</p>';
 				// Convert "JSON object" to array
