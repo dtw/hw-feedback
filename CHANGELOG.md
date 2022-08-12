@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.2] - 2022-08-12
+### Changed
+- minor bug fixes and tweaks
+
 ## [2.2.1] - 2022-07-23
 ### Changed
 - moved all menus settings to dash.php
