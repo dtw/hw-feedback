@@ -15,7 +15,7 @@
     $options = get_option( 'hw_feedback_options' );
     // CQC API root
     $url = 'https://api.cqc.org.uk/public/v1';
-    $request_url = $url . '/' . $collection_name . '/' . $id . '?partnerCode=' . $options[hw_feedback_field_partner_code];
+    $request_url = $url . '/' . $collection_name . '/' . $id . '?partnerCode=' . $options['hw_feedback_field_partner_code'];
     $curl = curl_init($request_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     // no auth needed
