@@ -192,8 +192,6 @@ register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
  * Uninstall the plugin.
  */
 function hw_feedback_uninstall() {
-    // run deactivation hook callback
-    hw_feedback_deactivate();
     // delete settings/options values
     delete_option('hw_feedback_options');
 }
