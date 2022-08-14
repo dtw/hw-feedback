@@ -279,14 +279,14 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 									'cqc_inspection_category' => $cqc_inspection_category_terms
 					    ),
 					    'meta_input'   => array(
-								'hw_services_address_line_1' => $location_api_response->postalAddressLine1,
-								'hw_services_address_line_2' => $location_api_response->postalAddressLine2,
-								'hw_services_city' => $location_api_response->postalAddressTownCity,
-								'hw_services_county' => $location_api_response->postalAddressCounty,
-								'hw_services_postcode' => $location_api_response->postalCode,
-					      'hw_services_cqc_location' => $location->locationId,
-								'hw_services_phone' => $location_api_response->mainPhoneNumber,
-								'hw_services_website' => $location_api_response->website,
+								'hw_services_address_line_1' => isset($location_api_response->postalAddressLine1) == true ? $location_api_response->postalAddressLine1 : '',
+								'hw_services_address_line_2' => isset($location_api_response->postalAddressLine2) == true ? $location_api_response->postalAddressLine2 : '',
+								'hw_services_city' => isset($location_api_response->postalAddressTownCity) == true ? $location_api_response->postalAddressTownCity : '',
+								'hw_services_county' => isset($location_api_response->postalAddressCounty) == true ? $location_api_response->postalAddressCounty : '',
+								'hw_services_postcode' => isset($location_api_response->postalCode) == true ? $location_api_response->postalCode : '',
+								'hw_services_cqc_location' => $location->locationId,
+								'hw_services_phone' => isset($location_api_response->mainPhoneNumber) == true ? $location_api_response->mainPhoneNumber : '',
+								'hw_services_website' => isset($location_api_response->website) == true ? $location_api_response->website : ''
 					    ),
 					);
 					//echo '<p>'.print_r($post_arr).'</p>';
