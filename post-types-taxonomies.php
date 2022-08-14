@@ -837,7 +837,8 @@ add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registr
 /* Run CQC update when local_services are saved */
 
 function hw_feedback_save_local_services_meta($meta_id, $object_id, $meta_key, $_meta_value) {
-  if ($meta_key == 'hw_services_cqc_location') {
+  global $pagenow;
+  if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
     hw_feedback_check_cqc_registration_status_single();
   }
 }
