@@ -135,7 +135,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			}
 
 			// check if the last modification was less than a day ago (24*60*60) AND we're not doing a forced refresh
-			if ( time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
+			if ( isset($api_file_mod_time) && time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
 				// open file for read
 				$api_file = fopen($api_filename, "r") or die("hw-feedback: Unable to open file $api_filename");
 				// read file and convert to array
