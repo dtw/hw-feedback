@@ -67,7 +67,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				<p>You can choose that category using the drop-down list.</p>
       </div>
 			<?php // check the local_authority is set
-			if ( get_option( 'hw_feedback_field_local_authority' ) === false ) {// if no data saved ?>
+			if (  $options['hw_feedback_field_local_authority'] === '' ) {// if no data saved ?>
 				<div id="hw-feedback-api-alert" class="hw-feedback-alert" role="alert">The Local Authority must be selected in <a href="<?php menu_page_url('hw_feedback');?>">Settings</a>.</div>
 			<?php } ?>
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
