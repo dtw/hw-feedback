@@ -146,6 +146,8 @@ function hw_feedback_generate_local_auth_options($args,$options) {
   // read file and convert to array
   $local_authority_names = json_decode(fread($json_file,filesize($json_filename)));
   fclose($json_file) && error_log("hw-feedback: $json_filename closed post-read");
+  // add a blank as top/default
+  ?> <option value=""></option> <?php
   foreach ($local_authority_names as $option) {
     $local_authority = $option->LocalAuthority; ?>
     <option value="<?php echo $local_authority ?>" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], $local_authority, false ) ) : ( '' ); ?>>
