@@ -233,9 +233,6 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
         //
 				$location_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location->locationId));
 				$cqc_gac_service_types = $location_api_response->gacServiceTypes[0]->description;
-				if ( in_array('numberOfBeds',$location_api_response) ) {
-					$number_of_beds = $location_api_response->numberOfBeds;
-				}
 				// we know what the primary category code is because we chose it
 				$service_types_term_name = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
 				$service_types_term_id = get_term_by('name',$service_types_term_name,'service_types','ARRAY_A');
@@ -260,9 +257,9 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 						$post_excerpt = "General practice";
 					} else {
 					$post_excerpt = $cqc_gac_service_types;
-						if ( isset($number_of_beds) ) {
-							if ($number_of_beds !== 0) {
-								$post_excerpt .= ' - ' . $number_of_beds . ' beds';
+						if ( isset($location_api_response->numberOfBeds) ) {
+							if ($location_api_response->numberOfBeds !== 0) {
+								$post_excerpt .= ' - ' . $location_api_response->numberOfBeds . ' beds';
 							}
 						}
 					}
