@@ -41,13 +41,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
 		// default to 10
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
-		// get options
-		$options = get_option( 'hw_feedback_options' );
-
-		// establish the api cache in UPLOADS dir
-		$upload_dir = wp_upload_dir();
-		$api_cache = $upload_dir['basedir'];
-		$api_cache .= "/api_cache/";
+		// get the options
+		$options = get_option( 'hw_feedback_options');
+	  // get the api_cache dir
+	  $api_cache = $options['hw_feedback_field_api_cache_path'];
 		// create new directory with 744 permissions if it does not exist yet
 	  // owner will be the user/group the PHP script is run under
 	  if ( !file_exists($api_cache) ) {
