@@ -592,7 +592,7 @@ function bs_local_services_table_content( $column_name, $post_id ) {
 
 		if ($address_city) { echo $address_city; }
 
-		echo $col_address;
+		//echo $col_address;
 
     $col_phone = get_post_meta( $post_id, 'hw_services_phone', true );
     if ($col_phone) {
