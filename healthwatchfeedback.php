@@ -269,6 +269,31 @@ function hw_feedback_settings_init() {
  */
 add_action( 'admin_init', 'hw_feedback_settings_init' );
 
+/**
+ * custom option and settings
+ */
+function hw_feedback_settings_defaults() {
+  if ( ! get_option( 'hw_feedback_options')) {
+    // create api cache path
+    $upload_dir = wp_upload_dir();
+    $api_cache_path = $upload_dir['basedir'];
+    $api_cache_path .= "/api_cache/";
+    // create defaults
+    $defaults = array(
+      'hw_feedback_field_local_authority' => '',
+      'hw_feedback_field_partner_code' => '',
+      'hw_feedback_field_api_cache_path' => $api_cache_path
+    );
+    update_option( 'hw_feedback_options', $defaults);
+    error_log("hw-feedback: api_cache_path updated " . $api_cache_path);
+  }
+}
+
+/**
+ * Register our hw_feedback_settings_defaults to the current_screen action hook.
+ */
+// Not sure when to hook this but this works
+add_action( 'plugins_loaded', 'hw_feedback_settings_defaults' );
 
 /**
  * Custom option and settings:
