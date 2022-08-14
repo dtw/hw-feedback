@@ -7,20 +7,20 @@ function hw_feedback_add_menus() {
 		'Healthwatch Feedback Settings',
 		'HW Feedback',
 		'manage_options',
-		'hw_feedback',
+		'hw-feedback',
 		'hw_feedback_options_page_html'
 	);
 	//apparently we need to duplicate the top page (?) https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-446
 	add_submenu_page(
-		'hw_feedback',
+		'hw-feedback',
 		'Healthwatch Feedback Settings',
 		'Settings',
 		'manage_options',
-		'hw_feedback'
+		'hw-feedback'
 	);
 	// then add the submenu
 	add_submenu_page(
-		'hw_feedback',
+		'hw-feedback',
 		'CQC Data Import',
 		'CQC Data Import',
 		'manage_options',
