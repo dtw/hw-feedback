@@ -139,12 +139,8 @@ function hw_feedback_gac_category_to_service_type($gac_category) {
 }
 
 function hw_feedback_generate_local_auth_options($args,$options) {
-  // get the api_cache dir in UPLOADS
-  $upload_dir = wp_upload_dir();
-  $api_cache = $upload_dir['basedir'];
-  $api_cache .= "/api_cache/";
   // Our JSON file
-  $json_filename = $api_cache . 'CQC_Local_Authority_Names.json';
+  $json_filename = plugin_dir_path( __DIR__ ).'CQC_Local_Authority_Names.json';
   // open the file
   $json_file = fopen($json_filename, "r") or die("hw-feedback: Unable to read file $json_filename");
   // read file and convert to array
