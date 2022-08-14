@@ -350,9 +350,9 @@ echo "<br /><h2><strong>Address</strong></h2><br />";
 foreach(
   array(
     array('hw_services_address_line_1','Address line 1',$objcqcapiquery->postalAddressLine1),
-    array('hw_services_address_line_2','Address line 2',$objcqcapiquery->postalAddressLine2),
+    array('hw_services_address_line_2','Address line 2', isset($objcqcapiquery->postalAddressLine2) == true ? $objcqcapiquery->postalAddressLine2 : ''),
     array('hw_services_city','City',$objcqcapiquery->postalAddressTownCity),
-    array('hw_services_county','County',$objcqcapiquery->postalAddressCounty),
+    array('hw_services_county','County', isset($objcqcapiquery->postalAddressCounty) == true ? $objcqcapiquery->postalAddressCounty : ''),
     array('hw_services_postcode','Postcode',$objcqcapiquery->postalCode)
   ) as $row
 ) {
@@ -363,8 +363,8 @@ foreach(
 // CONTACT FIELDS
 echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
-hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',$objcqcapiquery->mainPhoneNumber),$post->ID,'20');
-hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',$objcqcapiquery->website),$post->ID,'30');
+hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',isset($objcqcapiquery->mainPhoneNumber) == true ? $objcqcapiquery->mainPhoneNumber : ''),$post->ID,'20');
+hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',isset($objcqcapiquery->website) == true ? $objcqcapiquery->website : ''),$post->ID,'30');
 
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
