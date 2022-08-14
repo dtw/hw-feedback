@@ -187,7 +187,17 @@ function hw_feedback_deactivate() {
     wp_clear_scheduled_hook('hw_feedback_cqc_reg_check_cron_job' );
 }
 register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
-register_uninstall_hook( __FILE__, 'hw_feedback_deactivate' );
+
+/**
+ * Uninstall the plugin.
+ */
+function hw_feedback_uninstall() {
+    // run deactivation hook callback
+    hw_feedback_deactivate();
+    // delete settings/options values
+    delete_option('hw_feedback_options');
+}
+register_uninstall_hook( __FILE__, 'hw_feedback_uninstall' );
 
 /**
  * https://developer.wordpress.org/plugins/settings/custom-settings-page/
