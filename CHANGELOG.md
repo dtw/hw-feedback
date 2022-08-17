@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3] - 2022-08-14
+### Added
+- warnings for missing settings
+- uninstall hook to delete options
+- new setting to store API Cache path/directory
+
+### Changed
+- minor changes to fix PHP Notices
+- Local Authority JSON file now stored in plugin root
+
 ## [2.2.2] - 2022-08-12
 ### Changed
 - minor bug fixes and tweaks
