@@ -1,0 +1,461 @@
+[
+    {
+        "LocalAuthority": "Barking and Dagenham"
+    },
+    {
+        "LocalAuthority": "Barnet"
+    },
+    {
+        "LocalAuthority": "Barnsley"
+    },
+    {
+        "LocalAuthority": "Bath and North East Somerset"
+    },
+    {
+        "LocalAuthority": "Bedford"
+    },
+    {
+        "LocalAuthority": "Bexley"
+    },
+    {
+        "LocalAuthority": "Birmingham"
+    },
+    {
+        "LocalAuthority": "Blackburn with Darwen"
+    },
+    {
+        "LocalAuthority": "Blackpool"
+    },
+    {
+        "LocalAuthority": "Bolton"
+    },
+    {
+        "LocalAuthority": "Bournemouth, Christchurch and Poole"
+    },
+    {
+        "LocalAuthority": "Bracknell Forest"
+    },
+    {
+        "LocalAuthority": "Bradford"
+    },
+    {
+        "LocalAuthority": "Brent"
+    },
+    {
+        "LocalAuthority": "Brighton and Hove"
+    },
+    {
+        "LocalAuthority": "Bristol, City of"
+    },
+    {
+        "LocalAuthority": "Bromley"
+    },
+    {
+        "LocalAuthority": "Buckinghamshire"
+    },
+    {
+        "LocalAuthority": "Bury"
+    },
+    {
+        "LocalAuthority": "Calderdale"
+    },
+    {
+        "LocalAuthority": "Cambridgeshire"
+    },
+    {
+        "LocalAuthority": "Camden"
+    },
+    {
+        "LocalAuthority": "Central Bedfordshire"
+    },
+    {
+        "LocalAuthority": "Cheshire East"
+    },
+    {
+        "LocalAuthority": "Cheshire West and Chester"
+    },
+    {
+        "LocalAuthority": "City of London"
+    },
+    {
+        "LocalAuthority": "Cornwall"
+    },
+    {
+        "LocalAuthority": "County Durham"
+    },
+    {
+        "LocalAuthority": "Coventry"
+    },
+    {
+        "LocalAuthority": "Croydon"
+    },
+    {
+        "LocalAuthority": "Cumbria"
+    },
+    {
+        "LocalAuthority": "Darlington"
+    },
+    {
+        "LocalAuthority": "Derby"
+    },
+    {
+        "LocalAuthority": "Derbyshire"
+    },
+    {
+        "LocalAuthority": "Devon"
+    },
+    {
+        "LocalAuthority": "Doncaster"
+    },
+    {
+        "LocalAuthority": "Dorset"
+    },
+    {
+        "LocalAuthority": "Dudley"
+    },
+    {
+        "LocalAuthority": "Ealing"
+    },
+    {
+        "LocalAuthority": "East Riding of Yorkshire"
+    },
+    {
+        "LocalAuthority": "East Sussex"
+    },
+    {
+        "LocalAuthority": "Enfield"
+    },
+    {
+        "LocalAuthority": "Essex"
+    },
+    {
+        "LocalAuthority": "Flintshire"
+    },
+    {
+        "LocalAuthority": "Gateshead"
+    },
+    {
+        "LocalAuthority": "Gloucestershire"
+    },
+    {
+        "LocalAuthority": "Greenwich"
+    },
+    {
+        "LocalAuthority": "Hackney"
+    },
+    {
+        "LocalAuthority": "Halton"
+    },
+    {
+        "LocalAuthority": "Hammersmith and Fulham"
+    },
+    {
+        "LocalAuthority": "Hampshire"
+    },
+    {
+        "LocalAuthority": "Haringey"
+    },
+    {
+        "LocalAuthority": "Harrow"
+    },
+    {
+        "LocalAuthority": "Hartlepool"
+    },
+    {
+        "LocalAuthority": "Havering"
+    },
+    {
+        "LocalAuthority": "Herefordshire, County of"
+    },
+    {
+        "LocalAuthority": "Hertfordshire"
+    },
+    {
+        "LocalAuthority": "Hillingdon"
+    },
+    {
+        "LocalAuthority": "Hounslow"
+    },
+    {
+        "LocalAuthority": "Isle of Wight"
+    },
+    {
+        "LocalAuthority": "Isles of Scilly"
+    },
+    {
+        "LocalAuthority": "Islington"
+    },
+    {
+        "LocalAuthority": "Kensington and Chelsea"
+    },
+    {
+        "LocalAuthority": "Kent"
+    },
+    {
+        "LocalAuthority": "Kingston upon Hull, City of"
+    },
+    {
+        "LocalAuthority": "Kingston upon Thames"
+    },
+    {
+        "LocalAuthority": "Kirklees"
+    },
+    {
+        "LocalAuthority": "Knowsley"
+    },
+    {
+        "LocalAuthority": "Lambeth"
+    },
+    {
+        "LocalAuthority": "Lancashire"
+    },
+    {
+        "LocalAuthority": "Leeds"
+    },
+    {
+        "LocalAuthority": "Leicester"
+    },
+    {
+        "LocalAuthority": "Leicestershire"
+    },
+    {
+        "LocalAuthority": "Lewisham"
+    },
+    {
+        "LocalAuthority": "Lincolnshire"
+    },
+    {
+        "LocalAuthority": "Liverpool"
+    },
+    {
+        "LocalAuthority": "Luton"
+    },
+    {
+        "LocalAuthority": "Manchester"
+    },
+    {
+        "LocalAuthority": "Medway"
+    },
+    {
+        "LocalAuthority": "Merton"
+    },
+    {
+        "LocalAuthority": "Middlesbrough"
+    },
+    {
+        "LocalAuthority": "Milton Keynes"
+    },
+    {
+        "LocalAuthority": "Newcastle upon Tyne"
+    },
+    {
+        "LocalAuthority": "Newham"
+    },
+    {
+        "LocalAuthority": "Norfolk"
+    },
+    {
+        "LocalAuthority": "North East Lincolnshire"
+    },
+    {
+        "LocalAuthority": "North Lincolnshire"
+    },
+    {
+        "LocalAuthority": "North Northamptonshire"
+    },
+    {
+        "LocalAuthority": "North Somerset"
+    },
+    {
+        "LocalAuthority": "North Tyneside"
+    },
+    {
+        "LocalAuthority": "North Yorkshire"
+    },
+    {
+        "LocalAuthority": "Northumberland"
+    },
+    {
+        "LocalAuthority": "Nottingham"
+    },
+    {
+        "LocalAuthority": "Nottinghamshire"
+    },
+    {
+        "LocalAuthority": "Oldham"
+    },
+    {
+        "LocalAuthority": "Oxfordshire"
+    },
+    {
+        "LocalAuthority": "Peterborough"
+    },
+    {
+        "LocalAuthority": "Plymouth"
+    },
+    {
+        "LocalAuthority": "Portsmouth"
+    },
+    {
+        "LocalAuthority": "Reading"
+    },
+    {
+        "LocalAuthority": "Redbridge"
+    },
+    {
+        "LocalAuthority": "Redcar and Cleveland"
+    },
+    {
+        "LocalAuthority": "Richmond upon Thames"
+    },
+    {
+        "LocalAuthority": "Rochdale"
+    },
+    {
+        "LocalAuthority": "Rotherham"
+    },
+    {
+        "LocalAuthority": "Rutland"
+    },
+    {
+        "LocalAuthority": "Salford"
+    },
+    {
+        "LocalAuthority": "Sandwell"
+    },
+    {
+        "LocalAuthority": "Sefton"
+    },
+    {
+        "LocalAuthority": "Sheffield"
+    },
+    {
+        "LocalAuthority": "Shropshire"
+    },
+    {
+        "LocalAuthority": "Slough"
+    },
+    {
+        "LocalAuthority": "Solihull"
+    },
+    {
+        "LocalAuthority": "Somerset"
+    },
+    {
+        "LocalAuthority": "South Gloucestershire"
+    },
+    {
+        "LocalAuthority": "South Tyneside"
+    },
+    {
+        "LocalAuthority": "Southampton"
+    },
+    {
+        "LocalAuthority": "Southend-on-Sea"
+    },
+    {
+        "LocalAuthority": "Southwark"
+    },
+    {
+        "LocalAuthority": "St. Helens"
+    },
+    {
+        "LocalAuthority": "Staffordshire"
+    },
+    {
+        "LocalAuthority": "Stockport"
+    },
+    {
+        "LocalAuthority": "Stockton-on-Tees"
+    },
+    {
+        "LocalAuthority": "Stoke-on-Trent"
+    },
+    {
+        "LocalAuthority": "Suffolk"
+    },
+    {
+        "LocalAuthority": "Sunderland"
+    },
+    {
+        "LocalAuthority": "Surrey"
+    },
+    {
+        "LocalAuthority": "Sutton"
+    },
+    {
+        "LocalAuthority": "Swindon"
+    },
+    {
+        "LocalAuthority": "Tameside"
+    },
+    {
+        "LocalAuthority": "Telford and Wrekin"
+    },
+    {
+        "LocalAuthority": "Thurrock"
+    },
+    {
+        "LocalAuthority": "Torbay"
+    },
+    {
+        "LocalAuthority": "Tower Hamlets"
+    },
+    {
+        "LocalAuthority": "Trafford"
+    },
+    {
+        "LocalAuthority": "Wakefield"
+    },
+    {
+        "LocalAuthority": "Walsall"
+    },
+    {
+        "LocalAuthority": "Waltham Forest"
+    },
+    {
+        "LocalAuthority": "Wandsworth"
+    },
+    {
+        "LocalAuthority": "Warrington"
+    },
+    {
+        "LocalAuthority": "Warwickshire"
+    },
+    {
+        "LocalAuthority": "West Berkshire"
+    },
+    {
+        "LocalAuthority": "West Northamptonshire"
+    },
+    {
+        "LocalAuthority": "West Sussex"
+    },
+    {
+        "LocalAuthority": "Westminster"
+    },
+    {
+        "LocalAuthority": "Wigan"
+    },
+    {
+        "LocalAuthority": "Wiltshire"
+    },
+    {
+        "LocalAuthority": "Windsor and Maidenhead"
+    },
+    {
+        "LocalAuthority": "Wirral"
+    },
+    {
+        "LocalAuthority": "Wokingham"
+    },
+    {
+        "LocalAuthority": "Wolverhampton"
+    },
+    {
+        "LocalAuthority": "Worcestershire"
+    },
+    {
+        "LocalAuthority": "York"
+    }
+]
