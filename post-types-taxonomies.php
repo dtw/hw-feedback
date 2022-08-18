@@ -802,7 +802,7 @@ function hw_feedback_check_cqc_registration_status() {
     $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 }
 
-function hw_feedback_check_cqc_registration_status_single() {
+function hw_feedback_check_cqc_registration_status_single($post_id) {
   $single_local_service = get_post($post_id);
   // get location id
   $location_id = get_post_meta( $single_local_service->ID, 'hw_services_cqc_location', true );
@@ -842,7 +842,7 @@ add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registr
 function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_meta_value) {
   global $pagenow;
   if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
-    hw_feedback_check_cqc_registration_status_single();
+    hw_feedback_check_cqc_registration_status_single($post_id);
   }
 }
 
