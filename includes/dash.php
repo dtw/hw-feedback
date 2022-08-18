@@ -188,7 +188,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
         'posts_per_page' => -1,
         'post_type' => 'local_services',
         'meta_key' => 'hw_services_cqc_location',
-        'orderby' => 'meta_value'
+        'orderby' => 'meta_value',
+				'post_status' => 'any'
       );
 
       $services = get_posts( $args );
