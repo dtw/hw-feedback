@@ -332,11 +332,13 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Registration Date'=>'registrationDate','Local Authority'=>'localAuthority');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
     foreach($apioutputarray as $x => $val) {
-      echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
+      if (isset($objcqcapiquery->$val)) {
+        echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
+      }
     }
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
-    if ($objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
+    if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
         <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. <a href="https://www.cqc.org.uk/location/<?php echo $objcqcapiquery->locationId?>?referer=widget4" target="_blank">Check this registration on the CQC website</a>. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
@@ -349,11 +351,11 @@ echo "<br /><h2><strong>Address</strong></h2><br />";
 
 foreach(
   array(
-    array('hw_services_address_line_1','Address line 1',$objcqcapiquery->postalAddressLine1),
+    array('hw_services_address_line_1','Address line 1', isset($objcqcapiquery->postalAddressLine1) == true ? $objcqcapiquery->postalAddressLine1 : ''),
     array('hw_services_address_line_2','Address line 2', isset($objcqcapiquery->postalAddressLine2) == true ? $objcqcapiquery->postalAddressLine2 : ''),
-    array('hw_services_city','City',$objcqcapiquery->postalAddressTownCity),
+    array('hw_services_city','City', isset($objcqcapiquery->postalAddressTownCity) == true ? $objcqcapiquery->postalAddressTownCity : ''),
     array('hw_services_county','County', isset($objcqcapiquery->postalAddressCounty) == true ? $objcqcapiquery->postalAddressCounty : ''),
-    array('hw_services_postcode','Postcode',$objcqcapiquery->postalCode)
+    array('hw_services_postcode','Postcode', isset($objcqcapiquery->postalCode) == true ? $objcqcapiquery->postalCode : ''),
   ) as $row
 ) {
   hw_feedback_generate_metabox_form_field($row,$post->ID,'60');
@@ -749,7 +751,7 @@ function hw_feedback_check_cqc_registration_status() {
           continue;
         }
         // if there is a reg status from the api
-        if ( $api_response->registrationStatus ) {
+        if ( isset($api_response->registrationStatus) ) {
           // is it different from the current status AND NOT Archived
           if ( $tax_terms[0]  != $api_response->registrationStatus) {
             // set new terms - takes names of terms not slugs...
@@ -814,7 +816,7 @@ function hw_feedback_check_cqc_registration_status_single() {
       return;
     }
     // if there is a reg status from the api
-    if ( $api_response->registrationStatus ) {
+    if ( isset($api_response->registrationStatus) ) {
       // is it different from the current status AND NOT Archived
       if ( $tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
