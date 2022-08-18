@@ -144,7 +144,9 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-read");
 				echo "<p>Locations read from <strong>file</strong>, last modified at ". date("Y-m-d H:i:s", $api_file_mod_time) . "</p>";
 				error_log("hw-feedback: Locations read from $api_filename");
-				if (empty($locations)){ die("hw-feedback: Unable to read locations from $api_filename");}
+				if (empty($locations)){ ?>
+					<div id="hw-feedback-nothing-to-do" class="hw-feedback-alert" role="alert">Nothing to do! It looks like all services have been processed. Use "Force refresh?" above to make sure.</div>
+				<?php }
 			} else {
 				// Query CQC API
 				$api_response = json_decode(hw_feedback_cqc_api_query_locations(array(
