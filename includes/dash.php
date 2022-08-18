@@ -189,7 +189,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
         'post_type' => 'local_services',
         'meta_key' => 'hw_services_cqc_location',
         'orderby' => 'meta_value',
-				'post_status' => 'any'
+				'post_status' => array('publish','private')
       );
 
       $services = get_posts( $args );

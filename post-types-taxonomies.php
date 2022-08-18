@@ -734,6 +734,7 @@ function hw_feedback_check_cqc_registration_status() {
   $args = array(
     'post_type'       => 'local_services',
     'posts_per_page'  => -1,
+    'post_status' => array('publish','private')
   );
 
   $services = get_posts( $args );
