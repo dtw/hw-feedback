@@ -128,6 +128,10 @@
   width: 100%;
 }
 
+#hw-feedback-nothing-to-do {
+  display: inline-block;
+}
+
 .hw-feedback-alert {
 	margin-left: 7px;
 	padding: 4px 4px 6px 4px;
