@@ -763,6 +763,25 @@ function hw_feedback_check_cqc_registration_status() {
           // update the cqc_inspection_category
           foreach ($api_response->inspectionCategories as $inspection_category) {
             wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($inspection_category->code) , 'cqc_inspection_category', true );
+            if ( isset($inspection_category->primary) && $inspection_category->primary === 'true') {
+              $primary_inspection_category = sanitize_text_field($inspection_category->code);
+            }
+          }
+          // update the excerpt if blank
+          if ( ! has_excerpt($hw_feedback_post->ID) ) {
+            if ($primary_inspection_category == "P2") {
+              $post_excerpt = "General practice";
+            } else {
+              $post_excerpt = $api_response->gacServiceTypes[0]->description;
+              if ( isset($api_response->numberOfBeds) ) {
+                if ($api_response->numberOfBeds !== 0) {
+                  $post_excerpt .= ' - ' . $api_response->numberOfBeds . ' beds';
+                }
+              }
+            }
+            wp_update_post(array(
+              'ID' => $hw_feedback_post->ID,
+              'post_excerpt' => $post_excerpt));
           }
         // otherwise, it has a location id locally but that is not listed by CQC
         } else {
