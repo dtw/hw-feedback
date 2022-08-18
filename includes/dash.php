@@ -205,7 +205,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					if ( $force_refresh === "true" ) {
 	          $current_location_name = $locations[$result]->locationName;
 	          $current_location_id = $locations[$result]->locationId;
-	          echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
+	          //echo '<p>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</p>';
+						$matched_locations .= '<li>'. $current_location_name . ' (<a href="https://www.cqc.org.uk/location/' . $current_location_id . '" target="_blank">' . $current_location_id . '</a>)</li>';
 					}
           // count the match
           $matched_count ++;
@@ -215,11 +216,11 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       endforeach;
 			// Reindex array - THIS IS CRITICAL!
 			$locations = array_values($locations);
+			$unmatched_location_count = count($locations);
 
 			// be verbose
 			if ( $force_refresh === "true" ) {
-				echo '<h3>Matched: ' . $matched_count . '/' . $registered_counter . '</h3>';
-				echo '<h3>Un-matched: ' . count($locations) . '/' . $registered_counter . '</h3>';
+				echo '<h3>Found ' . $registered_counter . ' locations - ' . $unmatched_location_count . ' locations unmatched</h3>';
 			}
 
 			// now the locations are cleaned-up the locations to file as JSON object
@@ -229,8 +230,13 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 
 			// limit the number of results to $import_number
 			$locations = array_slice($locations,0,$import_number,true);
-			echo '<h3>Showing: ' . count($locations) . ' results</h3>';
-
+			if ( $preview_only ) {
+				echo '<h4>Previewing ' . count($locations) . ' of ' . $unmatched_location_count. ' unmatched locations</h4>';
+			} else {
+				echo '<h4>' . count($locations) . ' locations successfully imported</h4>';
+			}
+			// start ordered list
+			echo '<ol>';
       // loop the remaning $locations
       foreach ($locations as $location) {
         //
@@ -241,7 +247,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				$service_types_term_id = get_term_by('name',$service_types_term_name,'service_types','ARRAY_A');
 				// do something different if this is just a preview
 				if ( $preview_only ) {
-					echo '<p>'. $location->locationName . ' (' . $service_types_term_name . ' - <a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</p>';
+					echo '<li>'. $location->locationName . ' (' . $service_types_term_name . ' - <a href="https://www.cqc.org.uk/location/' . $location->locationId . '" target="_blank">' . $location->locationId . '</a>)</li>';
 				} else {
 					// build an array of these
 					$cqc_inspection_category_terms = array();
@@ -294,8 +300,16 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					);
 					//echo '<p>'.print_r($post_arr).'</p>';
 					$post_id = wp_insert_post( $post_arr );
-					echo '<p>'.$location_api_response->name.' (<a href="'.get_edit_post_link($post_id).'">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</p>';
+					echo '<li>'.$location_api_response->name.' (<a href="'.get_edit_post_link($post_id).'">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</li>';
 				}
+			// for loop ends here
+			}
+			// close ordered list
+			echo '</ol>';
+			if ( $force_refresh === "true" ) {
+				echo '<h3>Matched ' . $matched_count . ' locations</h3><ol>';
+				echo $matched_locations;
+				echo '</ol>';
 			}
       // Get finish time
       $executionEndTime = microtime(true);
