@@ -183,7 +183,7 @@ add_action( 'init', 'hw_feedback_taxonomies_init' );
 /* Add default terms to cqc_reg_status taxonomy */
 function hw_feedback_register_default_terms () {
   // service_types
-  wp_insert_term('Ambulance service','service_types', array('description'=>'Provide medical care outside of hospital and patient transport services.', 'slug' => 'ambulance'));
+  wp_insert_term('Ambulance service','service_types', array('description'=>'Provide medical care outside of hospital and patient transport services', 'slug' => 'ambulance'));
   wp_insert_term('Care home','service_types', array('description'=>'Care homes which offer a variety of personal care and accommodation', 'slug' => 'care-home'));
   wp_insert_term('Care home with nursing','service_types', array('description'=>'Care homes which offer a variety of personal care and accommodation with nursing', 'slug' => 'care-home-with-nursing'));
   wp_insert_term('Community healthcare service','service_types', array('description'=>'Provide healthcare support to people in their own home or in community settings ', 'slug' => 'community-healthcare'));

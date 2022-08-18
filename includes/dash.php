@@ -109,7 +109,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					<div id="hw-feedback-preview-only-row" class="hw-feedback-cqc-import-form-row">
 						<label for="hw-feedback-preview-only">Preview ONLY!</label>
 						<input type="checkbox" id="hw-feedback-preview-only" class="hw-feedback-checkbox" name="hw-feedback-preview-only" value="true" checked>
-						<div id="hw-feedback-import-alert" class="hw-feedback-alert" role="alert">New locations will be imported to the database!</div>
+						<div id="hw-feedback-import-alert" class="hw-feedback-alert" role="alert">Unmatched locations will be imported to the database!</div>
 					</div>
           <div class="hw-feedback-cqc-import-form-row">
 						<input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview">
