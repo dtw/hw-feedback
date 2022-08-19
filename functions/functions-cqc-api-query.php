@@ -100,6 +100,7 @@ function hw_feedback_inspection_category_to_service_type($inspection_category) {
     'P1' => 'Dentist',
     'P2' => 'General practice',
     'P3' => 'Urgent & emergency care',
+    'P4' => 'Prison healthcare',
     'P6' => 'Urgent & emergency care',
     'P7' => 'Independent consulting doctor', // must be added
     //'S1' => 'Care home',
