@@ -194,11 +194,11 @@ function hw_feedback_register_default_terms () {
   wp_insert_term('Hospice service','service_types', array('description'=>'Provide a range of services for conditions where curative treatment is no longer an option, and people are approaching the end of their life', 'slug' => 'hospice'));
   wp_insert_term('Hospital','service_types', array('description'=>'NHS and independent hospitals including acute and non-acute, and community hospitals', 'slug' => 'hospital'));
   wp_insert_term('Independent consulting doctor','service_types', array('description'=>'Private doctor services', 'slug' => 'private-doctor'));
-  wp_insert_term('Mental Health','service_types', array('description'=>'Provide care, treatment and support for people with mental health needs, including community and hospital settings', 'slug' => 'mental-health'));
+  wp_insert_term('Mental health','service_types', array('description'=>'Provide care, treatment and support for people with mental health needs, including community and hospital settings', 'slug' => 'mental-health'));
   wp_insert_term('Optician','service_types', array('description'=>'Provide optician services', 'slug' => 'optician'));
   wp_insert_term('Other','service_types', array('description'=>'Other services', 'slug' => 'other'));
   wp_insert_term('Pharmacy','service_types', array('description'=>'Provide community pharmacy services including dispensing prescriptions and advice on treating minor illnesses', 'slug' => 'pharmacy'));
-  wp_insert_term('Prison Healthcare','service_types', array('description'=>'Provide prison healthcare services"', 'slug' => 'prison-healthcare'));
+  wp_insert_term('Prison healthcare','service_types', array('description'=>'Provide prison healthcare services', 'slug' => 'prison-healthcare'));
   wp_insert_term('Supported living service','service_types', array('description'=>'Provide care and/or support services to persons living in their own home to promote their independence', 'slug' => 'supported-living-service'));
   wp_insert_term('Urgent & emergency care','service_types', array('description'=>'Provide urgent or emergency medical help', 'slug' => 'urgent-care'));
   // cqc_reg_status
