@@ -329,7 +329,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
   if ($value != '') {
     $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
     echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
-    $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Registration Date'=>'registrationDate','Local Authority'=>'localAuthority');
+    $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Local Authority'=>'localAuthority','Registration Date'=>'registrationDate');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
     foreach($apioutputarray as $x => $val) {
       if (isset($objcqcapiquery->$val)) {
