@@ -65,7 +65,7 @@ function hw_feedback_edit_term_icon_field( $term ) {
 		?>
 
     <tr class="form-field hw-term-icon-wrap">
-        <th scope="row"><label for="hw-term-icon"><?php _e( 'icon', 'hw' ); ?></label></th>
+        <th scope="row"><label for="hw-term-icon"><?php _e( 'Icon', 'hw-feedback' ); ?></label></th>
         <td>
             <?php wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' ); ?>
             <input type="text" name="hw_term_icon" id="hw-term-icon" value="<?php echo esc_attr( $icon ); ?>" class="hw-icon-field" data-default-icon="<?php echo esc_attr( $default ); ?>" />
@@ -109,7 +109,7 @@ add_filter( 'manage_edit-signpost_categories_columns', 'hw_feedback_edit_term_co
 
 function hw_feedback_edit_term_columns( $columns ) {
 
-    $columns['Icon'] = __( 'Icon', 'hw' );
+    $columns['Icon'] = __( 'Icon', 'hw-feedback' );
 
     return $columns;
 }
