@@ -41,7 +41,9 @@ add_action( 'signpost_categories_add_form_fields', 'hw_feedback_new_term_icon_fi
 
 function hw_feedback_new_term_icon_field() {
 
-    wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' ); ?>
+    wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' );
+    $site_icon_id = get_option( 'site_icon' );
+    $image = wp_get_attachment_image( $site_icon_id, 'thumbnail', false, array( 'id' => 'hw-feedback-preview-image' ) );?>
 
     <div class="form-field hw-term-icon-wrap">
         <label for="hw-term-icon">Icon</label>
@@ -68,7 +70,8 @@ function hw_feedback_edit_term_icon_field( $term ) {
     $image = wp_get_attachment_image( $icon, 'thumbnail', false, array( 'id' => 'hw-feedback-preview-image' ) );
   } else {
     // Some default image
-    $image = '<img id="hw-feedback-preview-image" src="' . get_site_icon_url(150) . '" />';
+    $site_icon_id = get_option( 'site_icon' );
+    $image = wp_get_attachment_image( $site_icon_id, 'thumbnail', false, array( 'id' => 'hw-feedback-preview-image' ) );
   }
 
 		?>
