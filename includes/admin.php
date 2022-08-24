@@ -74,4 +74,18 @@ function hw_feedback_remove_meta_boxes() {
 }
 add_action( 'admin_menu' , 'hw_feedback_remove_meta_boxes' );
 
+/* 3. Wordpress Media handler
+------------------------------------------------------------------------------ */
+
+function load_wp_media_files( $page ) {
+  // change to the $page where you want to enqueue the script
+  if( $page == 'term.php' ) {
+    // Enqueue WordPress media scripts
+    wp_enqueue_media();
+    // Enqueue custom script that will interact with wp.media
+    wp_enqueue_script( 'hw_feedback_script', plugins_url( '/js/wordpress_media.js' , __DIR__ ), array('jquery'), '0.1' );
+  }
+}
+add_action( 'admin_enqueue_scripts', 'load_wp_media_files' );
+
 ?>

@@ -60,18 +60,28 @@ add_action( 'signpost_categories_edit_form_fields', 'hw_feedback_edit_term_icon_
 
 function hw_feedback_edit_term_icon_field( $term ) {
 
-    $icon   = hw_feedback_get_term_icon( $term->term_id, true );
+  $icon   = hw_feedback_get_term_icon( $term->term_id, true );
+  if( intval( $icon ) > 0 ) {
+    // Change with the image size you want to use
+    $image = wp_get_attachment_image( $icon, 'thumbnail', false, array( 'id' => 'hw-feedback-preview-image' ) );
+  } else {
+    // Some default image
+    $image = '<img id="hw-feedback-preview-image" src="' . get_site_icon_url(150) . '" />';
+  }
 
 		?>
 
-    <tr class="form-field hw-term-icon-wrap">
-        <th scope="row"><label for="hw-term-icon"><?php _e( 'Icon', 'hw-feedback' ); ?></label></th>
-        <td>
-            <?php wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' ); ?>
-            <input type="text" name="hw_term_icon" id="hw-term-icon" value="<?php echo esc_attr( $icon ); ?>" class="hw-icon-field" data-default-icon="<?php echo esc_attr( $default ); ?>" />
-        </td>
-    </tr>
-<?php }
+  <tr class="form-field hw-term-icon-wrap">
+    <th scope="row"><label for="hw-term-icon"><?php _e( 'Icon', 'hw-feedback' ); ?></label></th>
+    <td>
+      <?php wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' ); ?>
+      <input type="hidden" name="hw_term_icon" id="hw-term-icon" value="<?php echo esc_attr( $icon ); ?>" class="regular-text" />
+      <?php echo $image; ?>
+      <input type="button" class="button-primary" value="Select an image" id="hw_feedback_media_manager"/>
+    </td>
+  </tr>
+  <?php
+}
 
 
 
@@ -99,6 +109,19 @@ function hw_feedback_save_term_icon( $term_id ) {
         update_term_meta( $term_id, 'icon', $new_icon );
 }
 
+// Ajax action to refresh the user image - https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
+function hw_feedback_get_image() {
+  if(isset($_GET['id']) ){
+    $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'thumbnail', false, array( 'id' => 'hw-feedback-preview-image' ) );
+    $data = array(
+      'image'  => $image,
+    );
+    wp_send_json_success( $data );
+  } else {
+    wp_send_json_error();
+  }
+}
+add_action( 'wp_ajax_hw_feedback_get_image', 'hw_feedback_get_image'   );
 
 
 /* 5. Add column to admin screen
@@ -128,8 +151,9 @@ function hw_feedback_manage_term_custom_column( $out, $column, $term_id ) {
 
         $icon = hw_feedback_get_term_icon( $term_id, true );
 
-        if ( $icon ) {
-
+        if ( $icon > 0 ) {
+          $out = wp_get_attachment_image( $icon, array(40,40), true);
+} else {
         $out = sprintf( '<img width="40" height="40" src="%s" alt="Icon" />', esc_attr( $icon ) );
 			}
 

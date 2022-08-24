@@ -215,6 +215,10 @@
 	width: auto;
 }
 
+#hw_feedback_media_manager {
+  display: block;
+}
+
 /* callout-review */
 
 .media.callout-review {
