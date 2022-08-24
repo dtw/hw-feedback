@@ -79,7 +79,7 @@ function hw_feedback_edit_term_icon_field( $term ) {
       <?php wp_nonce_field( basename( __FILE__ ), 'hw_term_icon_nonce' ); ?>
       <input type="hidden" name="hw_term_icon" id="hw-term-icon" value="<?php echo esc_attr( $icon ); ?>"/>
       <?php echo $image; ?>
-      <input type="button" class="button-primary" value="Select an image" id="hw_feedback_media_manager"/>
+      <input type="button" class="button-primary" value="Select an icon" id="hw_feedback_media_manager"/>
     </td>
   </tr>
   <?php
