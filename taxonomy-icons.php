@@ -45,7 +45,9 @@ function hw_feedback_new_term_icon_field() {
 
     <div class="form-field hw-term-icon-wrap">
         <label for="hw-term-icon">Icon</label>
-        <input type="text" name="hw_term_icon" id="hw-term-icon" value="" class="hw-icon-field" />
+        <input type="hidden" name="hw_term_icon" id="hw-term-icon" value="<?php echo esc_attr( $icon ); ?>"/>
+        <?php echo $image; ?>
+        <input type="button" class="button-primary" value="Select an icon" id="hw_feedback_media_manager"/>
     </div>
 <?php }
 
