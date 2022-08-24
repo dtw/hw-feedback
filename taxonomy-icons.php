@@ -159,7 +159,7 @@ function hw_feedback_manage_term_custom_column( $out, $column, $term_id ) {
         if ( $icon > 0 ) {
           $out = wp_get_attachment_image( $icon, array(40,40), true);
 } else {
-        $out = sprintf( '<img width="40" height="40" src="%s" alt="Icon" />', esc_attr( $icon ) );
+        $out = '-';
 			}
 
     }
