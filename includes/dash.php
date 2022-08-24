@@ -112,7 +112,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 						<div id="hw-feedback-import-alert" class="hw-feedback-alert" role="alert">Unmatched locations will be imported to the database!</div>
 					</div>
           <div class="hw-feedback-cqc-import-form-row">
-						<input type="submit" class="btn btn-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview">
+						<input type="submit" class="button-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview">
 					</div>
         </form>
       </div>
