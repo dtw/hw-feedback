@@ -219,6 +219,14 @@
   display: block;
 }
 
+#hw-feedback-preview-image {
+  background-color: white;
+}
+
+#hw_feedback_media_manager {
+  margin-top: 1rem;
+}
+
 /* callout-review */
 
 .media.callout-review {
