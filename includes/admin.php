@@ -79,7 +79,7 @@ add_action( 'admin_menu' , 'hw_feedback_remove_meta_boxes' );
 
 function load_wp_media_files( $page ) {
   // change to the $page where you want to enqueue the script
-  if( $page == 'term.php' ) {
+  if( $page == 'term.php' || $page == 'edit-tags.php' ) {
     // Enqueue WordPress media scripts
     wp_enqueue_media();
     // Enqueue custom script that will interact with wp.media
