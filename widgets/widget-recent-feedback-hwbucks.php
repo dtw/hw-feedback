@@ -109,12 +109,8 @@ class SF_HWBucks_Recent_Feedback_Widget extends WP_Widget {
 									<a class="img-anchor" href="
 									<?php echo get_the_permalink($comment->comment_post_ID); ?>
 									">
-										<img class="service-icon-md panel-icon-img" src="
-										<?php echo $term_icon; ?>
-										" alt="
-										<?php echo get_the_title($comment->comment_post_ID); ?>
-										"/>
-							<?php } ?>
+                  <?php echo wp_get_attachment_image( $term_icon, 'thumbnail', true, array( 'class' => 'service-icon-md panel-icon-img', 'alt' => get_the_title($comment->comment_post_ID) ) );
+							} ?>
 						<!-- this isn't the main panel 4x to 2x to 1x-->
 						<?php } else { ?>
 							<!-- add a container and wrap the term icon in a hyperlink to the post -->
@@ -122,12 +118,8 @@ class SF_HWBucks_Recent_Feedback_Widget extends WP_Widget {
 								<a class="img-anchor" href="
 								<?php echo get_the_permalink($comment->comment_post_ID); ?>
 								">
-								<img class="service-icon-sm panel-icon-img" src="
-								<?php echo $term_icon; ?>
-								" alt="
-								<?php echo get_the_title($comment->comment_post_ID); ?>
-								"/>
-						<?php } ?>
+                <?php echo wp_get_attachment_image( $term_icon, 'thumbnail', true, array( 'class' => 'service-icon-sm panel-icon-img', 'alt' => get_the_title($comment->comment_post_ID) ) );
+						} ?>
 					</a>
 				</div><!-- close icon container -->
 				<?php //this outputs one opening div

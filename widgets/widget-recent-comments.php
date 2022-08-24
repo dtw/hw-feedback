@@ -58,7 +58,7 @@ echo "<div class='row'>";
 
 		<div class="text-center">
 			<a class="img-anchor" href="<?php echo get_the_permalink($comment->comment_post_ID); ?>" aria-hidden="true">
-				<img width="80" height="80" src="<?php echo $term_icon; ?>" alt="<?php echo $term_name?>"  />
+        <?php echo wp_get_attachment_image( $term_icon, array(80,80), true, array( 'alt' => $term->name ) ) ?>
 			</a>
 		</div>
 		<h3>
