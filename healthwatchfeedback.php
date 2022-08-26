@@ -213,8 +213,8 @@ function hw_feedback_settings_init() {
 
     // Register a new section in the "hw_feedback" page.
     add_settings_section(
-        'hw_feedback_section_developers',
-        __( 'CQC API settings', 'hw_feedback' ), 'hw_feedback_section_developers_callback',
+        'hw_feedback_section_api_settings',
+        __( 'CQC API settings', 'hw_feedback' ), 'hw_feedback_section_api_settings_callback',
         'hw_feedback'
     );
 
@@ -225,35 +225,35 @@ function hw_feedback_settings_init() {
             __( 'Local Authority', 'hw_feedback' ),
         'hw_feedback_field_local_authority_cb',
         'hw_feedback',
-        'hw_feedback_section_developers',
+        'hw_feedback_section_api_settings',
         array(
             'label_for'         => 'hw_feedback_field_local_authority',
             'class'             => 'hw_feedback_row',
             'hw_feedback_custom_data' => 'custom',
         )
     );
-    // Register a new field in the "hw_feedback_section_developers" section, inside the "hw_feedback" page.
+    // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
     add_settings_field(
         'hw_feedback_field_partner_code', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
             __( 'Partner Code', 'hw_feedback' ),
         'hw_feedback_field_partner_code_cb',
         'hw_feedback',
-        'hw_feedback_section_developers',
+        'hw_feedback_section_api_settings',
         array(
             'label_for'         => 'hw_feedback_field_partner_code',
             'class'             => 'hw_feedback_row',
             'hw_feedback_custom_data' => 'custom',
         )
     );
-    // Register a new field in the "hw_feedback_section_developers" section, inside the "hw_feedback" page.
+    // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
     add_settings_field(
         'hw_feedback_field_api_cache_path', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
             __( 'API Cache Path', 'hw_feedback' ),
         'hw_feedback_field_api_cache_path_cb',
         'hw_feedback',
-        'hw_feedback_section_developers',
+        'hw_feedback_section_api_settings',
         array(
             'label_for'         => 'hw_feedback_field_api_cache_path',
             'class'             => 'hw_feedback_row',
@@ -300,11 +300,11 @@ add_action( 'plugins_loaded', 'hw_feedback_settings_defaults' );
 
 
 /**
- * Developers section callback function.
+ * API section callback function.
  *
  * @param array $args  The settings array, defining title, id, callback.
  */
-function hw_feedback_section_developers_callback( $args ) {
+function hw_feedback_section_api_settings_callback( $args ) {
     ?>
     <p id="<?php echo esc_attr( $args['id'] ); ?>">The CQC API must be configured for you local area. You can <a href="https://anypoint.mulesoft.com/exchange/portals/care-quality-commission-5/4d36bd23-127d-4acf-8903-ba292ea615d4/cqc-syndication-1/" target="_blank">read more about the API here</a>.</p>
     <?php
