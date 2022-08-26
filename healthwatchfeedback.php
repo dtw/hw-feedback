@@ -218,7 +218,14 @@ function hw_feedback_settings_init() {
         'hw_feedback'
     );
 
-    // Register a new field in the "hw_feedback_section_developers" section, inside the "hw_feedback" page.
+    // Register a new section in the "hw_feedback" page.
+    add_settings_section(
+        'hw_feedback_section_general_settings',
+        __( 'General', 'hw_feedback' ), 'hw_feedback_section_general_settings_callback',
+        'hw_feedback'
+    );
+
+    // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
     add_settings_field(
         'hw_feedback_field_local_authority', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
@@ -307,6 +314,17 @@ add_action( 'plugins_loaded', 'hw_feedback_settings_defaults' );
 function hw_feedback_section_api_settings_callback( $args ) {
     ?>
     <p id="<?php echo esc_attr( $args['id'] ); ?>">The CQC API must be configured for you local area. You can <a href="https://anypoint.mulesoft.com/exchange/portals/care-quality-commission-5/4d36bd23-127d-4acf-8903-ba292ea615d4/cqc-syndication-1/" target="_blank">read more about the API here</a>.</p>
+    <?php
+}
+
+/**
+ * General section callback function.
+ *
+ * @param array $args  The settings array, defining title, id, callback.
+ */
+function hw_feedback_section_general_settings_callback( $args ) {
+    ?>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>">Not API settings.</p>
     <?php
 }
 
