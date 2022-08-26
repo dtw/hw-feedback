@@ -577,8 +577,10 @@ add_action( 'save_post', 'hw_feedback_save_meta_box_data' );
 
 add_filter('manage_local_services_posts_columns', 'bs_local_services_table_head');
 function bs_local_services_table_head( $columns ) {
-
-    $columns['rated']  = 'Rated';
+    $options = get_option( 'hw_feedback_options' );
+    if ( $options['hw_feedback_field_disable_lhw_rating'] != 1 ) {
+      $columns['rated']  = 'Rated';
+    }
     $columns['contact']  = 'Contact';
     $columns['website']  = 'Website';
     $columns['cqc_location']  = 'CQC Location';
