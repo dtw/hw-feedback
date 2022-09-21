@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.3] - 2022-08-19
+### Added
+- default service types for prisons and opticians and map P4 inspection code to prisons
+- WP media selector can now be used for Local Services and Signpost icons
+- general settings section in admin
+- option to disable LHW ratings functions - does not affect public ratings (WIP)
+
+### Changed
+- default text on some categories
+- renamed settings section in admin
+
 ## [2.2.4] - 2022-08-19
 ### Added
 - cronjob now sets an excerpt if blank
