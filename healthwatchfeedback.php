@@ -341,7 +341,7 @@ add_action( 'plugins_loaded', 'hw_feedback_settings_defaults' );
  */
 function hw_feedback_section_api_settings_callback( $args ) {
     ?>
-    <p id="<?php echo esc_attr( $args['id'] ); ?>">The CQC API must be configured for you local area. You can <a href="https://anypoint.mulesoft.com/exchange/portals/care-quality-commission-5/4d36bd23-127d-4acf-8903-ba292ea615d4/cqc-syndication-1/" target="_blank">read more about the API here</a>.</p>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>">The CQC API must be configured for you local area. You can <a href="https://anypoint.mulesoft.com/exchange/portals/care-quality-commission-5/4d36bd23-127d-4acf-8903-ba292ea615d4/cqc-syndication-1/" target="_blank">read more about the API here</a>. Providers registered at new build premises may take some time to appear in the results.</p>
     <?php
 }
 
