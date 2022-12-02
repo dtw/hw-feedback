@@ -128,6 +128,10 @@
   width: 100%;
 }
 
+#hw_feedback_field_your_story_email {
+	width: 50%;
+}
+
 #hw-feedback-nothing-to-do {
   display: inline-block;
 }
