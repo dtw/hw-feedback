@@ -24,18 +24,18 @@ function hw_feedback_custom_fields($fields) {
 if ( is_singular( 'local_services' ) ) {
 
 		$fields[ 'author' ] = '<p class="comment-form-author">'.
-			'<label for="author">Your name</label><input placeholder="Your full name (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="6" /></p>';
+			'<label for="author">Your name</label><input placeholder="Your full name (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="0" /></p>';
 
 		$fields[ 'email' ] = '<p class="comment-form-email">'.
-			'<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="7" /></p>';
+			'<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="0" /></p>';
 
 		$fields[ 'phone' ] = '<p class="comment-form-phone">'.
 			'<label for="phone">Phone</label>'.
-			'<input placeholder="Your phone number (optional)" id="phone" name="phone" autocomplete="off" type="text" size="30"  tabindex="8" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">privacy policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
+			'<input placeholder="Your phone number (optional)" id="phone" name="phone" autocomplete="off" type="text" size="30"  tabindex="0" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">privacy policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 
 //		$fields[ 'address' ] = '<p class="comment-form-address">'.
 //			'<label for="address">Address</label>'.
-//			'<input placeholder="Your address" id="address" name="address" type="text" size="30"  tabindex="9" /></p>';
+//			'<input placeholder="Your address" id="address" name="address" type="text" size="30"  tabindex="0" /></p>';
 
 
 
@@ -64,7 +64,7 @@ if ( is_singular( 'local_services' ) ) {
 	echo '<p class="comment-form-rating">
 
 			<label for="rating">How would you rate this service overall? Choose from 1 to 5 stars.</label>
-			<select required="required" id="rating" name="rating" tabindex="2" size="1">
+			<select required="required" id="rating" name="rating" tabindex="0" size="1">
 			<option value="">Choose</option>
 			<option value="1" class="rate-1" id="rate-1">&#9733; Terrible</option>
 			<option value="2" class="rate-2" id="rate-2">&#9733;&#9733; Poor</option>
@@ -300,7 +300,7 @@ function hw_feedback_move_textarea( $input = array () ) {
 
 
 	if ( 'comment_form_defaults' === current_filter() ) {
-			$textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea tabindex="3" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
+			$textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
 			$input['comment_field'] = '';
 			return $input;
 	}
@@ -309,11 +309,11 @@ function hw_feedback_move_textarea( $input = array () ) {
 
 	echo '<p class="comment-form-when">'.
 		'<label for="whenhappened">When did it happen?</label>'.
-		'<input required id="whenhappened" name="whenhappened" type="text" size="30"  tabindex="4" /></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your feedback, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
+		'<input required="required" id="whenhappened" name="whenhappened" type="text" size="30"  tabindex="0" /></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your feedback, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 
 	// echo '<p class="comment-form-how">'.
 		// '<label for="whoinvolved">Who was involved?</label>'.
-		// '<input required placeholder="e.g. Dr Smith" id="whoinvolved" name="whoinvolved" type="text" size="30"  tabindex="5" /></p><hr />';
+		// '<input required placeholder="e.g. Dr Smith" id="whoinvolved" name="whoinvolved" type="text" size="30"  tabindex="0" /></p><hr />';
 
 
 
@@ -321,9 +321,9 @@ function hw_feedback_move_textarea( $input = array () ) {
 
 
 	else {
-		echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="1" id="comment" name="comment" cols="45" rows="4" required="required"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
-		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your full name (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="2" /></p>';
-		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="3" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
+		echo '<p class="comment-form-comment"><label for="comment">Your comment</label><textarea placeholder="Type your comment here" tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your comment, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
+		echo '<p class="comment-form-author"><label for="author">Your name</label><input placeholder="Your full name (optional)" id="author" name="author" autocomplete="off" type="text" size="30" tabindex="0" /></p>';
+		echo '<label for="email">Email</label><input placeholder="Your email address (optional)" id="email" name="email" autocomplete="off" type="email" size="30" tabindex="0" /></p><h2>Privacy</h2><p>Please review our <a href="https://www.healthwatchbucks.co.uk/privacy/" target="_blank">data protection policy</a>. By completing this form, you agree that you have read and understood the privacy information provided, and confirm you are over 18.</p>';
 		}
 
 }
