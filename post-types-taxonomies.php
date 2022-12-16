@@ -854,6 +854,13 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
   } else {
     wp_set_post_terms( $single_local_service->ID, 'Not applicable' , 'cqc_reg_status', false );
   }
+  // try and override Registered local_services to "Allow Comments"
+  if ( $api_response->registrationStatus == "Registered" ) {
+    wp_update_post(array(
+      'ID' => $single_local_service->ID,
+      'comment_status' => "open"
+    ));
+  }
 }
 
 /* 10. Link cron job to function check_cqc_registration_status
