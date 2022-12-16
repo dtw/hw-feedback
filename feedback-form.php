@@ -157,7 +157,7 @@ function extend_comment_meta_box ( $comment ) {
 	<p>
 		<label for="rating"><?php _e( 'Rating: ' ); ?></label>
 		<span class="commentratingbox">
-		<?php for( $i=1; $i <= 5; $i++ ) {
+		<?php for( $i=0; $i <= 5; $i++ ) {
 			echo '<span class="commentrating"><input type="radio" name="rating" id="rating" value="'. $i .'"';
 			if ( $rating == $i ) echo ' checked="checked"';
 			echo ' />'. $i .' </span> ';
