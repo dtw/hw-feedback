@@ -308,7 +308,7 @@ function hw_feedback_move_textarea( $input = array () ) {
 			print $textarea;
 
 	echo '<p class="comment-form-when">'.
-		'<label for="whenhappened">When did it happen?</label>'.
+		"<label for='whenhappened'>When did it happen?</label><p>If you don't know the exact date a year and month is helpful!</p>".
 		'<input required="required" id="whenhappened" name="whenhappened" type="text" size="30"  tabindex="0" /></p><hr /><h2>Your contact details</h2><p>If you would like us to contact you about your feedback, please provide your details below. You can also <a href="https://www.healthwatchbucks.co.uk/how-we-work/contact-us/">contact us</a> directly.</p>';
 
 	// echo '<p class="comment-form-how">'.
