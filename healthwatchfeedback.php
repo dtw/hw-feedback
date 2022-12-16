@@ -38,6 +38,8 @@ include('widgets/widget-recent-comments.php');
 include('widgets/widget-latest-dic-visit-hwbucks.php');
 // WIDGET for displaying RECENT FEEDBACK - moved from scaffold-widget-tweaks
 include('widgets/widget-recent-feedback-hwbucks.php');
+// WIDGET for displaying RECENT FEEDBACK (COMPACT)
+include('widgets/widget-compact-recent-feedback-hwbucks.php');
 
 // Add functions
 
