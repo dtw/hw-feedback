@@ -69,8 +69,8 @@ function hw_feedback_custom_dashboard_local_services() {
 
 // Remove meta boxes
 function hw_feedback_remove_meta_boxes() {
-	remove_meta_box( 'postcustom' , 'local_services' , 'normal' );
-	remove_meta_box( 'commentstatusdiv' , 'local_services' , 'normal' );
+	remove_meta_box( 'postcustom' , 'local_services' , 'normal' ); // custom fields metabox
+	//remove_meta_box( 'commentstatusdiv' , 'local_services' , 'normal' ); // discussion metabox
 }
 add_action( 'admin_menu' , 'hw_feedback_remove_meta_boxes' );
 
