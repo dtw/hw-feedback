@@ -817,7 +817,7 @@ function hw_feedback_check_cqc_registration_status() {
       foreach ($registration_status_changed as $post_id) {
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
-        $formatted_message .= '<a href="'.get_edit_post_link($post_id).'">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</li>';
+        $formatted_message .= '<a href="https://www.healthwatchbucks.co.uk/wp-admin/post.php?post='.$post_id.'&action=edit">Edit</a> | <a href="'.get_post_permalink($post_id).'">View</a>)</li>';
       }
       $formatted_message .= '</ul>';
     }
