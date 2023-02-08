@@ -369,6 +369,7 @@ echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
 hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',isset($objcqcapiquery->mainPhoneNumber) == true ? $objcqcapiquery->mainPhoneNumber : ''),$post->ID,'20');
 hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',isset($objcqcapiquery->website) == true ? $objcqcapiquery->website : ''),$post->ID,'30');
+// no need to check API as email is not provided
 hw_feedback_generate_metabox_form_field(array('hw_services_contact_email','Contact email',''),$post->ID,'30');
 
 // RATE AND REVIEW FIELDS
@@ -886,4 +887,64 @@ function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_m
 add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 // fires when meta data is added to a post
 add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+
+// Send an email to a provider when a new comment is APPROVED
+function hw_feedback_approve_comment($new_status, $old_status, $comment_ID) {
+  $options = get_option( 'hw_feedback_options' );
+  if ( $old_status == "unapproved" && $new_status == "approved" ) {
+    error_log('hw-feedback: approve comment fired');
+    // get comment details
+    $new_comment = get_comment( $comment_ID, OBJECT );
+    $title_post = get_the_title( $new_comment->comment_post_ID );
+    $link_post = get_permalink( $new_comment->comment_post_ID );
+    // check if comment has been withheld
+    if ( strpos($new_comment->comment_content,"[Withheld in accordance with our") === 0 ) {
+      // comment has been withheld so do nothing
+      error_log('hw-feedback: comment withheld '.strpos($new_comment->comment_content,"[Withheld in accordance with our"));
+      return;
+    }
+    // send an email
+    // set php mailer variables
+    $contact_email = get_post_meta($new_comment->comment_post_ID,'hw_services_contact_email',true);
+    // set headers to allow HTML
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    $headers[] = 'From: Healthwatch Bucks <info@healthwatchbucks.co.uk>';
+    if ( $contact_email != '' ) {
+      $to = $contact_email;
+      error_log('hw-feedback: contact email: '.$to);
+      $subject = "Respond to a new comment about your service";
+      // build the content
+      $formatted_message = '<p>Hello</p><p>A new comment about <strong>'.$title_post.'</strong> has been published on '. parse_url( get_site_url(), PHP_URL_HOST ) .'.</p>';
+      // compose an email containing comment details
+      $formatted_message .= '<p>The comment was received on <strong>'.date("l j F Y H:i:s T", strtotime($new_comment->comment_date) ).'</strong></p>';
+      $formatted_message .= '<p>Comment:</p><blockquote>';
+      $formatted_message .= $new_comment->comment_content;
+      $formatted_message .= '</blockquote>';
+      $formatted_message .= '<p>The commenter gave a rating of <strong>'.get_comment_meta( $new_comment->comment_ID, 'feedback_rating', true ). ' out of 5 stars</strong>.</p>';
+      $formatted_message .= '<p><a href="'.$link_post.'">View '.$title_post.' on our website</a></p>';
+      $formatted_message .= '<p>If you would like to respond to this comment, please reply to this email. We will share your response directly with the commenter where possible.</p>';
+      $formatted_message .= '<p>Kind regards</p>';
+      $email_footer = '<p><img alt="Healthwatch Bucks Logo" src="http://www.healthwatchbucks.co.uk/wp-content/uploads/2016/07/HW_BUCKS.png" style="width: 204px; height: 51px;" /></p><p><span style="font-size:14px;font-family:Trebuchet MS,Helvetica,sans-serif;">Your health and social care champion</span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;">PO Box 958, OX1 9ZP</span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;">01494 324832</span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;"><a href="http://www.healthwatchbucks.co.uk/?utm_source=website&amp;utm_medium=email&amp;utm_campaign=stakeholder" style="color:#a81563;">www.healthwatchbucks.co.uk</a></span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;">Company Registration Number 08426201</span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;">YOUR PRIVACY: Healthwatch Bucks is the Local Healthwatch for Buckinghamshire, under contract to Buckinghamshire County Council, as defined in <a href="https://www.legislation.gov.uk/ukpga/2007/28/part/14" style="color:#a81563;" target="_blank">Part 14 of the Local Government and Public Involvement in Health Act 2007</a> and amended in <a href="http://www.legislation.gov.uk/ukpga/2012/7/part/5/chapter/1/crossheading/local-healthwatch-organisations/enacted" style="color:#a81563;" target="_blank">Sections 182 through 184 of the Health and Social Care Act 2012</a>. We have collected personal information about you either directly from you; via the organisation that you represent; through another third party; or through the public domain. You can read the <a href="https://healthwatchbucks.sharepoint.com/:w:/g/EZMsORzh41dNvTpRNUaWW3sBZMg0EmPg9f-X-guw0DbNQQ?e=Ofp2gu" style="color:#a81563;" target="_blank">relevant privacy notice</a> online or <a href="mailto:info@healthwatchbucks.co.uk?Subject=Stakeholder%20privacy%20notice" style="color:#a81563;">contact us for a copy</a>. If you would prefer that we do not contact you, please <a href="mailto:info@healthwatchbucks.co.uk?Subject=Stakeholder%20opt-out" style="color:#a81563;">contact us by email</a> or telephone.</span></p><p><span style="font-size:11px;font-family:Trebuchet MS,Helvetica,sans-serif;">CONFIDENTIALITY &amp; DISCLAIMER: This e-mail, including any attachments, is confidential and is intended solely for the use of the recipient(s) to whom it is addressed. If you are not the intended recipient, please contact <a href="mailto:info@healthwatchbucks.co.uk" style="color:#a81563;">info@healthwatchbucks.co.uk</a> and confirm that it has been deleted from your system and any hard copies destroyed. Any views or opinions presented within this e-mail are solely those of the author and do not necessarily represent those of Healthwatch Bucks, unless otherwise specifically stated. Any attachment received in this e-mail should be virus checked by the recipient before being opened. Healthwatch Bucks does not accept liability (for negligence or otherwise) for passing on viruses in e-mails.</span></p>';
+      $formatted_message .= $email_footer;
+    } else {
+      if ( $options['hw_feedback_field_your_story_email'] != "") {
+        $to = $options['hw_feedback_field_your_story_email'];
+      } else {
+        $to = get_option('admin_email');
+      }
+      error_log('hw-feedback: no contact email: '.$to);
+      $subject = "Missing Contact Email for ". $title_post;
+      // build the content
+      $formatted_message = '<p>Hello</p><p>'.$title_post.' on '.parse_url( get_site_url(), PHP_URL_HOST ).' is missing a Contact Email address.</p>';
+      $formatted_message .= '<a href="'.get_edit_post_link($new_comment->comment_post_ID).'">Add the missing email address here</a>';
+      $formatted_message .= '<p>Hugs and kisses!</p>';
+    }
+    $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+    if ( $sent ) {
+      error_log('hw-feedback: email sent');
+    }
+  }
+}
+// fires when a comment status changes
+add_action('transition_comment_status', 'hw_feedback_approve_comment', 10, 3);
 ?>
