@@ -119,6 +119,14 @@ function hw_feedback_add_meta_box_moderation() {
 	add_meta_box( 'moderation', __( 'Moderation' ), 'moderation_meta_box', 'comment', 'normal', 'high' );
 }
 
+function moderation_meta_box ( $comment ) { ?>
+	<div id="moderation_toolbar">
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_withhold_comment()">Withhold All</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_partial_comment()">Withhold Partial</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_restore_comment()">Restore</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_clear_personal_data()">Clear Personal Data</button>
+	</div>
+<?php }
 // Add an edit option in comment edit screen
 
 add_action( 'add_meta_boxes_comment', 'hw_feedback_add_meta_box_extend_comment' );
