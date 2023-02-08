@@ -113,6 +113,11 @@ function hw_feedback_save_comment_meta_data( $comment_id ) {
 
 }
 
+// Add a moderation section in the comment edit screen
+add_action( 'add_meta_boxes_comment', 'hw_feedback_add_meta_box_moderation' );
+function hw_feedback_add_meta_box_moderation() {
+	add_meta_box( 'moderation', __( 'Moderation' ), 'moderation_meta_box', 'comment', 'normal', 'high' );
+}
 
 // Add an edit option in comment edit screen
 
