@@ -116,9 +116,9 @@ function hw_feedback_save_comment_meta_data( $comment_id ) {
 
 // Add an edit option in comment edit screen
 
-add_action( 'add_meta_boxes_comment', 'hw_feedback_extend_comment_add_meta_box' );
-function hw_feedback_extend_comment_add_meta_box() {
-	add_meta_box( 'title', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
+add_action( 'add_meta_boxes_comment', 'hw_feedback_add_meta_box_extend_comment' );
+function hw_feedback_add_meta_box_extend_comment() {
+	add_meta_box( 'feedback_fields', __( 'Feedback fields' ), 'extend_comment_meta_box', 'comment', 'normal', 'high' );
 }
 
 function extend_comment_meta_box ( $comment ) {
