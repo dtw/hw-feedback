@@ -369,6 +369,7 @@ echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
 hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',isset($objcqcapiquery->mainPhoneNumber) == true ? $objcqcapiquery->mainPhoneNumber : ''),$post->ID,'20');
 hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',isset($objcqcapiquery->website) == true ? $objcqcapiquery->website : ''),$post->ID,'30');
+hw_feedback_generate_metabox_form_field(array('hw_services_contact_email','Contact email',''),$post->ID,'30');
 
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
@@ -499,6 +500,11 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['hw_services_website'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_website'] );
 		update_post_meta( $post_id, 'hw_services_website', $my_data );
+
+		// CONTACT EMAIL
+		if ( ! isset( $_POST['hw_services_contact_email'] ) ) { return; }
+		$my_data = sanitize_text_field( $_POST['hw_services_contact_email'] );
+		update_post_meta( $post_id, 'hw_services_contact_email', $my_data );
 
 		// CQC LOCATION CODE
 		if ( ! isset( $_POST['hw_services_cqc_location'] ) ) { return; }
