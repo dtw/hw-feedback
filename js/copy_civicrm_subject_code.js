@@ -9,6 +9,53 @@ async function copy_civicrm_subject_code() {
   await navigator.clipboard.writeText(copyText.value);
 }
 
+async function hw_feedback_store_values() {
+  if (!sessionStorage.content) {
+    sessionStorage.setItem('content', document.getElementById('content').value)
+    sessionStorage.setItem('newcomment_author_url', document.getElementById('newcomment_author_url').value)
+    sessionStorage.setItem('name', document.getElementById('name').value)
+    sessionStorage.setItem('email', document.getElementById('email').value)
+    sessionStorage.setItem('newcomment_author_phone', document.getElementById('newcomment_author_phone').value)
+    sessionStorage.setItem('newcomment_author_address', document.getElementById('newcomment_author_address').value)
+  }
+}
+
+async function hw_feedback_withhold_comment() {
+  /* Save the value */
+  hw_feedback_store_values()
+
+  /* Replace text in comment field */
+  document.getElementById('content').value = '[Withheld in accordance with our <a href="https://www.healthwatchbucks.co.uk/privacy/">Comments Policy</a>]';
+}
+
+async function hw_feedback_partial_comment() {
+  /* Save the value */
+  hw_feedback_store_values()
+
+  /* Append text in comment field */
+  document.getElementById('content').value += '\n\n[Some content withheld in accordance with our <a href="https://www.healthwatchbucks.co.uk/privacy/">Comments Policy</a>]';
+}
+
+async function hw_feedback_restore_comment() {
+  /* Replace text in comment field */
+  document.getElementById('content').value = sessionStorage.getItem('content')
+  document.getElementById('newcomment_author_url').value = sessionStorage.getItem('newcomment_author_url')
+  document.getElementById('name').value = sessionStorage.getItem('name')
+  document.getElementById('email').value = sessionStorage.getItem('email')
+  document.getElementById('newcomment_author_phone').value = sessionStorage.getItem('newcomment_author_phone')
+  document.getElementById('newcomment_author_address').value = sessionStorage.getItem('newcomment_author_address')
+}
+
+async function hw_feedback_clear_personal_data() {
+  hw_feedback_store_values()
+  /* Replace text in comment field */
+  document.getElementById('newcomment_author_url').value = ''
+  document.getElementById('name').value = ''
+  document.getElementById('email').value = ''
+  document.getElementById('newcomment_author_phone').value = ''
+  document.getElementById('newcomment_author_address').value = ''
+}
+
 async function update_from_cqc($target, $source) {
   document.getElementById($target).value = document.getElementById($source).value;
 }
