@@ -136,12 +136,12 @@ function extend_comment_meta_box ( $comment ) {
 	<p>CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
 	<p>
 		<label for="phone">Phone</label>
-		<input type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
+		<input id="newcomment_author_phone" type="text" name="phone" autocomplete="off" value="<?php echo esc_attr( $phone ); ?>" class="widefat" />
 	</p>
 
 	<p>
 		<label for="address">Address</label>
-		<input type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
+		<input id="newcomment_author_address" type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
 	</p>
 
 	<p>
