@@ -227,6 +227,20 @@ function hw_feedback_settings_init() {
         'hw_feedback'
     );
 
+    // Register a new section in the "hw_feedback" page.
+    add_settings_section(
+        'hw_feedback_section_moderation_settings',
+        __( 'Moderation', 'hw_feedback' ), 'hw_feedback_section_moderation_settings_callback',
+        'hw_feedback'
+    );
+
+    // Register a new section in the "hw_feedback" page.
+    add_settings_section(
+        'hw_feedback_section_comment_notifications_settings',
+        __( 'Comment Notifications', 'hw_feedback' ), 'hw_feedback_section_comment_notifications_settings_callback',
+        'hw_feedback'
+    );
+
     // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
     add_settings_field(
         'hw_feedback_field_local_authority', // As of WP 4.6 this value is used only internally.
