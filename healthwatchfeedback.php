@@ -603,7 +603,7 @@ function hw_feedback_field_disable_lhw_rating_cb( $args ) {
       <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
       checked( 1, $options[ $args['label_for'] ], true ) ?>
       >
-    <p class="description">
+    <p class="description inline-description">
         <?php esc_html_e( "Disable Local Healthwatch rating functions? (Does not affect public ratings)", 'hw_feedback' ); ?>
     </p>
     <?php
