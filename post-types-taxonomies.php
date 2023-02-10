@@ -891,6 +891,9 @@ add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
   $options = get_option( 'hw_feedback_options' );
+  // check notifications enabled
+  if ( isset( $options['hw_feedback_field_enable_notifications'] ) ) {
+    error_log('hw-feedback: notification check');
   if ( $old_status == "unapproved" && $new_status == "approved" ) {
     error_log('hw-feedback: approve comment fired');
     // get comment details
