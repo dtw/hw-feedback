@@ -355,20 +355,6 @@ function hw_feedback_settings_init() {
     );
     // Register a new field in the "hw_feedback_section_comment_notifications_settings" section, inside the "hw_feedback" page.
     add_settings_field(
-        'hw_feedback_field_email_from_name', // As of WP 4.6 this value is used only internally.
-                                // Use $args' label_for to populate the id inside the callback.
-            __( 'E-mail FROM name', 'hw_feedback' ),
-        'hw_feedback_field_email_from_name_cb',
-        'hw_feedback',
-        'hw_feedback_section_comment_notifications_settings',
-        array(
-            'label_for'         => 'hw_feedback_field_email_from_name',
-            'class'             => 'hw_feedback_row',
-            'hw_feedback_custom_data' => 'custom',
-        )
-    );
-    // Register a new field in the "hw_feedback_section_comment_notifications_settings" section, inside the "hw_feedback" page.
-    add_settings_field(
         'hw_feedback_field_email_from_address', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
             __( 'E-mail FROM address', 'hw_feedback' ),
@@ -377,6 +363,20 @@ function hw_feedback_settings_init() {
         'hw_feedback_section_comment_notifications_settings',
         array(
             'label_for'         => 'hw_feedback_field_email_from_address',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
+    // Register a new field in the "hw_feedback_section_comment_notifications_settings" section, inside the "hw_feedback" page.
+    add_settings_field(
+        'hw_feedback_field_email_from_name', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'E-mail FROM name', 'hw_feedback' ),
+        'hw_feedback_field_email_from_name_cb',
+        'hw_feedback',
+        'hw_feedback_section_comment_notifications_settings',
+        array(
+            'label_for'         => 'hw_feedback_field_email_from_name',
             'class'             => 'hw_feedback_row',
             'hw_feedback_custom_data' => 'custom',
         )
