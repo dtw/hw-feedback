@@ -132,6 +132,20 @@
 	width: 50%;
 }
 
+#hw_feedback_field_email_from_name,
+#hw_feedback_field_email_from_address {
+	width: 25%;
+}
+
+#hw_feedback_field_withheld_comment_text,
+#hw_feedback_field_partial_withheld_comment_text {
+	width: 50%;
+}
+
+#hw_feedback_field_comment_email_footer {
+	width: 75%;
+}
+
 #hw-feedback-nothing-to-do {
   display: inline-block;
 }
