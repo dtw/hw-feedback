@@ -62,59 +62,60 @@ class SF_HWBucks_Recent_Compact_Feedback_Widget extends WP_Widget {
     $reviewcount = 1;
     // Comment Loop
     if ( $comments ) { ?>
-      <div class='col-md-12 col-sm-12 col-xs-12 panel'><!--start widget output-->
+      <div class='col-md-12 col-sm-12 col-xs-12 panel panel-feedback'><!--start widget output-->
       <div class="row">
         <div class="col-md-12 panel-title">
           <h2><?php echo $title ?></h2>
         </div>
       </div>
-      <?php foreach ( $comments as $comment ) { ?>
-        <!-- start a smaller panel -->
-        <div class="col-md-4 col-sm-6 hidden-xs subitem">
-        <?php                     // Get icon for taxonomy term
-          $term_ids = get_the_terms( $comment->comment_post_ID, 'service_types' );  // Find taxonomies
-          $term_id = $term_ids[0]->term_id;                      // Get taxonomy ID
-          $term_icon = get_term_meta( $term_id, 'icon', true );            // Get meta
-        ?>
-            <!-- contains each panel -->
-            <div class="row">
-            <!-- there is no main panel 4x to 2x to 1x-->
-              <!-- add a container and wrap the term icon in a hyperlink to the post -->
-              <div class="col-md-3 col-sm-3 col-xs-12 text-center service-icon-container">
-                <a class="img-anchor" href="
-                <?php echo get_the_permalink($comment->comment_post_ID); ?>
-                ">
-                <?php echo wp_get_attachment_image( $term_icon, 'thumbnail', true, array( 'class' => 'service-icon-sm panel-icon-img', 'alt' => get_the_title($comment->comment_post_ID) ) ); ?>
+      <div class="row three-column compact-item-container">
+        <?php foreach ( $comments as $comment ) { ?>
+          <!-- start a smaller panel -->
+          <div class="col-md-4 col-sm-6 hidden-xs compact-item">
+          <?php                     // Get icon for taxonomy term
+            $term_ids = get_the_terms( $comment->comment_post_ID, 'service_types' );  // Find taxonomies
+            $term_id = $term_ids[0]->term_id;                      // Get taxonomy ID
+            $term_icon = get_term_meta( $term_id, 'icon', true );            // Get meta
+          ?>
+              <!-- contains each panel -->
+              <div class="row">
+              <!-- there is no main panel 4x to 2x to 1x-->
+                <!-- add a container and wrap the term icon in a hyperlink to the post -->
+                <div class="col-md-3 col-sm-3 col-xs-12 text-center service-icon-container">
+                  <a class="img-anchor" href="
+                  <?php echo get_the_permalink($comment->comment_post_ID); ?>
+                  ">
+                  <?php echo wp_get_attachment_image( $term_icon, 'thumbnail', true, array( 'class' => 'service-icon-sm panel-icon-img', 'alt' => get_the_title($comment->comment_post_ID) ) ); ?>
+                  </a>
+                </div><!-- close icon container -->
+          <?php //this outputs one opening div ?>
+            <div class="col-md-9 col-sm-9 col-xs-12 service-info-container-sm">
+              <h3>
+                <a href="
+                  <?php echo get_the_permalink($comment->comment_post_ID); ?>">
+                  <?php echo get_the_title($comment->comment_post_ID); ?>
                 </a>
-              </div><!-- close icon container -->
-        <?php //this outputs one opening div ?>
-          <div class="col-md-9 col-sm-9 col-xs-12 service-info-container-sm">
-            <h3>
-              <a href="
-                <?php echo get_the_permalink($comment->comment_post_ID); ?>">
-                <?php echo get_the_title($comment->comment_post_ID); ?>
-              </a>
-            </h3>
-        <?php
-        // Display star rating
-        $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true ); ?>
-            <p class="star-rating p-rating">
-              <?php echo hw_feedback_star_rating($individual_rating,array('size' => 'fa-lg'));
-                if ($individual_rating == 1) echo '<span class="screen-reader-text">'.$individual_rating.' star</span>';
-                else echo '<span class="screen-reader-text">'.$individual_rating.' stars</span>';
-              ?>
-            </p>
-            <p class="review-date-time">
-              <strong>
-                <?php echo human_time_diff( strtotime($comment->comment_date), current_time( 'timestamp' ) ); ?> ago
-              </strong>
-            </p>
-      </div><!-- close service-info-container-sm | service-info-container | panel-text-right -->
-    </div> <!-- close row -->
-  </div> <!-- close panel | subitem -->
-        <?php  $reviewcount = $reviewcount + 1;
-      } // end of loop ?>
-  </div><!-- close subitem-container -->
+              </h3>
+          <?php
+          // Display star rating
+          $individual_rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true ); ?>
+              <p class="star-rating p-rating">
+                <?php echo hw_feedback_star_rating($individual_rating,array('size' => 'fa-lg'));
+                  if ($individual_rating == 1) echo '<span class="screen-reader-text">'.$individual_rating.' star</span>';
+                  else echo '<span class="screen-reader-text">'.$individual_rating.' stars</span>';
+                ?>
+              </p>
+              <p class="review-date-time">
+                <strong>
+                  <?php echo human_time_diff( strtotime($comment->comment_date), current_time( 'timestamp' ) ); ?> ago
+                </strong>
+              </p>
+        </div><!-- close service-info-container-sm | service-info-container | panel-text-right -->
+      </div> <!-- close row -->
+    </div> <!-- close panel | compact-item -->
+          <?php  $reviewcount = $reviewcount + 1;
+        } // end of loop ?>
+  </div><!-- close compact-item-container -->
 </div><!-- end of feedback row -->
   <?php }
 }
