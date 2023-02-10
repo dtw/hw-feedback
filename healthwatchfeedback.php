@@ -311,6 +311,34 @@ function hw_feedback_settings_init() {
             'hw_feedback_custom_data' => 'custom',
         )
     );
+    // Register a new field in the "hw_feedback_section_moderation_settings" section, inside the "hw_feedback" page.
+    add_settings_field(
+        'hw_feedback_field_withheld_comment_text', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'Text for withheld comments', 'hw_feedback' ),
+        'hw_feedback_field_withheld_comment_text_cb',
+        'hw_feedback',
+        'hw_feedback_section_moderation_settings',
+        array(
+            'label_for'         => 'hw_feedback_field_withheld_comment_text',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
+    // Register a new field in the "hw_feedback_section_moderation_settings" section, inside the "hw_feedback" page.
+    add_settings_field(
+        'hw_feedback_field_partial_withheld_comment_text', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'Text for partially withheld comments', 'hw_feedback' ),
+        'hw_feedback_field_partial_withheld_comment_text_cb',
+        'hw_feedback',
+        'hw_feedback_section_moderation_settings',
+        array(
+            'label_for'         => 'hw_feedback_field_partial_withheld_comment_text',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
 }
 
 /**
