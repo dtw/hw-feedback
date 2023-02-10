@@ -593,6 +593,8 @@ function hw_feedback_field_your_story_email_cb( $args ) {
 function hw_feedback_field_disable_lhw_rating_cb( $args ) {
     // Get the value of the setting we've registered with register_setting()
     $options = get_option( 'hw_feedback_options' );
+    // On first run, a checkbox needs a null value - two solutions
+    $options[ $args['label_for'] ] = !empty( $options[ $args['label_for'] ] ) ? 1 : 0;
     ?>
     <input type="checkbox"
       id="<?php echo esc_attr( $args['label_for'] ); ?>"
