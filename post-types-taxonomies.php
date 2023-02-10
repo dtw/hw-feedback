@@ -915,7 +915,14 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
         $contact_email = get_post_meta($new_comment->comment_post_ID,'hw_services_contact_email',true);
         // set headers to allow HTML
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
-        $headers[] = 'From: Healthwatch Bucks <info@healthwatchbucks.co.uk>';
+        // set FROM header - complies with RFC 2822
+        if ( isset( $options['hw_feedback_field_email_from_address'] ) ) {
+          if ( isset( $options['hw_feedback_field_email_from_name'] ) ) {
+            $headers[] = 'From: '. $options['hw_feedback_field_email_from_name'] .' <'. $options['hw_feedback_field_email_from_address'] .'>';
+          } else {
+            $headers[] = 'From: '. $options['hw_feedback_field_email_from_address'];
+          }
+        }
         if ( $contact_email != '' ) {
           $to = $contact_email;
           error_log('hw-feedback: contact email: '.$to);
