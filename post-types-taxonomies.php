@@ -938,8 +938,8 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
       $formatted_message = '<p>Hello</p><p>'.$title_post.' on '.parse_url( get_site_url(), PHP_URL_HOST ).' is missing a Contact Email address.</p>';
       $formatted_message .= '<a href="'.get_edit_post_link($new_comment->comment_post_ID).'">Add the missing email address here</a>';
       $formatted_message .= '<p>Hugs and kisses!</p>';
+      $sent_admin = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
     }
-    $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
     if ( $sent ) {
       error_log('hw-feedback: email sent');
     }
