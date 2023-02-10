@@ -941,7 +941,9 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
       $formatted_message .= '<p>Hugs and kisses!</p>';
       $sent_admin = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
     }
-    if ( $sent ) {
+    if ( isset( $sent_provider ) ) {
+      // add some hidden meta data to the comment
+      add_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true, true);
       error_log('hw-feedback: email sent');
     }
   }
