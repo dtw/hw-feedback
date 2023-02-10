@@ -726,6 +726,9 @@ function hw_feedback_field_email_from_name_cb( $args ) {
       id="<?php echo esc_attr( $args['label_for'] ); ?>"
       name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
       value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
+    <div id="hw-feedback-address-alert" class="hw-feedback-alert" role="alert" style="display: inline-block";>
+        E-mail FROM <strong>address</strong> must be set
+    </div>
     <p class="description">
         <?php esc_html_e( "Name to display in e-mail FROM field e.g. Healthwatch Bucks", 'hw_feedback' ); ?>
     </p>

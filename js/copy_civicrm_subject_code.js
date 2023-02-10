@@ -81,3 +81,24 @@ jQuery(document).ready(function ($) {
     }
   });
 });
+
+jQuery(document).ready(function ($) {
+  if ($("#hw_feedback_field_email_from_address").val() != '') {
+    $("#hw-feedback-address-alert").css("display", "none");
+    $("#hw_feedback_field_email_from_name").removeAttr("disabled");
+  }
+  else {
+    $("#hw-feedback-address-alert").css("display", "inline-block");
+    $("#hw_feedback_field_email_from_name").attr("disabled", "disabled");
+  }
+  $("#hw_feedback_field_email_from_address").change(function () {
+    if ($(this).val() != '') {
+      $("#hw-feedback-address-alert").css("display", "none");
+      $("#hw_feedback_field_email_from_name").removeAttr("disabled");
+    }
+    else {
+      $("#hw-feedback-address-alert").css("display", "inline-block");
+      $("#hw_feedback_field_email_from_name").attr("disabled", "disabled");
+    }
+  });
+});
