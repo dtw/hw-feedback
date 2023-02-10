@@ -894,6 +894,9 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
   // check notifications enabled
   if ( isset( $options['hw_feedback_field_enable_notifications'] ) ) {
     error_log('hw-feedback: notification check');
+    // check if notification has been sent before
+    if ( ! get_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true) ) {
+      error_log('hw-feedback: no previous notification');
   if ( $old_status == "unapproved" && $new_status == "approved" ) {
     error_log('hw-feedback: approve comment fired');
     // get comment details
