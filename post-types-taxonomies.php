@@ -897,63 +897,63 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
     // check if notification has been sent before
     if ( ! get_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true) ) {
       error_log('hw-feedback: no previous notification');
-  // check that comment was unapproved and is now approved (don't send on unapprove or spam)
-  if ( $old_status == "unapproved" && $new_status == "approved" ) {
-    error_log('hw-feedback: approve comment fired');
-    // get comment details
-    $new_comment = get_comment( $comment, OBJECT );
-    $title_post = get_the_title( $new_comment->comment_post_ID );
-    $link_post = get_permalink( $new_comment->comment_post_ID );
-    // check if comment has been withheld
-    if ( strpos($new_comment->comment_content,"[Withheld in accordance with our") === 0 ) {
-      // comment has been withheld so do nothing
-      error_log('hw-feedback: comment withheld '.strpos($new_comment->comment_content,"[Withheld in accordance with our"));
-      return;
-    }
-    // send an email
-    // set php mailer variables
-    $contact_email = get_post_meta($new_comment->comment_post_ID,'hw_services_contact_email',true);
-    // set headers to allow HTML
-    $headers[] = 'Content-Type: text/html; charset=UTF-8';
-    $headers[] = 'From: Healthwatch Bucks <info@healthwatchbucks.co.uk>';
-    if ( $contact_email != '' ) {
-      $to = $contact_email;
-      error_log('hw-feedback: contact email: '.$to);
-      $subject = "Respond to a new comment about your service";
-      // build the content
-      $formatted_message = '<p>Hello</p><p>A new comment about <strong>'.$title_post.'</strong> has been published on '. parse_url( get_site_url(), PHP_URL_HOST ) .'.</p>';
-      // compose an email containing comment details
-      $formatted_message .= '<p>The comment was received on <strong>'.date("l j F Y H:i:s T", strtotime($new_comment->comment_date) ).'</strong></p>';
-      $formatted_message .= '<p>Comment:</p><blockquote>';
-      $formatted_message .= $new_comment->comment_content;
-      $formatted_message .= '</blockquote>';
-      $formatted_message .= '<p>The commenter gave a rating of <strong>'.get_comment_meta( $new_comment->comment_ID, 'feedback_rating', true ). ' out of 5 stars</strong>.</p>';
-      $formatted_message .= '<p><a href="'.$link_post.'">View '.$title_post.' on our website</a></p>';
-      $formatted_message .= '<p>If you would like to respond to this comment, please reply to this email. We will share your response directly with the commenter where possible.</p>';
-      $formatted_message .= '<p>Kind regards</p>';
-      //$email_footer = htmlspecialchars($options['hw_feedback_field_comment_email_footer']);
-      $email_footer = $options['hw_feedback_field_comment_email_footer'];
-      $formatted_message .= $email_footer;
-      $sent_provider = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
-    } else {
-      if ( $options['hw_feedback_field_your_story_email'] != "") {
-        $to = $options['hw_feedback_field_your_story_email'];
-      } else {
-        $to = get_option('admin_email');
-      }
-      error_log('hw-feedback: no contact email: '.$to);
-      $subject = "Missing Contact Email for ". $title_post;
-      // build the content
-      $formatted_message = '<p>Hello</p><p>'.$title_post.' on '.parse_url( get_site_url(), PHP_URL_HOST ).' is missing a Contact Email address.</p>';
-      $formatted_message .= '<a href="'.get_edit_post_link($new_comment->comment_post_ID).'">Add the missing email address here</a>';
-      $formatted_message .= '<p>Hugs and kisses!</p>';
-      $sent_admin = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
-    }
-    if ( isset( $sent_provider ) ) {
-      // add some hidden meta data to the comment
-      add_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true, true);
-      error_log('hw-feedback: email sent');
-    }
+      // check that comment was unapproved and is now approved (don't send on unapprove or spam)
+      if ( $old_status == "unapproved" && $new_status == "approved" ) {
+        error_log('hw-feedback: approve comment fired');
+        // get comment details
+        $new_comment = get_comment( $comment, OBJECT );
+        $title_post = get_the_title( $new_comment->comment_post_ID );
+        $link_post = get_permalink( $new_comment->comment_post_ID );
+        // check if comment has been withheld
+        if ( strpos($new_comment->comment_content,"[Withheld in accordance with our") === 0 ) {
+          // comment has been withheld so do nothing
+          error_log('hw-feedback: comment withheld '.strpos($new_comment->comment_content,"[Withheld in accordance with our"));
+          return;
+        }
+        // send an email
+        // set php mailer variables
+        $contact_email = get_post_meta($new_comment->comment_post_ID,'hw_services_contact_email',true);
+        // set headers to allow HTML
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: Healthwatch Bucks <info@healthwatchbucks.co.uk>';
+        if ( $contact_email != '' ) {
+          $to = $contact_email;
+          error_log('hw-feedback: contact email: '.$to);
+          $subject = "Respond to a new comment about your service";
+          // build the content
+          $formatted_message = '<p>Hello</p><p>A new comment about <strong>'.$title_post.'</strong> has been published on '. parse_url( get_site_url(), PHP_URL_HOST ) .'.</p>';
+          // compose an email containing comment details
+          $formatted_message .= '<p>The comment was received on <strong>'.date("l j F Y H:i:s T", strtotime($new_comment->comment_date) ).'</strong></p>';
+          $formatted_message .= '<p>Comment:</p><blockquote>';
+          $formatted_message .= $new_comment->comment_content;
+          $formatted_message .= '</blockquote>';
+          $formatted_message .= '<p>The commenter gave a rating of <strong>'.get_comment_meta( $new_comment->comment_ID, 'feedback_rating', true ). ' out of 5 stars</strong>.</p>';
+          $formatted_message .= '<p><a href="'.$link_post.'">View '.$title_post.' on our website</a></p>';
+          $formatted_message .= '<p>If you would like to respond to this comment, please reply to this email. We will share your response directly with the commenter where possible.</p>';
+          $formatted_message .= '<p>Kind regards</p>';
+          //$email_footer = htmlspecialchars($options['hw_feedback_field_comment_email_footer']);
+          $email_footer = $options['hw_feedback_field_comment_email_footer'];
+          $formatted_message .= $email_footer;
+          $sent_provider = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+        } else {
+          if ( $options['hw_feedback_field_your_story_email'] != "") {
+            $to = $options['hw_feedback_field_your_story_email'];
+          } else {
+            $to = get_option('admin_email');
+          }
+          error_log('hw-feedback: no contact email: '.$to);
+          $subject = "Missing Contact Email for ". $title_post;
+          // build the content
+          $formatted_message = '<p>Hello</p><p>'.$title_post.' on '.parse_url( get_site_url(), PHP_URL_HOST ).' is missing a Contact Email address.</p>';
+          $formatted_message .= '<a href="'.get_edit_post_link($new_comment->comment_post_ID).'">Add the missing email address here</a>';
+          $formatted_message .= '<p>Hugs and kisses!</p>';
+          $sent_admin = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+        }
+        if ( isset( $sent_provider ) ) {
+          // add some hidden meta data to the comment
+          add_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true, true);
+          error_log('hw-feedback: email sent');
+        }
       }
     } else {
       error_log('hw-feedback: previous notification sent');
