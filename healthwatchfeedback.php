@@ -373,7 +373,29 @@ function hw_feedback_section_general_settings_callback( $args ) {
 }
 
 /**
- * local_authority field callbakc function.
+ * Moderation section callback function.
+ *
+ * @param array $args  The settings array, defining title, id, callback.
+ */
+function hw_feedback_section_moderation_settings_callback( $args ) {
+    ?>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>">Customise moderation text and notification email footer.</p>
+    <?php
+}
+
+/**
+ * Comment notification section callback function.
+ *
+ * @param array $args  The settings array, defining title, id, callback.
+ */
+function hw_feedback_section_comment_notifications_settings_callback( $args ) {
+    ?>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>">Customise email notification FROM name and address, and footer.</p>
+    <?php
+}
+
+/**
+ * local_authority field callback function.
  *
  * WordPress has magic interaction with the following keys: label_for, class.
  * - the "label_for" key value is used for the "for" attribute of the <label>.
