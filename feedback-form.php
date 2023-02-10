@@ -119,12 +119,17 @@ function hw_feedback_add_meta_box_moderation() {
 	add_meta_box( 'moderation', __( 'Moderation' ), 'moderation_meta_box', 'comment', 'normal', 'high' );
 }
 
-function moderation_meta_box ( $comment ) { ?>
+function moderation_meta_box ( $comment ) {
+	//get hw-feedback options
+	$options = get_option( 'hw_feedback_options' );
+	$withheld_comment_text = htmlspecialchars($options['hw_feedback_field_withheld_comment_text']);
+	$partial_withheld_comment_text = htmlspecialchars($options['hw_feedback_field_partial_withheld_comment_text']);
+	?>
 	<div id="moderation_toolbar">
-		<button class="ed_button button button-small" type="button" onclick="hw_feedback_withhold_comment()">Withhold All</button>
-		<button class="ed_button button button-small" type="button" onclick="hw_feedback_partial_comment()">Withhold Partial</button>
-		<button class="ed_button button button-small" type="button" onclick="hw_feedback_restore_comment()">Restore</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_withhold_comment('<?php echo $withheld_comment_text ?>')">Withhold All</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_partial_comment('<?php echo $partial_withheld_comment_text ?>')">Withhold Partial</button>
 		<button class="ed_button button button-small" type="button" onclick="hw_feedback_clear_personal_data()">Clear Personal Data</button>
+		<button class="ed_button button button-small" type="button" onclick="hw_feedback_restore_comment()">Restore</button>
 	</div>
 <?php }
 // Add an edit option in comment edit screen

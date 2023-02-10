@@ -20,20 +20,20 @@ async function hw_feedback_store_values() {
   }
 }
 
-async function hw_feedback_withhold_comment() {
+async function hw_feedback_withhold_comment($substituted_text) {
   /* Save the value */
   hw_feedback_store_values()
 
   /* Replace text in comment field */
-  document.getElementById('content').value = '[Withheld in accordance with our <a href="https://www.healthwatchbucks.co.uk/privacy/">Comments Policy</a>]';
+  document.getElementById('content').value = $substituted_text;
 }
 
-async function hw_feedback_partial_comment() {
+async function hw_feedback_partial_comment($substituted_text) {
   /* Save the value */
   hw_feedback_store_values()
 
   /* Append text in comment field */
-  document.getElementById('content').value += '\n\n[Some content withheld in accordance with our <a href="https://www.healthwatchbucks.co.uk/privacy/">Comments Policy</a>]';
+  document.getElementById('content').value += '\n\n'+$substituted_text;
 }
 
 async function hw_feedback_restore_comment() {
