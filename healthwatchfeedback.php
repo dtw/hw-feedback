@@ -570,7 +570,7 @@ function hw_feedback_field_your_story_email_cb( $args ) {
     // Get the value of the setting we've registered with register_setting()
     $options = get_option( 'hw_feedback_options' );
     ?>
-    <input type="text"
+    <input type="email" multiple
       id="<?php echo esc_attr( $args['label_for'] ); ?>"
       name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
       value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
