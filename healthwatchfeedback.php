@@ -654,6 +654,107 @@ function hw_feedback_field_partial_withheld_comment_text_cb( $args ) {
 }
 
 /**
+ * enable_notifications field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_enable_notifications_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    // on first run, a checkbox needs a null value - two solutions
+    // if ( ! isset( $options[ $args['label_for'] ] ) ) { $options[ $args['label_for'] ] = false; }
+    $options[ $args['label_for'] ] = !empty( $options[ $args['label_for'] ] ) ? 1 : 0;
+    ?>
+    <input type="checkbox"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="1"
+      <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
+      checked( 1, $options[ $args['label_for'] ], true ) ?>
+      >
+    <p class="description inline-description">
+        <?php esc_html_e( "Automatically notify provider, via email, when a new comment is approved.", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
+ *  comment_email_footer field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_comment_email_footer_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <textarea rows="5" wrap="soft"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?></textarea>
+    <p class="description">
+        <?php esc_html_e( "Footer text to add when sending comment approval notifications to providers. HTML allowed", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
+ *  field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_email_from_name_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <input type="text"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
+    <p class="description">
+        <?php esc_html_e( "Name to display in e-mail FROM field e.g. Healthwatch Bucks", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
+ * email_from_address field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_email_from_address_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <input type="email"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
+    <p class="description">
+        <?php esc_html_e( "Address to display in e-mail FROM field e.g. info@healthwatchbucks.co.uk", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
  * Top level menu callback function
  */
 function hw_feedback_options_page_html() {
