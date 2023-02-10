@@ -551,6 +551,52 @@ function hw_feedback_field_disable_lhw_rating_cb( $args ) {
 }
 
 /**
+ * withheld_comment_text field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_withheld_comment_text_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <textarea rows="2" wrap="soft"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?></textarea>
+    <p class="description">
+        <?php esc_html_e( "Set the text to display for withheld comments. HTML allowed", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
+ * partial_withheld_comment_text field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_partial_withheld_comment_text_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <textarea rows="2" wrap="soft"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?></textarea>
+    <p class="description">
+        <?php esc_html_e( "Set the text to display for partially withheld comments. HTML allowed", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
  * Top level menu callback function
  */
 function hw_feedback_options_page_html() {
