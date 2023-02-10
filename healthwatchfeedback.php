@@ -751,7 +751,7 @@ function hw_feedback_field_email_from_address_cb( $args ) {
       name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
       value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
     <p class="description">
-        <?php esc_html_e( "Address to display in e-mail FROM field e.g. info@healthwatchbucks.co.uk", 'hw_feedback' ); ?>
+        <?php esc_html_e( "Address to display in e-mail FROM field e.g. info@healthwatchbucks.co.uk - in case of error, check for spaces at start/end", 'hw_feedback' ); ?>
     </p>
     <?php
 }
