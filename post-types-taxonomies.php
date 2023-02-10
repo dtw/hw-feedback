@@ -897,6 +897,7 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
     // check if notification has been sent before
     if ( ! get_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true) ) {
       error_log('hw-feedback: no previous notification');
+  // check that comment was unapproved and is now approved (don't send on unapprove or spam)
   if ( $old_status == "unapproved" && $new_status == "approved" ) {
     error_log('hw-feedback: approve comment fired');
     // get comment details
@@ -952,6 +953,10 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
       // add some hidden meta data to the comment
       add_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true, true);
       error_log('hw-feedback: email sent');
+    }
+      }
+    } else {
+      error_log('hw-feedback: previous notification sent');
     }
   }
 }
