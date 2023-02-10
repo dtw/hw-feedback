@@ -889,12 +889,12 @@ add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
 // Send an email to a provider when a new comment is APPROVED
-function hw_feedback_approve_comment($new_status, $old_status, $comment_ID) {
+function hw_feedback_approve_comment($new_status, $old_status, $comment) {
   $options = get_option( 'hw_feedback_options' );
   if ( $old_status == "unapproved" && $new_status == "approved" ) {
     error_log('hw-feedback: approve comment fired');
     // get comment details
-    $new_comment = get_comment( $comment_ID, OBJECT );
+    $new_comment = get_comment( $comment, OBJECT );
     $title_post = get_the_title( $new_comment->comment_post_ID );
     $link_post = get_permalink( $new_comment->comment_post_ID );
     // check if comment has been withheld
