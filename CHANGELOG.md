@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.4] - 2023-02-17
+### Added
+- setting for Your Story target email address(es)
+- new compact recent feedback widget - has no large panel, only sub-items
+
+### Changed
+- tabindex for accessibility purposes
+- allow admin to set review score to zero
+- feedback form field labels
+- fixed edit link in new service emails
+- fixed comments being completely disabled by meta_box removal
+
 ## [2.3] - 2022-08-19
 ### Added
 - default service types for prisons and opticians and map P4 inspection code to prisons
