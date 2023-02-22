@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Healthwatch Feedback
-Version: 2.4
+Version: 2.5
 Description: Implements a Rate and Review centre on Healthwatch websites. <strong>DO NOT DELETE !</strong>
 Author: Phil Thiselton & Jason King
 */
