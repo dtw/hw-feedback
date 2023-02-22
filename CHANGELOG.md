@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5] - 2023-02-22
+### Added
+- store an email address per provider
+- moderation settings for comments - allows more consistent redaction
+    - custom text for partially withheld comments - this text is appended
+    - custom text for completely withheld comments - this text replaces the existing text
+    - wipe data from comment fields containing personal information
+- email alerts for providers when a new comment is published - can be enabled or disabled
+    - custom footer for legal/privacy notices etc
+    - custom from FROM name and address
+
+## Changed
+- fixed a "null on first run" checkbox in HW Feedback Settings
+- minor layout changes in HW Feedback Settings
+
 ## [2.4] - 2023-02-17
 ### Added
 - setting for Your Story target email address(es)
