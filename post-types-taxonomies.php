@@ -758,8 +758,12 @@ function hw_feedback_check_cqc_registration_status() {
         $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
         // get post tax terms as names
         $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
-        // if service is Archived (which is done manually) bail
+        // if service is Archived (which is done manually), close comments and bail
         if ( $tax_terms[0] == 'Archived' ) {
+          wp_update_post(array(
+            'ID' => $single_local_service->ID,
+            'comment_status' => "closed"
+          ));
           continue;
         }
         // if there is a reg status from the api
