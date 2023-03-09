@@ -588,9 +588,6 @@ function bs_local_services_table_head( $columns ) {
     if ( $options['hw_feedback_field_disable_lhw_rating'] != 1 ) {
       $columns['rated']  = 'Rated';
     }
-    $columns['contact']  = 'Contact';
-    $columns['website']  = 'Website';
-    $columns['cqc_location']  = 'CQC Location';
     return $columns;
 
 }
@@ -599,94 +596,16 @@ add_action( 'manage_local_services_posts_custom_column', 'bs_local_services_tabl
 // Fill data into ADMIN COLUMNS for local services
 function bs_local_services_table_content( $column_name, $post_id ) {
 
-  if( $column_name == 'contact' ) {
-
-		$address_city = get_post_meta( $post_id, 'hw_services_city', true );
-
-		if ($address_city) { echo $address_city; }
-
-		//echo $col_address;
-
-    $col_phone = get_post_meta( $post_id, 'hw_services_phone', true );
-    if ($col_phone) {
-      echo "<br /><span class='dashicons dashicons-phone admin-dashicons-phone'></span> <strong>";
-      $col_phone = format_telephone(sanitize_telephone($col_phone));
-      echo $col_phone; echo "</strong>";
-    }
-  }
-
-
-
-    if( $column_name == 'website' ) {
-        $col_website = get_post_meta( $post_id, 'hw_services_website', true );
-        echo "<a target='_blank' href='http://". $col_website ."'>";
-		echo $col_website;
-		echo "</a>";
-    }
-
-    if( $column_name == 'cqc_location' ) {
-        // get location id
-        $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
-        // check there is location_id
-        if ( ! empty( $location_id ) || $location_id != '') {
-          // get post tax terms as names
-          $tax_terms = wp_get_post_terms( $post_id, 'cqc_reg_status', array( "fields" => "names" ));
-          // some error checks
-          if ( ! empty( $tax_terms ) && ! is_wp_error( $tax_terms ) ) {
-            if ($tax_terms[0] != 'Registered') {
-              echo '<a href="https://www.cqc.org.uk/location/' . $location_id . '?referer=HW_BUCKS" target="_blank">' . $location_id . '</a>';
-            } else {
-              echo $tax_terms[0];
-            }
-          } else {
-            echo $location_id;
-          }
-        } else {
-          echo '-';
-        }
-		echo "<br />";
-
-    }
-
-
-
     if( $column_name == 'rated' ) {
 		$col_rating = get_post_meta( $post_id, 'hw_services_overall_rating', true );
     if($col_rating > 0){echo '<p>'.hw_feedback_star_rating($col_rating,array('colour' => 'green')).'</p>';}
 
 	}
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Remove date filter from dashboard
 add_filter('months_dropdown_results', '__return_empty_array' );
-
-
-
-
-
-
-
 
 /**
  * Display a custom taxonomy dropdown in admin
