@@ -355,6 +355,20 @@ function hw_feedback_settings_init() {
     );
     // Register a new field in the "hw_feedback_section_comment_notifications_settings" section, inside the "hw_feedback" page.
     add_settings_field(
+        'hw_feedback_field_enable_missing_address_reminders', // As of WP 4.6 this value is used only internally.
+                                // Use $args' label_for to populate the id inside the callback.
+            __( 'Enable missing address reminders', 'hw_feedback' ),
+        'hw_feedback_field_enable_missing_address_reminders_cb',
+        'hw_feedback',
+        'hw_feedback_section_comment_notifications_settings',
+        array(
+            'label_for'         => 'hw_feedback_field_enable_missing_address_reminders',
+            'class'             => 'hw_feedback_row',
+            'hw_feedback_custom_data' => 'custom',
+        )
+    );
+    // Register a new field in the "hw_feedback_section_comment_notifications_settings" section, inside the "hw_feedback" page.
+    add_settings_field(
         'hw_feedback_field_email_from_address', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
             __( 'E-mail FROM address', 'hw_feedback' ),
@@ -685,6 +699,35 @@ function hw_feedback_field_enable_notifications_cb( $args ) {
     <?php
 }
 
+/**
+ * missing_address_reminders field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_enable_missing_address_reminders_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    // on first run, a checkbox needs a null value - two solutions
+    // if ( ! isset( $options[ $args['label_for'] ] ) ) { $options[ $args['label_for'] ] = false; }
+    $options[ $args['label_for'] ] = !empty( $options[ $args['label_for'] ] ) ? 1 : 0;
+    ?>
+    <input type="checkbox"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="1"
+      <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
+      checked( 1, $options[ $args['label_for'] ], true ) ?>
+      >
+    <p class="description inline-description">
+        <?php esc_html_e( "Send admin reminders, via email, when a service doesn't not have an email address set.", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
 /**
  *  comment_email_footer field callback function.
  *
