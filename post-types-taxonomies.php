@@ -840,14 +840,20 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
   // check notifications enabled
   if ( isset( $options['hw_feedback_field_enable_notifications'] ) ) {
     error_log('hw-feedback: notification check');
+    // get comment details
+    $new_comment = get_comment( $comment, OBJECT );
+    // check for provider optout
+    if ( get_post_meta( $new_comment->comment_post_ID, 'hw_services_contact_optout', true ) ) {
+      error_log('hw-feedback: provider opt-out');
+      return;
+    }
     // check if notification has been sent before
     if ( ! get_comment_meta( $comment->comment_ID, 'feedback_provider_notification_sent', true) ) {
       error_log('hw-feedback: no previous notification');
       // check that comment was unapproved and is now approved (don't send on unapprove or spam)
       if ( $old_status == "unapproved" && $new_status == "approved" ) {
         error_log('hw-feedback: approve comment fired');
-        // get comment details
-        $new_comment = get_comment( $comment, OBJECT );
+        // get post details
         $title_post = get_the_title( $new_comment->comment_post_ID );
         $link_post = get_permalink( $new_comment->comment_post_ID );
         // check if comment has been withheld
