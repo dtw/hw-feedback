@@ -369,9 +369,23 @@ echo "<br /><h2><strong>Contact details</strong></h2><br />";
 
 hw_feedback_generate_metabox_form_field(array('hw_services_phone','Phone',isset($objcqcapiquery->mainPhoneNumber) == true ? $objcqcapiquery->mainPhoneNumber : ''),$post->ID,'20');
 hw_feedback_generate_metabox_form_field(array('hw_services_website','Website',isset($objcqcapiquery->website) == true ? $objcqcapiquery->website : ''),$post->ID,'30');
+
 // no need to check API as email is not provided
 hw_feedback_generate_metabox_form_field(array('hw_services_contact_email','Contact email',''),$post->ID,'30');
-
+$value = get_post_meta( $post->ID, 'hw_services_contact_optout', true );
+  echo '<label for="hw_services_contact_optout">Notification opt-out</label>';
+  // on first run, a checkbox needs a null value - two solutions
+  // if ( ! isset( $options[ $args['label_for'] ] ) ) { $options[ $args['label_for'] ] = false; }
+  $value = !empty( $value ) ? 1 : 0;
+  ?>
+  <input type="checkbox"
+    id="hw_services_contact_optout"
+    name="hw_services_contact_optout"
+    value="1"
+    <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
+    checked( 1, $value, true ) ?>
+    >
+<?php
 // RATE AND REVIEW FIELDS
 	echo "<br /><br /><h2><strong>How we rated this service</strong></h2><br />";
 
@@ -506,6 +520,11 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['hw_services_contact_email'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_contact_email'] );
 		update_post_meta( $post_id, 'hw_services_contact_email', $my_data );
+
+    // CONTACT OPTOUT
+		if ( ! isset( $_POST['hw_services_contact_optout'] ) ) { return; }
+		$my_data = sanitize_text_field( $_POST['hw_services_contact_optout'] );
+		update_post_meta( $post_id, 'hw_services_contact_optout', $my_data );
 
 		// CQC LOCATION CODE
 		if ( ! isset( $_POST['hw_services_cqc_location'] ) ) { return; }
