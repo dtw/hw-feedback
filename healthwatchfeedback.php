@@ -724,7 +724,7 @@ function hw_feedback_field_enable_missing_address_reminders_cb( $args ) {
       checked( 1, $options[ $args['label_for'] ], true ) ?>
       >
     <p class="description inline-description">
-        <?php esc_html_e( "Send admin reminders, via email, when a service doesn't not have an email address set.", 'hw_feedback' ); ?>
+        <?php esc_html_e( "Send admin reminders, via email, when a service does not have an email address set.", 'hw_feedback' ); ?>
     </p>
     <?php
 }
