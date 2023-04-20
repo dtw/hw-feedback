@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6] - 2023-04-20
+### Added
+- support for "recent average" ratings for services (last 12 months)
+- setting to enable/disable admin email reminders for missing contact emails (added in 2.5)
+- per Local Service setting to "opt-out" of new comment emails - differentiates between missing email address and not wanting any emails
+
+## Changed
+- automatically disable comments (feedback) when a service's CQC Registration Status is set to "Archived"
+
+### Removed
+- contact, website and CQC location number columns from the Local Services admin screen
+
 ## [2.5] - 2023-02-22
 ### Added
 - store an email address per provider
