@@ -773,7 +773,8 @@ function hw_feedback_field_email_from_name_cb( $args ) {
         E-mail FROM <strong>address</strong> must be set
     </div>
     <p class="description">
-        <?php esc_html_e( "Name to display in e-mail FROM field e.g. Healthwatch Bucks", 'hw_feedback' ); ?>
+        <?php $field_text = "Name to display in e-mail FROM field e.g. " . get_theme_mod( 'scaffold_org_name');
+        esc_html_e( $field_text , 'hw_feedback' ); ?>
     </p>
     <?php
 }
@@ -797,7 +798,8 @@ function hw_feedback_field_email_from_address_cb( $args ) {
       name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
       value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
     <p class="description">
-        <?php esc_html_e( "Address to display in e-mail FROM field e.g. info@healthwatchbucks.co.uk - in case of error, check for spaces at start/end", 'hw_feedback' ); ?>
+        <?php $field_text = "Address to display in e-mail FROM field e.g. " . get_theme_mod( 'scaffold_org_email') . " - in case of error, check for spaces at start/end";
+        esc_html_e( $field_text , 'hw_feedback' ); ?>
     </p>
     <?php
 }
