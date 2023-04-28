@@ -318,7 +318,7 @@ function hw_feedback_move_textarea( $input = array () ) {
 
 
 	if ( 'comment_form_defaults' === current_filter() ) {
-			$textarea = '<p class="comment-form-comment"><label for="comment">What happened?</label><p>Please tell us what happened and make suggestions for improvements. Please do not include any personal information like names, dates or detailed health information.</p><textarea tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
+			$textarea = '<p class="comment-form-comment"><label for="comment">What was good or bad about the service?</label><p>Make suggestions for improvements. Please do not include any personal information like detailed health information, names or dates.</p><textarea tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
 			$input['comment_field'] = '';
 			return $input;
 	}
