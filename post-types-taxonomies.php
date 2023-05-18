@@ -812,7 +812,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     // if there is a reg status from the api
     if ( isset($api_response->registrationStatus) ) {
       // is it different from the current status AND NOT Archived
-      if ( $tax_terms[0]  != $api_response->registrationStatus ) {
+      if ( ! isset($tax_terms[0]) || $tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
       }
