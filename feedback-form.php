@@ -63,7 +63,8 @@ if ( is_singular( 'local_services' ) ) {
 
 	echo '<p class="comment-form-section comment-form-rating">
 
-			<label for="rating">How would you rate this service overall? Choose from 1 to 5 stars.</label>
+			<label for="rating">How would you rate this service overall?</label>
+			<p>Choose from 1 to 5 stars.</p>
 			<select required="required" id="rating" name="rating" tabindex="0" size="1">
 			<option value="">Choose</option>
 			<option value="1" class="rate-1" id="rate-1">&#9733; Terrible</option>
@@ -318,7 +319,7 @@ function hw_feedback_move_textarea( $input = array () ) {
 
 
 	if ( 'comment_form_defaults' === current_filter() ) {
-			$textarea = '<p class="comment-form-comment"><label for="comment">What was good or bad about the service?</label><p>Make suggestions for improvements. Please do not include any personal information like detailed health information, names or dates.</p><textarea tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
+			$textarea = '<p class="comment-form-section comment-form-comment"><label for="comment">Why have you given this rating?</label><p>Reviews are public and shared with the service. <strong>If you include names, dates or detailed health/case information the service may be able to identify the person receiving care.</strong></p><textarea tabindex="0" id="comment" name="comment" cols="45" rows="4" required="required"></textarea>';
 			$input['comment_field'] = '';
 			return $input;
 	}
