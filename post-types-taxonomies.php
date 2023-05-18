@@ -390,7 +390,6 @@ $value = get_post_meta( $post->ID, 'hw_services_contact_optout', true );
   <input type="checkbox"
     id="hw_services_contact_optout"
     name="hw_services_contact_optout"
-    value="1"
     <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
     checked( 1, $value, true ) ?>
     >
