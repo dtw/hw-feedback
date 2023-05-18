@@ -457,13 +457,11 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 
 	// Check if our NONCE is set.
 	if ( ! isset( $_POST['hw_meta_box_nonce'] ) ) {
-    error_log("hw-feedback: no-nonce");
 		return;
 	}
 
 	// Verify that the NONCE is valid.
 	if ( ! wp_verify_nonce( $_POST['hw_meta_box_nonce'], 'hw_meta_box' ) ) {
-    error_log("hw-feedback: nonce invalid");
 		return;
 	}
 
@@ -475,7 +473,6 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 
 	// Check the user's PERMISSIONS.
 	if ( ! current_user_can( 'edit_page', $post_id ) ) {
-    error_log("hw-feedback: cannot edit");
 		return;
 	}
 
@@ -587,8 +584,6 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['hw_services_date_visited'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_date_visited'] );
 		update_post_meta( $post_id, 'hw_services_date_visited', $my_data );
-
-    error_log("hw-feedback: meta saved!");
 
 }
 
