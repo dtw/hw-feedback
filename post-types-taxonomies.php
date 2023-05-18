@@ -385,7 +385,7 @@ $value = get_post_meta( $post->ID, 'hw_services_contact_optout', true );
   echo '<label for="hw_services_contact_optout">Notification opt-out</label>';
   // on first run, a checkbox needs a null value - two solutions
   // if ( ! isset( $options[ $args['label_for'] ] ) ) { $options[ $args['label_for'] ] = false; }
-  $value = !empty( $value ) ? 1 : 0;
+  $value = !empty( $value ) ? $value : 0;
   ?>
   <input type="checkbox"
     id="hw_services_contact_optout"
