@@ -96,6 +96,12 @@
 	padding-bottom: .5rem;
 }
 
+/* Comment form */
+
+.comment-form-section label {
+	font-size: 1.8rem;
+}
+
 /* Comment editor
 ------------------------------------------------- */
 
