@@ -348,12 +348,14 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     }
   }
 
+// ODS
+echo "<h2><strong>ODS Information</strong></h2><br />";
 // ODS CODE
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
 echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
 
-echo "<br /><br />";
+echo "<br />";
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";
