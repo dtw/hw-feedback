@@ -694,7 +694,7 @@ function hw_feedback_field_enable_notifications_cb( $args ) {
       checked( 1, $options[ $args['label_for'] ], true ) ?>
       >
     <p class="description inline-description">
-        <?php esc_html_e( "Automatically notify provider, via email, when a new comment is approved.", 'hw_feedback' ); ?>
+        <?php esc_html_e( "Automatically notify provider, via email, when a new comment is approved", 'hw_feedback' ); ?>
     </p>
     <?php
 }
@@ -724,7 +724,7 @@ function hw_feedback_field_enable_missing_address_reminders_cb( $args ) {
       checked( 1, $options[ $args['label_for'] ], true ) ?>
       >
     <p class="description inline-description">
-        <?php esc_html_e( "Send admin reminders, via email, when a service does not have an email address set.", 'hw_feedback' ); ?>
+        <?php esc_html_e( "Send admin reminders, via email, when a service does not have an email address set", 'hw_feedback' ); ?>
     </p>
     <?php
 }
@@ -746,7 +746,7 @@ function hw_feedback_field_comment_email_footer_cb( $args ) {
       id="<?php echo esc_attr( $args['label_for'] ); ?>"
       name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?></textarea>
     <p class="description">
-        <?php esc_html_e( "Footer text to add when sending comment approval notifications to providers. HTML allowed", 'hw_feedback' ); ?>
+        <?php esc_html_e( "Footer text to add when sending comment approval notifications to providers. HTML allowed.", 'hw_feedback' ); ?>
     </p>
     <?php
 }
