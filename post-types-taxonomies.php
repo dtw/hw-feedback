@@ -816,6 +816,13 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
       }
+        // try and override Registered local_services to "Allow Comments"
+      if ( $api_response->registrationStatus == "Registered" ) {
+        wp_update_post(array(
+          'ID' => $single_local_service->ID,
+          'comment_status' => "open"
+        ));
+      }
     // otherwise, it has a location id locally but that is not listed by CQC
     } else {
       // set new terms - takes names of terms not slugs...
@@ -823,13 +830,6 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     }
   } else {
     wp_set_post_terms( $single_local_service->ID, 'Not applicable' , 'cqc_reg_status', false );
-  }
-  // try and override Registered local_services to "Allow Comments"
-  if ( $api_response->registrationStatus == "Registered" ) {
-    wp_update_post(array(
-      'ID' => $single_local_service->ID,
-      'comment_status' => "open"
-    ));
   }
 }
 
