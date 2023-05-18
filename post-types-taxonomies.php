@@ -531,9 +531,12 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 		update_post_meta( $post_id, 'hw_services_contact_email', $my_data );
 
     // CONTACT OPTOUT
-		if ( ! isset( $_POST['hw_services_contact_optout'] ) ) { return; }
-		$my_data = sanitize_text_field( $_POST['hw_services_contact_optout'] );
-		update_post_meta( $post_id, 'hw_services_contact_optout', $my_data );
+		if ( ! isset( $_POST['hw_services_contact_optout'] ) ) {
+      // if $_POST var is not set the box is unchecked, so store an "off" value
+      update_post_meta( $post_id, 'hw_services_contact_optout', 0 );
+    } else {
+		  update_post_meta( $post_id, 'hw_services_contact_optout', 1 );
+    }
 
 		// CQC LOCATION CODE
 		if ( ! isset( $_POST['hw_services_cqc_location'] ) ) { return; }
