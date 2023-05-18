@@ -100,6 +100,15 @@
 
 .comment-form-section label {
 	font-size: 1.8rem;
+	margin-bottom: 0;
+}
+
+.comment-form-section {
+	padding-top: 1rem;
+}
+
+.comment-form-section:first-child {
+	padding-top: 0px;
 }
 
 /* Comment editor
