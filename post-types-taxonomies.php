@@ -802,7 +802,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     // get post tax terms as names
     $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
     // if service is Archived (which is done manually), close comments and bail
-    if ( $tax_terms[0] == 'Archived' ) {
+    if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
       wp_update_post(array(
         'ID' => $single_local_service->ID,
         'comment_status' => "closed"
