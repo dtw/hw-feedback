@@ -544,7 +544,7 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 
 		// NHS ODS (Organisation Data Service) code - https://digital.nhs.uk/services/organisation-data-service
 		if ( ! isset( $_POST['hw_services_ods_code'] ) ) { return; }
-		$my_data = sanitize_text_field( $_POST['hw_services_ods_code'] );
+		$my_data = strtoupper(sanitize_text_field( $_POST['hw_services_ods_code'] ));
 		update_post_meta( $post_id, 'hw_services_ods_code', $my_data );
 
 		// OVERALL RATING
