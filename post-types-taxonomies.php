@@ -348,6 +348,14 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     }
   }
 
+// ODS
+echo "<h2><strong>ODS Information</strong></h2><br />";
+// ODS CODE
+$value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
+echo '<label for="hw_services_ods_code">ODS Code </label>';
+echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
+
+echo "<br />";
 
 // ADDRESS FIELDS
 echo "<br /><h2><strong>Address</strong></h2><br />";
@@ -533,6 +541,11 @@ function hw_feedback_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['hw_services_cqc_location'] ) ) { return; }
 		$my_data = sanitize_text_field( $_POST['hw_services_cqc_location'] );
 		update_post_meta( $post_id, 'hw_services_cqc_location', $my_data );
+
+		// NHS ODS (Organisation Data Service) code - https://digital.nhs.uk/services/organisation-data-service
+		if ( ! isset( $_POST['hw_services_ods_code'] ) ) { return; }
+		$my_data = sanitize_text_field( $_POST['hw_services_ods_code'] );
+		update_post_meta( $post_id, 'hw_services_ods_code', $my_data );
 
 		// OVERALL RATING
 		if ( ! isset( $_POST['hw_services_overall_rating'] ) ) { return; }
