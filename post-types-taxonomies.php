@@ -623,6 +623,7 @@ function bs_local_services_table_head( $columns ) {
     if ( $options['hw_feedback_field_disable_lhw_rating'] != 1 ) {
       $columns['rated']  = 'Rated';
     }
+    $columns['ods_code']  = 'ODS Code';
     return $columns;
 
 }
@@ -636,6 +637,13 @@ function bs_local_services_table_content( $column_name, $post_id ) {
     if($col_rating > 0){echo '<p>'.hw_feedback_star_rating($col_rating,array('colour' => 'green')).'</p>';}
 
 	}
+
+  if( $column_name == 'ods_code' ) {
+    $col_ods_code = get_post_meta( $post_id, 'hw_services_ods_code', true );
+    echo "<a target='_blank' href='https://directory.spineservices.nhs.uk/STU3/Organization/". $col_ods_code ."'>";
+    echo $col_ods_code;
+    echo "</a>";
+  }
 }
 
 
