@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - setting to enable/disable admin email reminders for missing contact emails (added in 2.5)
 - per Local Service setting to "opt-out" of new comment emails - differentiates between missing email address and not wanting any emails
 
-## Changed
+### Changed
 - automatically disable comments (feedback) when a service's CQC Registration Status is set to "Archived"
 
 ### Removed
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - custom footer for legal/privacy notices etc
     - custom from FROM name and address
 
-## Changed
+### Changed
 - fixed a "null on first run" checkbox in HW Feedback Settings
 - minor layout changes in HW Feedback Settings
 
