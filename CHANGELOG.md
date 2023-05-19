@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.2] - 2023-05-19
+### Changed
+- handling of checkbox changes in Local Services so they are stored correctly
+- 
+### Added
+- checks to avoid Undefined Offset errors when creating new Local Services
+- some logging
+
+## [2.6.1] - 2023-05-19
+### Added
+- styles for new tooltips
+
+### Changed
+- some hardcoded URL strings
+- many text strings
+- star rating explainer into tooltips
+- spacing on the feedback form
+
 ## [2.6] - 2023-04-20
 ### Added
 - support for "recent average" ratings for services (last 12 months)
