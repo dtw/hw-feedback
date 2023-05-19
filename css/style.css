@@ -9,10 +9,6 @@
 	font-family: FontAwesome, 'Open Sans', serif;
 	}
 
-#commentform label[for=rating],
-#commentform label[for=comment] {
-	}
-
 .form-allowed-tags {
 	display: none;
 	}
