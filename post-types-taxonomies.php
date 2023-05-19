@@ -718,6 +718,7 @@ function hw_feedback_check_cqc_registration_status() {
             'ID' => $single_local_service->ID,
             'comment_status' => "closed"
           ));
+          error_log('hw-feedback: comments closed');
           continue;
         }
         // if there is a reg status from the api
@@ -806,6 +807,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
         'ID' => $single_local_service->ID,
         'comment_status' => "closed"
       ));
+      error_log('hw-feedback: comments closed');
       return;
     }
     // if there is a reg status from the api
