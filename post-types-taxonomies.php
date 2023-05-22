@@ -354,11 +354,24 @@ echo "<h2><strong>ODS Information</strong></h2><br />";
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
 echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
-
+  // only check API and show fields if there is a ODS Code
+  if ($value != '') {
+    $objodsapiquery = json_decode(hw_feedback_ods_api_query_by_code(esc_attr($value)));
+    $is_active = $objodsapiquery->active ? 'Yes' : 'No';
+    echo '<br /><h3>API Checks</h3>';
+    echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'.$objodsapiquery->name.'</div></div>';
+    echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
+    if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
+      <div class="api-output-inactive">
+        <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active. <a href="https://directory.spineservices.nhs.uk/STU3/Organization/<?php echo $objodsapiquery->id?>" target="_blank">Check this registration on the ODS website</a>.</p></div>
+      </div><?
+    }
+  }
 echo "<br />";
 
 // ADDRESS FIELDS
-echo "<br /><h2><strong>Address</strong></h2><br />";
+echo "<h2><strong>Address</strong></h2><br />";
 
 foreach(
   array(
