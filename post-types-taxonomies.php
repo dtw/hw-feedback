@@ -361,6 +361,7 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     echo '<br /><h3>API Checks</h3>';
     echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'.$objodsapiquery->name.'</div></div>';
     echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
+    echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>'; 
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
       <div class="api-output-inactive">
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
