@@ -874,6 +874,20 @@ add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 // fires when meta data is added to a post
 add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
+/* Run CQC update when local_services are saved */
+
+function hw_feedback_save_local_services($post_id, $post, $update) {
+  remove_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
+  global $pagenow;
+  if (( 'post.php' === $pagenow ) && ( $update )) {
+    hw_feedback_check_cqc_registration_status_single($post_id);
+  }
+  add_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
+}
+
+// fires when local_services post type is saved - $post_id, WP_Post $post, bool $update
+add_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
+
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
   $options = get_option( 'hw_feedback_options' );
