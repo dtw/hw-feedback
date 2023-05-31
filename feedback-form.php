@@ -95,9 +95,9 @@ function hw_feedback_save_comment_meta_data( $comment_id ) {
 	$phone = wp_filter_nohtml_kses($_POST['phone']);
 	add_comment_meta( $comment_id, 'feedback_phone', $phone );
 
-	if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') )
-	$address = wp_filter_nohtml_kses($_POST['address']);
-	add_comment_meta( $comment_id, 'feedback_address', $address );
+	// if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') )
+	// $address = wp_filter_nohtml_kses($_POST['address']);
+	// add_comment_meta( $comment_id, 'feedback_address', $address );
 
 	if ( ( isset( $_POST['whenhappened'] ) ) && ( $_POST['whenhappened'] != '') )
 	$whenhappened = wp_filter_nohtml_kses($_POST['whenhappened']);
@@ -141,10 +141,10 @@ function hw_feedback_add_meta_box_extend_comment() {
 
 function extend_comment_meta_box ( $comment ) {
 	$phone = get_comment_meta( $comment->comment_ID, 'feedback_phone', true );
-	$address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
+	// $address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
 	$rating = get_comment_meta( $comment->comment_ID, 'feedback_rating', true );
 	$when = get_comment_meta( $comment->comment_ID, 'feedback_when', true );
-	$who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
+	// $who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
 	$response = get_comment_meta( $comment->comment_ID, 'feedback_response', true );
 	$hw_reply = get_comment_meta( $comment->comment_ID, 'feedback_hw_reply', true );
 
@@ -158,19 +158,9 @@ function extend_comment_meta_box ( $comment ) {
 	</p>
 
 	<p>
-		<label for="address">Address</label>
-		<input id="newcomment_author_address" type="text" name="address" autocomplete="off" value="<?php echo esc_attr( $address ); ?>" class="widefat" />
-	</p>
-
-	<p>
 		<label for="when">When did it happen?</label>
 		<input type="text" name="when" autocomplete="off" value="<?php echo esc_attr( $when ); ?>" class="widefat" />
 	</p>
-
-	<!--<p>
-			<label for="who">Who was involved?</label>
-			<input type="text" name="who" value="<?php echo esc_attr( $who ); ?>" class="widefat" />
-	</p>-->
 
 	<p>
 		<label for="rating"><?php _e( 'Rating: ' ); ?></label>
@@ -208,12 +198,12 @@ function hw_feedback_extend_comment_edit_metafields( $comment_id ) {
 	delete_comment_meta( $comment_id, 'feedback_phone');
 	endif;
 
-	if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') ) :
+	/* if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') ) :
 	$address = wp_filter_nohtml_kses($_POST['address']);
 	update_comment_meta( $comment_id, 'feedback_address', $address );
 	else :
 	delete_comment_meta( $comment_id, 'feedback_address');
-	endif;
+	endif; */
 
 	if ( ( isset( $_POST['rating'] ) ) && ( $_POST['rating'] != '') ):
 	$rating = wp_filter_nohtml_kses($_POST['rating']);
@@ -229,12 +219,12 @@ function hw_feedback_extend_comment_edit_metafields( $comment_id ) {
 	delete_comment_meta( $comment_id, 'feedback_when');
 	endif;
 
-	if ( ( isset( $_POST['who'] ) ) && ( $_POST['who'] != '') ):
+	/* if ( ( isset( $_POST['who'] ) ) && ( $_POST['who'] != '') ):
 	$rating = wp_filter_nohtml_kses($_POST['who']);
 	update_comment_meta( $comment_id, 'feedback_who', $rating );
 	else :
 	delete_comment_meta( $comment_id, 'feedback_who');
-	endif;
+	endif; */
 
 	if ( ( isset( $_POST['response'] ) ) && ( $_POST['response'] != '') ):
 	$response = wp_filter_post_kses($_POST['response']);
@@ -269,9 +259,9 @@ function hw_feedback_modify_comment( $text ){
 		$commentphone = '<strong>Phone: </strong>' . esc_attr( $commentphone ) . '<br/><br/>';
 	}
 
-	if( $commentaddress = get_comment_meta( get_comment_ID(), 'feedback_address', true ) ) {
+	/* if( $commentaddress = get_comment_meta( get_comment_ID(), 'feedback_address', true ) ) {
 		$commentaddress = '<strong>Address: </strong>' . esc_attr( $commentaddress ) . '<br/><br/>';
-	}
+	} */
 
 	if( $commentwhen = get_comment_meta( get_comment_ID(), 'feedback_when', true ) ) {
 		$commentwhen = '<strong>When? </strong>' . esc_attr( $commentwhen ) . '<br/><br/>';
