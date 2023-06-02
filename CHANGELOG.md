@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7] - 2023-06-02
+### Added
+- support for NHS ODS (Organisation Data Service) codes - https://digital.nhs.uk/services/organisation-data-service
+- column for ODS code in Local Services admin view (maybe temporary)
+- key info from API shown for individual Local Services
+
+### Changed
+- comments now closed correctly when service Archived
+- comments form and links hidden when comments are closed
+
+### Deleted
+- old references to commentor address and "who" was involved
+
 ## [2.6.2] - 2023-05-19
 ### Added
 - checks to avoid Undefined Offset errors when creating new Local Services
