@@ -753,12 +753,19 @@ function hw_feedback_check_cqc_registration_status() {
             wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($inspection_category->code) , 'cqc_inspection_category', true );
             if ( isset($inspection_category->primary) && $inspection_category->primary === 'true') {
               $primary_inspection_category = sanitize_text_field($inspection_category->code);
+              error_log('hw-feedback: '.$primary_inspection_category);
             }
           }
           // update the excerpt if blank
           if ( ! has_excerpt($hw_feedback_post->ID) ) {
             if ($primary_inspection_category == "P2") {
+              error_log('hw-feedback: P2');
               $post_excerpt = "General practice";
+            } else if ($primary_inspection_category == "P7") {
+              error_log('hw-feedback: P7');
+              $post_excerpt = $api_response->gacServiceTypes[0]->description . " - specialism(s): ";
+              $provider_specialisms = array_column((array)$api_response->specialisms, 'name');
+              $post_excerpt .= implode(', ', $provider_specialisms);
             } else {
               $post_excerpt = $api_response->gacServiceTypes[0]->description;
               if ( isset($api_response->numberOfBeds) ) {
