@@ -43,11 +43,11 @@ include('widgets/widget-compact-recent-feedback-hwbucks.php');
 
 // Add functions
 
-require_once('functions/functions-star-rating.php');
-require_once('functions/functions-get-rating.php');
-require_once('functions/functions-cqc-api-query.php');
-require_once('functions/functions-generate-metabox-form-fields.php');
-require_once('functions/shortcodes.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/functions-star-rating.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/functions-get-rating.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/functions-cqc-api-query.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/functions-generate-metabox-form-fields.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/shortcodes.php');
 
 // Enqueue CSS
 
