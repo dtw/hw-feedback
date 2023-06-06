@@ -736,11 +736,7 @@ function hw_feedback_check_cqc_registration_status() {
         $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
         // if service is Archived (which is done manually), close comments and bail
         if ( $tax_terms[0] == 'Archived' ) {
-          wp_update_post(array(
-            'ID' => $single_local_service->ID,
-            'comment_status' => "closed"
-          ));
-          error_log('hw-feedback: comments closed');
+          update_comment_status ($hw_feedback_post->ID,"closed");
           continue;
         }
         // if there is a reg status from the api
@@ -825,11 +821,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
     // if service is Archived (which is done manually), close comments and bail
     if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
-      wp_update_post(array(
-        'ID' => $single_local_service->ID,
-        'comment_status' => "closed"
-      ));
-      error_log('hw-feedback: comments closed');
+      update_comment_status ($single_local_service->ID,"closed");
       return;
     }
     // if there is a reg status from the api
@@ -841,10 +833,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
       }
         // try and override Registered local_services to "Allow Comments"
       if ( $api_response->registrationStatus == "Registered" ) {
-        wp_update_post(array(
-          'ID' => $single_local_service->ID,
-          'comment_status' => "open"
-        ));
+        update_comment_status ($single_local_service->ID,"open");
       }
     // otherwise, it has a location id locally but that is not listed by CQC
     } else {
