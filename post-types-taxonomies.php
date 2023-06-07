@@ -822,6 +822,17 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
       if ( $api_response->registrationStatus == "Registered" ) {
         update_comment_status ($single_local_service->ID,"open");
       }
+      // set Inspection Categories
+      $primary_inspection_category = hw_feedback_update_inspection_categories($single_local_service->ID,$api_response->inspectionCategories);
+
+      // update the excerpt if blank
+      if ( ! has_excerpt($single_local_service->ID) ) {
+        $post_excerpt = hw_feedback_generate_local_service_excerpt ($primary_inspection_category, $api_response);
+        wp_update_post(array(
+          'ID' => $single_local_service->ID,
+          'post_excerpt' => $post_excerpt));
+      }
+
     // otherwise, it has a location id locally but that is not listed by CQC
     } else {
       // set new terms - takes names of terms not slugs...
