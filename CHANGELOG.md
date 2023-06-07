@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.1] - 2023-06-07
+### Changed
+- minor bug fixes
+- code refactoring
+
 ## [2.7] - 2023-06-02
 ### Added
 - support for NHS ODS (Organisation Data Service) codes - https://digital.nhs.uk/services/organisation-data-service
