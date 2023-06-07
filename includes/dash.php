@@ -193,6 +193,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       );
 
       $services = get_posts( $args );
+			$matched_locations = '';
       //echo '<h2>Matched in hw-feedback</h2>';
       // loop the posts
       foreach($services as $hw_feedback_service) : setup_postdata($hw_feedback_service);
