@@ -849,20 +849,6 @@ add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registr
 
 /* Run CQC update when local_services are saved */
 
-function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_meta_value) {
-  global $pagenow;
-  if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
-    hw_feedback_check_cqc_registration_status_single($post_id);
-  }
-}
-
-// fires when meta data updated, which is not the same as...
-add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
-// fires when meta data is added to a post
-add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
-
-/* Run CQC update when local_services are saved */
-
 function hw_feedback_save_local_services($post_id, $post, $update) {
   remove_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
   global $pagenow;
