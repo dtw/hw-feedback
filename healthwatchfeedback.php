@@ -49,7 +49,7 @@ require_once(plugin_dir_path( __FILE__ ).'/functions/functions-cqc-api-query.php
 require_once(plugin_dir_path( __FILE__ ).'/functions/functions-local-services.php');
 require_once(plugin_dir_path( __FILE__ ).'/functions/functions-generate-metabox-form-fields.php');
 require_once(plugin_dir_path( __FILE__ ).'/functions/shortcodes.php');
-require_once(plugin_dir_path( __FILE__ ).'/functions/helper.php');
+require_once(plugin_dir_path( __FILE__ ).'/functions/functions-helper.php');
 
 // Enqueue CSS
 
