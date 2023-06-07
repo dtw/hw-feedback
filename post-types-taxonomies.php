@@ -758,22 +758,7 @@ function hw_feedback_check_cqc_registration_status() {
           }
           // update the excerpt if blank
           if ( ! has_excerpt($hw_feedback_post->ID) ) {
-            if ($primary_inspection_category == "P2") {
-              error_log('hw-feedback: P2');
-              $post_excerpt = "General practice";
-            } else if ($primary_inspection_category == "P7") {
-              error_log('hw-feedback: P7');
-              $post_excerpt = $api_response->gacServiceTypes[0]->description . " - specialism(s): ";
-              $provider_specialisms = array_column((array)$api_response->specialisms, 'name');
-              $post_excerpt .= implode(', ', $provider_specialisms);
-            } else {
-              $post_excerpt = $api_response->gacServiceTypes[0]->description;
-              if ( isset($api_response->numberOfBeds) ) {
-                if ($api_response->numberOfBeds !== 0) {
-                  $post_excerpt .= ' - ' . $api_response->numberOfBeds . ' beds';
-                }
-              }
-            }
+            $post_excerpt = hw_feedback_generate_local_service_excerpt ($primary_inspection_category, $api_response);
             wp_update_post(array(
               'ID' => $hw_feedback_post->ID,
               'post_excerpt' => $post_excerpt));

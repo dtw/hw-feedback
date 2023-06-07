@@ -261,17 +261,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					// format as an SQL date
 					$registration_date = date("Y-m-d H:i:s", $date_stamp);
 
-					// build excerpt
-					if ($primary_inspection_category == "P2") {
-						$post_excerpt = "General practice";
-					} else {
-					$post_excerpt = $cqc_gac_service_types;
-						if ( isset($location_api_response->numberOfBeds) ) {
-							if ($location_api_response->numberOfBeds !== 0) {
-								$post_excerpt .= ' - ' . $location_api_response->numberOfBeds . ' beds';
-							}
-						}
-					}
+					// generate excerpt
+					$post_excerpt =  hw_feedback_generate_local_service_excerpt ($primary_inspection_category, $location_api_response);
 
 					$post_arr = array(
 					    'post_title'   => $location_api_response->name,
