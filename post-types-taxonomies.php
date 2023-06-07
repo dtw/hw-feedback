@@ -749,13 +749,8 @@ function hw_feedback_check_cqc_registration_status() {
             array_push($registration_status_changed,$hw_feedback_post->ID);
           }
           // update the cqc_inspection_category
-          foreach ($api_response->inspectionCategories as $inspection_category) {
-            wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($inspection_category->code) , 'cqc_inspection_category', true );
-            if ( isset($inspection_category->primary) && $inspection_category->primary === 'true') {
-              $primary_inspection_category = sanitize_text_field($inspection_category->code);
-              error_log('hw-feedback: '.$primary_inspection_category);
-            }
-          }
+          $primary_inspection_category = hw_feedback_update_inspection_categories($hw_feedback_post->ID,$api_response->inspectionCategories);
+
           // update the excerpt if blank
           if ( ! has_excerpt($hw_feedback_post->ID) ) {
             $post_excerpt = hw_feedback_generate_local_service_excerpt ($primary_inspection_category, $api_response);
