@@ -852,10 +852,13 @@ add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registr
 
 /* Run CQC update when local_services are saved */
 
-function hw_feedback_save_local_services($post_id, $post, $update) {
-  remove_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
+function hw_feedback_update_local_services($post_id, $post, $update) {
+  remove_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
   global $pagenow;
   if (( 'post.php' === $pagenow ) && ( $update )) {
+    hw_feedback_check_cqc_registration_status_single($post_id);
+  }
+  add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
     hw_feedback_check_cqc_registration_status_single($post_id);
   }
   add_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
