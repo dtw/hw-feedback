@@ -809,14 +809,16 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     // if service is Archived (which is done manually), close comments and bail
     if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
       update_comment_status ($single_local_service->ID,"closed");
-      return;
+      return 'archived';
     }
     // if there is a reg status from the api
     if ( isset($api_response->registrationStatus) ) {
+      $reg_status = '';
       // is it different from the current status AND NOT Archived
       if ( ! isset($tax_terms[0]) || $tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
+        $reg_status = 'changed';
       }
         // try and override Registered local_services to "Allow Comments"
       if ( $api_response->registrationStatus == "Registered" ) {
@@ -833,6 +835,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
           'post_excerpt' => $post_excerpt));
       }
 
+      return $reg_status;
     // otherwise, it has a location id locally but that is not listed by CQC
     } else {
       // set new terms - takes names of terms not slugs...
