@@ -223,8 +223,8 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     wp_set_post_terms( $single_local_service->ID, 'Not applicable' , 'cqc_reg_status', false );
   }
 }
-/* Run CQC update when local_services are SAVED */
 
+/* Run CQC update when local_services are SAVED */
 function hw_feedback_update_local_services($post_id, $post, $update) {
   remove_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
   global $pagenow;
@@ -239,8 +239,7 @@ function hw_feedback_update_local_services($post_id, $post, $update) {
 // fires when local_services post type is SAVED - $post_id, WP_Post $post, bool $update
 add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
 
-/* Run CQC update when local_services meta data is saved */
-
+/* Run CQC update when local_services meta data is SAVED */
 function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_meta_value) {
   global $pagenow;
   remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
