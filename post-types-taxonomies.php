@@ -816,11 +816,12 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
 
-/* Run CQC update when local_services are saved */
+/* Run CQC update when local_services are SAVED */
 
 function hw_feedback_update_local_services($post_id, $post, $update) {
   remove_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
   global $pagenow;
+  // only do something if the post is UPDATED
   if (( 'post.php' === $pagenow ) && ( $update )) {
     hw_feedback_check_cqc_registration_status_single($post_id);
   }
