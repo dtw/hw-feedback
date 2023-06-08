@@ -768,6 +768,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
   $location_id = get_post_meta( $single_local_service->ID, 'hw_services_cqc_location', true );
   // some error checks
   if ( ! empty( $location_id ) || $location_id != '') {
+    error_log('hw-feedback: location_id '.$location_id);
     // call API
     $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
     // get post tax terms as names
@@ -775,6 +776,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     // if service is Archived (which is done manually), close comments and bail
     if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
       update_comment_status ($single_local_service->ID,"closed");
+      error_log('hw-feedback: archive true');
       return 'archived';
     }
     // if there is a reg status from the api
@@ -785,6 +787,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
         $reg_status = 'changed';
+        error_log('hw-feedback: tax_terms '.$tax_terms[0]);
       }
         // try and override Registered local_services to "Allow Comments"
       if ( $api_response->registrationStatus == "Registered" ) {
@@ -792,6 +795,7 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
       }
       // set Inspection Categories
       $primary_inspection_category = hw_feedback_update_inspection_categories($single_local_service->ID,$api_response->inspectionCategories);
+      error_log('hw-feedback: primary_inspection_category '.$primary_inspection_category);
 
       // update the excerpt if blank
       if ( ! has_excerpt($single_local_service->ID) ) {
@@ -800,7 +804,6 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
           'ID' => $single_local_service->ID,
           'post_excerpt' => $post_excerpt));
       }
-
       return $reg_status;
     // otherwise, it has a location id locally but that is not listed by CQC
     } else {
@@ -823,6 +826,7 @@ function hw_feedback_update_local_services($post_id, $post, $update) {
   global $pagenow;
   // only do something if the post is UPDATED
   if (( 'post.php' === $pagenow ) && ( $update )) {
+    error_log('hw-feedback: update action');
     hw_feedback_check_cqc_registration_status_single($post_id);
   }
   add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
