@@ -726,45 +726,11 @@ function hw_feedback_check_cqc_registration_status() {
 
   $services = get_posts( $args );
     foreach($services as $hw_feedback_post) : setup_postdata($hw_feedback_post);
-      // get location id
-      $location_id = get_post_meta( $hw_feedback_post->ID, 'hw_services_cqc_location', true );
-      // some error checks
-      if ( ! empty( $location_id ) || $location_id != '') {
-        // call API
-        $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
-        // get post tax terms as names
-        $tax_terms = wp_get_post_terms( $hw_feedback_post->ID, 'cqc_reg_status', array( "fields" => "names" ));
-        // if service is Archived (which is done manually), close comments and bail
-        if ( $tax_terms[0] == 'Archived' ) {
-          update_comment_status ($hw_feedback_post->ID,"closed");
-          continue;
-        }
-        // if there is a reg status from the api
-        if ( isset($api_response->registrationStatus) ) {
-          // is it different from the current status AND NOT Archived
-          if ( $tax_terms[0]  != $api_response->registrationStatus) {
-            // set new terms - takes names of terms not slugs...
-            wp_set_post_terms( $hw_feedback_post->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
-            // update array
-            array_push($registration_status_changed,$hw_feedback_post->ID);
-          }
-          // update the cqc_inspection_category
-          $primary_inspection_category = hw_feedback_update_inspection_categories($hw_feedback_post->ID,$api_response->inspectionCategories);
-
-          // update the excerpt if blank
-          if ( ! has_excerpt($hw_feedback_post->ID) ) {
-            $post_excerpt = hw_feedback_generate_local_service_excerpt ($primary_inspection_category, $api_response);
-            wp_update_post(array(
-              'ID' => $hw_feedback_post->ID,
-              'post_excerpt' => $post_excerpt));
-          }
-        // otherwise, it has a location id locally but that is not listed by CQC
-        } else {
-          // set new terms - takes names of terms not slugs...
-          wp_set_post_terms( $hw_feedback_post->ID, 'Not registered' , 'cqc_reg_status', false );
-        }
-      } else {
-        wp_set_post_terms( $hw_feedback_post->ID, 'Not applicable' , 'cqc_reg_status', false );
+      // Update the local_service with CQC data
+      // if reg status has been changed, this will return 'changed'
+      $reg_status = hw_feedback_check_cqc_registration_status_single($hw_feedback_post->ID);
+      if ($reg_status === 'changed') {
+        array_push($registration_status_changed,$hw_feedback_post->ID);
       }
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
