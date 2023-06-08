@@ -830,13 +830,27 @@ function hw_feedback_update_local_services($post_id, $post, $update) {
     hw_feedback_check_cqc_registration_status_single($post_id);
   }
   add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
-    hw_feedback_check_cqc_registration_status_single($post_id);
-  }
-  add_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
 }
 
-// fires when local_services post type is saved - $post_id, WP_Post $post, bool $update
-add_action( 'save_post_local_services', 'hw_feedback_save_local_services', 10, 3);
+// fires when local_services post type is SAVED - $post_id, WP_Post $post, bool $update
+add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
+
+/* Run CQC update when local_services meta data is saved */
+
+function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_meta_value) {
+  global $pagenow;
+  remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+  // only do something if the hw_services_cqc_location is UPDATED
+  if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
+    hw_feedback_check_cqc_registration_status_single($post_id);
+  }
+  add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+}
+
+// fires when meta data updated, which is not the same as...
+add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+// fires when meta data is added to a post
+add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
