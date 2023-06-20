@@ -8,7 +8,8 @@ function hw_feedback_add_menus() {
 		'HW Feedback',
 		'manage_options',
 		'hw-feedback',
-		'hw_feedback_options_page_html'
+		'hw_feedback_options_page_html',
+		plugins_url( 'hw-feedback/images/hw-feedback-icon.png' )
 	);
 	//apparently we need to duplicate the top page (?) https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-446
 	add_submenu_page(
