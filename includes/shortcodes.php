@@ -76,4 +76,34 @@ function hwbucks_shortcode_dual_registration_callout( $atts, $content = null ) {
 
 add_shortcode( 'dual_reg', 'hwbucks_shortcode_dual_registration_callout' );
 
+/* Media object MULTIPLE REGISTRATION
+------------------------ */
+
+function hwbucks_shortcode_multi_registration_callout( $atts, $content = null ) {
+	$a = shortcode_atts( array(
+		'hw_feedback_local_service_id' => 'RXQ32', // Location ID for the callout
+	), $atts );
+
+	if ( empty( $content ) ) {
+		$content = $a['hw_feedback_local_service_id'];
+	}
+	$label = 'Multiple registrations';
+	$multi_reg_object = '
+	<div class="media callout callout-dual-reg">
+		<div class="media-left callout">
+				<i class="media-object fas fa-plus-square fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
+		</div>
+		<div class="media-body callout"><p>More than one provider is registered to provide services at this address. Please check you are reviewing the correct provider.</p>';
+		$local_service_ids = explode(',', $content);
+		foreach ( $local_service_ids as $local_service_id ) {
+			$multi_reg_object .= '<p><a href="'.apply_filters( 'the_permalink',get_permalink($local_service_id),$local_service_id).'">'.apply_filters( 'the_title',get_the_title($local_service_id),$local_service_id).'</a></p>'; ; 
+		}
+		$multi_reg_object .= '</div>
+	</div>';
+
+	return $multi_reg_object;
+}
+
+add_shortcode( 'multi_reg', 'hwbucks_shortcode_multi_registration_callout' );
+
 ?>
