@@ -826,7 +826,7 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
           $formatted_message .= '</blockquote>';
           $formatted_message .= '<p>The commenter gave a rating of <strong>'.get_comment_meta( $new_comment->comment_ID, 'feedback_rating', true ). ' out of 5 stars</strong>.</p>';
           $formatted_message .= '<p><a href="'.$link_post.'">View '.$title_post.' on our website</a></p>';
-          $formatted_message .= '<p>If you would like to respond to this comment, please reply to this email. We will share your response directly with the commenter where possible.</p>';
+          $formatted_message .= '<p>If you would like to respond to this comment, please reply to this email. All responses will be published alongside the comment on our website. We will also share your response directly with the commenter where possible.</p>';
           $formatted_message .= '<p>Kind regards</p>';
           //$email_footer = htmlspecialchars($options['hw_feedback_field_comment_email_footer']);
           $email_footer = $options['hw_feedback_field_comment_email_footer'];

@@ -174,7 +174,7 @@ function extend_comment_meta_box ( $comment ) {
 		</span>
 	</p>
 	<p>
-		<label for="response">Response from the Service</label>
+		<label for="response">Response from Provider</label>
 		<textarea name="response" class="widefat"><?php echo esc_html($response); ?></textarea>
 	</p>
 
