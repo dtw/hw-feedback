@@ -106,4 +106,59 @@ function hwbucks_shortcode_multi_registration_callout( $atts, $content = null ) 
 
 add_shortcode( 'multi_reg', 'hwbucks_shortcode_multi_registration_callout' );
 
+/* Media object MULTIPLE SERVICES
+------------------------ */
+
+function hwbucks_shortcode_multi_services_callout( $atts, $content = null ) {
+	$a = shortcode_atts( array(
+		'hw_feedback_local_service_id' => 'RXQ32', // Location ID for the callout
+	), $atts );
+
+	if ( empty( $content ) ) {
+		$content = $a['hw_feedback_local_service_id'];
+	}
+	$label = 'Multiple services';
+	$multi_serv_object = '
+	<div class="media callout callout-dual-serv">
+		<div class="media-left callout">
+				<i class="media-object fas fa-sitemap fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
+		</div>
+		<div class="media-body callout"><p>The registered provider at this location provides multiple services. Please check you are reviewing the correct service.</p>';
+		$local_service_ids = explode(',', $content);
+		foreach ( $local_service_ids as $local_service_id ) {
+			$multi_serv_object .= '<p><a href="'.apply_filters( 'the_permalink',get_permalink($local_service_id),$local_service_id).'">'.apply_filters( 'the_title',get_the_title($local_service_id),$local_service_id).'</a></p>'; ; 
+		}
+		$multi_serv_object .= '</div>
+	</div>';
+
+	return $multi_serv_object;
+}
+
+add_shortcode( 'multi_serv', 'hwbucks_shortcode_multi_services_callout' );
+
+/* Media object NEW OWNER
+------------------------ */
+
+function hwbucks_shortcode_new_owner_callout( $atts, $content = null ) {
+	$a = shortcode_atts( array(
+		'change_date' => '03 August 2023', // Date in dd mmm yyyy format
+	), $atts );
+
+	if ( empty( $content ) ) {
+		$content = $a['change_date'];
+	}
+	$label = 'Change of ownership';
+	$new_owner_object = '
+	<div class="media callout callout-new-owner">
+		<div class="media-left callout">
+				<i class="media-object fas fa-sign-in-alt fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
+		</div>
+		<div class="media-body callout"><p>This location has a new owner. The change in ownership was approved on <strong>' . $content . '</strong>.</p></div>
+	</div>';
+
+	return $new_owner_object;
+}
+
+add_shortcode( 'new_owner', 'hwbucks_shortcode_new_owner_callout' );
+
 ?>
