@@ -760,6 +760,12 @@ function hw_feedback_check_cqc_registration_status() {
     }
     $formatted_message .= '<p>Hugs and kisses!</p>';
     $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+
+    if ( $sent ) {
+      error_log('hw-feedback: reg update email sent');
+    } else {
+      error_log('hw-feedback: reg update email failed');
+    }
 }
 
 /* 10. Link cron job to function check_cqc_registration_status
