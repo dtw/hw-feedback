@@ -68,7 +68,7 @@ function hwbucks_shortcode_dual_registration_callout( $atts, $content = null ) {
 		<div class="media-left callout">
 				<i class="media-object fas fa-user-friends fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
 		</div>
-		<div class="media-body callout"><p>This location is run by two companies. They have a dual registration and are jointly responsible for the services. You can view the second registration on the CQC website: <a href="https://www.cqc.org.uk/location/' . $content . '">' . $content . '</a></p></div>
+		<div class="media-body callout"><p>This location is run by two companies. They have a dual registration and are jointly responsible for the services. You can view the second registration on the CQC website: <a href="https://www.cqc.org.uk/location/' . $content . '" target="_blank">' . $content . '</a></p></div>
 	</div>';
 
 	return $dual_reg_object;
