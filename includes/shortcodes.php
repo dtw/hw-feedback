@@ -66,7 +66,7 @@ function hwbucks_shortcode_dual_registration_callout( $atts, $content = null ) {
 	$dual_reg_object = '
 	<div class="media callout callout-dual-reg">
 		<div class="media-left callout">
-				<i class="media-object fas fa-plus-square fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
+				<i class="media-object fas fa-user-friends fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
 		</div>
 		<div class="media-body callout"><p>This location is run by two companies. They have a dual registration and are jointly responsible for the services. You can view the second registration on the CQC website: <a href="https://www.cqc.org.uk/location/' . $content . '">' . $content . '</a></p></div>
 	</div>';
@@ -91,7 +91,7 @@ function hwbucks_shortcode_multi_registration_callout( $atts, $content = null ) 
 	$multi_reg_object = '
 	<div class="media callout callout-dual-reg">
 		<div class="media-left callout">
-				<i class="media-object fas fa-plus-square fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
+				<i class="media-object fas fa-users fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
 		</div>
 		<div class="media-body callout"><p>More than one provider is registered to provide services at this address. Please check you are reviewing the correct provider.</p>';
 		$local_service_ids = explode(',', $content);
