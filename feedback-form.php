@@ -91,25 +91,28 @@ if ( is_singular( 'local_services' ) ) {
 add_action( 'comment_post', 'hw_feedback_save_comment_meta_data' );
 function hw_feedback_save_comment_meta_data( $comment_id ) {
 
-	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') )
-	$phone = wp_filter_nohtml_kses($_POST['phone']);
-	add_comment_meta( $comment_id, 'feedback_phone', $phone );
+	if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != '') ) {
+		$phone = wp_filter_nohtml_kses($_POST['phone']);
+		add_comment_meta( $comment_id, 'feedback_phone', $phone );
+	}
 
 	// if ( ( isset( $_POST['address'] ) ) && ( $_POST['address'] != '') )
 	// $address = wp_filter_nohtml_kses($_POST['address']);
 	// add_comment_meta( $comment_id, 'feedback_address', $address );
 
-	if ( ( isset( $_POST['whenhappened'] ) ) && ( $_POST['whenhappened'] != '') )
-	$whenhappened = wp_filter_nohtml_kses($_POST['whenhappened']);
-	add_comment_meta( $comment_id, 'feedback_when', $whenhappened );
+	if ( ( isset( $_POST['whenhappened'] ) ) && ( $_POST['whenhappened'] != '') ) {
+		$whenhappened = wp_filter_nohtml_kses($_POST['whenhappened']);
+		add_comment_meta( $comment_id, 'feedback_when', $whenhappened );
+	}
 
 	// if ( ( isset( $_POST['whoinvolved'] ) ) && ( $_POST['whoinvolved'] != '') )
 	// $whoinvolved = wp_filter_nohtml_kses($_POST['whoinvolved']);
 	// add_comment_meta( $comment_id, 'feedback_who', $whoinvolved );
 
-	if ( ( isset( $_POST['rating'] ) ) && ( $_POST['rating'] != '') )
-	$rating = wp_filter_nohtml_kses($_POST['rating']);
-	add_comment_meta( $comment_id, 'feedback_rating', $rating );
+	if ( ( isset( $_POST['rating'] ) ) && ( $_POST['rating'] != '') ) {
+		$rating = wp_filter_nohtml_kses($_POST['rating']);
+		add_comment_meta( $comment_id, 'feedback_rating', $rating );
+	}
 
 }
 
