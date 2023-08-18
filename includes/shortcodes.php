@@ -136,29 +136,4 @@ function hwbucks_shortcode_multi_services_callout( $atts, $content = null ) {
 
 add_shortcode( 'multi_serv', 'hwbucks_shortcode_multi_services_callout' );
 
-/* Media object NEW OWNER
------------------------- */
-
-function hwbucks_shortcode_new_owner_callout( $atts, $content = null ) {
-	$a = shortcode_atts( array(
-		'change_date' => '03 August 2023', // Date in dd mmm yyyy format
-	), $atts );
-
-	if ( empty( $content ) ) {
-		$content = $a['change_date'];
-	}
-	$label = 'Change of ownership';
-	$new_owner_object = '
-	<div class="media callout callout-new-owner">
-		<div class="media-left callout">
-				<i class="media-object fas fa-sign-in-alt fa-2x shortcode-icon" aria-hidden="true" title="' . $label . '"></i>
-		</div>
-		<div class="media-body callout"><p>This location has a new owner. The change in ownership was approved on <strong>' . $content . '</strong>.</p></div>
-	</div>';
-
-	return $new_owner_object;
-}
-
-add_shortcode( 'new_owner', 'hwbucks_shortcode_new_owner_callout' );
-
 ?>
