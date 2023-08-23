@@ -285,6 +285,38 @@
   padding: 0.6rem 1rem;
 }
 
+.media.callout-new-service,
+.media.callout-dual-reg {
+	border: 1px solid var(--hw-teal);
+	background-color: var(--hw-teal-30);
+}
+
+.media.callout-dual-serv {
+	border: 1px solid var(--hw-light-blue);
+	background-color: var(--hw-light-blue-30);
+}
+
+.media.callout-expired .media-body.callout a,
+.media.callout-new-service .media-body.callout a,
+.media.callout-dual-reg .media-body.callout a,
+.media.callout-dual-serv .media-body.callout a {
+	color: var(--hw-blue);
+}
+
+.media.callout-new-service .media-body.callout a:hover,
+.media.callout-dual-reg .media-body.callout a:hover,
+.media.callout-dual-serv .media-body.callout a:hover,
+.media.callout-new-service .media-body.callout a:focus,
+.media.callout-dual-reg .media-body.callout a:focus,
+.media.callout-dual-serv .media-body.callout a:focus,
+.media.callout-new-service .media-body.callout a:active,
+.media.callout-dual-reg .media-body.callout a:active,
+.media.callout-dual-serv .media-body.callout a:active {
+	color: white;
+	background-color: var(--hw-blue);
+	outline: 3px solid var(--hw-blue);
+}
+
 .panel-star-rating {
 	margin-top: 10px;
 }
