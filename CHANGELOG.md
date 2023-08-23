@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - new menu icon
 
+### Changed
+- refactored hw_feedback_check_cqc_registration_status into a single function
+- moved functions into separate file
+- additional logging (debug.log)
+
 ## [2.7.1] - 2023-06-07
 ### Changed
 - minor bug fixes
