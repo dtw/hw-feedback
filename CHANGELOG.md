@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8] - 2023-08-18
+### Added
+- [multi_reg] shortcode - use when two or more services are co-located with DIFFERENT providers and disambiguation is needed
+- [multi_serv] shortcode - use when two or more services are co-located with the SAME provider and disambiguation is needed
+- CSS rules from scaffold-widget-tweaks
+
+### Changed
+- syntax changes to suppress PHP Notices
+
 ## [2.7.2] - 2023-06-20
 ### Added
 - new menu icon
