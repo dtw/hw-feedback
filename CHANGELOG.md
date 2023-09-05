@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.1] - 2023-09-05
+### Added
+- throbber on CQC import tool
+
 ## [2.8] - 2023-08-18
 ### Added
 - [multi_reg] shortcode - use when two or more services are co-located with DIFFERENT providers and disambiguation is needed
