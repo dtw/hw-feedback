@@ -72,7 +72,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				<div id="hw-feedback-api-alert" class="hw-feedback-alert" role="alert">The Local Authority must be selected in <a href="<?php menu_page_url('hw_feedback');?>">Settings</a>.</div>
 			<?php } ?>
       <div id="hw-feedback-cqc-import-form" class="hw-feedback-cqc-form">
-        <form action="admin.php?page=cqc-data-import" method="post">
+        <form name="hwfeedbackcqcimportform" action="admin.php?page=cqc-data-import" method="post">
 					<div class="hw-feedback-cqc-import-form-row">
 	          <label for="hw-feedback-form-inspection-category">Select Inspection Category</label>
 	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
@@ -113,7 +113,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 						<div id="hw-feedback-import-alert" class="hw-feedback-alert" role="alert">Unmatched locations will be imported to the database!</div>
 					</div>
           <div class="hw-feedback-cqc-import-form-row">
-						<input type="submit" class="button-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview">
+						<input type="submit" class="button-primary hw-feedback-form-submit" id="hw-feedback-form-submit" value="Preview" onclick="hw_feedback_submit_form();">
 					</div>
         </form>
       </div>
