@@ -161,6 +161,10 @@
   display: inline-block;
 }
 
+#hw-feedback-cqc-import-throbber {
+	display: none;
+}
+
 .description {
 	padding-left: 0.2rem;
 }

@@ -117,6 +117,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					</div>
         </form>
       </div>
+			<div id="hw-feedback-cqc-import-throbber">
+				<!-- <a title="Andrii.kalishuk, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Balls.gif"><img width="64" alt="Balls" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Balls.gif"></a> -->
+				<a title="icon 'Ellipsis' from loading.io" href="https://loading.io/icon/"><img width="64" alt="Ellipsis" src="<?php echo plugins_url( 'hw-feedback/images/hw-feedback-throbber.svg' ) ?>" data-fallback="<?php echo plugins_url( 'hw-feedback/images/hw-feedback-throbber.gif' ) ?>"></a>
+			</div>
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
