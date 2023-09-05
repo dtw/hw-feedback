@@ -161,6 +161,17 @@ function hw_feedback_add_copy_civicrm_subject_code() {
 
 add_action( 'admin_enqueue_scripts', 'hw_feedback_add_copy_civicrm_subject_code' );
 
+// add form_submit script
+function add_form_submit() {
+        wp_enqueue_script(
+                'form_submit', // name your script so that you can attach other scripts and de-register, etc.
+                plugin_dir_url( __FILE__ ) . 'js/form_submit.js', // this is the location of your script file
+                //'/wp-content/plugins/scaffold-widgets-tweaks/js/form_submit.js', // this is the location of your script file
+        );
+}
+
+add_action( 'admin_enqueue_scripts', 'add_form_submit' );
+
 /* this adds a class to the metabox too (there is an ID already so...) */
 
 function hw_feedback_add_metabox_classes($classes) {
