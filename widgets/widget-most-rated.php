@@ -40,8 +40,8 @@ class hw_most_rated extends WP_Widget {
 	    if ( $title ) echo $before_title . $title . $after_title;
 
 		$mlq = new WP_Query(array(
-			'post_type' => 'Local_services',
-			'orderby' => 'rand',
+			'post_type' => 'local_services',
+			'orderby' => 'comment_count',
 			'showposts' => $number
 			)
 			);
