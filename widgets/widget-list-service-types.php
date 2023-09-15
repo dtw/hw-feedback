@@ -49,7 +49,7 @@ class hw_list_categories extends WP_Widget {
                  foreach ( $terms as $term ) {
 
 	$term_id = $term->term_taxonomy_id;
-    $term_icon = get_term_meta( $term_id, 'icon', true );
+	$term_icon = get_term_meta( $term->term_id, 'icon', true );
                    echo '<li><a class="' . $term->slug . '" href="' . get_term_link( $term ) . '">' . wp_get_attachment_image( $term_icon, array(35,35), true, array( 'class' => 'alignright', 'alt' => $term->name ) ) . $term->name . '</a></li>';
 
                  }
