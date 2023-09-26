@@ -14,8 +14,6 @@ Not Gutenberg compatible.
 
 ## Features
 
-Adds:
-
 ### Manging Services
 * `local_services` post type, which adds multiple additional fields for storing service information, including fields for the Healthwatch Bucks Dignity in Care project, which has now ended
 * `service_types` taxonomy - name, slug, category, description, icon (through the WordPress media selector)
@@ -34,9 +32,12 @@ Adds:
 * Uses Google ReCaptcha 2 for form submissions
 
 ### Shortcodes
+
+See this document for more information (https://healthwatchbucks.sharepoint.com/:w:/g/EUddNnm6oVdOu-LEm0P3zn0BfCApNSHQ_PAgWCoe7wmJbg)
+
 * WordPress shortcodes for:
   * [new_service] - wrap an existing service's URL; adds a callout advising a new service at this location (useful for registration changes) - e.g. [new_service]https://mysite.net/services/new[/new_service]
-  * [dual_reg] - wrap a CQC Location ID; adds a callout advising a dual registration and linking to the other provider - e.g. [dual_reg]1-11111111111[/dual_reg]
+  * [dual_reg] - wrap a CQC Location ID; adds a callout advising a dual registration and linking to the other provider on the CQC website - e.g. [dual_reg]1-11111111111[/dual_reg]
   * [multi_reg] - wrap a comma-separated list of local_service post IDs; adds a callout advising multiple providers running services at this location (useful for dentists that share premises) - e.g. [multi_reg]12345,67890[/multi_reg]
   * [multi_serv] - wrap a comma-separated list of local_service post IDs; adds a callout advising multiple services run by a single provider at this location (useful for large sites like hospitals) - e.g. [multi_serv]46079[/multi_serv]
 
@@ -58,4 +59,4 @@ No. As soon as you re-upload and/or activate the plugin, the feedback will reapp
 
 ## Contributors
 
-jasoncharlesstuartking
+Original code (circa 1.1.0) by jasoncharlesstuartking - former WordPress developer, now Google Ad Grant guru https://kingjason.co.uk/
