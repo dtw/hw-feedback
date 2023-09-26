@@ -2,6 +2,8 @@
 
 Adds "rate and review" support for Health and Social Care services in WordPress.
 
+For support please contact Phil Thiselton (dtw) at phil@healthwatchbucks.co.uk
+
 ## Description
 
 Local Healthwatch (LHW) have a duty to "[obtain] the views of local people about their needs for, and their experiences of, local care services" (https://www.legislation.gov.uk/ukpga/2007/28/part/14/crossheading/local-involvement-networks)
@@ -56,6 +58,12 @@ Yes.
 *Will deactivating or deleting the plugin delete the feedback from the website?*
 
 No. As soon as you re-upload and/or activate the plugin, the feedback will reappear.
+
+## License
+Unless otherwise specified, all the plugin files, scripts and images are licensed under GNU General Public License version 2, see http://www.gnu.org/licenses/gpl-2.0.html.
+
+## Dependencies
+None
 
 ## Contributors
 
