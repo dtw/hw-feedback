@@ -6,7 +6,7 @@ For support please contact Phil Thiselton (dtw) at phil@healthwatchbucks.co.uk
 
 ## Description
 
-Local Healthwatch (LHW) have a duty to "[obtain] the views of local people about their needs for, and their experiences of, local care services" (https://www.legislation.gov.uk/ukpga/2007/28/part/14/crossheading/local-involvement-networks)
+Local Healthwatch (LHW) have a duty to "[obtain] the views of local people about their needs for, and their experiences of, local care services". (https://www.legislation.gov.uk/ukpga/2007/28/part/14/crossheading/local-involvement-networks)
 
 This plugin was created to facilitate that process. It adds support for managing and displaying Health and Social Care services in WordPress and allows anonymous/public users to "rate and review" these services.
 
@@ -30,7 +30,6 @@ Not Gutenberg compatible.
 * Simple moderation tools for new "rate and review" comments
 * Notification email to service providers when new comments are approved and published
 * Seven widgets for displaying dynamic review content
-* A custom "Your Story" webform to submit longer/more complicated feedback
 * Uses Google ReCaptcha 2 for form submissions
 
 ### Shortcodes
