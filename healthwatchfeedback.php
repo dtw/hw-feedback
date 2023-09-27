@@ -140,7 +140,7 @@ function hw_feedback_add_comment_columns_content( $column, $comment_ID ) {
       $string = get_comment_author_ip($comment->comment_ID);
       $pattern = "/208\.127\.19[2-9]\.(\d{1,3})/";
       if (preg_match($pattern, $string) ) {
-        echo '<i class="fas fa-clinic-medical fa-lg nhs"></i><span class="screen-reader-text">NHS IP Address</span>';  // this will be printed inside the column
+        echo '<i class="fas fa-clinic-medical fa-lg nhs" title="NHS IP Address"></i><span class="screen-reader-text">NHS IP Address</span>';  // this will be printed inside the column
       }
       break;
     }
