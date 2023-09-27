@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.2] - 2023-09-27
+### Changed
+- check against a hardcode string to a Setting variable
+
+### Fixed
+- broken query in the widget-most-rated widget
+- an incorrect reference in widget-list-service-types widget
+
 ## [2.8.1] - 2023-09-05
 ### Added
 - throbber on CQC import tool
