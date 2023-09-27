@@ -796,9 +796,10 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
         $title_post = get_the_title( $new_comment->comment_post_ID );
         $link_post = get_permalink( $new_comment->comment_post_ID );
         // check if comment has been withheld
-        if ( strpos($new_comment->comment_content,"[Withheld in accordance with our") === 0 ) {
+        $withheld_comment_text = htmlspecialchars($options['hw_feedback_field_withheld_comment_text']);
+        if ( strpos($new_comment->comment_content,$withheld_comment_text) === 0 ) {
           // comment has been withheld so do nothing
-          error_log('hw-feedback: comment withheld '.strpos($new_comment->comment_content,"[Withheld in accordance with our"));
+          error_log('hw-feedback: comment withheld '.strpos($new_comment->comment_content,$withheld_comment_text));
           return;
         }
         // send an email
