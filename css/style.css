@@ -116,6 +116,7 @@
 }
 
 /* admin metabox */
+
 #hw_services_meta_box .inside h2{
 	padding-left: 0px;
 	font-size: 1.2rem;
@@ -130,10 +131,7 @@
 	height: 30px;
 }
 
-#hw-services-cqc-location-alert,
-#hw-feedback-import-alert {
-	display: none;
-}
+/* hw-feedback settings styles */
 
 #hw_feedback_field_api_cache_path {
   width: 100%;
@@ -157,14 +155,6 @@
 	width: 75%;
 }
 
-#hw-feedback-nothing-to-do {
-  display: inline-block;
-}
-
-#hw-feedback-cqc-import-throbber {
-	display: none;
-}
-
 .description {
 	padding-left: 0.2rem;
 }
@@ -179,6 +169,21 @@
 	background-color: rgba(252,219,214,.8);
 	border: #E32A0D solid 2px !important;
 	border-radius: 4px;
+}
+
+/* CQC Import tool */
+
+#hw-feedback-nothing-to-do {
+	display: inline-block;
+}
+
+#hw-feedback-cqc-import-throbber {
+	display: none;
+}
+
+#hw-services-cqc-location-alert,
+#hw-feedback-import-alert {
+	display: none;
 }
 
 .api-output-label {
@@ -268,7 +273,7 @@
   margin-top: 1rem;
 }
 
-/* callout-review */
+/* shortcode styles */
 
 .media.callout-review {
   border: 1px solid var(--hw-green);
