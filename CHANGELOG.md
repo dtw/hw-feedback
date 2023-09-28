@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.3] - 2023-09-28
+### Added
+- styles from scaffold-widget-tweaks
+
+### Changed
+- combined shortcode files into one
+
 ## [2.8.2] - 2023-09-27
 ### Changed
 - check against a hardcode string to a Setting variable
