@@ -28,7 +28,8 @@
 /* Ratings
 ------------------------------------------------- */
 
-.rate-and-review-scores span {
+.rate-and-review-scores span,
+.healthwatch-review-scores span {
 	width: 200px;
 	display: inline-block;
 	}
@@ -49,7 +50,10 @@
 
 .rate-and-review-scores .fa-star,
 .rate-and-review-scores .fa-star-half-alt,
-.rate-and-review-scores .fa-star-o {
+.rate-and-review-scores .fa-star-o,
+.healthwatch-review-scores .fa-star,
+.healthwatch-review-scores .fa-star-half-alt,
+.healthwatch-review-scores .fa-star-o {
 	font-size: 1.33333em;
 }
 

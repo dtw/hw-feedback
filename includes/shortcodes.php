@@ -6,7 +6,7 @@ function hw_feedback_shortcode_ratings_block()
 	ob_start();
 	$id = get_the_id();
 	if (get_post_meta($id, 'hw_services_overall_rating', true)) { ?>
-		<div class="rate-and-review-scores">
+		<div class="healthwatch-review-scores">
 			<!-- start row -->
 			<div class="row">
 				<span class="screen-reader-text">Out of 5 stars</span>
@@ -73,7 +73,7 @@ function hw_feedback_shortcode_ratings_block()
 					?>
 				</div>
 			</div>
-		</div><!-- end of rate and review panel -->
+		</div><!-- end of healthwatch review panel -->
 	<?php } ?>
 	<?php return ob_get_clean(); ?>
 <? }
