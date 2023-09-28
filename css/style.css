@@ -334,3 +334,113 @@
 	vertical-align: middle;
 	color: green;
 }
+
+/* Dash and Meta box Labels
+--------------------------------- */
+
+#hw_services_meta_box input {
+	max-width: 100%;
+}
+
+#hw_services_meta_box label {
+	width: 150px;
+	display: inline-block;
+}
+
+#hw_services_meta_box label:before {
+	font-family: "Dashicons";
+	font-size: 1.2rem;
+	padding-right: .5rem;
+	vertical-align: middle;
+}
+
+label[for="hw_services_address_line_1"]:before {
+	content: "\f230 ";
+}
+
+label[for="hw_services_address_line_2"]:before {
+	content: "\f230 ";
+}
+
+label[for="hw_services_city"]:before {
+	content: "\f230 ";
+}
+
+label[for="hw_services_county"]:before {
+	content: "\f230 ";
+}
+
+label[for="hw_services_postcode"]:before {
+	content: "\f230 ";
+}
+
+label[for="hw_services_phone"]:before {
+	content: "\f525 ";
+}
+
+label[for="hw_services_website"]:before {
+	content: "\f504 ";
+}
+
+label[for="hw_services_contact_email"]:before {
+	content: "\f465 ";
+}
+
+label[for="hw_services_contact_optout"]:before {
+	content: "\f153 ";
+}
+
+label[for="hw_services_cqc_location"]:before {
+	content: "\f112 ";
+}
+
+label[for="hw_services_date_visited"]:before {
+	content: "\f508 ";
+}
+
+label[for="hw_services_full_report"]:before {
+	content: "\f103 ";
+}
+
+/* Feedback comment columns
+----------------------------------------*/
+
+#feedback_author_ip_check,
+#feedback_response_boolean,
+#feedback_hw_reply_boolean {
+	width: 100px;
+	text-align: center;
+}
+
+.checkmark {
+	color: var(--hw-green);
+	padding: 0.5rem;
+}
+
+.checkmark:hover {
+	background: var(--hw-green);
+	color: white;
+}
+
+.nhs {
+	color: #005eb8;
+	padding: 0.5rem;
+}
+
+.checkmark-wrapper {
+	text-align: center;
+	display: block;
+}
+
+.feedback_author_ip_check.column-feedback_author_ip_check {
+	text-align: center;
+}
+
+/* Import Tool */
+.hw-feedback-cqc-form .hw-feedback-cqc-import-form-row {
+	margin: 0.5rem 0;
+}
+
+#hw-feedback-preview-only-row {
+	display: inline-block;
+}
