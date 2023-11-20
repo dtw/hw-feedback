@@ -327,7 +327,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
 	echo '<label for="hw-services-cqc-location">Location ID </label>';
 	echo '<input type="text" id="hw-services-cqc-location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" class="hw-feedback-alert" role="alert">Save this Service to see updated values from CQC!</div>';
-  // only check API and show fields if there is a location id
+  // only check CQC API and show fields if there is a location id
   if ($value != '') {
     $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
     echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
@@ -349,7 +349,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
   }
 
 // ODS
-echo "<h2><strong>ODS Information</strong></h2><br />";
+echo '<h2><strong>ODS Information</strong></h2><br />';
 // ODS CODE
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
