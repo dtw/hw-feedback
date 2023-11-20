@@ -343,9 +343,10 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. <a href="https://www.cqc.org.uk/location/<?php echo $objcqcapiquery->locationId?>?referer=widget4" target="_blank">Check this registration on the CQC website</a>. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
       </div><?
     }
+    echo '<a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '?referer=widget4" target="_blank">Check this registration on the CQC website</a>';
   }
 
 // ODS
@@ -365,9 +366,10 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
       <div class="api-output-inactive">
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active. <a href="https://directory.spineservices.nhs.uk/STU3/Organization/<?php echo $objodsapiquery->id?>" target="_blank">Check this registration on the ODS website</a>.</p></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
       </div><?
     }
+    echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
   }
 echo "<br />";
 
