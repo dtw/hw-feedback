@@ -134,6 +134,13 @@ function hw_feedback_ods_checks($mode)
     error_log('hw-feedback: ods role update email failed');
   }
 }
+
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_bootstrap()
+{
+  hw_feedback_ods_checks('bootstrap');
+}
+
 }
 
 ?>
