@@ -141,6 +141,19 @@ function hw_feedback_ods_checks_bootstrap()
   hw_feedback_ods_checks('bootstrap');
 }
 
+// Query ODS API by ODS Code
+function hw_feedback_ods_api_query_by_code($code)
+{
+  $options = get_option('hw_feedback_options');
+  // ODS API root
+  $url = 'https://directory.spineservices.nhs.uk/STU3/Organization';
+  $request_url = $url . '/' . $code;
+  $curl = curl_init($request_url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  // no auth needed
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return $response;
 }
 
 ?>

@@ -157,20 +157,6 @@ function hw_feedback_generate_local_auth_options($args,$options) {
   <?php }
 }
 
-// Query ODS API by ODS Code
-function hw_feedback_ods_api_query_by_code($code) {
-  $options = get_option( 'hw_feedback_options' );
-  // ODS API root
-  $url = 'https://directory.spineservices.nhs.uk/STU3/Organization';
-  $request_url = $url . '/' . $code;
-  $curl = curl_init($request_url);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  // no auth needed
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return $response;
-}
-
 function hw_feedback_check_cqc_registration_status_single($post_id) {
   $single_local_service = get_post($post_id);
   // get location id
