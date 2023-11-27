@@ -1039,6 +1039,7 @@ function hw_feedback_check_cqc_registration_status() {
 /* 10. Link cron job to function check_cqc_registration_status
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+add_action( 'hw_feedback_ods_check_bootstrap_cron_job', 'hw_feedback_ods_checks_bootstrap');
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {

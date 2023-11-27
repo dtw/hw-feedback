@@ -185,12 +185,18 @@ add_filter('postbox_classes_local_services_hw_services_meta_box','hw_feedback_ad
  * Activate the plugin.
  */
 function hw_feedback_activate() {
-  /* Add cron job to run check_cqc_registration_status
-  --------------------------------------------------------- */
-  if ( ! wp_next_scheduled( 'hw_feedback_cqc_reg_check_cron_job' ) ) {
-      // set the first run 2 minutes from "now"
-      wp_schedule_event( time()+120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job' );
-  }
+    /* Add cron job to run check_cqc_registration_status
+    --------------------------------------------------------- */
+    if ( ! wp_next_scheduled( 'hw_feedback_cqc_reg_check_cron_job' ) ) {
+        // set the first run 2 minutes from "now"
+        wp_schedule_event( time()+120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job' );
+    }
+    /* Add cron job to run ods_role_code bootstrap
+    --------------------------------------------------------- */
+    if (!wp_next_scheduled('hw_feedback_ods_check_bootstrap_cron_job')) {
+        // set the first run 1 hour and 2 minutes from "now"
+        wp_schedule_event(time() + 3720, 'weekly', 'hw_feedback_ods_check_bootstrap_cron_job');
+    }
 }
 register_activation_hook( __FILE__, 'hw_feedback_activate' );
 
@@ -200,6 +206,7 @@ register_activation_hook( __FILE__, 'hw_feedback_activate' );
 function hw_feedback_deactivate() {
     // Remove the cronjob
     wp_clear_scheduled_hook('hw_feedback_cqc_reg_check_cron_job' );
+    wp_clear_scheduled_hook('hw_feedback_ods_check_bootstrap_cron_job' );
 }
 register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
 
