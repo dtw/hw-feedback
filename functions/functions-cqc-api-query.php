@@ -34,7 +34,7 @@
     $parameters = array_merge($defaults,$parameters);
     // some sanity checks
     if ($parameters['perPage'] > 1000) {
-      die("Error in ".__FUNCTION__.": perPage request $parameters->perPage greater than 1000");
+      die("Error in ".__FUNCTION__.": perPage request " . $parameters['perPage'] . " greater than 1000");
     }
     if ( ! $parameters['localAuthority']) {
       die("Error in ".__FUNCTION__.": localAuthority required e.g. Buckinghamshire");
