@@ -64,7 +64,76 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
   return $return_string;
 }
 
+/* Add a function to query ODS status and role codes
+--------------------------------------------------------- */
+function hw_feedback_ods_checks($mode)
+{
+
+  /* unhook the hw_feedback_check_cqc_registration_status_single function
+  not sure but this might start an infinite loop otherwise
+  error_log('hw_feedback: unhook the hw_feedback_check_cqc_registration_status_single function');
+  remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta'); */
+
+  // create array of local_services post_ids that have had their reg changed
+  $role_code_status_changed = array();
+
+  global $post;
+  // get local_services
+  $args = array(
+    'post_type'       => 'local_services',
+    'posts_per_page'  => -1,
+    'post_status' => array('publish', 'private')
   );
 
+  $services = get_posts($args);
+  foreach ($services as $hw_feedback_post) : setup_postdata($hw_feedback_post);
+  if ( $mode == 'bootstrap') {
+    // Update the local_service with CQC data
+    // if reg status has been changed, this will return 'changed'
+    $role_code_status = hw_feedback_ods_role_code_bootstrap($hw_feedback_post->ID);
+    if ($role_code_status === 'changed') {
+      array_push($role_code_status_changed, $hw_feedback_post->ID);
+    }
+    error_log('hw-feedback: ods bootstrap check complete!');
+  } else if ( $mode == 'get_code') {
+
+  }
+  // remove ALL terms
+  //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
+  endforeach;
+  error_log('hw-feedback: ods checks complete!');
+  // restore the hw_feedback_check_cqc_registration_status_single function hook
+  //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+
+  // set php mailer variables
+  $to = get_option('admin_email');
+  $subject = "Local Services - ODS Role Code updates (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
+  // set headers to allow HTML
+  $headers = array('Content-Type: text/html; charset=UTF-8');
+  // build the content
+  $formatted_message = '<p>Hi!</p><p>The ODS Role Code update completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
+  // check if there were changes
+  if (empty($role_code_status_changed)) {
+    $formatted_message .= '<p>There were no Role Code changes.</p>';
+  } else {
+    // compose an email contain reg changes
+    $formatted_message .= '<p>The Role Codes of the following services were updated automatically:</p><ul>';
+    foreach ($role_code_status_changed as $post_id) {
+      $location_id = get_post_meta($post_id, 'hw_services_cqc_location', true);
+      $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
+      $formatted_message .= '<a href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit">Edit</a> | <a href="' . get_post_permalink($post_id) . '">View</a>)</li>';
+    }
+    $formatted_message .= '</ul>';
+  }
+  $formatted_message .= '<p>Hugs and kisses!</p>';
+  $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+
+  if ($sent) {
+    error_log('hw-feedback: ods role update email sent');
+  } else {
+    error_log('hw-feedback: ods role update email failed');
+  }
 }
+}
+
 ?>
