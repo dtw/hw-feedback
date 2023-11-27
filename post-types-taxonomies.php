@@ -1008,17 +1008,17 @@ function hw_feedback_check_cqc_registration_status() {
 
     // set php mailer variables
     $to = get_option('admin_email');
-    $subject = "Local Services - registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
+    $subject = "Local Services - CQC registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
     // set headers to allow HTML
     $headers = array('Content-Type: text/html; charset=UTF-8');
     // build the content
-    $formatted_message = '<p>Hi!</p><p>The registration check completed successfully at ' . date('d/m/Y h:i:s a', time()).'</p>';
+    $formatted_message = '<p>Hi!</p><p>The CQC registration check completed successfully at ' . date('d/m/Y h:i:s a', time()).'</p>';
     // check if there were changes
     if (empty($registration_status_changed)) {
       $formatted_message .= '<p>There were no changes.</p>';
     } else {
     // compose an email contain reg changes
-      $formatted_message .= '<p>The registration status of the following services was updated automatically:</p><ul>';
+      $formatted_message .= '<p>The CQC registration status of the following services was updated automatically:</p><ul>';
       foreach ($registration_status_changed as $post_id) {
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
@@ -1030,9 +1030,9 @@ function hw_feedback_check_cqc_registration_status() {
     $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
     if ( $sent ) {
-      error_log('hw-feedback: reg update email sent');
+      error_log('hw-feedback: cqc reg update email sent');
     } else {
-      error_log('hw-feedback: reg update email failed');
+      error_log('hw-feedback: cqc reg update email failed');
     }
 }
 
