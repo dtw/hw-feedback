@@ -298,6 +298,7 @@ function hw_feedback_register_default_terms () {
   // ods_status
   wp_insert_term('Active', 'ods_status', array('description' => 'Active', 'slug' => 'active'));
   wp_insert_term('Inactive', 'ods_status', array('description' => 'Inactive', 'slug' => 'inactive'));
+  wp_insert_term('Unmatched', 'ods_status', array('description' => 'Unmatched', 'slug' => 'unmatched'));
   // ods_role_code
   // there are far more than we need for Local Healthwatch
 wp_insert_term('101','ods_role_code', array('description' => 'Social Care Site', 'slug' => 'social_care_site'));
