@@ -219,6 +219,7 @@ function hw_feedback_update_local_services($post_id, $post, $update) {
     error_log('hw-feedback: update action');
     hw_feedback_check_cqc_registration_status_single($post_id);
     hw_feedback_ods_role_code_bootstrap($post_id);
+    hw_feedback_check_ods_registration_single($post_id);
   }
   add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
 }
@@ -234,6 +235,7 @@ function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_m
   if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
     hw_feedback_check_cqc_registration_status_single($post_id);
     hw_feedback_ods_role_code_bootstrap($post_id);
+    hw_feedback_check_ods_registration_single($post_id);
   }
   add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 }
