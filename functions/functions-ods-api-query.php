@@ -8,8 +8,9 @@
  * @license   GPL-2.0+
  * @copyright 2022 Phil Thiselton
  *
- * Description: Takes a local_service with no ODS Code and generates ODS Role Codes based on CQC inspection Categhory Codes
- * @param array $post
+ * Description: Takes a local_service with no ODS Code and generates ODS Role Codes based on CQC inspection Category Codes
+ *              DOES NOT CHECK ODS FHIR API!
+ * @param int $post_id
  */
 
 function hw_feedback_ods_role_code_bootstrap($post_id)
@@ -64,8 +65,20 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
   return $return_string;
 }
 
-/* Add a function to query ODS status and role codes
---------------------------------------------------------- */
+/**
+ * Batch query ODS status and role codes
+ *
+ * @package   hw-feedback
+ * @author    Phil Thiselton <dibblethewrecker@gmail.com>
+ * @license   GPL-2.0+
+ * @copyright 2022 Phil Thiselton
+ *
+ * Description: Takes a mode, checks all local_services:
+ * 'bootstrap' - runs hw_feedback_ods_role_code_bootstrap
+ * 'update' - runs hw_feedback_check_ods_registration_single
+ * 
+ * @param string See above
+ */
 function hw_feedback_ods_checks($mode)
 {
 
@@ -141,7 +154,24 @@ function hw_feedback_ods_checks_bootstrap()
   hw_feedback_ods_checks('bootstrap');
 }
 
-// Query ODS API by ODS Code
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_update()
+{
+  hw_feedback_ods_checks('update');
+}
+
+/**
+ * Query ODS FHIR API by ODS Code
+ *
+ * @package   hw-feedback
+ * @author    Phil Thiselton <dibblethewrecker@gmail.com>
+ * @license   GPL-2.0+
+ * @copyright 2023 Phil Thiselton
+ *
+ * Description: Looks up organisation on ODS using ODS Code
+ * 
+ * @param string ODS code
+ */
 function hw_feedback_ods_api_query_by_code($code)
 {
   $options = get_option('hw_feedback_options');
