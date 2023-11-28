@@ -95,6 +95,7 @@ function hw_feedback_ods_checks($mode)
 
   // create array of local_services post_ids that have had their reg changed
   $role_code_status_changed = array();
+  $ods_status_changed = array();
 
   global $post;
   // get local_services
@@ -114,8 +115,12 @@ function hw_feedback_ods_checks($mode)
       array_push($role_code_status_changed, $hw_feedback_post->ID);
     }
     error_log('hw-feedback: ods bootstrap check complete!');
-  } else if ( $mode == 'get_code') {
-
+  } else if ( $mode == 'update') {
+    $ods_status = hw_feedback_check_ods_registration_single($hw_feedback_post->ID);
+    if ($ods_status === 'inactive') {
+      array_push($ods_status_changed, $hw_feedback_post->ID);
+    }
+    error_log('hw-feedback: ods update complete!');
   }
   // remove ALL terms
   //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
