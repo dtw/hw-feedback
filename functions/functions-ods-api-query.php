@@ -188,4 +188,41 @@ function hw_feedback_ods_api_query_by_code($code)
   return $response;
 }
 
+/**
+* Query ODS FHIR API
+*
+* @package   hw-feedback
+* @author    Phil Thiselton <dibblethewrecker@gmail.com>
+* @license   GPL-2.0+
+* @copyright 2023 Phil Thiselton
+*
+* Description: Looks up organisation on ODS using specified search options.
+* See https://digital.nhs.uk/developer/api-catalogue/organisation-data-service-fhir#get-/Organization
+* 
+* @param array search options
+*/ 
+function hw_feedback_ods_api_query_search($search_options)
+{
+  $options = get_option('hw_feedback_options');
+  // basic search options
+  $default_search_options = array(
+    // 'active' => 'true',
+  );
+  // merge basic with passed array
+  $search_options = array_merge(
+    $default_search_options,
+    $search_options);
+  // build query
+  $query = http_build_query($search_options, '', '&', PHP_QUERY_RFC3986);
+  // ODS API root
+  $url = 'https://directory.spineservices.nhs.uk/STU3/Organization';
+  $request_url = $url . '?' . $query;
+  error_log('hw-feedback: ods request url ' . $request_url);
+  $curl = curl_init($request_url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  // no auth needed
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return $response;
+}
 ?>
