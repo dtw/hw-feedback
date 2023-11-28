@@ -24,6 +24,8 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
   if (empty($ods_code) || $ods_code = '') {
     // set the ODS Status to Unmatched, makes it easier to filter in the backend rather than leaving it blank
     wp_set_post_terms($single_local_service->ID, 'Unmatched', 'ods_status', false);
+    // clear bad term
+    // wp_remove_object_terms($post_id,array('hospice', 'walk_in_centre'),'ods_role_code');
     // get ODS Role Codes for the post - there should be none but you never know!
     $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
     // if there are no ODS Role Codes for the post
@@ -53,7 +55,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
           foreach ( $cqc_to_ods_map as $cqc => $ods_role ) {
             // and if there is a match, add the ods_role_code taxonomy
             if ( $tax_term == $cqc ) {
-              // set new term - takes id of term
+              // set new term - takes name of term
               wp_set_post_terms($single_local_service->ID, $ods_role, 'ods_role_code', false);
               error_log('hw-feedback: ods bootstrap success '. $ods_role);
               $return_string = 'changed';
@@ -62,6 +64,8 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
         }
       }
     }
+  } else {
+    $return_string = '';
   }
   error_log('hw-feedback: ods bootstrap end');
   return $return_string;
