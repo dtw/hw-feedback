@@ -636,6 +636,38 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       </div><?
     }
     echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
+  } else {
+    $search_options = array(
+      'active' => 'true'
+    );
+    // get postcode
+    $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
+    $search_options['address-postalcode:exact'] = $postcode;
+    // get ODS Role Codes for the post - there should be none but you never know!
+    $ods_role_code_tax_terms = wp_get_post_terms($post->ID, 'ods_role_code', array("fields" => "names"));
+    // if there is more than one ODS Role Code for the post, do nothing
+    if (!isset($ods_role_code_tax_terms[1])) {
+      $search_options['ods-org-role'] = $ods_role_code_tax_terms[0];
+    }
+    $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
+    if ( $objodsapiquery->total == 1 ) {
+      $is_active = $objodsapiquery->entry[0]->resource->active ? 'Yes' : 'No';
+      echo '<br /><h3>API Checks</h3>';
+      echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
+      echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
+      echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
+      echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>'; 
+      if ( isset($is_active) && $is_active != true){ ?>
+        <div class="api-output-inactive">
+          <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
+          <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
+        </div><?
+      }
+      echo '<a href="'. $objodsapiquery->entry[0]->fullUrl . '" target="_blank">Check this registration in the ODS API</a>';
+    } else {
+      echo '<br /><h3>API Checks</h3>';
+      echo '<div id="hw_services_cqc_deg_reg_alert" role="alert"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total .' results - exact match required</a></p></div>';
+    }
   }
 echo "<br />";
 
