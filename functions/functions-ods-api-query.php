@@ -131,11 +131,11 @@ function hw_feedback_ods_checks($mode)
 
   // set php mailer variables
   $to = get_option('admin_email');
-  $subject = "Local Services - ODS Role Code updates (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
+  $subject = "Local Services - ODS updates (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
   // set headers to allow HTML
   $headers = array('Content-Type: text/html; charset=UTF-8');
   // build the content
-  $formatted_message = '<p>Hi!</p><p>The ODS Role Code update completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
+  $formatted_message = '<p>Hi!</p><p>The ODS update check completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
   // check if there were changes
   if (empty($role_code_status_changed)) {
     $formatted_message .= '<p>There were no Role Code changes.</p>';
@@ -143,8 +143,18 @@ function hw_feedback_ods_checks($mode)
     // compose an email contain reg changes
     $formatted_message .= '<p>The Role Codes of the following services were updated automatically:</p><ul>';
     foreach ($role_code_status_changed as $post_id) {
-      $location_id = get_post_meta($post_id, 'hw_services_cqc_location', true);
-      $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
+      $formatted_message .= '<a href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit">Edit</a> | <a href="' . get_post_permalink($post_id) . '">View</a>)</li>';
+    }
+    $formatted_message .= '</ul>';
+  }
+  if (empty($ods_status_changed)) {
+    $formatted_message .= '<p>There were no Status changes.</p>';
+  } else {
+    // compose an email contain reg changes
+    $formatted_message .= '<p>The Status of the following services were updated automatically:</p><ul>';
+    foreach ($ods_status_changed as $post_id) {
+      $ods_code = get_post_meta($post_id, 'hw_services_ods_code', true);
+      $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $ods_code . '" target="_blank">' . $ods_code . '</a> (';
       $formatted_message .= '<a href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit">Edit</a> | <a href="' . get_post_permalink($post_id) . '">View</a>)</li>';
     }
     $formatted_message .= '</ul>';
