@@ -93,7 +93,7 @@ function hw_feedback_ods_checks($mode)
   error_log('hw_feedback: unhook the hw_feedback_check_cqc_registration_status_single function');
   remove_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta'); */
 
-  // create array of local_services post_ids that have had their reg changed
+  // create array of local_services post_ids that have had their role_code changed
   $role_code_status_changed = array();
   $ods_status_changed = array();
 
@@ -108,8 +108,6 @@ function hw_feedback_ods_checks($mode)
   $services = get_posts($args);
   foreach ($services as $hw_feedback_post) : setup_postdata($hw_feedback_post);
   if ( $mode == 'bootstrap') {
-    // Update the local_service with CQC data
-    // if reg status has been changed, this will return 'changed'
     $role_code_status = hw_feedback_ods_role_code_bootstrap($hw_feedback_post->ID);
     if ($role_code_status === 'changed') {
       array_push($role_code_status_changed, $hw_feedback_post->ID);
