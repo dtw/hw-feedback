@@ -141,6 +141,7 @@ function hw_feedback_ods_checks($mode)
     // compose an email contain reg changes
     $formatted_message .= '<p>The Role Codes of the following services were updated automatically:</p><ul>';
     foreach ($role_code_status_changed as $post_id) {
+      $formatted_message .= '<li>' . get_the_title($post_id) . ' (';
       $formatted_message .= '<a href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit">Edit</a> | <a href="' . get_post_permalink($post_id) . '">View</a>)</li>';
     }
     $formatted_message .= '</ul>';
