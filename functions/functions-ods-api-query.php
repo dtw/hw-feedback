@@ -22,6 +22,8 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
   $ods_code = get_post_meta($single_local_service->ID, 'hw_services_ods_code', true);
   // some error checks - if we have an ODS code we don't need to do this!
   if (empty($ods_code) || $ods_code = '') {
+    // set the ODS Status to Unmatched, makes it easier to filter in the backend rather than leaving it blank
+    wp_set_post_terms($single_local_service->ID, 'Unmatched', 'ods_status', false);
     // get ODS Role Codes for the post - there should be none but you never know!
     $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
     // if there are no ODS Role Codes for the post
