@@ -225,4 +225,65 @@ function hw_feedback_ods_api_query_search($search_options)
   curl_close($curl);
   return $response;
 }
+
+/**
+ * Query for single local_service and update
+ *
+ * @package   hw-feedback
+ * @author    Phil Thiselton <dibblethewrecker@gmail.com>
+ * @license   GPL-2.0+
+ * @copyright 2023 Phil Thiselton
+ *
+ * Description: Looks up organisation on ODS using ODS Code and updates ods_status and ods_role_codes
+ * 
+ * @param array search options
+ */ 
+function hw_feedback_check_ods_registration_single($post_id)
+{
+  $single_local_service = get_post($post_id);
+  // get location id
+  $ods_code = get_post_meta($single_local_service->ID, 'hw_services_ods_code', true);
+  // some error checks
+  if (!empty($ods_code) || $ods_code != '') {
+    error_log('hw-feedback: ods_code ' . $ods_code);
+    // call API
+    $api_response = json_decode(hw_feedback_ods_api_query_by_code($ods_code));
+    // get post tax terms as names
+    $tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_status', array("fields" => "names"));
+    // if service is Archived (which is done manually), close comments and bail
+    if (isset($tax_terms[0]) && $tax_terms[0] == 'Inactive') {
+      // update_comment_status($single_local_service->ID, "closed");
+      error_log('hw-feedback: inactive true');
+      return 'inactive';
+    }
+    // if there is a active status from the api
+    if (isset($api_response->active)) {
+      $ods_status = '';
+      // try and override Registered local_services to "Allow Comments"
+      if ($api_response-> active == "true") {
+        wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
+        // update_comment_status($single_local_service->ID, "open");
+        $ods_status = 'active';
+      }
+      // account for an infinite loop
+      $max_count = isset($api_response->extension) ? count($api_response->extension) - 1 : 1;
+      error_log('hw-feedback: '.$max_count);
+      // Set role codes - start by counting how many roles there are. We skip extension[0] because it doesn't define a role.
+      for ($counter = 1; $counter <= $max_count; $counter++) {
+        // make sure the extension describes a role
+        if ( isset($api_response->extension[$counter]->extension[0]->url) && $api_response->extension[$counter]->extension[0]->url == 'role' ) {
+          // get role code and save it as a term
+          wp_set_post_terms($single_local_service->ID, sanitize_text_field($api_response->extension[$counter]->extension[0]->valueCoding->code), 'ods_role_code', true);
+          error_log('hw-feedback: ods role code term set');
+          // check for primary role
+          if ( isset($api_response->extension[$counter]->extension[1]->url) && $api_response->extension[$counter]->extension[1]->url == 'primaryRole' && $api_response->extension[$counter]->extension[1]->valueBoolean ) {
+            $primary_ods_role = $api_response->extension[$counter]->extension[0]->valueCoding->code;
+            error_log('hw-feedback: ods_primary_role_code ' . $primary_ods_role);
+          }
+        }
+      }
+      return $ods_status;
+    }
+  }
+}
 ?>
