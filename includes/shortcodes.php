@@ -74,9 +74,9 @@ function hw_feedback_shortcode_ratings_block()
 				</div>
 			</div>
 		</div><!-- end of healthwatch review panel -->
-	<?php } ?>
-	<?php return ob_get_clean(); ?>
-<? }
+	<?php }
+	return ob_get_clean();
+}
 
 add_shortcode('ratings', 'hw_feedback_shortcode_ratings_block');
 
