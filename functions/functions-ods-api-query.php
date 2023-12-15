@@ -319,4 +319,62 @@ function hw_feedback_check_ods_registration_single($post_id)
     }
   }
 }
+
+/**
+ * Generate a simple table to show multiple results from ODS
+ *
+ * @package   hw-feedback
+ * @author    Phil Thiselton <dibblethewrecker@gmail.com>
+ * @license   GPL-2.0+
+ * @copyright 2023 Phil Thiselton
+ *
+ * Description: Looks up organisation on ODS using ODS Code and updates ods_status and ods_role_codes
+ * 
+ * @param object decoded from JSON json_decode()
+ */
+function hw_feedback_generate_ods_registration_table($results_object)
+{
+  // get total from results - account for an infinite loop
+  $max_count = isset($results_object->total) ? $results_object->total - 1 : 1;
+  // start the table
+  $table_content = '<table id="ods_registration_table">';
+  // add some headers
+  $table_content .=  '<tr class="ods_registration_header_row">' . 
+  '<th>ODS Code</th>' .
+  '<th>Name</th>' .
+  '<th>ODS API Link</th>' .
+  '<th>Role Code</th>' .
+  '<th>Role Name</th>' .
+  '</tr>';
+  // we need to loop through [] entry
+  for ($entry_counter = 0; $entry_counter <= $max_count; $entry_counter++) {
+    $table_content .= '<!-- start entry ' . $entry_counter . ' of ' . $max_count . ' -->';
+    $current_entry = $results_object->entry[$entry_counter];
+    // how many extentions are there other than [0]
+    $extension_count = ( count($current_entry->resource->extension) - 1 );
+    // start the row
+    $table_content .= '<tr>';
+    // print id
+    $table_content .= '<td class="ods_registration_id_'.$entry_counter.'">' .  $current_entry->resource->id . '</td>';
+    // print name
+    $table_content .= '<td class="ods_registration_name_' . $entry_counter . '">'.  $current_entry->resource->name . '</td>';
+    // print fullUrl
+    $table_content .= '<td class="ods_registration_fullUrl_' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
+    // loop through extensions - we skip 0
+    for ($extension_counter = 1; $extension_counter <=$extension_count ; $extension_counter++) {
+      // add row and padding for extensions >= 2
+      $table_content .= ($extension_counter >= 2) ? '<tr><td colspan="3"></td>' : '';
+      // print code
+      $table_content .= '<td class="ods_registration_code_' . $entry_counter . '_' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
+      // print display
+      $table_content .= '<td class="ods_registration_display_' . $entry_counter . '_' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
+      // end the row
+      $table_content .= '</tr><!-- end of extension '. $extension_counter . ' of ' . $extension_count . ' -->';
+    }
+    $table_content .= '<!-- end entry ' . $entry_counter . ' of ' . $max_count . ' -->';
+  }
+  // end the table
+  $table_content .= '</table>';
+  echo $table_content;
+}
 ?>

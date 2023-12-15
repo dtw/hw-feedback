@@ -666,7 +666,9 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<a href="'. $objodsapiquery->entry[0]->fullUrl . '" target="_blank">Check this registration in the ODS API</a>';
     } else {
       echo '<br /><h3>API Checks</h3>';
-      echo '<div id="hw_services_cqc_deg_reg_alert" role="alert"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total .' results - exact match required</a></p></div>';
+      echo '<div id="ods_registration_results_container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
+      hw_feedback_generate_ods_registration_table($objodsapiquery);
+      echo '</div>';
     }
   }
 echo "<br />";

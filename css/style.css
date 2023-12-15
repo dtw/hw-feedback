@@ -222,6 +222,26 @@
 }
 */
 
+/* ODS API */
+
+#ods_registration_table {
+	width: auto;
+}
+
+.ods_registration_header_row th {
+	text-align: left;
+	border-bottom: 1px black solid;
+}
+
+#ods_registration_table td,
+#ods_registration_table th {
+	padding: 0.25rem 1rem 0.25rem 0.25rem;
+}
+
+#ods_registration_table tr:nth-child(2n) {
+	background: #eee;
+}
+
 /* Dashboard box */
 
 .dashboard_local_services_flex-container {
@@ -448,3 +468,4 @@ label[for="hw_services_full_report"]:before {
 #hw-feedback-preview-only-row {
 	display: inline-block;
 }
+
