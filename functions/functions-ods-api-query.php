@@ -287,6 +287,17 @@ function hw_feedback_check_ods_registration_single($post_id)
         // update_comment_status($single_local_service->ID, "open");
         $ods_status = 'active';
       }
+      // get all ods_role_codes
+      $ods_role_code_terms = get_terms(
+        array(
+          'taxonomy' => 'ods_role_code',
+          'hide_empty' => false
+        )
+        );
+      // clear existing role codes
+      foreach ( $ods_role_code_terms as $term ) {
+        wp_remove_object_terms($single_local_service->ID, $term->term_id, 'ods_role_code') ? error_log('hw-feedback: ods role code term ' . $term->name . ' deleted') : '';
+      }
       // account for an infinite loop
       $max_count = isset($api_response->extension) ? count($api_response->extension) - 1 : 1;
       error_log('hw-feedback: '.$max_count);
