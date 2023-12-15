@@ -63,11 +63,15 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
           }
         }
       }
+    } else {
+      error_log('hw-feedback: ods role code terms exist');
+      $return_string = '';
     }
   } else {
+    error_log('hw-feedback: ods bootstrap skipped');
     $return_string = '';
   }
-  error_log('hw-feedback: ods bootstrap end');
+  // error_log('hw-feedback: ods bootstrap end');
   return $return_string;
 }
 
@@ -292,7 +296,7 @@ function hw_feedback_check_ods_registration_single($post_id)
         if ( isset($api_response->extension[$counter]->extension[0]->url) && $api_response->extension[$counter]->extension[0]->url == 'role' ) {
           // get role code and save it as a term
           wp_set_post_terms($single_local_service->ID, sanitize_text_field($api_response->extension[$counter]->extension[0]->valueCoding->code), 'ods_role_code', true);
-          error_log('hw-feedback: ods role code term set');
+          error_log('hw-feedback: ods role code term set ' . $api_response->extension[$counter]->extension[0]->valueCoding->code );
           // check for primary role
           if ( isset($api_response->extension[$counter]->extension[1]->url) && $api_response->extension[$counter]->extension[1]->url == 'primaryRole' && $api_response->extension[$counter]->extension[1]->valueBoolean ) {
             $primary_ods_role = $api_response->extension[$counter]->extension[0]->valueCoding->code;
