@@ -337,9 +337,9 @@ function hw_feedback_generate_ods_registration_table($results_object)
   // get total from results - account for an infinite loop
   $max_count = isset($results_object->total) ? $results_object->total - 1 : 1;
   // start the table
-  $table_content = '<table id="ods_registration_table">';
+  $table_content = '<table id="ods-registration-table">';
   // add some headers
-  $table_content .=  '<tr class="ods_registration_header_row">' . 
+  $table_content .=  '<tr class="ods-registration-header-row">' . 
   '<th>ODS Code</th>' .
   '<th>Name</th>' .
   '<th>ODS API Link</th>' .
@@ -365,9 +365,9 @@ function hw_feedback_generate_ods_registration_table($results_object)
       // add row and padding for extensions >= 2
       $table_content .= ($extension_counter >= 2) ? '<tr><td colspan="3"></td>' : '';
       // print code
-      $table_content .= '<td class="ods_registration_code_' . $entry_counter . '_' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
+      $table_content .= '<td class="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
       // print display
-      $table_content .= '<td class="ods_registration_display_' . $entry_counter . '_' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
+      $table_content .= '<td class="ods-registration-display-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
       // end the row
       $table_content .= '</tr><!-- end of extension '. $extension_counter . ' of ' . $extension_count . ' -->';
     }

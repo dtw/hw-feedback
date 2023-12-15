@@ -609,8 +609,8 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
       </div><?
+        <div id="hw-services-cqc-deg-reg-alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
     }
     echo '<a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '?referer=widget4" target="_blank">Check this registration on the CQC website</a>';
   }
@@ -632,8 +632,8 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
       <div class="api-output-inactive">
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
       </div><?
+        <div id="hw-services-ods-inactive-alert" role="alert"><p><?php echo $ods_inactive_alert_text?></p></div>
     }
     echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
   } else {
@@ -666,8 +666,8 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<a href="'. $objodsapiquery->entry[0]->fullUrl . '" target="_blank">Check this registration in the ODS API</a>';
     } else {
       echo '<br /><h3>API Checks</h3>';
-      echo '<div id="ods_registration_results_container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
       hw_feedback_generate_ods_registration_table($objodsapiquery);
+      echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
       echo '</div>';
     }
   }
