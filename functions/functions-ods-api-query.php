@@ -299,8 +299,7 @@ function hw_feedback_check_ods_registration_single($post_id)
         wp_remove_object_terms($single_local_service->ID, $term->term_id, 'ods_role_code') ? error_log('hw-feedback: ods role code term ' . $term->name . ' deleted') : '';
       }
       // account for an infinite loop
-      $max_count = isset($api_response->extension) ? count($api_response->extension) - 1 : 1;
-      error_log('hw-feedback: '.$max_count);
+      $max_count = isset($api_response->extension) ? ( count($api_response->extension) - 1 ) : 1;
       // Set role codes - start by counting how many roles there are. We skip extension[0] because it doesn't define a role.
       for ($counter = 1; $counter <= $max_count; $counter++) {
         // make sure the extension describes a role
