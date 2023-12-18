@@ -272,7 +272,7 @@ function hw_feedback_check_ods_registration_single($post_id)
     $api_response = json_decode(hw_feedback_ods_api_query_by_code($ods_code));
     // get post tax terms as names
     $tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_status', array("fields" => "names"));
-    // if service is Archived (which is done manually), close comments and bail
+    // if service is Inactive (which is done manually), close comments and bail
     if (isset($tax_terms[0]) && $tax_terms[0] == 'Inactive') {
       // update_comment_status($single_local_service->ID, "closed");
       error_log('hw-feedback: inactive true');
