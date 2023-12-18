@@ -135,7 +135,7 @@ function hw_feedback_taxonomies_init() {
 			'show_in_nav_menus' => true,
 			'show_in_quick_edit' => false,
 			'show_admin_column' => true,
-      'meta_box_cb' => 'hw_feedback_cqc_reg_status_meta_box_callback',
+      'meta_box_cb' => 'hw_feedback_taxonomy_meta_box_callback',
       'show_tagcloud' => false,
       'capabilities' => array (
         'manage_terms' => 'activate_plugins',
@@ -512,7 +512,7 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
  * https://codebriefly.com/display-wordpress-custom-taxonomy-dropdown/
  * I don't fully understand how this works but it does.
  */
-function hw_feedback_cqc_reg_status_meta_box_callback($post, $box) {
+function hw_feedback_taxonomy_meta_box_callback($post, $box) {
   $defaults = array('taxonomy' => 'category');
 
   if (!isset($box['args']) || !is_array($box['args']))
