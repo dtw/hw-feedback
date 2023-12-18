@@ -352,18 +352,21 @@ function hw_feedback_generate_ods_registration_table($results_object)
     $current_entry = $results_object->entry[$entry_counter];
     // how many extentions are there other than [0]
     $extension_count = ( count($current_entry->resource->extension) - 1 );
-    // start the row
-    $table_content .= '<tr>';
-    // print id
-    $table_content .= '<td class="ods_registration_id_'.$entry_counter.'">' .  $current_entry->resource->id . '</td>';
-    // print name
-    $table_content .= '<td class="ods_registration_name_' . $entry_counter . '">'.  $current_entry->resource->name . '</td>';
-    // print fullUrl
-    $table_content .= '<td class="ods_registration_fullUrl_' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
     // loop through extensions - we skip 0
     for ($extension_counter = 1; $extension_counter <=$extension_count ; $extension_counter++) {
-      // add row and padding for extensions >= 2
-      $table_content .= ($extension_counter >= 2) ? '<tr><td colspan="3"></td>' : '';
+      // check which row we're generating
+      if ( $extension_counter >= 2)  {
+        $table_content .= '<tr><td colspan="3"></td>';
+      } else {
+        // start the row
+        $table_content .= '<tr class="ods-registration-' . $entry_counter . ' ods-registration-first-row">';
+        // print id
+        $table_content .= '<td class="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
+        // print name
+        $table_content .= '<td class="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
+        // print fullUrl
+        $table_content .= '<td class="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
+      }
       // print code
       $table_content .= '<td class="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
       // print display
