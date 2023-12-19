@@ -646,9 +646,9 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       }
       ?>
       <div class="api-output-inactive">
-      </div><?
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquerysearch->meta->lastUpdated))?></div>
         <div id="hw-services-ods-inactive-alert" role="alert"><p><?php echo $ods_inactive_alert_text?></p></div>
+      </div>
       <?php
       if ($objodsapiquerysearch->total != 0) {
         echo '<div id="ods-possible-matches-container"><h3>Possible Matches</h3><p>The following active services are listed in the ODS <strong>at the same postcode</strong>.';
