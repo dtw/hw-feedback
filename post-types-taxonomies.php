@@ -646,8 +646,8 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       }
       ?>
       <div class="api-output-inactive">
-        <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
       </div><?
+        <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquerysearch->meta->lastUpdated))?></div>
         <div id="hw-services-ods-inactive-alert" role="alert"><p><?php echo $ods_inactive_alert_text?></p></div>
       <?php
       if ($objodsapiquerysearch->total != 0) {
