@@ -358,7 +358,7 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
     for ($extension_counter = 1; $extension_counter <=$extension_count ; $extension_counter++) {
       // check which row we're generating
       if ( $extension_counter >= 2)  {
-        $table_content .= '<tr><td colspan="3"></td>';
+        $table_content .= '<tr><td colspan="5"></td>';
       } else {
         // start the row
         $table_content .= '<tr id="ods-registration-' . $entry_counter . '  class="ods-registration-first-row">';
