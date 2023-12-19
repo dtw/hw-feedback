@@ -237,7 +237,7 @@
 	border-bottom: 1px solid black;
 }
 
-.ods-registration-header-row th {
+#ods-registration-header-row th {
 	text-align: left;
 }
 
