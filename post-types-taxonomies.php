@@ -656,7 +656,6 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
         echo '</div>';
       }
     }
-    echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
   } else {
     $search_options = array(
       'active' => 'true'
