@@ -652,7 +652,7 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       <?php
       if ($objodsapiquerysearch->total != 0) {
         echo '<div id="ods-possible-matches-container"><h3>Possible Matches</h3><p>The following active services are listed in the ODS <strong>at the same postcode</strong>.';
-        hw_feedback_generate_ods_registration_table($objodsapiquerysearch); // service name
+        hw_feedback_generate_ods_registration_table($objodsapiquerysearch, get_the_title($post)); // service name
         echo '</div>';
       }
     }
@@ -682,7 +682,7 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<br /><h3>API Checks</h3>';
       echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
       if ( $objodsapiquery->total != 0 ) {
-        hw_feedback_generate_ods_registration_table($objodsapiquery);
+        hw_feedback_generate_ods_registration_table($objodsapiquery, get_the_title($post));
       }
       echo '</div>';
     }

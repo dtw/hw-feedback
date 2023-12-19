@@ -331,7 +331,7 @@ function hw_feedback_check_ods_registration_single($post_id)
  * 
  * @param object decoded from JSON json_decode()
  */
-function hw_feedback_generate_ods_registration_table($results_object)
+function hw_feedback_generate_ods_registration_table($results_object, $local_service_name)
 {
   // get total from results - account for an infinite loop
   $max_count = isset($results_object->total) ? $results_object->total - 1 : 1;
@@ -341,6 +341,7 @@ function hw_feedback_generate_ods_registration_table($results_object)
   $table_content .=  '<tr id="ods-registration-header-row">' . 
   '<th>ODS Code</th>' .
   '<th>Name</th>' .
+  '<th>Match (%)</th>' .
   '<th>Last Updated</th>' .
   '<th>ODS API Link</th>' .
   '<th>Role Code</th>' .
@@ -365,6 +366,10 @@ function hw_feedback_generate_ods_registration_table($results_object)
         $table_content .= '<td id="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
         // print name
         $table_content .= '<td id="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
+        // compare the name using similar text
+        similar_text(strtoupper($local_service_name), strtoupper($current_entry->resource->name), $match_percent);
+        // print percentage
+        $table_content .= '<td id="ods-registration-name-match-' . $entry_counter . '" class="ods-registration-name-match">' . number_format((float)$match_percent, 2, '.', '') . '</td>';
         // format last updated - it's in ISO-8601 / ATOM, which is nice!
         $last_updated = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $current_entry->resource->meta->lastUpdated);
         // print last updated
