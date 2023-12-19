@@ -631,10 +631,30 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>';
     echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){
+      // get postcode
+      $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
+      $search_options = array(
+        'active' => 'true',
+        'address-postalcode:exact' => $postcode
+      );
+      // search for active services at postcode
+      $objodsapiquerysearch = json_decode(hw_feedback_ods_api_query_search($search_options));
+      // set the text
+      $ods_inactive_alert_text = 'This organisation is no longer active.';
+      if ($objodsapiquerysearch->total == 0) {
+        $ods_inactive_alert_text .= ' There are no active services listed in the ODS <strong>at the same postcode</strong>.';
+      }
+      ?>
       <div class="api-output-inactive">
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
       </div><?
         <div id="hw-services-ods-inactive-alert" role="alert"><p><?php echo $ods_inactive_alert_text?></p></div>
+      <?php
+      if ($objodsapiquerysearch->total != 0) {
+        echo '<div id="ods-possible-matches-container"><h3>Possible Matches</h3><p>The following active services are listed in the ODS <strong>at the same postcode</strong>.';
+        hw_feedback_generate_ods_registration_table($objodsapiquerysearch); // service name
+        echo '</div>';
+      }
     }
     echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
   } else {
@@ -657,7 +677,7 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
       echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
-      echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>'; 
+      echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>';
       echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     } else {
       echo '<br /><h3>API Checks</h3>';
