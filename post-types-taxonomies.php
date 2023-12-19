@@ -610,8 +610,8 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
-      </div><?
         <div id="hw-services-cqc-deg-reg-alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
+      </div><?php
     }
   }
 
