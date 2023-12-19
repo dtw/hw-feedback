@@ -254,6 +254,10 @@
 	background: #eee;
 }
 
+#ods-registration-table .ods-registration-name-match {
+	text-align: right;
+}
+
 /* Dashboard box */
 
 .dashboard_local_services_flex-container {
