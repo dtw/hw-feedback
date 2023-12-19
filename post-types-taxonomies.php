@@ -680,8 +680,10 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     } else {
       echo '<br /><h3>API Checks</h3>';
-      hw_feedback_generate_ods_registration_table($objodsapiquery);
       echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
+      if ( $objodsapiquery->total != 0 ) {
+        hw_feedback_generate_ods_registration_table($objodsapiquery);
+      }
       echo '</div>';
     }
   }
