@@ -658,12 +658,6 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
       echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
       echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>'; 
-      if ( isset($is_active) && $is_active != true){ ?>
-        <div class="api-output-inactive">
-          <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
-          <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
-        </div><?
-      }
       echo '<a href="'. $objodsapiquery->entry[0]->fullUrl . '" target="_blank">Check this registration in the ODS API</a>';
     } else {
       echo '<br /><h3>API Checks</h3>';
