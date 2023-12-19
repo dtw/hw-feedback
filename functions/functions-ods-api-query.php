@@ -341,6 +341,7 @@ function hw_feedback_generate_ods_registration_table($results_object)
   $table_content .=  '<tr id="ods-registration-header-row">' . 
   '<th>ODS Code</th>' .
   '<th>Name</th>' .
+  '<th>Last Updated</th>' .
   '<th>ODS API Link</th>' .
   '<th>Role Code</th>' .
   '<th>Role Name</th>' .
@@ -364,6 +365,10 @@ function hw_feedback_generate_ods_registration_table($results_object)
         $table_content .= '<td id="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
         // print name
         $table_content .= '<td id="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
+        // format last updated - it's in ISO-8601 / ATOM, which is nice!
+        $last_updated = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $current_entry->resource->meta->lastUpdated);
+        // print last updated
+        $table_content .= '<td id="ods-registration-last-update-' . $entry_counter . '">' .  $last_updated->format('Y-m-d') . '</td>';
         // print fullUrl
         $table_content .= '<td id="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
       }
