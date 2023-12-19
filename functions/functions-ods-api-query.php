@@ -338,7 +338,7 @@ function hw_feedback_generate_ods_registration_table($results_object)
   // start the table
   $table_content = '<table id="ods-registration-table">';
   // add some headers
-  $table_content .=  '<tr class="ods-registration-header-row">' . 
+  $table_content .=  '<tr id="ods-registration-header-row">' . 
   '<th>ODS Code</th>' .
   '<th>Name</th>' .
   '<th>ODS API Link</th>' .
@@ -358,18 +358,18 @@ function hw_feedback_generate_ods_registration_table($results_object)
         $table_content .= '<tr><td colspan="3"></td>';
       } else {
         // start the row
-        $table_content .= '<tr class="ods-registration-' . $entry_counter . ' ods-registration-first-row">';
+        $table_content .= '<tr id="ods-registration-' . $entry_counter . '  class="ods-registration-first-row">';
         // print id
-        $table_content .= '<td class="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
+        $table_content .= '<td id="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
         // print name
-        $table_content .= '<td class="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
+        $table_content .= '<td id="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
         // print fullUrl
-        $table_content .= '<td class="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
+        $table_content .= '<td id="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
       }
       // print code
-      $table_content .= '<td class="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
+      $table_content .= '<td id="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
       // print display
-      $table_content .= '<td class="ods-registration-display-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
+      $table_content .= '<td id="ods-registration-display-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
       // end the row
       $table_content .= '</tr><!-- end of extension '. $extension_counter . ' of ' . $extension_count . ' -->';
     }
