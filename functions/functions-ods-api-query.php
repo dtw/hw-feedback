@@ -344,6 +344,7 @@ function hw_feedback_generate_ods_registration_table($results_object)
   '<th>ODS API Link</th>' .
   '<th>Role Code</th>' .
   '<th>Role Name</th>' .
+  '<th>Start Date</th>' .
   '</tr>';
   // we need to loop through [] entry
   for ($entry_counter = 0; $entry_counter <= $max_count; $entry_counter++) {
@@ -370,6 +371,8 @@ function hw_feedback_generate_ods_registration_table($results_object)
       $table_content .= '<td id="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
       // print display
       $table_content .= '<td id="ods-registration-display-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
+      // print start date
+      $table_content .= '<td id="ods-registration-start-date-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[2]->valuePeriod->start . '</td>';
       // end the row
       $table_content .= '</tr><!-- end of extension '. $extension_counter . ' of ' . $extension_count . ' -->';
     }
