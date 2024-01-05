@@ -275,17 +275,25 @@ function hw_feedback_check_ods_registration_single($post_id)
     // if service is Inactive (which is done manually), close comments and bail
     if (isset($tax_terms[0]) && $tax_terms[0] == 'Inactive') {
       // update_comment_status($single_local_service->ID, "closed");
-      error_log('hw-feedback: inactive true');
-      return 'inactive';
+      error_log('hw-feedback: inactive true unchanged');
+      return 'inactive unchanged';
     }
-    // if there is a active status from the api
+    // if there is a status from the api
     if (isset($api_response->active)) {
       $ods_status = '';
-      // try and override Registered local_services to "Allow Comments"
+      // try and override Registered local_services to "Allow Comments" if it is active
       if ($api_response-> active == "true") {
         wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
         // update_comment_status($single_local_service->ID, "open");
         $ods_status = 'active';
+      } else if ($api_response->active == "false") {
+        // if it is inactive
+        // set ods_status to 'inactive'
+        // wp_set_post_terms($single_local_service->ID, 'Inactive', 'ods_status', false);
+        // close comments
+        // update_comment_status($single_local_service->ID, "closed");
+        // just bail (for now)
+        return  'inactive';
       }
       // get all ods_role_codes
       $ods_role_code_terms = get_terms(
