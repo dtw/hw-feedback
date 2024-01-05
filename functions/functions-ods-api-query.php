@@ -392,4 +392,55 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
   $table_content .= '</table>';
   echo $table_content;
 }
+
+/**
+ * Bootstrap ODS Role Code from CQC Inspection Category
+ *
+ * @package   hw-feedback
+ * @author    Phil Thiselton <dibblethewrecker@gmail.com>
+ * @license   GPL-2.0+
+ * @copyright 2023 Phil Thiselton
+ *
+ * Description: Takes a local_service with no ODS Code and at least one ODS Role Code, and postcode, and generates a best match for the ODS Code.
+ * 
+ * @param int $post_id
+ */
+
+function hw_feedback_ods_best_match($post_id)
+{
+  // get the local_service post
+  $single_local_service = get_post($post_id);
+  // get ods code
+  $ods_code = get_post_meta($single_local_service->ID, 'hw_services_ods_code', true);
+  // some error checks - if we have an ODS code we don't need to do this!
+  if (empty($ods_code) || $ods_code = '') {
+    error_log('hw-feedback: ods best_match start');
+    // get ODS Role Codes for the post - there should be at least one!
+    $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
+    // if there are no ODS Role Codes for the post
+    if (! isset($ods_role_code_tax_terms[0])) {
+      error_log('hw-feedback: ods no role codes');
+      return 'no_check';
+    }
+    foreach ($ods_role_code_tax_terms as $tax_term) {
+      // get the postcode
+      $postcode = get_post_meta($single_local_service->ID, 'hw_services_postcode', true);
+      // set as search option
+      $search_options['address-postalcode:exact'] = $postcode;
+      // set tax term as search option
+      $search_options['ods-org-role'] = $tax_term;
+      // set for active only
+      $search_options['active'] = 'true';
+      // check the API
+      $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
+      // if there is only one result
+      if ($objodsapiquery->total == 1 ) {
+        $ods_code = $objodsapiquery->entry[0]->resource->id;
+        update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
+        return 'success';
+      }
+    }
+    error_log('hw-feedback: ods best_match end');
+  }
+}
 ?>
