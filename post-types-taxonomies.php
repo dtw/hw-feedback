@@ -623,6 +623,7 @@ echo '<label for="hw_services_ods_code">ODS Code </label>';
 echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
   // only check API and show fields if there is a ODS Code
   if ($value != '') {
+    error_log('hw-feedback: ods_code found ' . $value);
     $objodsapiquery = json_decode(hw_feedback_ods_api_query_by_code(esc_attr($value)));
     $is_active = $objodsapiquery->active ? 'Yes' : 'No';
     echo '<br /><h3>API Checks</h3>';
@@ -631,12 +632,14 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>';
     echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){
+      error_log('hw-feedback: ods_code inactive');
       // get postcode
       $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
       $search_options = array(
         'active' => 'true',
         'address-postalcode:exact' => $postcode
       );
+      error_log('hw-feedback: ods search for ' . $postcode);
       // search for active services at postcode
       $objodsapiquerysearch = json_decode(hw_feedback_ods_api_query_search($search_options));
       // set the text
@@ -657,12 +660,14 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       }
     }
   } else {
+    error_log('hw-feedback: no ods_code found');
     $search_options = array(
       'active' => 'true'
     );
     // get postcode
     $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
     $search_options['address-postalcode:exact'] = $postcode;
+    error_log('hw-feedback: ods search for ' . $postcode);
     // get ODS Role Codes for the post - there should be none but you never know!
     $ods_role_code_tax_terms = wp_get_post_terms($post->ID, 'ods_role_code', array("fields" => "names"));
     // if there is more than one ODS Role Code for the post, do nothing
@@ -671,6 +676,8 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     }
     $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
     if ( $objodsapiquery->total == 1 ) {
+      error_log('hw-feedback: ods search for role_code' . $ods_role_code_tax_terms[0]);
+      error_log('hw-feedback: ods search 1 result');
       $is_active = $objodsapiquery->entry[0]->resource->active ? 'Yes' : 'No';
       echo '<br /><h3>API Checks</h3>';
       echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
