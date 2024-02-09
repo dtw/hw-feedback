@@ -167,7 +167,9 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
 				// Convert "JSON object" to array
 				$locations = array_values($api_response->locations);
-				error_log("hw-feedback: Locations fetched from API");
+				// count number of locations
+				$total_locations = count($locations);
+				error_log("hw-feedback: " . $total_locations . " locations fetched from API");
 			}
 
       // set some counters
@@ -225,9 +227,13 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			$locations = array_values($locations);
 			$unmatched_location_count = count($locations);
 
+			// log some stuff
+			error_log("hw-feedback: " . $registered_counter . " registered locations");
+			error_log("hw-feedback: " . $unmatched_location_count . " unmatched locations");
+			
 			// be verbose
 			if ( $force_refresh === "true" ) {
-				echo '<h3>Found ' . $registered_counter . ' locations - ' . $unmatched_location_count . ' locations unmatched</h3>';
+				echo '<h3>Found ' . $registered_counter . ' registered locations - ' . $unmatched_location_count . ' locations unmatched</h3>';
 			}
 
 			// now the locations are cleaned-up the locations to file as JSON object
@@ -308,6 +314,12 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				echo '<h3>Matched ' . $matched_count . ' locations</h3><ol>';
 				echo $matched_locations;
 				echo '</ol>';
+			}
+			if ($force_refresh === "true") {
+				// add some debug notes
+				$deregistered_count = $total_locations - $registered_counter;
+				echo "<p>API query returned " . $total_locations . " locations, " . $deregistered_count . " of which are deregistered.</p>";
+				error_log("hw-feedback: " . $deregistered_count . " deregistered locations");
 			}
       // Get finish time
       $executionEndTime = microtime(true);
