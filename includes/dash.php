@@ -315,6 +315,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				echo $matched_locations;
 				echo '</ol>';
 			}
+			echo "<hr>";
 			if ($force_refresh === "true") {
 				// add some debug notes
 				$deregistered_count = $total_locations - $registered_counter;
@@ -326,7 +327,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       // The result will be in seconds and milliseconds.
       $seconds = round($executionEndTime - $executionStartTime,2);
       // Print it out
-      echo "<hr><p>This script took $seconds seconds to execute.</p>";
+      echo "<p>This script took $seconds seconds to execute.</p>";
 			echo "</div> <!--hw-feedback-cqc-import-results -->";
     }
 		echo "</div> <!-- hwbucks-data-import-tool -->";
