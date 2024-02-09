@@ -40,7 +40,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : 'P1';
 		$force_refresh = isset($_POST['hw-feedback-force-refresh']) ? $_POST['hw-feedback-force-refresh'] : false;
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
-		// default to 10
+		// default to 5
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
 		// get the options
 		$options = get_option( 'hw_feedback_options');
@@ -76,7 +76,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					<div class="hw-feedback-cqc-import-form-row">
 	          <label for="hw-feedback-form-inspection-category">Select Inspection Category</label>
 	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
-	          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
+	          <?php // generate a list of inspection categories with name and description
+						foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
 							if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
 								echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'" selected>'.$term->name.' - '.$term->description.'</option>';
 							} else {
