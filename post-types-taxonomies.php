@@ -1085,9 +1085,9 @@ function hw_feedback_check_cqc_registration_status() {
       $formatted_message .= '</ul>';
     }
     $formatted_message .= '<p>Hugs and kisses!</p>';
-    $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+    $updates_sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
-    if ( $sent ) {
+    if ( $updates_sent ) {
       error_log('hw-feedback: cqc reg update email sent');
     } else {
       error_log('hw-feedback: cqc reg update email failed');
