@@ -687,7 +687,7 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
       echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
       echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>';
-      echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
+      echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->entry[0]->resource->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     } else {
       echo '<br /><h3>API Checks</h3>';
       echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
