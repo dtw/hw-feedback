@@ -127,17 +127,17 @@ function hw_feedback_ods_checks($mode)
   // remove ALL terms
   //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
   endforeach;
-  error_log('hw-feedback: ods checks complete!');
+  error_log('hw-feedback: ods ' . $mode . ' checks complete!');
   // restore the hw_feedback_check_cqc_registration_status_single function hook
   //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
   // set php mailer variables
   $to = get_option('admin_email');
-  $subject = "Local Services - ODS updates (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
+  $subject = "Local Services - ODS ". $mode ." (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
   // set headers to allow HTML
   $headers = array('Content-Type: text/html; charset=UTF-8');
   // build the content
-  $formatted_message = '<p>Hi!</p><p>The ODS update check completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
+  $formatted_message = '<p>Hi!</p><p>The ODS '. $mode .' check completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
   // check if there were changes
   if (empty($role_code_status_changed)) {
     $formatted_message .= '<p>There were no Role Code changes.</p>';
@@ -166,9 +166,9 @@ function hw_feedback_ods_checks($mode)
   $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
   if ($sent) {
-    error_log('hw-feedback: ods role update email sent');
+    error_log('hw-feedback: ods role ' . $mode . ' email sent');
   } else {
-    error_log('hw-feedback: ods role update email failed');
+    error_log('hw-feedback: ods role ' . $mode . ' email failed');
   }
 }
 
