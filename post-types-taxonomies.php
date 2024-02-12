@@ -672,7 +672,10 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     $ods_role_code_tax_terms = wp_get_post_terms($post->ID, 'ods_role_code', array("fields" => "names"));
     // if there is more than one ODS Role Code for the post, do nothing
     if (!isset($ods_role_code_tax_terms[1])) {
-      $search_options['ods-org-role'] = $ods_role_code_tax_terms[0];
+      // if there is at least one
+      if (isset($ods_role_code_tax_terms[0])) {
+        $search_options['ods-org-role'] = $ods_role_code_tax_terms[0];
+      }
     }
     $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
     if ( $objodsapiquery->total == 1 ) {
