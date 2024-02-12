@@ -36,7 +36,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
       if (isset($cqc_inspection_category_tax_terms[0])) {
         // for each cqc_inspection_category
         foreach ($cqc_inspection_category_tax_terms as $tax_term) {
-          error_log('hw-feedback: ods tax_term' . $tax_term);
+          error_log('hw-feedback: ods tax_term ' . $tax_term);
           // this is the map of Inspection Category to ODS Role Code
           $cqc_to_ods_map = array(
             'H1' => '198',
@@ -65,7 +65,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
         }
       }
     } else {
-      error_log('hw-feedback: ods role code terms exist');
+      error_log('hw-feedback: ods bootstrap role code terms exist');
       $return_string = '';
     }
   } else {
