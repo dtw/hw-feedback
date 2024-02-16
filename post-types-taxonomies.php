@@ -684,14 +684,14 @@ echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert
       error_log('hw-feedback: ods search 1 result');
       $is_active = $objodsapiquery->entry[0]->resource->active ? 'Yes' : 'No';
       echo '<br /><h3>API Checks</h3>';
+      echo '<p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' result</a>';
       echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
       echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
       echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>';
-      echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->entry[0]->resource->id . '" target="_blank">Check this registration in the ODS API</a></div>';
     } else {
       echo '<br /><h3>API Checks</h3>';
-      echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a></p>';
+      echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a> - click a row to update the ODS Code for this provider.</p>';
       if ( $objodsapiquery->total != 0 ) {
         hw_feedback_generate_ods_registration_table($objodsapiquery, get_the_title($post));
       }
