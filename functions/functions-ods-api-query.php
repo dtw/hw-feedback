@@ -23,8 +23,6 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
   if (empty($ods_code) || $ods_code = '') {
     // set the ODS Status to Unmatched, makes it easier to filter in the backend rather than leaving it blank
     wp_set_post_terms($single_local_service->ID, 'Unmatched', 'ods_status', false);
-    // clear bad term
-    // wp_remove_object_terms($post_id,array('hospice', 'walk_in_centre'),'ods_role_code');
     // get ODS Role Codes for the post - there should be none but you never know!
     $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "names"));
     // if there are no ODS Role Codes for the post
@@ -157,7 +155,7 @@ function hw_feedback_ods_checks($mode)
   $headers = array('Content-Type: text/html; charset=UTF-8');
   // build the content
   $formatted_message = '<p>Hi!</p><p>The ODS '. $mode .' check completed successfully at ' . date('d/m/Y h:i:s a', time()) . '</p>';
-  // check if there were changes
+  // check if there were any Role Code changes
   if (empty($role_code_status_changed)) {
     $formatted_message .= '<p>There were no Role Code changes.</p>';
   } else {
@@ -313,10 +311,10 @@ function hw_feedback_check_ods_registration_single($post_id)
     // if there is a status from the api
     if (isset($api_response->active)) {
       $ods_status = '';
-      // try and override Registered local_services to "Allow Comments" if it is active
+      // check the ODS Status is Active
       if ($api_response-> active == "true") {
         wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
-        // update_comment_status($single_local_service->ID, "open");
+        //update_comment_status($single_local_service->ID, "open");
         $ods_status = 'active';
       } else if ($api_response->active == "false") {
         // if it is inactive
