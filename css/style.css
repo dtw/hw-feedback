@@ -186,6 +186,7 @@
 }
 
 #hw-services-cqc-location-alert,
+#hw-services-ods-code-alert,
 #hw-feedback-import-alert {
 	display: none;
 }
@@ -229,6 +230,10 @@
 	margin-bottom: 0;
 }
 
+#ods-single-result-button {
+	margin: 1em 0;
+}
+
 #ods-registration-results-container,
 #ods-possible-matches-container {
 	padding-left: 1rem;
@@ -260,6 +265,24 @@
 
 #ods-registration-table .ods-registration-name-match {
 	text-align: right;
+}
+
+#ods-registration-table .highlight-cell {
+	background-color: #7fd9c5; /*--hw-teal-50*/
+}
+
+#ods-registration-table .ods-registration-row:hover {
+	background-color: #004F6B !important;
+	color: white;
+	cursor: pointer;
+}
+
+#ods-registration-table .ods-registration-row:hover .highlight-cell {
+	background-color: #00b38c; /*--hw-teal*/
+}
+
+#ods-registration-table .ods-registration-row:hover .ods-registration-view-url {
+	color: white;
 }
 
 /* Dashboard box */
