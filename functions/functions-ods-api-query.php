@@ -319,7 +319,7 @@ function hw_feedback_check_ods_registration_single($post_id)
       } else if ($api_response->active == "false") {
         // if it is inactive
         // set ods_status to 'inactive'
-        // wp_set_post_terms($single_local_service->ID, 'Inactive', 'ods_status', false);
+        wp_set_post_terms($single_local_service->ID, 'Inactive', 'ods_status', false);
         // close comments
         // update_comment_status($single_local_service->ID, "closed");
         // just bail (for now)
