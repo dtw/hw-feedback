@@ -689,6 +689,7 @@ echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
       echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
       echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>';
+      echo '<button id="ods-single-result-button" class="ed_button button button-small" type="button" onclick="update_ods_code_single(\'hw-services-ods-code\',\'' . $objodsapiquery->entry[0]->resource->id . '\')">Match to provider</button>';
     } else {
       echo '<br /><h3>API Checks</h3>';
       echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a> - click a row to update the ODS Code for this provider.</p>';
