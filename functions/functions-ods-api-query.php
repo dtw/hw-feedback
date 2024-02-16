@@ -48,7 +48,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
             'S2' => '270'
           );
           // check against the map
-          error_log('hw-feedback: ods bootstrap checks');
+          error_log('hw-feedback: ods ' . $single_local_service->ID . ' bootstrap checks');
           foreach ( $cqc_to_ods_map as $cqc => $ods_role ) {
             // and if there is a match, add the ods_role_code taxonomy
             if ( $tax_term == $cqc ) {
@@ -61,15 +61,15 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
         }
       } else {
         // no CQC categories for this post!
-        error_log('hw-feedback: ods bootstrap no CQC categories');
+        error_log('hw-feedback: ods ' . $single_local_service->ID . ' bootstrap no CQC categories');
         $return_string = 'no_cqc';
       }
     } else {
-      error_log('hw-feedback: ods bootstrap role code terms exist');
+      error_log('hw-feedback: ods ' . $single_local_service->ID . ' bootstrap role code terms exist');
       $return_string = 'skipped';
     }
   } else {
-    error_log('hw-feedback: ods bootstrap skipped');
+    error_log('hw-feedback: ods ' . $single_local_service->ID . ' bootstrap skipped');
     $return_string = 'matched';
   }
   // error_log('hw-feedback: ods bootstrap end');
