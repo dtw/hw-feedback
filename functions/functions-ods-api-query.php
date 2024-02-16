@@ -15,7 +15,6 @@
 
 function hw_feedback_ods_role_code_bootstrap($post_id)
 {
-  error_log('hw-feedback: ods bootstrap start');
   // get the local_service post
   $single_local_service = get_post($post_id);
   // get ods code
@@ -36,7 +35,6 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
       if (isset($cqc_inspection_category_tax_terms[0])) {
         // for each cqc_inspection_category
         foreach ($cqc_inspection_category_tax_terms as $tax_term) {
-          error_log('hw-feedback: ods tax_term ' . $tax_term);
           // this is the map of Inspection Category to ODS Role Code
           $cqc_to_ods_map = array(
             'H1' => '198',
@@ -58,19 +56,23 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
             if ( $tax_term == $cqc ) {
               // set new term - takes name of term
               wp_set_post_terms($single_local_service->ID, $ods_role, 'ods_role_code', false);
-              error_log('hw-feedback: ods bootstrap success '. $ods_role);
+              error_log('hw-feedback: ods bootstrap success '. $tax_term . ' matched to '.$ods_role);
               $return_string = 'changed';
             }
           }
         }
+      } else {
+        // no CQC categories for this post!
+        error_log('hw-feedback: ods bootstrap no CQC categories');
+        $return_string = 'no_cqc';
       }
     } else {
       error_log('hw-feedback: ods bootstrap role code terms exist');
-      $return_string = '';
+      $return_string = 'skipped';
     }
   } else {
     error_log('hw-feedback: ods bootstrap skipped');
-    $return_string = '';
+    $return_string = 'matched';
   }
   // error_log('hw-feedback: ods bootstrap end');
   return $return_string;
@@ -423,12 +425,12 @@ function hw_feedback_ods_best_match($post_id)
   $ods_code = get_post_meta($single_local_service->ID, 'hw_services_ods_code', true);
   // some error checks - if we have an ODS code we don't need to do this!
   if (empty($ods_code) || $ods_code = '') {
-    error_log('hw-feedback: ods best_match start');
+    error_log('hw-feedback: ods '.$single_local_service->ID.' best_match start');
     // get ODS Role Codes for the post - there should be at least one!
     $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
     // if there are no ODS Role Codes for the post
     if (! isset($ods_role_code_tax_terms[0])) {
-      error_log('hw-feedback: ods no role codes');
+      error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no role codes');
       return 'no_check';
     }
     foreach ($ods_role_code_tax_terms as $tax_term) {
@@ -449,7 +451,7 @@ function hw_feedback_ods_best_match($post_id)
         return 'success';
       }
     }
-    error_log('hw-feedback: ods best_match end');
+    error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match end');
   }
 }
 ?>
