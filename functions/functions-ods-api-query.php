@@ -105,11 +105,19 @@ function hw_feedback_ods_checks($mode)
   $ods_status_changed = array();
 
   global $post;
-  // get local_services
+  // get local_services - is a sub query / subquery tax query to only find services not 'deregistered' OR 'archived'
   $args = array(
     'post_type'       => 'local_services',
     'posts_per_page'  => -1,
-    'post_status' => array('publish', 'private')
+    'post_status' => array('publish', 'private'),
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'cqc_reg_status',
+        'field'    => 'slug',
+        'terms'    => array('deregistered','archived'),
+        'operator' => 'NOT IN'
+      )
+    )
   );
 
   $services = get_posts($args);
