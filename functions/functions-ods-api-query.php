@@ -353,6 +353,7 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
   '<th>ODS Code</th>' .
   '<th>Name</th>' .
   '<th>Match (%)</th>' .
+  '<th>Leve Distance</th>' .
   '<th>Last Updated</th>' .
   '<th>ODS API Link</th>' .
   '<th>Role Code</th>' .
@@ -383,6 +384,12 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
         $match_perc_classes = ($match_percent >= 95) ? "ods-registration-name-match highlight-cell" : "ods-registration-name-match";
         // print percentage
         $table_content .= '<td id="ods-registration-match-perc-' . $entry_counter . '" class="'. $match_perc_classes.'">' . number_format((float)$match_percent, 2, '.', '') . '</td>';
+        // compare the name using levenshtein
+        $levenshtein_distance = levenshtein(strtoupper(str_replace("&amp;", "&", $local_service_name)), strtoupper($current_entry->resource->name), 1, 1, 0);
+        // check distance to add highlight
+        $leve_dist_classes = ($levenshtein_distance <=1) ? "ods-registration-name-match highlight-cell" : "ods-registration-name-match";
+        // print distance
+        $table_content .= '<td id="ods-registration-leve-dist-' . $entry_counter . '" class="' . $leve_dist_classes . '">' . $levenshtein_distance . '</td>';
         // format last updated - it's in ISO-8601 / ATOM, which is nice!
         $last_updated = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $current_entry->resource->meta->lastUpdated);
         // print last updated
