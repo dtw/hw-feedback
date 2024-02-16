@@ -379,8 +379,10 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
         $table_content .= '<td id="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
         // compare the name using similar text
         similar_text(strtoupper(str_replace("&amp;", "&", $local_service_name)), strtoupper($current_entry->resource->name), $match_percent);
+        // check strength to add highlight
+        $match_perc_classes = ($match_percent >= 95) ? "ods-registration-name-match highlight-cell" : "ods-registration-name-match";
         // print percentage
-        $table_content .= '<td id="ods-registration-name-match-' . $entry_counter . '" class="ods-registration-name-match">' . number_format((float)$match_percent, 2, '.', '') . '</td>';
+        $table_content .= '<td id="ods-registration-match-perc-' . $entry_counter . '" class="'. $match_perc_classes.'">' . number_format((float)$match_percent, 2, '.', '') . '</td>';
         // format last updated - it's in ISO-8601 / ATOM, which is nice!
         $last_updated = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $current_entry->resource->meta->lastUpdated);
         // print last updated
