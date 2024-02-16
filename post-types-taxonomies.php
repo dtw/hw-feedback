@@ -683,7 +683,7 @@ echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert
       error_log('hw-feedback: ods search for role_code' . $ods_role_code_tax_terms[0]);
       error_log('hw-feedback: ods search 1 result');
       $is_active = $objodsapiquery->entry[0]->resource->active ? 'Yes' : 'No';
-      echo '<br /><h3>API Checks</h3>';
+      echo '<br /><h3 id="api-checks">API Checks</h3>';
       echo '<p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' result</a>';
       echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
       echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';

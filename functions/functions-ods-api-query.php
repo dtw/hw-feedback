@@ -382,8 +382,8 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
       } else {
         // start the row
         $table_content .= '<tr id="ods-registration-' . $entry_counter . '  class="ods-registration-first-row">';
-        // print id
-        $table_content .= '<td id="ods-registration-id-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
+        // print ODS code
+        $table_content .= '<td id="ods-code-' . $entry_counter . '">' .  $current_entry->resource->id . '</td>';
         // print name
         $table_content .= '<td id="ods-registration-name-' . $entry_counter . '">' .  $current_entry->resource->name . '</td>';
         // compare the name using similar text
@@ -403,10 +403,10 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
         // print last updated
         $table_content .= '<td id="ods-registration-last-update-' . $entry_counter . '">' .  $last_updated->format('Y-m-d') . '</td>';
         // print fullUrl
-        $table_content .= '<td id="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank">View</a></td>';
+        $table_content .= '<td id="ods-registration-fullUrl-' . $entry_counter . '"><a href="' .  $current_entry->fullUrl . '" target="_blank" class="ods-registration-view-url">View</a></td>';
       }
       // print code
-      $table_content .= '<td id="ods-registration-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
+      $table_content .= '<td id="ods-registration-role-code-' . $entry_counter . '-' . $extension_counter . '">'. $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->code . '</td>';
       // print display
       $table_content .= '<td id="ods-registration-display-' . $entry_counter . '-' . $extension_counter . '">' . $current_entry->resource->extension[$extension_counter]->extension[0]->valueCoding->display . '</td>';
       // print start date

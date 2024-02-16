@@ -225,6 +225,10 @@
 
 /* ODS API */
 
+#api-checks {
+	margin-bottom: 0;
+}
+
 #ods-registration-results-container,
 #ods-possible-matches-container {
 	padding-left: 1rem;
