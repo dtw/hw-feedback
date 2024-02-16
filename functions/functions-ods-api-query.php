@@ -26,7 +26,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
     // clear bad term
     // wp_remove_object_terms($post_id,array('hospice', 'walk_in_centre'),'ods_role_code');
     // get ODS Role Codes for the post - there should be none but you never know!
-    $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
+    $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "names"));
     // if there are no ODS Role Codes for the post
     if ( !isset($ods_role_code_tax_terms[0]) ) {
       // get cqc_inspection_catgeory as ids (not names or slugs)
@@ -444,7 +444,7 @@ function hw_feedback_ods_best_match($post_id)
   if (empty($ods_code) || $ods_code = '') {
     error_log('hw-feedback: ods '.$single_local_service->ID.' best_match start');
     // get ODS Role Codes for the post - there should be at least one!
-    $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "ids"));
+    $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "names"));
     // if there are no ODS Role Codes for the post
     if (! isset($ods_role_code_tax_terms[0])) {
       error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no role codes');
