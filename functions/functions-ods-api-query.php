@@ -114,10 +114,17 @@ function hw_feedback_ods_checks($mode)
     'posts_per_page'  => -1,
     'post_status' => array('publish', 'private'),
     'tax_query' => array(
+      'relation' => 'AND',
       array(
         'taxonomy' => 'cqc_reg_status',
         'field'    => 'slug',
         'terms'    => array('deregistered','archived'),
+        'operator' => 'NOT IN'
+      ),
+      array(
+        'taxonomy' => 'service_types',
+        'field'    => 'slug',
+        'terms'    => array('other'),
         'operator' => 'NOT IN'
       )
     )
