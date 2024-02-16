@@ -56,6 +56,10 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
               wp_set_post_terms($single_local_service->ID, $ods_role, 'ods_role_code', false);
               error_log('hw-feedback: ods bootstrap success '. $tax_term . ' matched to '.$ods_role);
               $return_string = 'changed';
+            } elseif ( isset($return_string) && $return_string != 'changed' ) {
+              $return_string = 'no_cqc_match';
+            } else {
+              $return_string = 'no_cqc_match';
             }
           }
         }
