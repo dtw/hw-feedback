@@ -422,7 +422,7 @@ function hw_feedback_generate_ods_registration_table($results_object, $local_ser
 }
 
 /**
- * Bootstrap ODS Role Code from CQC Inspection Category
+ * Find best match based on ODS Role Code, postcode and service name
  *
  * @package   hw-feedback
  * @author    Phil Thiselton <dibblethewrecker@gmail.com>
@@ -438,6 +438,8 @@ function hw_feedback_ods_best_match($post_id)
 {
   // get the local_service post
   $single_local_service = get_post($post_id);
+  // get the name
+  $local_service_name = get_the_title($single_local_service);
   // get ods code
   $ods_code = get_post_meta($single_local_service->ID, 'hw_services_ods_code', true);
   // some error checks - if we have an ODS code we don't need to do this!
@@ -461,11 +463,57 @@ function hw_feedback_ods_best_match($post_id)
       $search_options['active'] = 'true';
       // check the API
       $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
+      // if there is no result
+      if ($objodsapiquery->total == 0) {
+        error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no results');
+        error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match org role '. $tax_term);
+      }
       // if there is only one result
-      if ($objodsapiquery->total == 1 ) {
-        $ods_code = $objodsapiquery->entry[0]->resource->id;
-        update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
-        return 'success';
+      elseif ($objodsapiquery->total == 1) {
+        error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match 1 match');
+        // check the name is 100% match
+        similar_text(strtoupper(str_replace("&amp;", "&", $local_service_name)), strtoupper($objodsapiquery->entry[0]->resource->name), $match_percent);
+        $name_match_percentage = number_format((float)$match_percent);
+        if ($name_match_percentage == 100 ) {
+          // set the ods_code
+          $ods_code = $objodsapiquery->entry[0]->resource->id;
+          update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
+          // set the ods_status to matched
+          wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
+          error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match success');
+          return 'success';
+        } else {
+          error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no name match '. $name_match_percentage);
+        }
+      }
+      // if there is more than one result
+      elseif ($objodsapiquery->total > 1) {
+        error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match multiple results ' . $objodsapiquery->total);
+        // get total from results - account for an infinite loop
+        $max_count = isset($objodsapiquery->total) ? $objodsapiquery->total - 1 : 1;
+        // loop through results
+        for ($entry_counter = 0; $entry_counter <= $max_count; $entry_counter++) {
+          $current_entry = $objodsapiquery->entry[$entry_counter];
+          // how many extentions are there other than [0]
+          $extension_count = (count($current_entry->resource->extension) - 1);
+          // loop through extensions - we skip 0
+          for ($extension_counter = 1; $extension_counter <= $extension_count; $extension_counter++) {
+            // check the name is 100% match
+            similar_text(strtoupper(str_replace("&amp;", "&", $local_service_name)), strtoupper($current_entry->resource->name), $match_percent);
+            $name_match_percentage = number_format((float)$match_percent);
+            if ($name_match_percentage == 100) {
+              // set the ods_code
+              $ods_code = $current_entry->resource->id;
+              update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
+              // set the ods_status to matched
+              wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
+              error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match_multiple success');
+              return 'success';
+            } else {
+              error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match_multiple no name match ' . $name_match_percentage);
+            }
+          }
+        }
       }
     }
     error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match end');
