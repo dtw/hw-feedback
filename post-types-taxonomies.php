@@ -620,7 +620,8 @@ echo '<h2><strong>ODS Information</strong></h2><br />';
 // ODS CODE
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
-echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
+echo '<input type="text" id="hw-services-ods-code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
+echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert">Remember to save this change!</div>';
   // only check API and show fields if there is a ODS Code
   if ($value != '') {
     error_log('hw-feedback: ods_code found ' . $value);
