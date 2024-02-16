@@ -103,6 +103,7 @@ function hw_feedback_ods_checks($mode)
   // create array of local_services post_ids that have had their role_code changed
   $role_code_status_changed = array();
   $ods_status_changed = array();
+  $ods_best_match_success = array();
 
   global $post;
   // get local_services - is a sub query / subquery tax query to only find services not 'deregistered' OR 'archived'
@@ -122,21 +123,28 @@ function hw_feedback_ods_checks($mode)
 
   $services = get_posts($args);
   foreach ($services as $hw_feedback_post) : setup_postdata($hw_feedback_post);
-  if ( $mode == 'bootstrap') {
-    $role_code_status = hw_feedback_ods_role_code_bootstrap($hw_feedback_post->ID);
-    if ($role_code_status === 'changed') {
-      array_push($role_code_status_changed, $hw_feedback_post->ID);
+    if ( $mode == 'bootstrap') {
+      $role_code_status = hw_feedback_ods_role_code_bootstrap($hw_feedback_post->ID);
+      if ($role_code_status === 'changed') {
+        $ods_best_match_outcome = hw_feedback_ods_best_match($hw_feedback_post->ID);
+        if ($ods_best_match_outcome === 'success') {
+          array_push($ods_best_match_success, $hw_feedback_post->ID);
+        } else {
+          array_push($role_code_status_changed, $hw_feedback_post->ID);
+        }
+      } elseif ($role_code_status === 'no_cqc'){
+        // array_push($ods_no_cqc, $hw_feedback_post->ID);
+      }
+      error_log('hw-feedback: ods bootstrap check complete! '. $role_code_status);
+    } else if ( $mode == 'update') {
+      $ods_status = hw_feedback_check_ods_registration_single($hw_feedback_post->ID);
+      if ($ods_status === 'inactive') {
+        array_push($ods_status_changed, $hw_feedback_post->ID);
+      }
+      error_log('hw-feedback: ods update complete!');
     }
-    error_log('hw-feedback: ods bootstrap check complete!');
-  } else if ( $mode == 'update') {
-    $ods_status = hw_feedback_check_ods_registration_single($hw_feedback_post->ID);
-    if ($ods_status === 'inactive') {
-      array_push($ods_status_changed, $hw_feedback_post->ID);
-    }
-    error_log('hw-feedback: ods update complete!');
-  }
-  // remove ALL terms
-  //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
+    // remove ALL terms
+    //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
   endforeach;
   error_log('hw-feedback: ods ' . $mode . ' checks complete!');
   // restore the hw_feedback_check_cqc_registration_status_single function hook
@@ -161,6 +169,19 @@ function hw_feedback_ods_checks($mode)
     }
     $formatted_message .= '</ul>';
   }
+  // check if there were any best matches
+  if ( !empty($ods_best_match_success) ) {
+    // compose an email contain reg changes
+    $formatted_message .= '<p>The following services were "best matched" and updated automatically:</p><ul>';
+    foreach ($ods_best_match_success as $post_id) {
+      $formatted_message .= '<li>' . get_the_title($post_id) . ' (';
+      $formatted_message .= '<a href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit">Edit</a> | <a href="' . get_post_permalink($post_id) . '">View</a>)</li>';
+    }
+    $formatted_message .= '</ul>';
+  } elseif ( $mode == 'bootstrap' ) {
+    $formatted_message .= '<p>There were no best matches.</p>';
+  }
+  // check if there were any status changes
   if (empty($ods_status_changed)) {
     $formatted_message .= '<p>There were no Status changes.</p>';
   } else {
