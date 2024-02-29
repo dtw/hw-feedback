@@ -1065,6 +1065,7 @@ function hw_feedback_check_cqc_registration_status() {
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
     endforeach;
+
     error_log('hw-feedback: services check complete!');
     // restore the hw_feedback_check_cqc_registration_status_single function hook
     //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
@@ -1093,7 +1094,7 @@ function hw_feedback_check_cqc_registration_status() {
     $updates_sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
     if ( $updates_sent ) {
-      error_log('hw-feedback: cqc reg update email sent');
+      error_log('hw-feedback: cqc reg update email sent with '. count($registration_status_changed) .' changes');
     } else {
       error_log('hw-feedback: cqc reg update email failed');
     }
