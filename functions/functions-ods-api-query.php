@@ -13,7 +13,7 @@
  * @param int $post_id
  */
 
-function hw_feedback_ods_role_code_bootstrap($post_id)
+function hw_feedback_ods_role_code_bootstrap($post_id, $bootstrap_options = 'none')
 {
   // get the local_service post
   $single_local_service = get_post($post_id);
@@ -26,7 +26,7 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
     // get ODS Role Codes for the post - there should be none but you never know!
     $ods_role_code_tax_terms = wp_get_post_terms($single_local_service->ID, 'ods_role_code', array("fields" => "names"));
     // if there are no ODS Role Codes for the post
-    if ( !isset($ods_role_code_tax_terms[0]) ) {
+    if ( !isset($ods_role_code_tax_terms[0]) || ( $bootstrap_options == 'force') ) {
       // get cqc_inspection_catgeory as ids (not names or slugs)
       $cqc_inspection_category_tax_terms = wp_get_post_terms($single_local_service->ID, 'cqc_inspection_category', array("fields" => "names"));
       // check there is at least one
