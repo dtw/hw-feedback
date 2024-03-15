@@ -498,7 +498,7 @@ function hw_feedback_ods_best_match($post_id)
       // if there is only one result
       elseif ($objodsapiquery->total == 1) {
         error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match 1 match');
-        // check the name is 100% match
+        // check the name (post title) is 100% match
         similar_text(strtoupper(str_replace("&amp;", "&", $local_service_name)), strtoupper($objodsapiquery->entry[0]->resource->name), $match_percent);
         $name_match_percentage = number_format((float)$match_percent);
         if ($name_match_percentage == 100 ) {
@@ -507,7 +507,7 @@ function hw_feedback_ods_best_match($post_id)
           update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
           // set the ods_status to matched
           wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
-          error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match success');
+          error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match name success');
           return 'success';
         } else {
           error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no name match '. $name_match_percentage);
