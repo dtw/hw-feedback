@@ -511,6 +511,25 @@ function hw_feedback_ods_best_match($post_id)
           return 'success';
         } else {
           error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no name match '. $name_match_percentage);
+          // check against CQC registration name (this is backup)
+          $location_id = get_post_meta($single_local_service->ID, 'hw_services_cqc_location', true);
+          if (isset($location_id)) {
+            // call API
+            $cqc_api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations', $location_id));
+            similar_text(strtoupper($cqc_api_response->name), strtoupper($objodsapiquery->entry[0]->resource->name), $cqc_match_percent);
+            $name_match_percentage = number_format((float)$cqc_match_percent);
+            if ($name_match_percentage == 100) {
+              // set the ods_code
+              $ods_code = $objodsapiquery->entry[0]->resource->id;
+              update_post_meta($post_id, 'hw_services_ods_code', $ods_code);
+              // set the ods_status to matched
+              wp_set_post_terms($single_local_service->ID, 'Active', 'ods_status', false);
+              error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match CQC name success');
+              return 'success';
+            } else {
+              error_log('hw-feedback: ods ' . $single_local_service->ID . ' best_match no CQC name match ' . $name_match_percentage);
+            }
+          }
         }
       }
       // if there is more than one result
