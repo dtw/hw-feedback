@@ -49,17 +49,14 @@ function hw_feedback_ods_role_code_bootstrap($post_id)
           );
           // check against the map
           error_log('hw-feedback: ods ' . $single_local_service->ID . ' bootstrap checks');
+          $return_string = 'no_cqc_match';
           foreach ( $cqc_to_ods_map as $cqc => $ods_role ) {
             // and if there is a match, add the ods_role_code taxonomy
             if ( $tax_term == $cqc ) {
               // set new term - takes name of term
               wp_set_post_terms($single_local_service->ID, $ods_role, 'ods_role_code', false);
               error_log('hw-feedback: ods bootstrap success '. $tax_term . ' matched to '.$ods_role);
-              $return_string = 'changed';
-            } elseif ( isset($return_string) && $return_string != 'changed' ) {
-              $return_string = 'no_cqc_match';
-            } else {
-              $return_string = 'no_cqc_match';
+              $return_string = 'changed'; // Update return_string if match found
             }
           }
         }
