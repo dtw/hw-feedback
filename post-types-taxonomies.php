@@ -327,7 +327,7 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 	$value = get_post_meta( $post->ID, 'hw_services_cqc_location', true );
 	echo '<label for="hw-services-cqc-location">Location ID </label>';
 	echo '<input type="text" id="hw-services-cqc-location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" class="hw-feedback-alert" role="alert">Save this Service to see updated values from CQC!</div>';
-  // only check API and show fields if there is a location id
+  // only check CQC API and show fields if there is a location id
   if ($value != '') {
     $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
     echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
@@ -343,13 +343,14 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. <a href="https://www.cqc.org.uk/location/<?php echo $objcqcapiquery->locationId?>?referer=widget4" target="_blank">Check this registration on the CQC website</a>. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
       </div><?
     }
+    echo '<a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '?referer=widget4" target="_blank">Check this registration on the CQC website</a>';
   }
 
 // ODS
-echo "<h2><strong>ODS Information</strong></h2><br />";
+echo '<h2><strong>ODS Information</strong></h2><br />';
 // ODS CODE
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
@@ -365,9 +366,10 @@ echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" v
     if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
       <div class="api-output-inactive">
         <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active. <a href="https://directory.spineservices.nhs.uk/STU3/Organization/<?php echo $objodsapiquery->id?>" target="_blank">Check this registration on the ODS website</a>.</p></div>
+        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
       </div><?
     }
+    echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
   }
 echo "<br />";
 
@@ -735,6 +737,7 @@ function hw_feedback_check_cqc_registration_status() {
       // remove ALL terms
       //wp_remove_object_terms( $post_id, array('registered','deregistered','not-registered'), 'cqc_reg_status' );
     endforeach;
+
     error_log('hw-feedback: services check complete!');
     // restore the hw_feedback_check_cqc_registration_status_single function hook
     //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
@@ -763,7 +766,7 @@ function hw_feedback_check_cqc_registration_status() {
     $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
     if ( $sent ) {
-      error_log('hw-feedback: reg update email sent');
+      error_log('hw-feedback: cqc reg update email sent with '. count($registration_status_changed) .' changes');
     } else {
       error_log('hw-feedback: reg update email failed');
     }
