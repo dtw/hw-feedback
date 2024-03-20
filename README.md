@@ -21,7 +21,7 @@ Not Gutenberg compatible.
 * `service_types` taxonomy - name, slug, category, description, icon (through the WordPress media selector)
 * `cqc_reg_status` "hidden" taxonomy - contains 5 default terms that partially align with CQC terminology
 * `cqc_inspection_category` "hidden" taxonomy - contains 23 default terms that exactly align with CQC terminology/taxonomies
-* Support to check existing service information, and preview/import new services, via the CQC API (based on CQC location IDs)
+* Support to check existing service information, and preview/import new services, via the CQC API. See below for details.
 
 ### Rate and Review
 * A customised comment form on `local_services` posts that provides "rate and review" fields, including provider and LHW responses
@@ -31,6 +31,20 @@ Not Gutenberg compatible.
 * Notification email to service providers when new comments are approved and published
 * Seven widgets for displaying dynamic review content
 * Uses Google ReCaptcha 2 for form submissions
+
+### CQC API Integration
+The plugin uses the CQC API to help populate and maintain `local_services` posts. This is administrated using the CQC Location ID, which is a (somewhat) unique identifier. For example, 'RXQ02' is the location code for Stoke Mandeville Hospital. With this you can find the location in the API (https://api.cqc.org.uk/public/v1/locations/RXQ02) and on the CQC website (https://www.cqc.org.uk/location/RXQ02).
+
+With the CQC Location ID set for a `local_services` post, the plugin will look up and display information in the post edit screen, alongside existing post meta data, which can be used to update the local record. There are also checks and alerts for 'deregistration' (i.e. when a CQC registration fundamentally changes) both in the edit post screen and in bulk via a weekly cron job. The results of the bulk check are reported via email and via a WordPress dashboard widget.
+
+New `local_services` posts can also be created in bulk via the 'CQC Data Import' tool in the admin interface. CQC registrations can be queried by Inspection category (P1 = Dentists) and imported in batches of between 5 and 50.
+
+The tool automatically sets the following post data:
+* post title to the organisation name
+* excerpt based on `service_types` and `cqc_inspection_category`
+* published date to the CQC registration date
+
+The additional fields provided by the `local_services` post type are also populated, as are the values for the three associated taxonomies.
 
 ### Shortcodes
 

@@ -40,7 +40,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$primary_inspection_category = isset($_POST['hw-feedback-form-inspection-category']) ? $_POST['hw-feedback-form-inspection-category'] : 'P1';
 		$force_refresh = isset($_POST['hw-feedback-force-refresh']) ? $_POST['hw-feedback-force-refresh'] : false;
 		$preview_only = isset($_POST['hw-feedback-preview-only']) ? $_POST['hw-feedback-preview-only'] : false;
-		// default to 10
+		// default to 5
 		$import_number = isset($_POST['hw-feedback-form-import-number']) ? $_POST['hw-feedback-form-import-number'] : 5;
 		// get the options
 		$options = get_option( 'hw_feedback_options');
@@ -76,7 +76,8 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					<div class="hw-feedback-cqc-import-form-row">
 	          <label for="hw-feedback-form-inspection-category">Select Inspection Category</label>
 	          <select class="hw-feedback-select widefat" name="hw-feedback-form-inspection-category" id="hw-feedback-form-inspection-category">
-	          <?php foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
+	          <?php // generate a list of inspection categories with name and description
+						foreach (get_terms('cqc_inspection_category', array('hide_empty' => false)) as $key => $term) {
 							if ($primary_inspection_category && $primary_inspection_category == $term->name ) {
 								echo '<option value="'.$term->name.'" id="hw-feedback-'.$term->name.'" selected>'.$term->name.' - '.$term->description.'</option>';
 							} else {
@@ -166,7 +167,9 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
 				// Convert "JSON object" to array
 				$locations = array_values($api_response->locations);
-				error_log("hw-feedback: Locations fetched from API");
+				// count number of locations
+				$total_locations = count($locations);
+				error_log("hw-feedback: " . $total_locations . " locations fetched from API");
 			}
 
       // set some counters
@@ -224,9 +227,13 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			$locations = array_values($locations);
 			$unmatched_location_count = count($locations);
 
+			// log some stuff
+			error_log("hw-feedback: " . $registered_counter . " registered locations");
+			error_log("hw-feedback: " . $unmatched_location_count . " unmatched locations");
+			
 			// be verbose
 			if ( $force_refresh === "true" ) {
-				echo '<h3>Found ' . $registered_counter . ' locations - ' . $unmatched_location_count . ' locations unmatched</h3>';
+				echo '<h3>Found ' . $registered_counter . ' registered locations - ' . $unmatched_location_count . ' locations unmatched</h3>';
 			}
 
 			// now the locations are cleaned-up the locations to file as JSON object
@@ -308,12 +315,19 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				echo $matched_locations;
 				echo '</ol>';
 			}
+			echo "<hr>";
+			if ($force_refresh === "true") {
+				// add some debug notes
+				$deregistered_count = $total_locations - $registered_counter;
+				echo "<p>API query returned " . $total_locations . " locations, " . $deregistered_count . " of which are deregistered.</p>";
+				error_log("hw-feedback: " . $deregistered_count . " deregistered locations");
+			}
       // Get finish time
       $executionEndTime = microtime(true);
       // The result will be in seconds and milliseconds.
       $seconds = round($executionEndTime - $executionStartTime,2);
       // Print it out
-      echo "<hr><p>This script took $seconds seconds to execute.</p>";
+      echo "<p>This script took $seconds seconds to execute.</p>";
 			echo "</div> <!--hw-feedback-cqc-import-results -->";
     }
 		echo "</div> <!-- hwbucks-data-import-tool -->";
