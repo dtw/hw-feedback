@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0b] - 2024-03-22
+
+This is marked as a beta release. Not something I would normally do but while all the functionality is here some of the housekeeping might need work.
+
+### Added
+- support for verifying local_services post metadata against the Organisation Data Service (ODS) API, including:
+    - a new custom field (hw_services_ods_code) to store ODS Code - the unique identifier within the ODS API
+    - new hidden taxonomy for ODS Role Codes (none to many of 195 codes provided in the API)
+    - new hidden taxonomy for ODS Status (Active/Inactive and *Unmatched*)
+    - bootstraping ODS Role Codes for *Unmatched* local_services posts based on CQC Inspection Categories
+    - auto-updates of *Unmatched* local_services posts' ODS Code and Status from the API via 'best matching' on hw_services_postcode, ODS Role Codes and name
+    - a list of possible matches for *Unmatched* local_services in the edit post screen, showing:
+        - ODS Code, Name, name match percentage (using PHP similar_text), name Levenshtein distance, Last Updated, ODS API Link, plus Role Codes, Names and Start Dates
+        - visual cues for name match % of 95% or more and a Levenshtein distance of less than 1
+
 ## [Released]
 
 ## [2.8.5] - 2024-03-19
