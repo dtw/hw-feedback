@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [Released]
+
 ## [2.8.5] - 2024-03-19
 ### Changed
 - very minor changes to syntax, comments and logging
@@ -202,8 +204,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.1] - 2021-07-07
 ### Changed
 - fix critical error in cronjob function
-
-## [Released]
 
 ## [2.0] - 2022-06-28
 ### Added
