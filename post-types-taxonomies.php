@@ -135,7 +135,7 @@ function hw_feedback_taxonomies_init() {
 			'show_in_nav_menus' => true,
 			'show_in_quick_edit' => false,
 			'show_admin_column' => true,
-      'meta_box_cb' => 'hw_feedback_cqc_reg_status_meta_box_callback',
+      'meta_box_cb' => 'hw_feedback_taxonomy_meta_box_callback',
       'show_tagcloud' => false,
       'capabilities' => array (
         'manage_terms' => 'activate_plugins',
@@ -177,6 +177,70 @@ function hw_feedback_taxonomies_init() {
         ),
   		)
   	);
+
+  /* This will create a "hidden" taxonomy that cannot be edited by anyone except Admin (activate_plugins) capabilities */
+  // for REG STATUS
+  register_taxonomy(
+    'ods_status',
+    'local_services',
+    array(
+      'label' => 'ODS Status',
+      'labels' => array(
+        'singular_name' => 'Status',
+        'all_items' => 'All Status',
+        'edit_item' => 'Edit Status',
+        'view_item' => 'View Status',
+        'update_item' => 'Update Status',
+        'add_new_item' => 'Add new Status',
+        'new_item_name' => 'New Status',
+        'search_items' => 'Search Status'
+      ),
+      'edit_item' => 'Edit ODS Status',
+      'show_in_nav_menus' => true,
+      'show_in_quick_edit' => false,
+      'meta_box_cb' => 'hw_feedback_taxonomy_meta_box_callback',
+      'show_admin_column' => true,
+      'show_tagcloud' => false,
+      'capabilities' => array(
+        'manage_terms' => 'activate_plugins',
+        'edit_terms' => 'activate_plugins',
+        'delete_terms' => 'activate_plugins',
+        'assign_terms' => 'activate_plugins',
+      ),
+    )
+  );
+
+  /* This will create a "hidden" taxonomy that cannot be edited by anyone except Admin (activate_plugins) capabilities */
+  // for ODS ROLE CODES
+  register_taxonomy(
+    'ods_role_code',
+    'local_services',
+    array(
+      'label' => 'ODS Role Code',
+      'labels' => array(
+        'singular_name' => 'Role Code',
+        'all_items' => 'Role Codes',
+        'edit_item' => 'Edit Role Code',
+        'view_item' => 'View Role Code',
+        'update_item' => 'Update Role Code',
+        'add_new_item' => 'Add new Role Code',
+        'new_item_name' => 'New Role Code',
+        'search_items' => 'Search Role Code'
+      ),
+      'edit_item' => 'Edit Role Code',
+      'show_in_nav_menus' => true,
+      'show_in_quick_edit' => false,
+      'meta_box_cb' => false,
+      'show_admin_column' => true,
+      'show_tagcloud' => false,
+      'capabilities' => array(
+        'manage_terms' => 'activate_plugins',
+        'edit_terms' => 'activate_plugins',
+        'delete_terms' => 'activate_plugins',
+        'assign_terms' => 'activate_plugins',
+      ),
+    )
+  );
 }
 add_action( 'init', 'hw_feedback_taxonomies_init' );
 
@@ -231,6 +295,208 @@ function hw_feedback_register_default_terms () {
   wp_insert_term('H10','cqc_inspection_category', array('description'=>'Residential substance misuse', 'slug' => 'h10'));
   wp_insert_term('H11','cqc_inspection_category', array('description'=>'Acute services - non-hospital', 'slug' => 'h11'));
   wp_insert_term('H12','cqc_inspection_category', array('description'=>'Hospice services', 'slug' => 'h12'));
+  // ods_status
+  wp_insert_term('Active', 'ods_status', array('description' => 'Active', 'slug' => 'active'));
+  wp_insert_term('Inactive', 'ods_status', array('description' => 'Inactive', 'slug' => 'inactive'));
+  wp_insert_term('Unmatched', 'ods_status', array('description' => 'Unmatched', 'slug' => 'unmatched'));
+  // ods_role_code
+  // there are far more than we need for Local Healthwatch
+wp_insert_term('101','ods_role_code', array('description' => 'Social Care Site', 'slug' => 'social_care_site'));
+wp_insert_term('102','ods_role_code', array('description' => 'Clinical Network', 'slug' => 'clinical_network'));
+wp_insert_term('103','ods_role_code', array('description' => 'Cancer Network', 'slug' => 'cancer_network'));
+wp_insert_term('104','ods_role_code', array('description' => 'Social Care Provider', 'slug' => 'social_care_provider'));
+wp_insert_term('105','ods_role_code', array('description' => 'Cancer Registry', 'slug' => 'cancer_registry'));
+wp_insert_term('106','ods_role_code', array('description' => 'Common Service Agency (CSA)', 'slug' => 'common_service_agency_(csa)'));
+wp_insert_term('107','ods_role_code', array('description' => 'Care Trust', 'slug' => 'care_trust'));
+wp_insert_term('108','ods_role_code', array('description' => 'Care Trust Site', 'slug' => 'care_trust_site'));
+wp_insert_term('109','ods_role_code', array('description' => 'District Health Authority (DHA)', 'slug' => 'district_health_authority_(dha)'));
+wp_insert_term('11','ods_role_code', array('description' => 'LA - Metropolitan District', 'slug' => 'la_-_metropolitan_district'));
+wp_insert_term('110','ods_role_code', array('description' => 'General Dental Practice', 'slug' => 'general_dental_practice'));
+wp_insert_term('111','ods_role_code', array('description' => 'Directly Managed Unit (DMU)', 'slug' => 'directly_managed_unit_(dmu)'));
+wp_insert_term('114','ods_role_code', array('description' => 'DMU Site', 'slug' => 'dmu_site'));
+wp_insert_term('116','ods_role_code', array('description' => 'Executive Agency', 'slug' => 'executive_agency'));
+wp_insert_term('117','ods_role_code', array('description' => 'Education', 'slug' => 'education'));
+wp_insert_term('119','ods_role_code', array('description' => 'Local Authority - Legacy', 'slug' => 'local_authority_-_legacy'));
+wp_insert_term('12','ods_role_code', array('description' => 'LA - Inner London', 'slug' => 'la_-_inner_london'));
+wp_insert_term('122','ods_role_code', array('description' => 'Local Authority Site - Legacy', 'slug' => 'local_authority_site_-_legacy'));
+wp_insert_term('123','ods_role_code', array('description' => 'Local Authority Department', 'slug' => 'local_authority_department'));
+wp_insert_term('126','ods_role_code', array('description' => 'Government Department', 'slug' => 'government_department'));
+wp_insert_term('128','ods_role_code', array('description' => 'Government Office Region', 'slug' => 'government_office_region'));
+wp_insert_term('131','ods_role_code', array('description' => 'Government Department Site', 'slug' => 'government_department_site'));
+wp_insert_term('132','ods_role_code', array('description' => 'Health Authority (HA)', 'slug' => 'health_authority_(ha)'));
+wp_insert_term('134','ods_role_code', array('description' => 'Health Observatory', 'slug' => 'health_observatory'));
+wp_insert_term('136','ods_role_code', array('description' => 'Strategic Health Authority Site', 'slug' => 'strategic_health_authority_site'));
+wp_insert_term('137','ods_role_code', array('description' => 'Isle Of Man Government Directorate', 'slug' => 'isle_of_man_government_directorate'));
+wp_insert_term('138','ods_role_code', array('description' => 'Isle Of Man Government Department', 'slug' => 'isle_of_man_government_department'));
+wp_insert_term('140','ods_role_code', array('description' => 'Isle Of Man Government Directorate Site', 'slug' => 'isle_of_man_government_directorate_site'));
+wp_insert_term('141','ods_role_code', array('description' => 'Local Authority', 'slug' => 'local_authority'));
+wp_insert_term('142','ods_role_code', array('description' => 'Local Health Board', 'slug' => 'local_health_board'));
+wp_insert_term('144','ods_role_code', array('description' => 'Welsh Local Health Board', 'slug' => 'welsh_local_health_board'));
+wp_insert_term('146','ods_role_code', array('description' => 'Local Service Provider (LSP)', 'slug' => 'local_service_provider_(lsp)'));
+wp_insert_term('147','ods_role_code', array('description' => 'LSP Site', 'slug' => 'lsp_site'));
+wp_insert_term('148','ods_role_code', array('description' => 'Local Health Board Site', 'slug' => 'local_health_board_site'));
+wp_insert_term('149','ods_role_code', array('description' => 'Welsh Local Health Board Site', 'slug' => 'welsh_local_health_board_site'));
+wp_insert_term('15','ods_role_code', array('description' => 'Reg\'d Under Part 2 Care Stds Act 2000', 'slug' => 'regd_under_part_2_care_stds_act_2000'));
+wp_insert_term('150','ods_role_code', array('description' => 'Military Hospital', 'slug' => 'military_hospital'));
+wp_insert_term('153','ods_role_code', array('description' => 'Northern Ireland Health & Social Care Board', 'slug' => 'northern_ireland_health_&_social_care_board'));
+wp_insert_term('154','ods_role_code', array('description' => 'Northern Ireland Health And Social Care Trust', 'slug' => 'northern_ireland_health_and_social_care_trust'));
+wp_insert_term('155','ods_role_code', array('description' => 'Northern Ireland Local Commissioning Group', 'slug' => 'northern_ireland_local_commissioning_group'));
+wp_insert_term('157','ods_role_code', array('description' => 'Non-NHS Organisation', 'slug' => 'non-nhs_organisation'));
+wp_insert_term('158','ods_role_code', array('description' => 'Non Statutory NHS Organisation', 'slug' => 'non_statutory_nhs_organisation'));
+wp_insert_term('159','ods_role_code', array('description' => 'National Application Service Provider', 'slug' => 'national_application_service_provider'));
+wp_insert_term('161','ods_role_code', array('description' => 'NHS Support Agency', 'slug' => 'nhs_support_agency'));
+wp_insert_term('162','ods_role_code', array('description' => 'Other Statutory Authority (OSA)', 'slug' => 'other_statutory_authority_(osa)'));
+wp_insert_term('166','ods_role_code', array('description' => 'Optical Headquarters', 'slug' => 'optical_headquarters'));
+wp_insert_term('167','ods_role_code', array('description' => 'Optical Site', 'slug' => 'optical_site'));
+wp_insert_term('168','ods_role_code', array('description' => 'Other Statutory Authority Site', 'slug' => 'other_statutory_authority_site'));
+wp_insert_term('169','ods_role_code', array('description' => 'Other Unit (in support Of NHS business)', 'slug' => 'other_unit_(in_support_of_nhs_business)'));
+wp_insert_term('171','ods_role_code', array('description' => 'Primary Care Group', 'slug' => 'primary_care_group'));
+wp_insert_term('172','ods_role_code', array('description' => 'Independent Sector Healthcare Provider', 'slug' => 'independent_sector_healthcare_provider'));
+wp_insert_term('173','ods_role_code', array('description' => 'Pathology Lab', 'slug' => 'pathology_lab'));
+wp_insert_term('175','ods_role_code', array('description' => 'Prison', 'slug' => 'prison'));
+wp_insert_term('176','ods_role_code', array('description' => 'Independent Sector H/C Provider Site', 'slug' => 'independent_sector_h/c_provider_site'));
+wp_insert_term('177','ods_role_code', array('description' => 'Prescribing Cost Centre', 'slug' => 'prescribing_cost_centre'));
+wp_insert_term('179','ods_role_code', array('description' => 'Primary Care Trust', 'slug' => 'primary_care_trust'));
+wp_insert_term('180','ods_role_code', array('description' => 'Primary Care Trust Site', 'slug' => 'primary_care_trust_site'));
+wp_insert_term('181','ods_role_code', array('description' => 'Pharmacy Headquarter', 'slug' => 'pharmacy_headquarter'));
+wp_insert_term('182','ods_role_code', array('description' => 'Pharmacy', 'slug' => 'pharmacy'));
+wp_insert_term('185','ods_role_code', array('description' => 'Regional Office (RO)', 'slug' => 'regional_office_(ro)'));
+wp_insert_term('189','ods_role_code', array('description' => 'Special Health Authority (SPHA)', 'slug' => 'special_health_authority_(spha)'));
+wp_insert_term('190','ods_role_code', array('description' => 'Scottish Health Board', 'slug' => 'scottish_health_board'));
+wp_insert_term('191','ods_role_code', array('description' => 'Special Health Authority Site', 'slug' => 'special_health_authority_site'));
+wp_insert_term('197','ods_role_code', array('description' => 'NHS Trust', 'slug' => 'nhs_trust'));
+wp_insert_term('198','ods_role_code', array('description' => 'NHS Trust Site', 'slug' => 'nhs_trust_site'));
+wp_insert_term('200','ods_role_code', array('description' => 'Welsh Assembly', 'slug' => 'welsh_assembly'));
+wp_insert_term('209','ods_role_code', array('description' => 'NHS England (Region)', 'slug' => 'nhs_england_(region)'));
+wp_insert_term('21','ods_role_code', array('description' => 'Level 03 PCT', 'slug' => 'level_03_pct'));
+wp_insert_term('210','ods_role_code', array('description' => 'NHS England (Region, Local Office)', 'slug' => 'nhs_england_(region,_local_office)'));
+wp_insert_term('211','ods_role_code', array('description' => 'Specialised Commissioning Hub', 'slug' => 'specialised_commissioning_hub'));
+wp_insert_term('212','ods_role_code', array('description' => 'NHS England (Region, Local Office) Site', 'slug' => 'nhs_england_(region,_local_office)_site'));
+wp_insert_term('213','ods_role_code', array('description' => 'Commissioning Support Unit', 'slug' => 'commissioning_support_unit'));
+wp_insert_term('214','ods_role_code', array('description' => 'Commissioning Support Unit Site', 'slug' => 'commissioning_support_unit_site'));
+wp_insert_term('215','ods_role_code', array('description' => 'Hosts Data Managment Integration Centre (DMIC)', 'slug' => 'hosts_data_managment_integration_centre_(dmic)'));
+wp_insert_term('216','ods_role_code', array('description' => 'Data Services For Commissioners Regional Office (DSCRO)', 'slug' => 'data_services_for_commissioners_regional_office_(dscro)'));
+wp_insert_term('217','ods_role_code', array('description' => 'DSCRO Site', 'slug' => 'dscro_site'));
+wp_insert_term('218','ods_role_code', array('description' => 'Commissioning Hub', 'slug' => 'commissioning_hub'));
+wp_insert_term('22','ods_role_code', array('description' => 'Level 04 PCT', 'slug' => 'level_04_PCT'));
+wp_insert_term('221','ods_role_code', array('description' => 'School', 'slug' => 'school'));
+wp_insert_term('222','ods_role_code', array('description' => 'Local Authority Site', 'slug' => 'local_authority_site'));
+wp_insert_term('223','ods_role_code', array('description' => 'London Borough', 'slug' => 'london_borough'));
+wp_insert_term('227','ods_role_code', array('description' => 'Scottish GP Practice', 'slug' => 'scottish_gp_practice'));
+wp_insert_term('228','ods_role_code', array('description' => 'Young Offender Institution', 'slug' => 'young_offender_institution'));
+wp_insert_term('229','ods_role_code', array('description' => 'Non Residential Institution', 'slug' => 'non_residential_institution'));
+wp_insert_term('230','ods_role_code', array('description' => 'Secure Training Centre', 'slug' => 'secure_training_centre'));
+wp_insert_term('231','ods_role_code', array('description' => 'Secure Children\'s Home', 'slug' => 'secure_childrens_home'));
+wp_insert_term('232','ods_role_code', array('description' => 'Immigration Removal Centre', 'slug' => 'immigration_removal_centre'));
+wp_insert_term('233','ods_role_code', array('description' => 'Constabulary', 'slug' => 'constabulary'));
+wp_insert_term('234','ods_role_code', array('description' => 'Police Custody Suite', 'slug' => 'police_custody_suite'));
+wp_insert_term('235','ods_role_code', array('description' => 'Court', 'slug' => 'court'));
+wp_insert_term('236','ods_role_code', array('description' => 'Sexual Assault Referral Centre', 'slug' => 'sexual_assault_referral_centre'));
+wp_insert_term('24','ods_role_code', array('description' => 'NHS Trust Derived', 'slug' => 'nhs_trust_derived'));
+wp_insert_term('246','ods_role_code', array('description' => 'Care Home/Nursing Home Prescribing Cost Centre', 'slug' => 'care_home/nursing_home_prescribing_cost_centre'));
+wp_insert_term('247','ods_role_code', array('description' => 'Community Health Service Prescribing Cost Centre', 'slug' => 'community_health_service_prescribing_cost_centre'));
+wp_insert_term('248','ods_role_code', array('description' => 'Court Prescribing Cost Centre', 'slug' => 'court_prescribing_cost_centre'));
+wp_insert_term('249','ods_role_code', array('description' => 'Hospice Prescribing Cost Centre', 'slug' => 'hospice_prescribing_cost_centre'));
+wp_insert_term('25','ods_role_code', array('description' => 'PCT Derived', 'slug' => 'pct_derived'));
+wp_insert_term('250','ods_role_code', array('description' => 'Hospital Service Prescribing Cost Centre', 'slug' => 'hospital_service_prescribing_cost_centre'));
+wp_insert_term('251','ods_role_code', array('description' => 'Immigration Removal Centre Prescribing Cost Centre', 'slug' => 'immigration_removal_centre_prescribing_cost_centre'));
+wp_insert_term('252','ods_role_code', array('description' => 'Optometry Service Prescribing Cost Centre', 'slug' => 'optometry_service_prescribing_cost_centre'));
+wp_insert_term('255','ods_role_code', array('description' => 'Public Health Service Prescribing Cost Centre', 'slug' => 'public_health_service_prescribing_cost_centre'));
+wp_insert_term('256','ods_role_code', array('description' => 'Secure Children\'s Home Prescribing Cost Centre', 'slug' => 'secure_childrens_home_prescribing_cost_centre'));
+wp_insert_term('257','ods_role_code', array('description' => 'Secure Training Centre Prescribing Cost Centre', 'slug' => 'secure_training_centre_prescribing_cost_centre'));
+wp_insert_term('258','ods_role_code', array('description' => 'Sexual Assault Referral Centre Prescribing Cost Centre', 'slug' => 'sexual_assault_referral_centre_prescribing_cost_centre'));
+wp_insert_term('259','ods_role_code', array('description' => 'Urgent & Emergency Care Prescribing Cost Centre', 'slug' => 'urgent_&_emergency_care_prescribing_cost_centre'));
+wp_insert_term('260','ods_role_code', array('description' => 'Young Offender Institution Prescribing Cost Centre', 'slug' => 'young_offender_institution_prescribing_cost_centre'));
+wp_insert_term('261','ods_role_code', array('description' => 'Strategic Partnership', 'slug' => 'strategic_partnership'));
+wp_insert_term('262','ods_role_code', array('description' => 'Sustainability Transformation Partnership', 'slug' => 'sustainability_transformation_partnership'));
+wp_insert_term('266','ods_role_code', array('description' => 'Extended Access Provider', 'slug' => 'extended_access_provider'));
+wp_insert_term('267','ods_role_code', array('description' => 'Extended Access Hub', 'slug' => 'extended_access_hub'));
+wp_insert_term('268','ods_role_code', array('description' => 'Medicine Supplier', 'slug' => 'medicine_supplier'));
+wp_insert_term('269','ods_role_code', array('description' => 'Care Home', 'slug' => 'care_home'));
+wp_insert_term('270','ods_role_code', array('description' => 'Domiciliary Care', 'slug' => 'domiciliary_care'));
+wp_insert_term('272','ods_role_code', array('description' => 'Primary Care Network', 'slug' => 'primary_care_network'));
+wp_insert_term('273','ods_role_code', array('description' => 'Combined Authority', 'slug' => 'combined_authority'));
+wp_insert_term('274','ods_role_code', array('description' => 'Local Health And Care Record Exemplar', 'slug' => 'local_health_and_care_record_exemplar'));
+wp_insert_term('275','ods_role_code', array('description' => 'SMHPC - CYPMHS Tier 4', 'slug' => 'smhpc_-_cypmhs_tier_4'));
+wp_insert_term('276','ods_role_code', array('description' => 'SMHPC - Adult Eating Disorders', 'slug' => 'smhpc_-_adult_eating_disorders'));
+wp_insert_term('277','ods_role_code', array('description' => 'SMHPC - Adult Secure Services', 'slug' => 'smhpc_-_adult_secure_services'));
+wp_insert_term('279','ods_role_code', array('description' => 'COVID Vaccination Centre', 'slug' => 'covid_vaccination_centre'));
+wp_insert_term('280','ods_role_code', array('description' => 'Pharmacy Site', 'slug' => 'pharmacy_site'));
+wp_insert_term('281','ods_role_code', array('description' => 'Community School', 'slug' => 'community_school'));
+wp_insert_term('282','ods_role_code', array('description' => 'Voluntary Aided School', 'slug' => 'voluntary_aided_school'));
+wp_insert_term('283','ods_role_code', array('description' => 'Voluntary Controlled School', 'slug' => 'voluntary_controlled_school'));
+wp_insert_term('284','ods_role_code', array('description' => 'Foundation School', 'slug' => 'foundation_school'));
+wp_insert_term('285','ods_role_code', array('description' => 'City Technology College', 'slug' => 'city_technology_college'));
+wp_insert_term('286','ods_role_code', array('description' => 'Community Special School', 'slug' => 'community_special_school'));
+wp_insert_term('287','ods_role_code', array('description' => 'Non-Maintained Special School', 'slug' => 'non-maintained_special_school'));
+wp_insert_term('288','ods_role_code', array('description' => 'Other Independent Special School', 'slug' => 'other_independent_special_school'));
+wp_insert_term('289','ods_role_code', array('description' => 'Other Independent School', 'slug' => 'other_independent_school'));
+wp_insert_term('29','ods_role_code', array('description' => 'Treatment Centre', 'slug' => 'treatment_centre'));
+wp_insert_term('290','ods_role_code', array('description' => 'Foundation Special School', 'slug' => 'foundation_special_school'));
+wp_insert_term('291','ods_role_code', array('description' => 'Pupil Referral Unit', 'slug' => 'pupil_referral_unit'));
+wp_insert_term('292','ods_role_code', array('description' => 'Local Authority Nursery School', 'slug' => 'local_authority_nursery_school'));
+wp_insert_term('293','ods_role_code', array('description' => 'Further Education', 'slug' => 'further_education'));
+wp_insert_term('294','ods_role_code', array('description' => 'Secure Units', 'slug' => 'secure_units'));
+wp_insert_term('296','ods_role_code', array('description' => 'Miscellaneous', 'slug' => 'miscellaneous'));
+wp_insert_term('297','ods_role_code', array('description' => 'Academy Sponsor Led', 'slug' => 'academy_sponsor_led'));
+wp_insert_term('298','ods_role_code', array('description' => 'Higher Education Institutions', 'slug' => 'higher_education_institutions'));
+wp_insert_term('299','ods_role_code', array('description' => 'Sixth Form Centres', 'slug' => 'sixth_form_centres'));
+wp_insert_term('30','ods_role_code', array('description' => 'Research And Development', 'slug' => 'research_and_development'));
+wp_insert_term('300','ods_role_code', array('description' => 'Special Post 16 Institution', 'slug' => 'special_post_16_institution'));
+wp_insert_term('301','ods_role_code', array('description' => 'Academy Special Sponsor Led', 'slug' => 'academy_special_sponsor_led'));
+wp_insert_term('302','ods_role_code', array('description' => 'Academy Converter', 'slug' => 'academy_converter'));
+wp_insert_term('303','ods_role_code', array('description' => 'Free Schools', 'slug' => 'free_schools'));
+wp_insert_term('304','ods_role_code', array('description' => 'Free Schools Special', 'slug' => 'free_schools_special'));
+wp_insert_term('305','ods_role_code', array('description' => 'Free Schools Alternative Provision', 'slug' => 'free_schools_alternative_provision'));
+wp_insert_term('306','ods_role_code', array('description' => 'Free Schools 16 to 19', 'slug' => 'free_schools_16_to_19'));
+wp_insert_term('307','ods_role_code', array('description' => 'University Technical College', 'slug' => 'university_technical_college'));
+wp_insert_term('308','ods_role_code', array('description' => 'Studio Schools', 'slug' => 'studio_schools'));
+wp_insert_term('309','ods_role_code', array('description' => 'Academy Alternative Provision Converter', 'slug' => 'academy_alternative_provision_converter'));
+wp_insert_term('31','ods_role_code', array('description' => 'PPA Epact System', 'slug' => 'ppa_epact_system'));
+wp_insert_term('310','ods_role_code', array('description' => 'Academy Alternative Provision Sponsor Led', 'slug' => 'academy_alternative_provision_sponsor_led'));
+wp_insert_term('311','ods_role_code', array('description' => 'Academy Special Converter', 'slug' => 'academy_special_converter'));
+wp_insert_term('312','ods_role_code', array('description' => 'Academy 16-19 Converter', 'slug' => 'academy_16-19_converter'));
+wp_insert_term('313','ods_role_code', array('description' => 'Academy 16 to 19 Sponsor Led', 'slug' => 'academy_16_to_19_sponsor_led'));
+wp_insert_term('314','ods_role_code', array('description' => 'Institution Funded By Other Government Department', 'slug' => 'institution_funded_by_other_government_department'));
+wp_insert_term('315','ods_role_code', array('description' => 'Northern Ireland GP Practice', 'slug' => 'northern_ireland_gp_practice'));
+wp_insert_term('316','ods_role_code', array('description' => 'Special Schools Eye Care Service Provider', 'slug' => 'special_schools_eye_care_service_provider'));
+wp_insert_term('317','ods_role_code', array('description' => 'Community Diagnostic Centre', 'slug' => 'community_diagnostic_centre'));
+wp_insert_term('318','ods_role_code', array('description' => 'Integrated Care Board', 'slug' => 'integrated_care_board'));
+wp_insert_term('319','ods_role_code', array('description' => 'Sub Icb Location', 'slug' => 'sub_icb_location'));
+wp_insert_term('320','ods_role_code', array('description' => 'Elective Surgical Hub', 'slug' => 'elective_surgical_hub'));
+wp_insert_term('321','ods_role_code', array('description' => 'Primary Care Network Prescribing Cost Centre', 'slug' => 'primary_care_network_prescribing_cost_centre'));
+wp_insert_term('322','ods_role_code', array('description' => 'Northern Ireland Non-Hpss Provider/Organisation', 'slug' => 'northern_ireland_non-hpss_provider/organisation'));
+wp_insert_term('324','ods_role_code', array('description' => 'SMHPC - Perinatal Mh', 'slug' => 'smhpc_-_perinatal_mh'));
+wp_insert_term('33','ods_role_code', array('description' => 'County Council', 'slug' => 'county_council'));
+wp_insert_term('34','ods_role_code', array('description' => 'Borough Council', 'slug' => 'borough_council'));
+wp_insert_term('35','ods_role_code', array('description' => 'City Council', 'slug' => 'city_council'));
+wp_insert_term('36','ods_role_code', array('description' => 'District Council', 'slug' => 'district_council'));
+wp_insert_term('37','ods_role_code', array('description' => 'Metropolitan District', 'slug' => 'metropolitan_district'));
+wp_insert_term('38','ods_role_code', array('description' => 'Council', 'slug' => 'council'));
+wp_insert_term('39','ods_role_code', array('description' => 'Metropolitan District Council', 'slug' => 'metropolitan_district_council'));
+wp_insert_term('40','ods_role_code', array('description' => 'Unitary Authority', 'slug' => 'unitary_authority'));
+wp_insert_term('57','ods_role_code', array('description' => 'Foundation Trust', 'slug' => 'foundation_trust'));
+wp_insert_term('65','ods_role_code', array('description' => 'Private Dental Practice', 'slug' => 'private_dental_practice'));
+wp_insert_term('67','ods_role_code', array('description' => 'Specialised Commissioning Group', 'slug' => 'specialised_commissioning_group'));
+wp_insert_term('7','ods_role_code', array('description' => 'Hospice', 'slug' => 'hospice'));
+wp_insert_term('71','ods_role_code', array('description' => 'Privately Owned Entity', 'slug' => 'privately_owned_entity'));
+wp_insert_term('72','ods_role_code', array('description' => 'Other Prescribing Cost Centre', 'slug' => 'other_prescribing_cost_centre'));
+wp_insert_term('76','ods_role_code', array('description' => 'GP Practice', 'slug' => 'gp_practice'));
+wp_insert_term('80','ods_role_code', array('description' => 'Out Of Hours Cost Centre', 'slug' => 'out_of_hours_cost_centre'));
+wp_insert_term('82','ods_role_code', array('description' => 'Prison Prescribing Cost Centre', 'slug' => 'prison_prescribing_cost_centre'));
+wp_insert_term('83','ods_role_code', array('description' => 'Residential Institution', 'slug' => 'residential_institution'));
+wp_insert_term('87','ods_role_code', array('description' => 'Walk In Centre', 'slug' => 'walk_in_centre'));
+wp_insert_term('88','ods_role_code', array('description' => 'GP Abeyance And Dispersal', 'slug' => 'gp_abeyance_and_dispersal'));
+wp_insert_term('89','ods_role_code', array('description' => 'Executive Agency Programme - Department', 'slug' => 'executive_agency_programme_-_department'));
+wp_insert_term('90','ods_role_code', array('description' => 'Executive Agency Site', 'slug' => 'executive_agency_site'));
+wp_insert_term('91','ods_role_code', array('description' => 'Executive Agency Programme', 'slug' => 'executive_agency_programme'));
+wp_insert_term('92','ods_role_code', array('description' => 'Application Service Provider', 'slug' => 'application_service_provider'));
+wp_insert_term('93','ods_role_code', array('description' => 'Application Service Provider - Legacy', 'slug' => 'application_service_provider_-_legacy'));
+wp_insert_term('94','ods_role_code', array('description' => 'Appliance Contractor', 'slug' => 'appliance_contractor'));
+wp_insert_term('96','ods_role_code', array('description' => 'Branch Surgery', 'slug' => 'branch_surgery'));
+wp_insert_term('98','ods_role_code', array('description' => 'Clinical Commissioning Group', 'slug' => 'clinical_commissioning_group'));
+wp_insert_term('99','ods_role_code', array('description' => 'Clinical Commissioning Group Site', 'slug' => 'clinical_commissioning_group_site'));
+
 }
 
 add_action('wp_loaded', 'hw_feedback_register_default_terms');
@@ -246,7 +512,7 @@ add_action('wp_loaded', 'hw_feedback_register_default_terms');
  * https://codebriefly.com/display-wordpress-custom-taxonomy-dropdown/
  * I don't fully understand how this works but it does.
  */
-function hw_feedback_cqc_reg_status_meta_box_callback($post, $box) {
+function hw_feedback_taxonomy_meta_box_callback($post, $box) {
   $defaults = array('taxonomy' => 'category');
 
   if (!isset($box['args']) || !is_array($box['args']))
@@ -338,15 +604,15 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
         echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
       }
     }
+    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '?referer=widget4" target="_blank">Check this registration on the CQC website</a></div>';
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
       <div class="api-output-deregistered">
         <div class="api-output-label">Deregistration Date:</div><div class="api-output-value"><?php echo $objcqcapiquery->deregistrationDate?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
-      </div><?
+        <div id="hw-services-cqc-deg-reg-alert" role="alert"><p>This service has been automatically marked as 'Deregistered'. If there is a new registration, update the <strong>Location ID</strong> above. If there is no new registration, change the <a href="#tagsdiv-cqc_reg_status">CQC Registration Status</a> to 'Archived'.</p></div>
+      </div><?php
     }
-    echo '<a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '?referer=widget4" target="_blank">Check this registration on the CQC website</a>';
   }
 
 // ODS
@@ -354,22 +620,84 @@ echo '<h2><strong>ODS Information</strong></h2><br />';
 // ODS CODE
 $value = get_post_meta( $post->ID, 'hw_services_ods_code', true );
 echo '<label for="hw_services_ods_code">ODS Code </label>';
-echo '<input type="text" id="hw_services_ods_code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
+echo '<input type="text" id="hw-services-ods-code" name="hw_services_ods_code" value="' . esc_attr( $value ) . '" size="6" />';
+echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert">Remember to save this change!</div>';
   // only check API and show fields if there is a ODS Code
   if ($value != '') {
+    error_log('hw-feedback: ods_code found ' . $value);
     $objodsapiquery = json_decode(hw_feedback_ods_api_query_by_code(esc_attr($value)));
     $is_active = $objodsapiquery->active ? 'Yes' : 'No';
     echo '<br /><h3>API Checks</h3>';
     echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'.$objodsapiquery->name.'</div></div>';
     echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
-    echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>'; 
-    if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){ ?>
+    echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>';
+    echo '<div id="api-output-url" class="api-output"><a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a></div>';
+    if ( isset($objodsapiquery->active) && $objodsapiquery->active != true){
+      error_log('hw-feedback: ods_code inactive');
+      // get postcode
+      $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
+      $search_options = array(
+        'active' => 'true',
+        'address-postalcode:exact' => $postcode
+      );
+      error_log('hw-feedback: ods search for ' . $postcode);
+      // search for active services at postcode
+      $objodsapiquerysearch = json_decode(hw_feedback_ods_api_query_search($search_options));
+      // set the text
+      $ods_inactive_alert_text = 'This organisation is no longer active.';
+      if ($objodsapiquerysearch->total == 0) {
+        $ods_inactive_alert_text .= ' There are no active services listed in the ODS <strong>at the same postcode</strong>.';
+      }
+      ?>
       <div class="api-output-inactive">
-        <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquery->meta->lastUpdated))?></div>
-        <div id="hw_services_cqc_deg_reg_alert" role="alert"><p>This organisation is no longer active.</p></div>
-      </div><?
+        <div class="api-output-label">Last Updated:</div><div class="api-output-value"><?php echo date("F jS, Y", strtotime($objodsapiquerysearch->meta->lastUpdated))?></div>
+        <div id="hw-services-ods-inactive-alert" role="alert"><p><?php echo $ods_inactive_alert_text?></p></div>
+      </div>
+      <?php
+      if ($objodsapiquerysearch->total != 0) {
+        echo '<div id="ods-possible-matches-container"><h3>Possible Matches</h3><p>The following active services are listed in the ODS <strong>at the same postcode</strong>.';
+        hw_feedback_generate_ods_registration_table($objodsapiquerysearch, get_the_title($post)); // service name
+        echo '</div>';
+      }
     }
-    echo '<a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $objodsapiquery->id . '" target="_blank">Check this registration in the ODS API</a>';
+  } else {
+    error_log('hw-feedback: no ods_code found');
+    $search_options = array(
+      'active' => 'true'
+    );
+    // get postcode
+    $postcode = get_post_meta($post->ID, 'hw_services_postcode', true);
+    $search_options['address-postalcode:exact'] = $postcode;
+    error_log('hw-feedback: ods search for ' . $postcode);
+    // get ODS Role Codes for the post - there should be none but you never know!
+    $ods_role_code_tax_terms = wp_get_post_terms($post->ID, 'ods_role_code', array("fields" => "names"));
+    // if there is more than one ODS Role Code for the post, do nothing
+    if (!isset($ods_role_code_tax_terms[1])) {
+      // if there is at least one
+      if (isset($ods_role_code_tax_terms[0])) {
+        $search_options['ods-org-role'] = $ods_role_code_tax_terms[0];
+      }
+    }
+    $objodsapiquery = json_decode(hw_feedback_ods_api_query_search($search_options));
+    if ( $objodsapiquery->total == 1 ) {
+      error_log('hw-feedback: ods search for role_code' . $ods_role_code_tax_terms[0]);
+      error_log('hw-feedback: ods search 1 result');
+      $is_active = $objodsapiquery->entry[0]->resource->active ? 'Yes' : 'No';
+      echo '<br /><h3 id="api-checks">API Checks</h3>';
+      echo '<p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' result</a>';
+      echo '<div id="api-output-code" class="api-output"><div class="api-output-label">Organisation Code:</div><div class="api-output-value">' . $objodsapiquery->entry[0]->resource->id . '</div></div>';
+      echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->name .'</div></div>';
+      echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
+      echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'. $objodsapiquery->entry[0]->resource->extension[0]->valuePeriod->start.'</div></div>';
+      echo '<button id="ods-single-result-button" class="ed_button button button-small" type="button" onclick="update_ods_code_single(\'hw-services-ods-code\',\'' . $objodsapiquery->entry[0]->resource->id . '\')">Match to provider</button>';
+    } else {
+      echo '<br /><h3>API Checks</h3>';
+      echo '<div id="ods-registration-results-container"><p><a href="'. $objodsapiquery->link[0]->url . '" target="_blank">'. $objodsapiquery->total . ' results</a> - click a row to update the ODS Code for this provider.</p>';
+      if ( $objodsapiquery->total != 0 ) {
+        hw_feedback_generate_ods_registration_table($objodsapiquery, get_the_title($post));
+      }
+      echo '</div>';
+    }
   }
 echo "<br />";
 
@@ -744,17 +1072,17 @@ function hw_feedback_check_cqc_registration_status() {
 
     // set php mailer variables
     $to = get_option('admin_email');
-    $subject = "Local Services - registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
+    $subject = "Local Services - CQC registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
     // set headers to allow HTML
     $headers = array('Content-Type: text/html; charset=UTF-8');
     // build the content
-    $formatted_message = '<p>Hi!</p><p>The registration check completed successfully at ' . date('d/m/Y h:i:s a', time()).'</p>';
+    $formatted_message = '<p>Hi!</p><p>The CQC registration check completed successfully at ' . date('d/m/Y h:i:s a', time()).'</p>';
     // check if there were changes
     if (empty($registration_status_changed)) {
       $formatted_message .= '<p>There were no changes.</p>';
     } else {
     // compose an email contain reg changes
-      $formatted_message .= '<p>The registration status of the following services was updated automatically:</p><ul>';
+      $formatted_message .= '<p>The CQC registration status of the following services was updated automatically:</p><ul>';
       foreach ($registration_status_changed as $post_id) {
         $location_id = get_post_meta( $post_id, 'hw_services_cqc_location', true );
         $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://www.cqc.org.uk/location/' . $location_id . '" target="_blank">' . $location_id . '</a> (';
@@ -763,18 +1091,20 @@ function hw_feedback_check_cqc_registration_status() {
       $formatted_message .= '</ul>';
     }
     $formatted_message .= '<p>Hugs and kisses!</p>';
-    $sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
+    $updates_sent = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
 
-    if ( $sent ) {
+    if ( $updates_sent ) {
       error_log('hw-feedback: cqc reg update email sent with '. count($registration_status_changed) .' changes');
     } else {
-      error_log('hw-feedback: reg update email failed');
+      error_log('hw-feedback: cqc reg update email failed');
     }
 }
 
 /* 10. Link cron job to function check_cqc_registration_status
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+add_action( 'hw_feedback_ods_check_bootstrap_cron_job', 'hw_feedback_ods_checks_bootstrap');
+add_action( 'hw_feedback_ods_updates_cron_job', 'hw_feedback_ods_checks_update');
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {

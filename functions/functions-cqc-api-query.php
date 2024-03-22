@@ -34,7 +34,7 @@
     $parameters = array_merge($defaults,$parameters);
     // some sanity checks
     if ($parameters['perPage'] > 1000) {
-      die("Error in ".__FUNCTION__.": perPage request $parameters->perPage greater than 1000");
+      die("Error in ".__FUNCTION__.": perPage request " . $parameters['perPage'] . " greater than 1000");
     }
     if ( ! $parameters['localAuthority']) {
       die("Error in ".__FUNCTION__.": localAuthority required e.g. Buckinghamshire");
@@ -157,20 +157,6 @@ function hw_feedback_generate_local_auth_options($args,$options) {
   <?php }
 }
 
-// Query ODS API by ODS Code
-function hw_feedback_ods_api_query_by_code($code) {
-  $options = get_option( 'hw_feedback_options' );
-  // ODS API root
-  $url = 'https://directory.spineservices.nhs.uk/STU3/Organization';
-  $request_url = $url . '/' . $code;
-  $curl = curl_init($request_url);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  // no auth needed
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return $response;
-}
-
 function hw_feedback_check_cqc_registration_status_single($post_id) {
   $single_local_service = get_post($post_id);
   // get location id
@@ -232,6 +218,8 @@ function hw_feedback_update_local_services($post_id, $post, $update) {
   if (( 'post.php' === $pagenow ) && ( $update )) {
     error_log('hw-feedback: update action');
     hw_feedback_check_cqc_registration_status_single($post_id);
+    hw_feedback_ods_role_code_bootstrap($post_id);
+    hw_feedback_check_ods_registration_single($post_id);
   }
   add_action( 'save_post_local_services', 'hw_feedback_update_local_services', 10, 3);
 }
@@ -246,6 +234,8 @@ function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_m
   // only do something if the hw_services_cqc_location is UPDATED
   if (( 'post.php' === $pagenow ) && ($meta_key == 'hw_services_cqc_location')) {
     hw_feedback_check_cqc_registration_status_single($post_id);
+    hw_feedback_ods_role_code_bootstrap($post_id);
+    hw_feedback_check_ods_registration_single($post_id);
   }
   add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 }
