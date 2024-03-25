@@ -192,7 +192,12 @@ function hw_feedback_ods_checks($mode)
     $formatted_message .= '<p>There were no Status changes.</p>';
   } else {
     // compose an email contain reg changes
-    $formatted_message .= '<p>The Status of the following services have changed:</p><ul>';
+    if ( count($ods_status_changed) == 1 ) {
+      $formatted_message .= '<p>The Status of the following service has changed to Inactive:</p><ul>';
+    } else {
+      $formatted_message .= '<p>The Status of the following services has changed to Inactive:</p><ul>';
+    }
+    // add a list
     foreach ($ods_status_changed as $post_id) {
       $ods_code = get_post_meta($post_id, 'hw_services_ods_code', true);
       $formatted_message .= '<li>' . get_the_title($post_id) . ' - <a href="https://directory.spineservices.nhs.uk/STU3/Organization/' . $ods_code . '" target="_blank">' . $ods_code . '</a> (';
