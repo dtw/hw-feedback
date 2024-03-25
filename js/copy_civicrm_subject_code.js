@@ -60,11 +60,31 @@ async function update_from_cqc($target, $source) {
   document.getElementById($target).value = document.getElementById($source).value;
 }
 
+async function update_ods_code($target, $source) {
+  document.getElementById($target).value = document.getElementById($source).innerText;
+  if (document.getElementById($target).value != '') {
+    document.getElementById('hw-services-ods-code-alert').style.display = "inline-block";
+  }
+}
+
+async function update_ods_code_single($target, $value) {
+  document.getElementById($target).value = $value;
+  document.getElementById('hw-services-ods-code-alert').style.display = "inline-block";
+}
+
 /* this is used on local_services edit page */
 jQuery(document).ready(function ($) {
   $("#hw-services-cqc-location").change(function(){
     if ($("#hw-services-cqc-location").value != ''){
       $("#hw-services-cqc-location-alert").css("display", "inline-block");
+    }
+  });
+});
+
+jQuery(document).ready(function ($) {
+  $("#hw-services-ods-code").change(function () {
+    if ($("#hw-services-ods-code").value != '') {
+      $("#hw-services-ods-code-alert").css("display", "inline-block");
     }
   });
 });
