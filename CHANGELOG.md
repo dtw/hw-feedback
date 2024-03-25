@@ -16,7 +16,9 @@ This is marked as a beta release. Not something I would normally do but while al
     - new hidden taxonomy for ODS Role Codes (none to many of 195 codes provided in the API)
     - new hidden taxonomy for ODS Status (Active/Inactive and *Unmatched*)
     - bootstraping ODS Role Codes for *Unmatched* local_services posts based on CQC Inspection Categories
-    - auto-updates of *Unmatched* local_services posts' ODS Code and Status from the API via 'best matching' on hw_services_postcode, ODS Role Codes and name
+    - scheduled updates of local_services posts', including:
+        - automatic 'best matching' of ODS Code, based on hw_services_postcode, ODS Role Codes and name
+        - checking and reporting ODS Status changes via email
     - a list of possible matches for *Unmatched* local_services in the edit post screen, showing:
         - ODS Code, Name, name match percentage (using PHP similar_text), name Levenshtein distance, Last Updated, ODS API Link, plus Role Codes, Names and Start Dates
         - visual cues for name match % of 95% or more and a Levenshtein distance of less than 1
