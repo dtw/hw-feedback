@@ -237,19 +237,19 @@ if (is_admin()) {
 
     $plugin_url_path = WP_PLUGIN_URL;
 
-    if ($commentphone = get_comment_meta(get_comment_ID(), 'feedback_phone', true)) {
-      $commentphone = '<strong>Phone: </strong>' . esc_attr($commentphone) . '<br/><br/>';
-    }
+	if( ! empty(get_comment_meta( get_comment_ID(), 'feedback_phone', true ) )) {
+		$commentphone = '<strong>Phone: </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_phone', true) ) . '<br/><br/>';
+	}
 
     /* if( $commentaddress = get_comment_meta( get_comment_ID(), 'feedback_address', true ) ) {
 		$commentaddress = '<strong>Address: </strong>' . esc_attr( $commentaddress ) . '<br/><br/>';
 	} */
 
-    if ($commentwhen = get_comment_meta(get_comment_ID(), 'feedback_when', true)) {
-      $commentwhen = '<strong>When? </strong>' . esc_attr($commentwhen) . '<br/><br/>';
-    }
+	if ( !empty(get_comment_meta( get_comment_ID(), 'feedback_when', true )) ) {
+		$commentwhen = '<strong>When? </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_when', true) ) . '<br/><br/>';
+	}
 
-    // if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
+// if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
 
 
     $text = $text . "<br /><br />" . $commentphone . $commentwhen;
