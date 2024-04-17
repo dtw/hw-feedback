@@ -226,12 +226,14 @@ if (is_admin()) {
 
   function hw_feedback_modify_comment($text)
   {
+    $text = $text . "<br /><br />";
 
 
     $plugin_url_path = WP_PLUGIN_URL;
 
 	if( ! empty(get_comment_meta( get_comment_ID(), 'feedback_phone', true ) )) {
 		$commentphone = '<strong>Phone: </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_phone', true) ) . '<br/><br/>';
+    $text = $text . $commentphone;
 	}
 
     /* if( $commentaddress = get_comment_meta( get_comment_ID(), 'feedback_address', true ) ) {
@@ -240,12 +242,10 @@ if (is_admin()) {
 
 	if ( !empty(get_comment_meta( get_comment_ID(), 'feedback_when', true )) ) {
 		$commentwhen = '<strong>When? </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_when', true) ) . '<br/><br/>';
+      $text = $text . $commentwhen;
 	}
 
 // if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
-
-
-    $text = $text . "<br /><br />" . $commentphone . $commentwhen;
 
     if ($commentrating = get_comment_meta(get_comment_ID(), 'feedback_rating', true)) {
       $commentratingtxt = '<p class="star-rating p-rating">' . hw_feedback_star_rating($commentrating, array()) . '</p><br/>Rating: <strong>' . $commentrating . ' / 5</strong></p>';
