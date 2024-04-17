@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1b] - 2024-03-22
+
+This is marked as a beta release
+
+### Changed
+- minor fixes
+
 ## [3.0b] - 2024-03-22
 
 This is marked as a beta release. Not something I would normally do but while all the functionality is here some of the housekeeping might need work.
