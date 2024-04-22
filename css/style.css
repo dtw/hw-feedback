@@ -119,6 +119,11 @@
 	margin-right: 1rem;
 }
 
+#civicrm-uuid {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
 /* admin metabox */
 
 #hw_services_meta_box .inside h2{
