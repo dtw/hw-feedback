@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Healthwatch Feedback
-Version: 3.0.1b
+Version: 3.1
 Description: Implements a Rate and Review centre on Healthwatch websites. <strong>DO NOT DELETE !</strong>
 Author: Phil Thiselton & Jason King
 */
@@ -298,6 +298,20 @@ function hw_feedback_settings_init() {
     );
     // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
     add_settings_field(
+      'hw_feedback_field_api_subscription_key', // As of WP 4.6 this value is used only internally.
+      // Use $args' label_for to populate the id inside the callback.
+      __('Subscription Key', 'hw_feedback'),
+      'hw_feedback_field_api_subscription_key_cb',
+      'hw_feedback',
+      'hw_feedback_section_api_settings',
+      array(
+        'label_for'         => 'hw_feedback_field_api_subscription_key',
+        'class'             => 'hw_feedback_row',
+        'hw_feedback_custom_data' => 'custom',
+      )
+    );
+    // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
+    add_settings_field(
         'hw_feedback_field_api_cache_path', // As of WP 4.6 this value is used only internally.
                                 // Use $args' label_for to populate the id inside the callback.
             __( 'API Cache Path', 'hw_feedback' ),
@@ -457,6 +471,7 @@ function hw_feedback_settings_defaults() {
     $defaults = array(
       'hw_feedback_field_local_authority' => '',
       'hw_feedback_field_partner_code' => '',
+      'hw_feedback_field_api_subscription_key' => '',
       'hw_feedback_field_api_cache_path' => $api_cache_path
     );
     update_option( 'hw_feedback_options', $defaults);
@@ -569,6 +584,30 @@ function hw_feedback_field_partner_code_cb( $args ) {
       value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
     <p class="description">
         <?php esc_html_e( "In order to provide CQC's public data services we ask that all organisations consuming this API add an additional query parameter to all requests. An informative but concise code representing your organisation should be chosen.", 'hw_feedback' ); ?>
+    </p>
+    <?php
+}
+
+/**
+ * api_subscription_key field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_api_subscription_key_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'hw_feedback_options' );
+    ?>
+    <input type="text"
+      id="<?php echo esc_attr( $args['label_for'] ); ?>"
+      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+      value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
+    <p class="description">
+        <?php esc_html_e("Please provide your CQC API Syndication Product Subscription Key (see https://drive.google.com/drive/folders/1jDyvSLVvB1EYjTgbM6wvQuByAQDsLkek)", 'hw_feedback' ); ?>
     </p>
     <?php
 }

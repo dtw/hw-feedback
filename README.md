@@ -35,7 +35,7 @@ Not Gutenberg compatible.
 * Uses Google ReCaptcha 2 for form submissions
 
 ### CQC API Integration
-This plugin uses the Care Quality Commission (CQC) API to help populate and maintain `local_services` posts. This is administrated using the CQC Location ID (`hw_services_cqc_location`), which is a (somewhat) unique identifier. For example, 'RXQ02' is the location code for Stoke Mandeville Hospital. With this you can find the location in the API (https://api.cqc.org.uk/public/v1/locations/RXQ02) and on the CQC website (https://www.cqc.org.uk/location/RXQ02).
+This plugin uses the Care Quality Commission (CQC) API to help populate and maintain `local_services` posts. This is administrated using the CQC Location ID (`hw_services_cqc_location`), which is a (somewhat) unique identifier. For example, 'RXQ02' is the location code for Stoke Mandeville Hospital. With this you can find the location in the API (https://api.service.cqc.org.uk/public/v1/locations/RXQ02) and on the CQC website (https://www.cqc.org.uk/location/RXQ02).
 
 With the CQC Location ID set for a `local_services` post, the plugin will look up and display information in the post edit screen, alongside existing post meta data, which can be used to update the local record. There are also checks and alerts for 'deregistration' (i.e. when a CQC registration fundamentally changes) both in the edit post screen and in bulk via a weekly cron job. The results of the bulk check are reported via email and via a WordPress dashboard widget.
 

@@ -14,11 +14,14 @@
   function hw_feedback_cqc_api_query_by_id($collection_name,$id) {
     $options = get_option( 'hw_feedback_options' );
     // CQC API root
-    $url = 'https://api.cqc.org.uk/public/v1';
-    $request_url = $url . '/' . $collection_name . '/' . $id . '?partnerCode=' . $options['hw_feedback_field_partner_code'];
+    $url = 'https://api.service.cqc.org.uk/public/v1';
+    $request_url = $url . '/' . $collection_name . '/' . $id;
     $curl = curl_init($request_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    // no auth needed
+    // auth needed!
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+      'Ocp-Apim-Subscription-Key:'. $options['hw_feedback_field_api_subscription_key']
+    ]);
     $response = curl_exec($curl);
     curl_close($curl);
     return $response;
@@ -43,7 +46,7 @@
       die("Error in ".__FUNCTION__.": primaryInspectionCategoryCode required");
     }
     // CQC API root
-    $url = 'https://api.cqc.org.uk/public/v1/locations?';
+    $url = 'https://api.service.cqc.org.uk/public/v1/locations?';
 
     /* Use this URL for testing to keep results down
     / Independent Ambulance, Primary Dental Care, Primary Medical Services, NHS Healthcare Organisation, Independent Healthcare Org, or Social Care Org
@@ -89,7 +92,11 @@
     $request_url = $url . http_build_query($parameters);
     $curl = curl_init($request_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    // no auth needed
+    // auth needed!
+    $options = get_option( 'hw_feedback_options' );
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+      'Ocp-Apim-Subscription-Key:' . $options['hw_feedback_field_api_subscription_key']
+    ]);
     $response = curl_exec($curl);
     curl_close($curl);
     return $response;
