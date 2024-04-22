@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Released]
+
+## [3.1] - 2024-04-22
+
+This is a major release since the CQC API has been updated. Previously added ODS API features are now stable.
+
+### Added
+- authorisation support for new CQC API - add your new Syndication Product Subscription Key under HW Feedback -> Settings
+
+### Changed
+- minor fixes
+
+## [3.0.1b] - 2024-03-22
+
+This is marked as a beta release
+
+### Changed
+- minor fixes
 
 ## [3.0b] - 2024-03-22
 
@@ -22,8 +39,6 @@ This is marked as a beta release. Not something I would normally do but while al
     - a list of possible matches for *Unmatched* local_services in the edit post screen, showing:
         - ODS Code, Name, name match percentage (using PHP similar_text), name Levenshtein distance, Last Updated, ODS API Link, plus Role Codes, Names and Start Dates
         - visual cues for name match % of 95% or more and a Levenshtein distance of less than 1
-
-## [Released]
 
 ## [2.8.5] - 2024-03-19
 ### Changed
