@@ -164,7 +164,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 					// get the partner code from options
 	        'partnerCode' => $options['hw_feedback_field_partner_code']
 	      )));
-				echo '<p>API Query: <a href="https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
+				echo '<p>API Query: <a href="https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">hhttps://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
 				// Convert "JSON object" to array
 				$locations = array_values($api_response->locations);
 				// count number of locations
