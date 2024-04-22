@@ -13,6 +13,9 @@ This is a major release since the CQC API has been updated. Previously added ODS
 ### Added
 - authorisation support for new CQC API - add your new Syndication Product Subscription Key under HW Feedback -> Settings
 
+### Changed
+- minor fixes
+
 ## [3.0.1b] - 2024-03-22
 
 This is marked as a beta release
