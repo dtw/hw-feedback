@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [3.1.2] - 2024-04-22
+## [3.1.3] - 2024-04-24
+
+### Fixed
+- obscure bug when a post has no thumbnail
+
+## [3.1.2] - 2024-04-24
 ### Added
 - error checks on CQC API calls
 
