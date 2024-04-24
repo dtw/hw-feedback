@@ -119,6 +119,11 @@
 	margin-right: 1rem;
 }
 
+#civicrm-uuid {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
 /* admin metabox */
 
 #hw_services_meta_box .inside h2{
@@ -139,6 +144,10 @@
 
 #hw_feedback_field_api_cache_path {
   width: 100%;
+}
+
+#hw_feedback_field_api_subscription_key {
+  width: 290px;
 }
 
 #hw_feedback_field_your_story_email {

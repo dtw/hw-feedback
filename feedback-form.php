@@ -80,6 +80,12 @@ function hw_feedback_save_comment_meta_data($comment_id)
     $rating = wp_filter_nohtml_kses($_POST['rating']);
     add_comment_meta($comment_id, 'feedback_rating', $rating);
   }
+  // apparently wp_generate_uuid4 used mt_rand(), which is seeded using the "PID + LCG" (https://www.php.net/manual/en/function.mt-rand.php) and that means collisions are "more likely"
+  // I don't REALLY know how likely we're talking here since we're not doing 30k w/s
+  // but I saw this recommended (https://developer.wordpress.org/reference/functions/wp_generate_uuid4/) and it can't hurt, can it?
+  mt_srand(crc32(serialize(array(microtime(true), $comment_id))));
+  // add a UUID for the comment
+  add_comment_meta($comment_id, 'feedback_uuid', wp_generate_uuid4());
 }
 
 // Add a moderation section in the comment edit screen
@@ -116,6 +122,7 @@ function extend_comment_meta_box($comment)
   $phone = get_comment_meta($comment->comment_ID, 'feedback_phone', true);
   // $address = get_comment_meta( $comment->comment_ID, 'feedback_address', true );
   $rating = get_comment_meta($comment->comment_ID, 'feedback_rating', true);
+  $uuid = get_comment_meta($comment->comment_ID, 'feedback_uuid', true);
   $when = get_comment_meta($comment->comment_ID, 'feedback_when', true);
   // $who = get_comment_meta( $comment->comment_ID, 'feedback_who', true );
   $response = get_comment_meta($comment->comment_ID, 'feedback_response', true);
@@ -125,6 +132,7 @@ function extend_comment_meta_box($comment)
 ?>
 
   <p>CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
+  <p>CiviCRM UUID: <span id="civicrm-uuid"><?php echo $uuid; ?></span><input type="hidden" value="<?php echo $uuid; ?>" id="civicrm-uuid-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_uuid()">Copy</button></p>
   <p>
     <label for="phone">Phone</label>
     <input id="newcomment_author_phone" type="text" name="phone" autocomplete="off" value="<?php echo esc_attr($phone); ?>" class="widefat" />

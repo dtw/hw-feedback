@@ -124,9 +124,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			</div>
     <?php
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			echo '<div id="hw-feedback-cqc-import-results">';
-			echo "<hr><h1>$primary_inspection_category Locations</h1>";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
+			<div id="hw-feedback-cqc-import-results">
+    <?php
+      echo "<hr><h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
 			// get cache file modification time or create file
@@ -160,16 +161,24 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 	        'localAuthority' => $options['hw_feedback_field_local_authority'],
 	        'page' => '1',
 	        'perPage' => '700',
-	        'primaryInspectionCategoryCode' => $primary_inspection_category,
-					// get the partner code from options
-	        'partnerCode' => $options['hw_feedback_field_partner_code']
+	        'primaryInspectionCategoryCode' => $primary_inspection_category
 	      )));
-				echo '<p>API Query: <a href="https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">hhttps://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
-				// Convert "JSON object" to array
-				$locations = array_values($api_response->locations);
-				// count number of locations
-				$total_locations = count($locations);
-				error_log("hw-feedback: " . $total_locations . " locations fetched from API");
+        // Add some API error checking
+        if (isset($api_response->statusCode)) {
+          echo '<p><strong>Status Code:</strong> ' . $api_response->statusCode . ' - ' . $api_response->message . '</p>';
+          error_log('hw-feedback: API Status Code: ' . $api_response->statusCode);
+          error_log('hw-feedback: API message: ' . $api_response->message);
+          echo "</div> <!--hw-feedback-cqc-import-results -->";
+          echo "</div> <!-- hwbucks-data-import-tool -->";
+          return;
+        } else {
+          echo '<p>API Query: <a href="https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
+          // Convert "JSON object" to array
+          $locations = array_values($api_response->locations);
+          // count number of locations
+          $total_locations = count($locations);
+          error_log("hw-feedback: " . $total_locations . " locations fetched from API");
+        }
 			}
 
       // set some counters

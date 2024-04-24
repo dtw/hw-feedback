@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [3.1.3] - 2024-04-24
+
+### Fixed
+- obscure bug when a post has no thumbnail
+
+## [3.1.2] - 2024-04-24
+### Added
+- error checks on CQC API calls
+
+### Fixed
+- API call error "Unspecified query parameter partnerCode is not allowed"
+
+### Deleted
+- uneeded hw_feedback_field_partner_code from plugin options
+
+## [3.1.1] - 2024-04-22
+### Added
+- a UUID to the comment meta when feedback is submitted for a local_service (initial commit https://github.com/dtw/hw-feedback/commit/b4ba0befc03f41085a8e21bf676e75cf55da6c0b) - now sits alongside, rather than replacing, the previous implementation
+- styles and scripts for new field
+
 ## [3.1] - 2024-04-22
 
 This is a major release since the CQC API has been updated. Previously added ODS API features are now stable.
