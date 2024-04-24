@@ -160,9 +160,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 	        'localAuthority' => $options['hw_feedback_field_local_authority'],
 	        'page' => '1',
 	        'perPage' => '700',
-	        'primaryInspectionCategoryCode' => $primary_inspection_category,
-					// get the partner code from options
-	        'partnerCode' => $options['hw_feedback_field_partner_code']
+	        'primaryInspectionCategoryCode' => $primary_inspection_category
 	      )));
 				echo '<p>API Query: <a href="https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">hhttps://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
 				// Convert "JSON object" to array
