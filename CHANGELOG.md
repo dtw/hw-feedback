@@ -4,15 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Released]
+
+## [3.1.2] - 2024-04-22
+### Added
+- error checks on CQC API calls
+
+### Fixed
+- API call error "Unspecified query parameter partnerCode is not allowed"
+
+### Deleted
+- uneeded hw_feedback_field_partner_code from plugin options
 
 ## [3.1.1] - 2024-04-22
-
 ### Added
 - a UUID to the comment meta when feedback is submitted for a local_service (initial commit https://github.com/dtw/hw-feedback/commit/b4ba0befc03f41085a8e21bf676e75cf55da6c0b) - now sits alongside, rather than replacing, the previous implementation
 - styles and scripts for new field
-
-## [Released]
 
 ## [3.1] - 2024-04-22
 
