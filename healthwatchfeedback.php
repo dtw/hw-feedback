@@ -203,6 +203,12 @@ function hw_feedback_activate() {
         // set the first run 2 hours and 2 minutes from "now"
         wp_schedule_event(time() + 7320, 'weekly', 'hw_feedback_ods_updates_cron_job');
     }
+  // get options
+  $options = get_option('hw_feedback_options');
+  // delete an old option if it exists still
+  if ($options['hw_feedback_field_partner_code']) {
+    delete_option('hw_feedback_field_partner_code');
+  }
 }
 register_activation_hook( __FILE__, 'hw_feedback_activate' );
 
@@ -278,20 +284,6 @@ function hw_feedback_settings_init() {
         'hw_feedback_section_api_settings',
         array(
             'label_for'         => 'hw_feedback_field_local_authority',
-            'class'             => 'hw_feedback_row',
-            'hw_feedback_custom_data' => 'custom',
-        )
-    );
-    // Register a new field in the "hw_feedback_section_api_settings" section, inside the "hw_feedback" page.
-    add_settings_field(
-        'hw_feedback_field_partner_code', // As of WP 4.6 this value is used only internally.
-                                // Use $args' label_for to populate the id inside the callback.
-            __( 'Partner Code', 'hw_feedback' ),
-        'hw_feedback_field_partner_code_cb',
-        'hw_feedback',
-        'hw_feedback_section_api_settings',
-        array(
-            'label_for'         => 'hw_feedback_field_partner_code',
             'class'             => 'hw_feedback_row',
             'hw_feedback_custom_data' => 'custom',
         )
@@ -470,7 +462,6 @@ function hw_feedback_settings_defaults() {
     // create defaults
     $defaults = array(
       'hw_feedback_field_local_authority' => '',
-      'hw_feedback_field_partner_code' => '',
       'hw_feedback_field_api_subscription_key' => '',
       'hw_feedback_field_api_cache_path' => $api_cache_path
     );
@@ -561,30 +552,6 @@ function hw_feedback_field_local_authority_cb( $args ) {
     <p class="description">
         <?php // esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'hw_feedback' ); ?>
     </p> -->
-    <?php
-}
-
-/**
- * partner_code field callback function.
- *
- * WordPress has magic interaction with the following keys: label_for, class.
- * - the "label_for" key value is used for the "for" attribute of the <label>.
- * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
- * Note: you can add custom key value pairs to be used inside your callbacks.
- *
- * @param array $args
- */
-function hw_feedback_field_partner_code_cb( $args ) {
-    // Get the value of the setting we've registered with register_setting()
-    $options = get_option( 'hw_feedback_options' );
-    ?>
-    <input type="text"
-      id="<?php echo esc_attr( $args['label_for'] ); ?>"
-      name="hw_feedback_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-      value="<?php echo isset( $options[ $args['label_for'] ] ) ? ( ( $options[ $args['label_for'] ]) ) : ( '' ); ?>">
-    <p class="description">
-        <?php esc_html_e( "In order to provide CQC's public data services we ask that all organisations consuming this API add an additional query parameter to all requests. An informative but concise code representing your organisation should be chosen.", 'hw_feedback' ); ?>
-    </p>
     <?php
 }
 
