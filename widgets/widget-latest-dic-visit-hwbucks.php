@@ -77,15 +77,19 @@ class SF_HWBucks_Latest_DIC_Widget extends WP_Widget
         <div class="row latest-dic-visit">
           <div class="panel col-md-12 col-sm-12 col-xs-12 panel-<?php echo $bg_colour ?>" id="dignity-in-care"><!-- start panel -->
             <div class="row">
-              <?php $img_orient = orientation_check(get_post_thumbnail_id($post->post_ID));
-              if ($img_orient == 'ls') {
+						<?php if (has_post_thumbnail($post->post_ID)) {
+              $img_orient = orientation_check(get_post_thumbnail_id($post->post_ID));
+              if ( $img_orient == 'ls') {
                 echo '<!--ls--><div class="col-md-4 col-sm-6 hidden-xs panel-icon-left">';
               } elseif ($img_orient == 'pt') {
                 echo '<!--pt--><div class="col-md-2 col-sm-3 hidden-xs panel-icon-left">';
               } elseif ($img_orient == 'sq') {
                 echo '<!--sq--><div class="col-md-3 col-sm-4 hidden-xs panel-icon-left">';
               }
-              ?>
+            } else {
+              echo '<!--sq--><div class="col-md-3 col-sm-4 hidden-xs panel-icon-left">';
+            }
+					?>
               <a class="img-anchor" href="
 								<?php the_permalink(); ?>" rel="bookmark">
                 <?php the_post_thumbnail('medium', array('class' => 'panel-icon-img border-colour-' . $border_colour)); ?>
