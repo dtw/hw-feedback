@@ -124,9 +124,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			</div>
     <?php
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			echo '<div id="hw-feedback-cqc-import-results">';
-			echo "<hr><h1>$primary_inspection_category Locations</h1>";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
+			<div id="hw-feedback-cqc-import-results">
+    <?php
+      echo "<hr><h1>$primary_inspection_category Locations</h1>";
       // Get start time
       $executionStartTime = microtime(true);
 			// get cache file modification time or create file
