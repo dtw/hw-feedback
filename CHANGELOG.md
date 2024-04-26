@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [3.1.3] - 2024-04-24
+## [3.1.4] - 2024-04-26
+### Added
+- access to a raw copy of JSON results from the CQC API, since they can no longer be accessed with web browser
+- display ODS Code from CQC API (if available)
 
+## [3.1.3] - 2024-04-24
 ### Fixed
 - obscure bug when a post has no thumbnail
 
