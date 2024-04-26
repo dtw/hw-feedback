@@ -57,6 +57,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$local_auth_name = str_replace(" ","_",$local_auth_name);
 		// build filename for inspection category
 		$api_filename = $api_cache . 'cqc_api_locations_' . $local_auth_name . '_' . $primary_inspection_category . '.json';
+    // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+    $uploads_folder = wp_upload_dir();
+    // build filename for latest json download in the uploads folder
+    $api_download = $uploads_folder['basedir'] . '/cqc_api_locations_raw.json';
 
     // create a simple form
     ?>
@@ -140,6 +144,13 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 				// and close it
 				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-creation");
 			}
+      // create download file if it doesn't exist
+      if ( !file_exists($api_download)) {
+        // create file
+        $api_raw = fopen($api_download, "w") or die("hw-feedback: Unable to create file $api_download");
+        // and close it
+        fclose($api_raw) && error_log("hw-feedback: $api_download closed post-creation");
+      }
 
 			// check if the last modification was less than a day ago (24*60*60) AND we're not doing a forced refresh
 			if ( isset($api_file_mod_time) && time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
@@ -172,7 +183,16 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
           echo "</div> <!-- hwbucks-data-import-tool -->";
           return;
         } else {
-          echo '<p>API Query: <a href="https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '" target="_blank">https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</a></p>';
+          // save the API response to $api_download file
+          $api_raw = fopen($api_download, "w") or die("hw-feedback: Unable to open file $api_download");
+          // write the API response as JSON (I know we decode it and then encode it again...)
+          fwrite($api_raw, json_encode($api_response));
+          // close the file
+          fclose($api_raw) && error_log("hw-feedback: $api_download closed post-write");
+          // echo the query string (this no longer takes you to the results)
+          echo '<p>API Query: https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</p>';
+          // echo a link to the raw file
+          echo '<p><a href="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" download="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" target="_blank">Download JSON results</a></p>';
           // Convert "JSON object" to array
           $locations = array_values($api_response->locations);
           // count number of locations
