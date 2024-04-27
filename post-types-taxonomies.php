@@ -1115,6 +1115,14 @@ function hw_feedback_ods_checks_update()
   hw_feedback_ods_checks('update');
 }
 add_action( 'hw_feedback_ods_updates_cron_job', 'hw_feedback_ods_checks_update');
+// add a wrapper to call from cron "add_action"
+function hw_feedback_clean_up_temp_uploads()
+{
+  // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+  $uploads_folder = wp_upload_dir();
+  // delete matching files in uploads folder
+  hw_feedback_clean_up_temp($uploads_folder['basedir'], 'cqc_api_locations_raw_*.json');
+}
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
