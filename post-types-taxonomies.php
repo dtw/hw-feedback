@@ -1100,7 +1100,7 @@ function hw_feedback_check_cqc_registration_status() {
     }
 }
 
-/* 10. Link cron job to function check_cqc_registration_status
+/* 10. Link cron job to functions
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
 // add a wrapper to call from cron "add_action"
