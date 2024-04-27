@@ -1123,6 +1123,7 @@ function hw_feedback_clean_up_temp_uploads()
   // delete matching files in uploads folder
   hw_feedback_clean_up_temp($uploads_folder['basedir'], 'cqc_api_locations_raw_*.json');
 }
+add_action( 'hw_feedback_clean_up_temp_cron_job', 'hw_feedback_clean_up_temp_uploads');
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {

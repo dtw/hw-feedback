@@ -199,6 +199,12 @@ function hw_feedback_activate()
   if (!wp_next_scheduled('hw_feedback_cqc_reg_check_cron_job')) {
     // set the first run 2 minutes from "now"
     wp_schedule_event(time() + 120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job');
+  } 
+  /* Add cron job to run hw_feedback_clean_up_temp
+    --------------------------------------------------------- */
+  if (!wp_next_scheduled('hw_feedback_clean_up_temp_cron_job')) {
+    // set the first run 10 minutes from "now"
+    wp_schedule_event(time() + 600, 'weekly', 'hw_feedback_clean_up_temp_cron_job');
   }
   /* Add cron job to run ods_role_code bootstrap
     --------------------------------------------------------- */
@@ -230,6 +236,7 @@ function hw_feedback_deactivate()
   wp_clear_scheduled_hook('hw_feedback_cqc_reg_check_cron_job');
   wp_clear_scheduled_hook('hw_feedback_ods_check_bootstrap_cron_job');
   wp_clear_scheduled_hook('hw_feedback_ods_updates_cron_job');
+  wp_clear_scheduled_hook('hw_feedback_clean_up_temp_cron_job');
 
   // clean up cache files
   // get options
