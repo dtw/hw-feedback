@@ -220,6 +220,17 @@ function hw_feedback_deactivate() {
     wp_clear_scheduled_hook('hw_feedback_cqc_reg_check_cron_job' );
     wp_clear_scheduled_hook('hw_feedback_ods_check_bootstrap_cron_job' );
     wp_clear_scheduled_hook('hw_feedback_ods_updates_cron_job' );
+
+    // clean up cache files
+    // get options
+    $options = get_option('hw_feedback_options');
+    // delete matching files in api cache
+    hw_feedback_clean_up_temp($options['hw_feedback_field_api_cache_path'],'cqc_api_locations_*.json' );
+    // clean up temp files in uploads
+    // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+    $uploads_folder = wp_upload_dir();
+    // delete matching files in uploads folder
+    hw_feedback_clean_up_temp($uploads_folder['basedir'], 'cqc_api_locations_raw_*.json' );
 }
 register_deactivation_hook( __FILE__, 'hw_feedback_deactivate' );
 
