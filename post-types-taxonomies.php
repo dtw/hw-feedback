@@ -1103,7 +1103,17 @@ function hw_feedback_check_cqc_registration_status() {
 /* 10. Link cron job to function check_cqc_registration_status
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_bootstrap()
+{
+  hw_feedback_ods_checks('bootstrap');
+}
 add_action( 'hw_feedback_ods_check_bootstrap_cron_job', 'hw_feedback_ods_checks_bootstrap');
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_update()
+{
+  hw_feedback_ods_checks('update');
+}
 add_action( 'hw_feedback_ods_updates_cron_job', 'hw_feedback_ods_checks_update');
 
 // Send an email to a provider when a new comment is APPROVED

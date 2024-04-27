@@ -215,18 +215,6 @@ function hw_feedback_ods_checks($mode)
   }
 }
 
-// add a wrapper to call from cron "add_action"
-function hw_feedback_ods_checks_bootstrap()
-{
-  hw_feedback_ods_checks('bootstrap');
-}
-
-// add a wrapper to call from cron "add_action"
-function hw_feedback_ods_checks_update()
-{
-  hw_feedback_ods_checks('update');
-}
-
 /**
  * Query ODS FHIR API by ODS Code
  *
