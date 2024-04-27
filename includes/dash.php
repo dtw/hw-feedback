@@ -59,8 +59,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$api_category_results = $api_cache . 'cqc_api_locations_' . $local_auth_name . '_' . $primary_inspection_category . '.json';
     // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
     $uploads_folder = wp_upload_dir();
+    // build filename for complete file
+    $api_filename = 'cqc_api_locations_raw_' . time() . '.json';
     // build filename for latest json download in the uploads folder
-    $api_download = $uploads_folder['basedir'] . '/cqc_api_locations_raw.json';
+    $api_download = $uploads_folder['basedir'] . '/' . $api_filename;
 
     // create a simple form
     ?>
@@ -192,7 +194,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
           // echo the query string (this no longer takes you to the results)
           echo '<p>API Query: https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</p>';
           // echo a link to the raw file
-          echo '<p><a href="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" download="' . $uploads_folder['baseurl'] . '/cqc_api_locations_raw.json" target="_blank">Download JSON results</a></p>';
+          echo '<p><a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download JSON results</a></p>';
           // Convert "JSON object" to array
           $locations = array_values($api_response->locations);
           // count number of locations
