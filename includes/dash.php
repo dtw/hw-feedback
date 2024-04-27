@@ -56,7 +56,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 		$local_auth_name = str_replace(", ","_",$local_auth_name);
 		$local_auth_name = str_replace(" ","_",$local_auth_name);
 		// build filename for inspection category
-		$api_filename = $api_cache . 'cqc_api_locations_' . $local_auth_name . '_' . $primary_inspection_category . '.json';
+		$api_category_results = $api_cache . 'cqc_api_locations_' . $local_auth_name . '_' . $primary_inspection_category . '.json';
     // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
     $uploads_folder = wp_upload_dir();
     // build filename for latest json download in the uploads folder
@@ -135,14 +135,14 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       // Get start time
       $executionStartTime = microtime(true);
 			// get cache file modification time or create file
-			if (file_exists($api_filename)) {
-				$api_file_mod_time = filectime($api_filename);
-				error_log("hw-feedback: Time since last modification of $api_filename: ".time(). "/".$api_file_mod_time);
+			if (file_exists($api_category_results)) {
+				$api_file_mod_time = filectime($api_category_results);
+				error_log("hw-feedback: Time since last modification of $api_category_results: ".time(). "/".$api_file_mod_time);
 			} else {
 				// create file
-				$api_file = fopen($api_filename, "w") or die("hw-feedback: Unable to create file $api_filename");
+				$api_file = fopen($api_category_results, "w") or die("hw-feedback: Unable to create file $api_category_results");
 				// and close it
-				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-creation");
+				fclose($api_file) && error_log("hw-feedback: $api_category_results closed post-creation");
 			}
       // create download file if it doesn't exist
       if ( !file_exists($api_download)) {
@@ -155,13 +155,13 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			// check if the last modification was less than a day ago (24*60*60) AND we're not doing a forced refresh
 			if ( isset($api_file_mod_time) && time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
 				// open file for read
-				$api_file = fopen($api_filename, "r") or die("hw-feedback: Unable to open file $api_filename");
+				$api_file = fopen($api_category_results, "r") or die("hw-feedback: Unable to open file $api_category_results");
 				// read file and convert to array
-				$locations = array_values(json_decode(fread($api_file,filesize($api_filename))));
+				$locations = array_values(json_decode(fread($api_file,filesize($api_category_results))));
 				// close file again
-				fclose($api_file) && error_log("hw-feedback: $api_filename closed post-read");
+				fclose($api_file) && error_log("hw-feedback: $api_category_results closed post-read");
 				echo "<p>Locations read from <strong>file</strong>, last modified at ". date("Y-m-d H:i:s", $api_file_mod_time) . "</p>";
-				error_log("hw-feedback: Locations read from $api_filename");
+				error_log("hw-feedback: Locations read from $api_category_results");
 				if (empty($locations)){ ?>
 					<div id="hw-feedback-nothing-to-do" class="hw-feedback-alert" role="alert">Nothing to do! It looks like all services have been processed. Use "Force refresh?" above to make sure.</div>
 				<?php }
@@ -266,9 +266,9 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 			}
 
 			// now the locations are cleaned-up the locations to file as JSON object
-			$api_file = fopen($api_filename, "w") or die("hw-feedback: Unable to open file $api_filename");
+			$api_file = fopen($api_category_results, "w") or die("hw-feedback: Unable to open file $api_category_results");
 			fwrite($api_file,json_encode($locations));
-			fclose($api_file) && error_log("hw-feedback: $api_filename closed post-write");
+			fclose($api_file) && error_log("hw-feedback: $api_category_results closed post-write");
 
 			// limit the number of results to $import_number
 			$locations = array_slice($locations,0,$import_number,true);
