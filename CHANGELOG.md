@@ -6,10 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
-## [3.1.4] - 2024-04-26
+## [3.2] - 2024-04-28
 ### Added
 - access to a raw copy of JSON results from the CQC API, since they can no longer be accessed with web browser
+- a clean-up function to remove this raw copies
+- cron job to run the clean-up function
+- deactivate plugin action to run the clean-up function
 - display ODS Code from CQC API (if available)
+- minor code order/location fettling
 
 ## [3.1.3] - 2024-04-24
 ### Fixed
