@@ -239,10 +239,8 @@ function hw_feedback_deactivate()
   wp_clear_scheduled_hook('hw_feedback_clean_up_temp_cron_job');
 
   // clean up cache files
-  // get options
-  $options = get_option('hw_feedback_options');
   // delete matching files in api cache
-  hw_feedback_clean_up_temp($options['hw_feedback_field_api_cache_path'], 'cqc_api_locations_*.json');
+  hw_feedback_clean_up_temp(get_option('hw_feedback_options')['hw_feedback_field_api_cache_path'], 'cqc_api_locations_*.json');
   // clean-up temp files in uploads
   hw_feedback_clean_up_temp_uploads();
 }
