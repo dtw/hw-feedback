@@ -221,7 +221,7 @@ function hw_feedback_activate()
   // get options
   $options = get_option('hw_feedback_options');
   // delete an old option if it exists still
-  if ($options['hw_feedback_field_partner_code']) {
+  if (isset($options['hw_feedback_field_partner_code'])) {
     delete_option('hw_feedback_field_partner_code');
   }
 }
