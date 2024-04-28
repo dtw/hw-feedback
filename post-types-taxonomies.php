@@ -596,8 +596,8 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
   // only check CQC API and show fields if there is a location id
   if ($value != '') {
     $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
-    echo '<br /><h3>API Checks</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
-    $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Local Authority'=>'localAuthority','Registration Date'=>'registrationDate');
+    echo '<br /><h3>CQC API Results</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
+    $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Local Authority'=>'localAuthority','Registration Date'=>'registrationDate','ODS Code'=>'odsCode');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
     foreach($apioutputarray as $x => $val) {
       if (isset($objcqcapiquery->$val)) {
@@ -627,7 +627,7 @@ echo '<div id="hw-services-ods-code-alert" class="hw-feedback-alert" role="alert
     error_log('hw-feedback: ods_code found ' . $value);
     $objodsapiquery = json_decode(hw_feedback_ods_api_query_by_code(esc_attr($value)));
     $is_active = $objodsapiquery->active ? 'Yes' : 'No';
-    echo '<br /><h3>API Checks</h3>';
+    echo '<br /><h3>ODS API Results</h3>';
     echo '<div id="api-output-name" class="api-output"><div class="api-output-label">Organisation Name:</div><div class="api-output-value">'.$objodsapiquery->name.'</div></div>';
     echo '<div id="api-output-active" class="api-output"><div class="api-output-label">Active?</div><div class="api-output-value">'.$is_active.'</div></div>';
     echo '<div id="api-output-start" class="api-output"><div class="api-output-label">Start date:</div><div class="api-output-value">'.$objodsapiquery->extension[0]->valuePeriod->start.'</div></div>';
@@ -1100,11 +1100,30 @@ function hw_feedback_check_cqc_registration_status() {
     }
 }
 
-/* 10. Link cron job to function check_cqc_registration_status
+/* 10. Link cron job to functions
 --------------------------------------------------------- */
 add_action( 'hw_feedback_cqc_reg_check_cron_job', 'hw_feedback_check_cqc_registration_status' );
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_bootstrap()
+{
+  hw_feedback_ods_checks('bootstrap');
+}
 add_action( 'hw_feedback_ods_check_bootstrap_cron_job', 'hw_feedback_ods_checks_bootstrap');
+// add a wrapper to call from cron "add_action"
+function hw_feedback_ods_checks_update()
+{
+  hw_feedback_ods_checks('update');
+}
 add_action( 'hw_feedback_ods_updates_cron_job', 'hw_feedback_ods_checks_update');
+// add a wrapper to call from cron "add_action"
+function hw_feedback_clean_up_temp_uploads()
+{
+  // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+  $uploads_folder = wp_upload_dir();
+  // delete matching files in uploads folder
+  hw_feedback_clean_up_temp($uploads_folder['basedir'], 'cqc_api_locations_raw_*.json');
+}
+add_action( 'hw_feedback_clean_up_temp_cron_job', 'hw_feedback_clean_up_temp_uploads');
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {

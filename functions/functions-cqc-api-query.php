@@ -251,3 +251,19 @@ function hw_feedback_save_local_services_meta($meta_id, $post_id, $meta_key, $_m
 add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 // fires when meta data is added to a post
 add_action( 'added_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+
+/* Clean-up temporary files */
+function hw_feedback_clean_up_temp($path, $pattern) {
+  // find matching pathnames not just files
+  $matching_patterns = glob(rtrim($path, '/') .'/'. $pattern);
+  // create a counter
+  $counter = 0;
+  // loop through pathnames
+  foreach ($matching_patterns as $item) {
+    // check it is a file not a directory
+    if (is_file($item)) {
+      unlink($item) ? $counter = ++$counter : error_log('hw-feedback: failed to delete '. $item);
+    }
+  }
+  error_log('hw-feedback: ' . $counter . ' cached files deleted in ' . $path);
+}
