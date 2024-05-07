@@ -131,8 +131,8 @@ function extend_comment_meta_box($comment)
   wp_nonce_field('extend_comment_update', 'extend_comment_update', false);
 ?>
 
-  <p>CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
-  <p>CiviCRM UUID: <span id="civicrm-uuid"><?php echo $uuid; ?></span><input type="hidden" value="<?php echo $uuid; ?>" id="civicrm-uuid-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_uuid()">Copy</button></p>
+  <p id="civicrm-subject-code-wrapper">CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
+  <p id="civicrm-uuid-wrapper">CiviCRM UUID: <span id="civicrm-uuid"><?php echo $uuid; ?></span><input type="hidden" value="<?php echo $uuid; ?>" id="civicrm-uuid-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_uuid()">Copy</button></p>
   <p>
     <label for="phone">Phone</label>
     <input id="newcomment_author_phone" type="text" name="phone" autocomplete="off" value="<?php echo esc_attr($phone); ?>" class="widefat" />
