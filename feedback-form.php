@@ -204,8 +204,8 @@ function hw_feedback_extend_comment_edit_metafields($comment_id)
   endif;
 
   if ((isset($_POST['when'])) && ($_POST['when'] != '')) :
-    $rating = wp_filter_nohtml_kses($_POST['when']);
-    update_comment_meta($comment_id, 'feedback_when', $rating);
+    $when = wp_filter_nohtml_kses($_POST['when']);
+    update_comment_meta($comment_id, 'feedback_when', $when);
   else :
     delete_comment_meta($comment_id, 'feedback_when');
   endif;
