@@ -147,6 +147,11 @@ function extend_comment_meta_box($comment)
     <input type="text" name="when" autocomplete="off" value="<?php echo esc_attr($when); ?>" class="widefat" />
   </p>
 
+  <!-- <p>
+    <label for="uuid">UUID</label>
+    <input type="text" name="uuid" autocomplete="off" value="<?php echo esc_attr($uuid); ?>" class="widefat" />
+  </p> -->
+
   <p>
     <label for="rating"><?php _e('Rating: '); ?></label>
     <span class="commentratingbox">
@@ -211,6 +216,13 @@ function hw_feedback_extend_comment_edit_metafields($comment_id)
 	else :
 	delete_comment_meta( $comment_id, 'feedback_who');
 	endif; */
+
+  /* if ((isset($_POST['uuid'])) && ($_POST['uuid'] != '')) :
+    $uuid = wp_filter_nohtml_kses($_POST['uuid']);
+    update_comment_meta($comment_id, 'feedback_uuid', $uuid);
+  else :
+    delete_comment_meta($comment_id, 'feedback_uuid');
+  endif; */
 
   if ((isset($_POST['response'])) && ($_POST['response'] != '')) :
     $response = wp_filter_post_kses($_POST['response']);
