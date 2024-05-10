@@ -75,7 +75,7 @@ echo "<div class='row'>";
 	  </p>
 		<p>
 			<strong>
-				<?php echo human_time_diff( strtotime($comment->comment_date), current_datetime() ); ?> ago
+				<?php echo human_time_diff( strtotime($comment->comment_date), current_datetime()->getTimestamp() ); ?> ago
 			</strong>
 		</p>
 		<?php } // end of if there is a rating ?>
