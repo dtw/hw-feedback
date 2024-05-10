@@ -138,8 +138,10 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       $executionStartTime = microtime(true);
 			// get cache file modification time or create file
 			if (file_exists($api_category_results)) {
-				$api_file_mod_time = filectime($api_category_results);
-				error_log("hw-feedback: Time since last modification of $api_category_results: ".time(). "/".$api_file_mod_time);
+        // this is the time in UTC which is what the server is set to
+				$api_file_mod_time = new DateTime();
+        $api_file_mod_time->setTimestamp(filectime($api_category_results));
+				error_log("hw-feedback: Time since last modification of $api_category_results: ".time(). "/". $api_file_mod_time->format('Y-m-d H:i:s'));
 			} else {
 				// create file
 				$api_file = fopen($api_category_results, "w") or die("hw-feedback: Unable to create file $api_category_results");
@@ -155,14 +157,15 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
       }
 
 			// check if the last modification was less than a day ago (24*60*60) AND we're not doing a forced refresh
-			if ( isset($api_file_mod_time) && time() - $api_file_mod_time < 24*60*60 && ! $force_refresh) {
+			if ( isset($api_file_mod_time) && time() - $api_file_mod_time->getTimestamp() < 24*60*60 && ! $force_refresh) {
 				// open file for read
 				$api_file = fopen($api_category_results, "r") or die("hw-feedback: Unable to open file $api_category_results");
 				// read file and convert to array
 				$locations = array_values(json_decode(fread($api_file,filesize($api_category_results))));
 				// close file again
 				fclose($api_file) && error_log("hw-feedback: $api_category_results closed post-read");
-				echo "<p>Locations read from <strong>file</strong>, last modified at ". date("Y-m-d H:i:s", $api_file_mod_time) . "</p>";
+        // check the wordpress timezone and display the mod time in that
+				echo "<p>Locations read from <strong>file</strong>, last modified at ". ($api_file_mod_time->setTimezone(wp_timezone()))->format('Y-m-d H:i:s') . " (" .  wp_date('T') . ")</p>";
 				error_log("hw-feedback: Locations read from $api_category_results");
 				if (empty($locations)){ ?>
 					<div id="hw-feedback-nothing-to-do" class="hw-feedback-alert" role="alert">Nothing to do! It looks like all services have been processed. Use "Force refresh?" above to make sure.</div>

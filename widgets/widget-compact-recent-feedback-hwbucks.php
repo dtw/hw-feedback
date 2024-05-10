@@ -107,7 +107,7 @@ class SF_HWBucks_Recent_Compact_Feedback_Widget extends WP_Widget {
               </p>
               <p class="review-date-time">
                 <strong>
-                  <?php echo human_time_diff( strtotime($comment->comment_date), current_time( 'timestamp' ) ); ?> ago
+                  <?php echo human_time_diff( strtotime($comment->comment_date), current_datetime() ); ?> ago
                 </strong>
               </p>
         </div><!-- close service-info-container-sm | service-info-container | panel-text-right -->
