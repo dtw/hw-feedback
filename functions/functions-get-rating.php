@@ -11,7 +11,7 @@
  * @param array $post
  */
 
-  function hw_feedback_get_rating($post) {
+  function hw_feedback_get_rating($post_ID) {
     // Set TOTAL and COUNT to zero
     $rating['total'] = 0;
     $rating['count'] = 0;
@@ -22,7 +22,7 @@
 
     // QUERY the COMMENTS for current single post
     $args = array (
-    	'post_id' => $post->ID,
+    	'post_id' => $post_ID,
     	'status' => 'approve'
     	);
     $comments = get_comments($args);
@@ -45,7 +45,7 @@
     }
     // QUERY the COMMENTS for current single post in the last 12 months
     $args = array (
-    	'post_id' => $post->ID,
+    	'post_id' => $post_ID,
     	'status' => 'approve',
       'date_query'  => array(
         array(
