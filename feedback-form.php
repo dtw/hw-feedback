@@ -131,8 +131,12 @@ function extend_comment_meta_box($comment)
   wp_nonce_field('extend_comment_update', 'extend_comment_update', false);
 ?>
 
-  <p>CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
-  <p>CiviCRM UUID: <span id="civicrm-uuid"><?php echo $uuid; ?></span><input type="hidden" value="<?php echo $uuid; ?>" id="civicrm-uuid-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_uuid()">Copy</button></p>
+  <?php // older comments have not had a UUID generated (on submission) so we must still show the old id
+  if (!empty($uuid)) { ?>
+    <p id="civicrm-uuid-wrapper">CiviCRM UUID: <span id="civicrm-uuid"><?php echo $uuid; ?></span><input type="hidden" value="<?php echo $uuid; ?>" id="civicrm-uuid-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_uuid()">Copy</button></p>
+  <?php } else { ?>
+    <p id="civicrm-subject-code-wrapper">CiviCRM Subject Code: <span id="civicrm-subject-code">#w<?php echo $comment->comment_ID; ?></span><input type="hidden" value="#w<?php echo $comment->comment_ID; ?>" id="civicrm-subject-code-field"><button class="ed_button button button-small" type="button" onclick="copy_civicrm_subject_code()">Copy</button></p>
+  <?php } ?>
   <p>
     <label for="phone">Phone</label>
     <input id="newcomment_author_phone" type="text" name="phone" autocomplete="off" value="<?php echo esc_attr($phone); ?>" class="widefat" />
@@ -142,6 +146,11 @@ function extend_comment_meta_box($comment)
     <label for="when">When did it happen?</label>
     <input type="text" name="when" autocomplete="off" value="<?php echo esc_attr($when); ?>" class="widefat" />
   </p>
+
+  <!-- <p>
+    <label for="uuid">UUID</label>
+    <input type="text" name="uuid" autocomplete="off" value="<?php echo esc_attr($uuid); ?>" class="widefat" />
+  </p> -->
 
   <p>
     <label for="rating"><?php _e('Rating: '); ?></label>
@@ -195,8 +204,8 @@ function hw_feedback_extend_comment_edit_metafields($comment_id)
   endif;
 
   if ((isset($_POST['when'])) && ($_POST['when'] != '')) :
-    $rating = wp_filter_nohtml_kses($_POST['when']);
-    update_comment_meta($comment_id, 'feedback_when', $rating);
+    $when = wp_filter_nohtml_kses($_POST['when']);
+    update_comment_meta($comment_id, 'feedback_when', $when);
   else :
     delete_comment_meta($comment_id, 'feedback_when');
   endif;
@@ -207,6 +216,13 @@ function hw_feedback_extend_comment_edit_metafields($comment_id)
 	else :
 	delete_comment_meta( $comment_id, 'feedback_who');
 	endif; */
+
+  /* if ((isset($_POST['uuid'])) && ($_POST['uuid'] != '')) :
+    $uuid = wp_filter_nohtml_kses($_POST['uuid']);
+    update_comment_meta($comment_id, 'feedback_uuid', $uuid);
+  else :
+    delete_comment_meta($comment_id, 'feedback_uuid');
+  endif; */
 
   if ((isset($_POST['response'])) && ($_POST['response'] != '')) :
     $response = wp_filter_post_kses($_POST['response']);
@@ -248,12 +264,12 @@ if (is_admin()) {
 		$commentaddress = '<strong>Address: </strong>' . esc_attr( $commentaddress ) . '<br/><br/>';
 	} */
 
-	if ( !empty(get_comment_meta( get_comment_ID(), 'feedback_when', true )) ) {
-		$commentwhen = '<strong>When? </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_when', true) ) . '<br/><br/>';
+    if (!empty(get_comment_meta(get_comment_ID(), 'feedback_when', true))) {
+      $commentwhen = '<strong>When? </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_when', true)) . '<br/><br/>';
       $text = $text . $commentwhen;
-	}
+    }
 
-// if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
+    // if( $commentwho = get_comment_meta( get_comment_ID(), 'feedback_who', true ) ) { $commentwho = '<strong>Who was involved? </strong>' . esc_attr( $commentwho ) . '<br/><br/>'; }
 
     if ($commentrating = get_comment_meta(get_comment_ID(), 'feedback_rating', true)) {
       $commentratingtxt = '<p class="star-rating p-rating">' . hw_feedback_star_rating($commentrating, array()) . '</p><br/>Rating: <strong>' . $commentrating . ' / 5</strong></p>';
