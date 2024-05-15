@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [3.2.1] - 2024-05-15
+### Fixed
+- comment UUID handling
+
+### Changed
+- date handling to use DateTime objects
+- hw_feedback_get_rating function to take an ID not object
+
 ## [3.2] - 2024-04-28
 ### Added
 - access to a raw copy of JSON results from the CQC API, since they can no longer be accessed with web browser
