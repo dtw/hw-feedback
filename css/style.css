@@ -521,3 +521,10 @@ label[for="hw_services_full_report"]:before {
 	display: inline-block;
 }
 
+/* Styles for copied message */
+#uuid-copied-alert,
+#subject-copied-alert {
+  font-size: 11px;
+  padding: 5px 4px 6px 4px;
+  display: none;
+}

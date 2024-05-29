@@ -5,6 +5,10 @@ async function copy_civicrm_uuid() {
   /* Select the text field */
   copyText.select();
 
+  /* show copied message */
+  document.getElementById('uuid-copied-alert').style.display = "inline";
+  document.getElementById('subject-copied-alert').style.display = "inline";
+
    /* Copy the text inside the text field */
   await navigator.clipboard.writeText(copyText.value);
 }
