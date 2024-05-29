@@ -255,10 +255,10 @@ if (is_admin()) {
 
     $plugin_url_path = WP_PLUGIN_URL;
 
-	if( ! empty(get_comment_meta( get_comment_ID(), 'feedback_phone', true ) )) {
-		$commentphone = '<strong>Phone: </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_phone', true) ) . '<br/><br/>';
-    $text = $text . $commentphone;
-	}
+    if (!empty(get_comment_meta(get_comment_ID(), 'feedback_phone', true))) {
+      $commentphone = '<strong>Phone: </strong>' . esc_attr(get_comment_meta(get_comment_ID(), 'feedback_phone', true)) . '<br/><br/>';
+      $text = $text . $commentphone;
+    }
 
     /* if( $commentaddress = get_comment_meta( get_comment_ID(), 'feedback_address', true ) ) {
 		$commentaddress = '<strong>Address: </strong>' . esc_attr( $commentaddress ) . '<br/><br/>';
