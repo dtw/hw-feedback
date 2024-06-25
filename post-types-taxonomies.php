@@ -1127,7 +1127,8 @@ add_action( 'hw_feedback_clean_up_temp_cron_job', 'hw_feedback_clean_up_temp_upl
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
-  $options = get_option( 'hw_feedback_options' );
+  // get plugin settings/options
+  $options = get_option('hw_feedback_options');
   // check notifications enabled
   if ( isset( $options['hw_feedback_field_enable_notifications'] ) ) {
     error_log('hw-feedback: notification check');
