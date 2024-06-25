@@ -93,7 +93,8 @@ function hw_feedback_ods_role_code_bootstrap($post_id, $bootstrap_options = 'non
  */
 function hw_feedback_ods_checks($mode)
 {
-
+  // get plugin settings/options
+  $options = get_option('hw_feedback_options');
   /* unhook the hw_feedback_check_cqc_registration_status_single function
   not sure but this might start an infinite loop otherwise
   error_log('hw_feedback: unhook the hw_feedback_check_cqc_registration_status_single function');
@@ -157,7 +158,11 @@ function hw_feedback_ods_checks($mode)
   //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
   // set php mailer variables
-  $to = get_option('admin_email');
+  if ($options['hw_feedback_field_email_notifications_targets'] != "") {
+    $to = $options['hw_feedback_field_email_notifications_targets'];
+  } else {
+    $to = get_option('admin_email');
+  }
   $subject = "Local Services - ODS ". $mode ." (" . parse_url(get_site_url(), PHP_URL_HOST) . ")";
   // set headers to allow HTML
   $headers = array('Content-Type: text/html; charset=UTF-8');

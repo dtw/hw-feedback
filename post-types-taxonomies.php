@@ -1037,6 +1037,8 @@ function hw_feedback_convert_id_to_term_in_query($query) {
 /* 9. Add a function to query CQC reg status and update service
 --------------------------------------------------------- */
 function hw_feedback_check_cqc_registration_status() {
+  // get plugin settings/options
+  $options = get_option('hw_feedback_options');
 
   /* unhook the hw_feedback_check_cqc_registration_status_single function
   not sure but this might start an infinite loop otherwise
@@ -1071,7 +1073,11 @@ function hw_feedback_check_cqc_registration_status() {
   //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
     // set php mailer variables
-    $to = get_option('admin_email');
+    if ($options['hw_feedback_field_email_notifications_targets'] != "") {
+      $to = $options['hw_feedback_field_email_notifications_targets'];
+    } else {
+      $to = get_option('admin_email');
+    }
     $subject = "Local Services - CQC registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
     // set headers to allow HTML
     $headers = array('Content-Type: text/html; charset=UTF-8');
