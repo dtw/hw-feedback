@@ -199,7 +199,7 @@ function hw_feedback_activate()
   if (!wp_next_scheduled('hw_feedback_cqc_reg_check_cron_job')) {
     // set the first run 2 minutes from "now"
     wp_schedule_event(time() + 120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job');
-  } 
+  }
   /* Add cron job to run hw_feedback_clean_up_temp
     --------------------------------------------------------- */
   if (!wp_next_scheduled('hw_feedback_clean_up_temp_cron_job')) {
@@ -672,7 +672,7 @@ function hw_feedback_field_disable_lhw_rating_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Disable Local Healthwatch rating functions? (Does not affect public ratings)", 'hw_feedback'); ?>
   </p>
@@ -742,7 +742,7 @@ function hw_feedback_field_enable_notifications_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Automatically notify provider, via email, when a new comment is approved", 'hw_feedback'); ?>
   </p>
@@ -768,7 +768,7 @@ function hw_feedback_field_enable_missing_address_reminders_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Send admin reminders, via email, when a service does not have an email address set", 'hw_feedback'); ?>
   </p>
