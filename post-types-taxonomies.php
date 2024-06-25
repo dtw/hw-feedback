@@ -1194,8 +1194,8 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
           $formatted_message .= $email_footer;
           $sent_provider = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
         } else if ( isset ($options['hw_feedback_field_enable_missing_address_reminders']) ) {
-          if ( $options['hw_feedback_field_your_story_email'] != "") {
-            $to = $options['hw_feedback_field_your_story_email'];
+          if ( $options['hw_feedback_field_email_notifications_targets'] != "") {
+            $to = $options['hw_feedback_field_email_notifications_targets'];
           } else {
             $to = get_option('admin_email');
           }
