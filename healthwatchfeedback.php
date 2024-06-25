@@ -361,6 +361,20 @@ function hw_feedback_settings_init()
   );
   // Register a new field in the "hw_feedback_section_general_settings" section, inside the "hw_feedback" page.
   add_settings_field(
+    'hw_feedback_field_email_notifications_targets', // As of WP 4.6 this value is used only internally.
+    // Use $args' label_for to populate the id inside the callback.
+    __('Your Story email', 'hw_feedback'),
+    'hw_feedback_field_email_notifications_targets_cb',
+    'hw_feedback',
+    'hw_feedback_section_general_settings',
+    array(
+      'label_for'         => 'hw_feedback_field_email_notifications_targets',
+      'class'             => 'hw_feedback_row',
+      'hw_feedback_custom_data' => 'custom',
+    )
+  );
+  // Register a new field in the "hw_feedback_section_general_settings" section, inside the "hw_feedback" page.
+  add_settings_field(
     'hw_feedback_field_disable_lhw_rating', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
     __('Disable LHW Rating', 'hw_feedback'),
@@ -650,6 +664,28 @@ function hw_feedback_field_your_story_email_cb($args)
   <input type="email" multiple id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo isset($options[$args['label_for']]) ? (($options[$args['label_for']])) : (''); ?>">
   <p class="description">
     <?php esc_html_e("E-mail address target(s) for Your Story submissions. You can use more than one address separated by commas (,).", 'hw_feedback'); ?>
+  </p>
+<?php
+}
+
+/**
+ * email_notifications_targets field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_email_notifications_targets_cb($args)
+{
+  // Get the value of the setting we've registered with register_setting()
+  $options = get_option('hw_feedback_options');
+?>
+  <input type="email" multiple id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo isset($options[$args['label_for']]) ? (($options[$args['label_for']])) : (''); ?>">
+  <p class="description">
+    <?php esc_html_e("E-mail address target(s) for CQC/ODS notifications. You can use more than one address separated by commas (,).", 'hw_feedback'); ?>
   </p>
 <?php
 }

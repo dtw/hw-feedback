@@ -150,7 +150,8 @@
   width: 290px;
 }
 
-#hw_feedback_field_your_story_email {
+#hw_feedback_field_your_story_email,
+#hw_feedback_field_email_notifications_targets {
 	width: 50%;
 }
 
