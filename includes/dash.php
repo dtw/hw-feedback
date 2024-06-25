@@ -94,7 +94,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
 	          </select>
 					</div>
 					<div class="hw-feedback-cqc-import-form-row">
-	          <label for="hw-feedback-form-import-number">Select number of Locations to check/import</label>
+	          <label for="hw-feedback-form-import-number">Select number of Locations to preview/import</label>
 	          <select class="hw-feedback-select" name="hw-feedback-form-import-number" id="hw-feedback-form-import-number">
 	          <?php foreach (array(1, 5, 10, 20, 30, 40, 50) as $option) {
 							if ($import_number && $import_number == $option ) {
