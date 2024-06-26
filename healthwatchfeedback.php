@@ -298,7 +298,7 @@ function hw_feedback_settings_init()
   // Register a new section in the "hw_feedback" page.
   add_settings_section(
     'hw_feedback_section_comment_notifications_settings',
-    __('Comment Notifications', 'hw_feedback'),
+    __('Provider Comment Notifications', 'hw_feedback'),
     'hw_feedback_section_comment_notifications_settings_callback',
     'hw_feedback'
   );
@@ -321,7 +321,7 @@ function hw_feedback_settings_init()
   add_settings_field(
     'hw_feedback_field_api_subscription_key', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
-    __('Subscription Key', 'hw_feedback'),
+    __('Subscription key', 'hw_feedback'),
     'hw_feedback_field_api_subscription_key_cb',
     'hw_feedback',
     'hw_feedback_section_api_settings',
@@ -335,7 +335,7 @@ function hw_feedback_settings_init()
   add_settings_field(
     'hw_feedback_field_api_cache_path', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
-    __('API Cache Path', 'hw_feedback'),
+    __('API cache path', 'hw_feedback'),
     'hw_feedback_field_api_cache_path_cb',
     'hw_feedback',
     'hw_feedback_section_api_settings',
@@ -363,7 +363,7 @@ function hw_feedback_settings_init()
   add_settings_field(
     'hw_feedback_field_email_notifications_targets', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
-    __('Your Story email', 'hw_feedback'),
+    __('Email notification address(es)', 'hw_feedback'),
     'hw_feedback_field_email_notifications_targets_cb',
     'hw_feedback',
     'hw_feedback_section_general_settings',
