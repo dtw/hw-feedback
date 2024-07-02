@@ -619,9 +619,8 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
         echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
       }
     }
-    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a>';
-    // echo a link to the raw file
-    echo '<p><a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download JSON results</a></p></div>';
+    // display useful links to CQC site and copy of the downloaded file
+    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a> | <a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View API result (JSON)</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download API result (JSON)</a></div>';
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>

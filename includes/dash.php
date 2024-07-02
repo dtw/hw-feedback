@@ -197,7 +197,7 @@ add_action( 'admin_menu', 'hw_feedback_add_menus' );
           // echo the query string (this no longer takes you to the results)
           echo '<p>API Query: https://api.service.cqc.org.uk/public/v1' . $api_response->firstPageUri . '</p>';
           // echo a link to the raw file
-          echo '<p><a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download JSON results</a></p>';
+          echo '<p><a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View API results (JSON)</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download API results (JSON)</a></p>';
           // Convert "JSON object" to array
           $locations = array_values($api_response->locations);
           // count number of locations
