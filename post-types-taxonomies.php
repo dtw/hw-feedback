@@ -595,7 +595,22 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 	echo '<input type="text" id="hw-services-cqc-location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" class="hw-feedback-alert" role="alert">Save this Service to see updated values from CQC!</div>';
   // only check CQC API and show fields if there is a location id
   if ($value != '') {
-    $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
+    /// query the API
+    $jsoncqcapiquery = hw_feedback_cqc_api_query_by_id('locations', esc_attr(get_post_meta($post->ID, 'hw_services_cqc_location', true)));
+    // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+    $uploads_folder = wp_upload_dir();
+    // build filename for complete file
+    $api_filename = 'cqc_api_provider_' . get_post_meta($post->ID, 'hw_services_cqc_location', true) . '.json';
+    // build filename for json download in the uploads folder
+    $api_download = $uploads_folder['basedir'] . '/' . $api_filename;
+    // save the API response to $api_download file
+    $api_raw = fopen($api_download, "w") or die("hw-feedback: Unable to open file $api_download");
+    // write the API response as JSON (I know we decode it and then encode it again...)
+    fwrite($api_raw, $jsoncqcapiquery);
+    // close the file
+    fclose($api_raw) && error_log("hw-feedback: $api_download closed post-write");
+    // convert json to object
+    $objcqcapiquery = json_decode($jsoncqcapiquery);
     echo '<br /><h3>CQC API Results</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
     $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Local Authority'=>'localAuthority','Registration Date'=>'registrationDate','ODS Code'=>'odsCode');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
@@ -604,7 +619,9 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
         echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
       }
     }
-    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a></div>';
+    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a>';
+    // echo a link to the raw file
+    echo '<p><a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View JSON results</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download JSON results</a></p></div>';
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
