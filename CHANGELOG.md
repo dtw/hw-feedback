@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [3.3] - 2024-07-05
+### Added
+- an alert to show subject/UUID has been copied
+- new options field for email notification targets (will replace "Your story" email option)
+- temporary storage of individual local_service API results in JSON format (to support debugging)
+
+### Changed
+- admin email target for new email notification targets
+- minor display changes in local_service edit screens
+
 ## [3.2.1] - 2024-05-15
 ### Fixed
 - comment UUID handling
