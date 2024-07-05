@@ -595,7 +595,22 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
 	echo '<input type="text" id="hw-services-cqc-location" name="hw_services_cqc_location" value="' . esc_attr( $value ) . '" size="15" /><div id="hw-services-cqc-location-alert" class="hw-feedback-alert" role="alert">Save this Service to see updated values from CQC!</div>';
   // only check CQC API and show fields if there is a location id
   if ($value != '') {
-    $objcqcapiquery = json_decode(hw_feedback_cqc_api_query_by_id('locations',esc_attr(get_post_meta( $post->ID, 'hw_services_cqc_location', true ))));
+    /// query the API
+    $jsoncqcapiquery = hw_feedback_cqc_api_query_by_id('locations', esc_attr(get_post_meta($post->ID, 'hw_services_cqc_location', true)));
+    // get the wordpress uploads folder - we can't use the cache because it might be set to an unlistable directory
+    $uploads_folder = wp_upload_dir();
+    // build filename for complete file
+    $api_filename = 'cqc_api_provider_' . get_post_meta($post->ID, 'hw_services_cqc_location', true) . '.json';
+    // build filename for json download in the uploads folder
+    $api_download = $uploads_folder['basedir'] . '/' . $api_filename;
+    // save the API response to $api_download file
+    $api_raw = fopen($api_download, "w") or die("hw-feedback: Unable to open file $api_download");
+    // write the API response as JSON (I know we decode it and then encode it again...)
+    fwrite($api_raw, $jsoncqcapiquery);
+    // close the file
+    fclose($api_raw) && error_log("hw-feedback: $api_download closed post-write");
+    // convert json to object
+    $objcqcapiquery = json_decode($jsoncqcapiquery);
     echo '<br /><h3>CQC API Results</h3><p id="api-check-help-text"><strong>Reminder:</strong> some services are not provided at the address where they are registered.</p>';
     $apioutputarray = array('Registration Name'=>'name','Registration Status'=>'registrationStatus','Local Authority'=>'localAuthority','Registration Date'=>'registrationDate','ODS Code'=>'odsCode');
     //'Deregistration Date'=>$objcqcapiquery->deregistrationDate);
@@ -604,7 +619,8 @@ function hw_feedback_cpt_fields_meta_box_callback( $post ) {
         echo '<div id="api-output-'.$val.'" class="api-output"><div class="api-output-label">'.$x.':</div><div class="api-output-value">'.$objcqcapiquery->$val.'</div></div>';
       }
     }
-    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a></div>';
+    // display useful links to CQC site and copy of the downloaded file
+    echo '<div id="api-output-url" class="api-output"><a href="https://www.cqc.org.uk/location/' . $objcqcapiquery->locationId . '" target="_blank">Check this registration on the CQC website</a> | <a href="' . $uploads_folder['baseurl'] . '/' . $api_filename . '" target="_blank">View API result (JSON)</a> | <a href="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" download="' . $uploads_folder['baseurl']  . '/' . $api_filename . '" target="_blank">Download API result (JSON)</a></div>';
     //echo '<strong>Reg Status: </strong><span class="api-output">' . $objcqcapiquery->registrationStatus . '</span><br />';
     //echo '<strong>Reg Date: </strong><span class="api-output">' . $objcqcapiquery->registrationDate . '</span><br />';
     if ( isset($objcqcapiquery->registrationStatus) && $objcqcapiquery->registrationStatus == 'Deregistered'){ ?>
@@ -1037,6 +1053,8 @@ function hw_feedback_convert_id_to_term_in_query($query) {
 /* 9. Add a function to query CQC reg status and update service
 --------------------------------------------------------- */
 function hw_feedback_check_cqc_registration_status() {
+  // get plugin settings/options
+  $options = get_option('hw_feedback_options');
 
   /* unhook the hw_feedback_check_cqc_registration_status_single function
   not sure but this might start an infinite loop otherwise
@@ -1067,11 +1085,15 @@ function hw_feedback_check_cqc_registration_status() {
     endforeach;
 
     error_log('hw-feedback: services check complete!');
-    // restore the hw_feedback_check_cqc_registration_status_single function hook
-    //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
+  // restore the hw_feedback_check_cqc_registration_status_single function hook
+  //add_action( 'updated_post_meta', 'hw_feedback_save_local_services_meta', 10, 4);
 
     // set php mailer variables
-    $to = get_option('admin_email');
+    if ($options['hw_feedback_field_email_notifications_targets'] != "") {
+      $to = $options['hw_feedback_field_email_notifications_targets'];
+    } else {
+      $to = get_option('admin_email');
+    }
     $subject = "Local Services - CQC registration updates (". parse_url( get_site_url(), PHP_URL_HOST ) .")";
     // set headers to allow HTML
     $headers = array('Content-Type: text/html; charset=UTF-8');
@@ -1127,7 +1149,8 @@ add_action( 'hw_feedback_clean_up_temp_cron_job', 'hw_feedback_clean_up_temp_upl
 
 // Send an email to a provider when a new comment is APPROVED
 function hw_feedback_approve_comment($new_status, $old_status, $comment) {
-  $options = get_option( 'hw_feedback_options' );
+  // get plugin settings/options
+  $options = get_option('hw_feedback_options');
   // check notifications enabled
   if ( isset( $options['hw_feedback_field_enable_notifications'] ) ) {
     error_log('hw-feedback: notification check');
@@ -1187,8 +1210,8 @@ function hw_feedback_approve_comment($new_status, $old_status, $comment) {
           $formatted_message .= $email_footer;
           $sent_provider = wp_mail($to, $subject, stripslashes($formatted_message), $headers);
         } else if ( isset ($options['hw_feedback_field_enable_missing_address_reminders']) ) {
-          if ( $options['hw_feedback_field_your_story_email'] != "") {
-            $to = $options['hw_feedback_field_your_story_email'];
+          if ( $options['hw_feedback_field_email_notifications_targets'] != "") {
+            $to = $options['hw_feedback_field_email_notifications_targets'];
           } else {
             $to = get_option('admin_email');
           }

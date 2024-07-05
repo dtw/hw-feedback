@@ -5,8 +5,11 @@ async function copy_civicrm_uuid() {
   /* Select the text field */
   copyText.select();
 
-   /* Copy the text inside the text field */
+  /* Copy the text inside the text field */
   await navigator.clipboard.writeText(copyText.value);
+
+  /* show copied message */
+  document.getElementById('uuid-copied-alert').style.display = "inline";
 }
 
 async function copy_civicrm_subject_code() {
@@ -18,6 +21,9 @@ async function copy_civicrm_subject_code() {
 
    /* Copy the text inside the text field */
   await navigator.clipboard.writeText(copyText.value);
+  
+  /* show copied message */
+  document.getElementById('subject-copied-alert').style.display = "inline";
 }
 
 async function hw_feedback_store_values() {

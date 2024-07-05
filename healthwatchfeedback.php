@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Healthwatch Feedback
-Version: 3.2.1
+Version: 3.3
 Description: Implements a Rate and Review centre on Healthwatch websites. <strong>DO NOT DELETE !</strong>
 Author: Phil Thiselton & Jason King
 */
@@ -199,7 +199,7 @@ function hw_feedback_activate()
   if (!wp_next_scheduled('hw_feedback_cqc_reg_check_cron_job')) {
     // set the first run 2 minutes from "now"
     wp_schedule_event(time() + 120, 'weekly', 'hw_feedback_cqc_reg_check_cron_job');
-  } 
+  }
   /* Add cron job to run hw_feedback_clean_up_temp
     --------------------------------------------------------- */
   if (!wp_next_scheduled('hw_feedback_clean_up_temp_cron_job')) {
@@ -298,7 +298,7 @@ function hw_feedback_settings_init()
   // Register a new section in the "hw_feedback" page.
   add_settings_section(
     'hw_feedback_section_comment_notifications_settings',
-    __('Comment Notifications', 'hw_feedback'),
+    __('Provider Comment Notifications', 'hw_feedback'),
     'hw_feedback_section_comment_notifications_settings_callback',
     'hw_feedback'
   );
@@ -321,7 +321,7 @@ function hw_feedback_settings_init()
   add_settings_field(
     'hw_feedback_field_api_subscription_key', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
-    __('Subscription Key', 'hw_feedback'),
+    __('Subscription key', 'hw_feedback'),
     'hw_feedback_field_api_subscription_key_cb',
     'hw_feedback',
     'hw_feedback_section_api_settings',
@@ -335,7 +335,7 @@ function hw_feedback_settings_init()
   add_settings_field(
     'hw_feedback_field_api_cache_path', // As of WP 4.6 this value is used only internally.
     // Use $args' label_for to populate the id inside the callback.
-    __('API Cache Path', 'hw_feedback'),
+    __('API cache path', 'hw_feedback'),
     'hw_feedback_field_api_cache_path_cb',
     'hw_feedback',
     'hw_feedback_section_api_settings',
@@ -355,6 +355,20 @@ function hw_feedback_settings_init()
     'hw_feedback_section_general_settings',
     array(
       'label_for'         => 'hw_feedback_field_your_story_email',
+      'class'             => 'hw_feedback_row',
+      'hw_feedback_custom_data' => 'custom',
+    )
+  );
+  // Register a new field in the "hw_feedback_section_general_settings" section, inside the "hw_feedback" page.
+  add_settings_field(
+    'hw_feedback_field_email_notifications_targets', // As of WP 4.6 this value is used only internally.
+    // Use $args' label_for to populate the id inside the callback.
+    __('Email notification address(es)', 'hw_feedback'),
+    'hw_feedback_field_email_notifications_targets_cb',
+    'hw_feedback',
+    'hw_feedback_section_general_settings',
+    array(
+      'label_for'         => 'hw_feedback_field_email_notifications_targets',
       'class'             => 'hw_feedback_row',
       'hw_feedback_custom_data' => 'custom',
     )
@@ -655,6 +669,28 @@ function hw_feedback_field_your_story_email_cb($args)
 }
 
 /**
+ * email_notifications_targets field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function hw_feedback_field_email_notifications_targets_cb($args)
+{
+  // Get the value of the setting we've registered with register_setting()
+  $options = get_option('hw_feedback_options');
+?>
+  <input type="email" multiple id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo isset($options[$args['label_for']]) ? (($options[$args['label_for']])) : (''); ?>">
+  <p class="description">
+    <?php esc_html_e("E-mail address target(s) for CQC/ODS notifications. You can use more than one address separated by commas (,).", 'hw_feedback'); ?>
+  </p>
+<?php
+}
+
+/**
  * disable_lhw_rating field callback function.
  *
  * WordPress has magic interaction with the following keys: label_for, class.
@@ -672,7 +708,7 @@ function hw_feedback_field_disable_lhw_rating_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Disable Local Healthwatch rating functions? (Does not affect public ratings)", 'hw_feedback'); ?>
   </p>
@@ -742,7 +778,7 @@ function hw_feedback_field_enable_notifications_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Automatically notify provider, via email, when a new comment is approved", 'hw_feedback'); ?>
   </p>
@@ -768,7 +804,7 @@ function hw_feedback_field_enable_missing_address_reminders_cb($args)
   $options[$args['label_for']] = !empty($options[$args['label_for']]) ? 1 : 0;
 ?>
   <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="hw_feedback_options[<?php echo esc_attr($args['label_for']); ?>]" value="1" <?php // checked() as a WordPress function - compares the first two arguments and if identical marks as checked - last arg control whether to echo or not
-                                                                                                                                                                checked(1, $options[$args['label_for']], true) ?>>
+                                                                                                                                                            checked(1, $options[$args['label_for']], true) ?>>
   <p class="description inline-description">
     <?php esc_html_e("Send admin reminders, via email, when a service does not have an email address set", 'hw_feedback'); ?>
   </p>
