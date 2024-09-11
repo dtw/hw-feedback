@@ -198,6 +198,22 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
       // set Inspection Categories
       $primary_inspection_category = hw_feedback_update_inspection_categories($single_local_service->ID,$api_response->inspectionCategories);
       error_log('hw-feedback: primary_inspection_category '.$primary_inspection_category);
+      // get the gacServiceTypes from the API response
+      $cqc_gac_service_types = $api_response->gacServiceTypes[0]->description;
+      error_log('hw-feedback: cqc_gac_service_types ' . $cqc_gac_service_types);
+
+      // get post service_type tax terms as names
+      $service_types_tax_terms = wp_get_post_terms($single_local_service->ID, 'service_types', array("fields" => "names"));
+      // check no terms are set (don't override manual input)
+      if (! isset($service_types_tax_terms[0] )) {
+        // check $primary_inspection_category maps to a service type and if so, set that, other wise map gac_category
+        $service_types_term_name = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
+        error_log('hw-feedback: service_types name ' . $service_types_term_name);
+        // convert the fetched name to an id
+        $service_types_term_id = get_term_by('name', $service_types_term_name, 'service_types', 'ARRAY_A');
+        // set service type tax term based on the id
+        wp_set_post_terms($single_local_service->ID, $service_types_term_id, 'service_types', false);
+      }
 
       // update the excerpt if blank
       if ( ! has_excerpt($single_local_service->ID) ) {
