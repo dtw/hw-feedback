@@ -173,10 +173,10 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     error_log('hw-feedback: location_id '.$location_id);
     // call API
     $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
-    // get post tax terms as names
-    $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
+    // get post cqc_reg_status tax terms as names
+    $cqc_reg_status_tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
     // if service is Archived (which is done manually), close comments and bail
-    if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
+    if ( isset($cqc_reg_status_tax_terms[0]) && $cqc_reg_status_tax_terms[0] == 'Archived' ) {
       update_comment_status ($single_local_service->ID,"closed");
       error_log('hw-feedback: archive true');
       return 'archived';
@@ -185,11 +185,11 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     if ( isset($api_response->registrationStatus) ) {
       $reg_status = '';
       // is it different from the current status AND NOT Archived
-      if ( ! isset($tax_terms[0]) || $tax_terms[0]  != $api_response->registrationStatus ) {
+      if ( ! isset($cqc_reg_status_tax_terms[0]) || $cqc_reg_status_tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
         $reg_status = 'changed';
-        error_log('hw-feedback: tax_terms '.$tax_terms[0]);
+        error_log('hw-feedback: tax_terms '.$cqc_reg_status_tax_terms[0]);
       }
         // try and override Registered local_services to "Allow Comments"
       if ( $api_response->registrationStatus == "Registered" ) {
