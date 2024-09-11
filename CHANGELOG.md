@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [3.4] - 2024-09/11
+### Added
+- blank service_types now set automatically when updating a single local service
+
 ## [3.3] - 2024-07-05
 ### Added
 - an alert to show subject/UUID has been copied
