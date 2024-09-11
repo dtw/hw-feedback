@@ -173,10 +173,10 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     error_log('hw-feedback: location_id '.$location_id);
     // call API
     $api_response = json_decode(hw_feedback_cqc_api_query_by_id('locations',$location_id));
-    // get post tax terms as names
-    $tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
+    // get post cqc_reg_status tax terms as names
+    $cqc_reg_status_tax_terms = wp_get_post_terms( $single_local_service->ID, 'cqc_reg_status', array( "fields" => "names" ));
     // if service is Archived (which is done manually), close comments and bail
-    if ( isset($tax_terms[0]) && $tax_terms[0] == 'Archived' ) {
+    if ( isset($cqc_reg_status_tax_terms[0]) && $cqc_reg_status_tax_terms[0] == 'Archived' ) {
       update_comment_status ($single_local_service->ID,"closed");
       error_log('hw-feedback: archive true');
       return 'archived';
@@ -185,11 +185,11 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
     if ( isset($api_response->registrationStatus) ) {
       $reg_status = '';
       // is it different from the current status AND NOT Archived
-      if ( ! isset($tax_terms[0]) || $tax_terms[0]  != $api_response->registrationStatus ) {
+      if ( ! isset($cqc_reg_status_tax_terms[0]) || $cqc_reg_status_tax_terms[0]  != $api_response->registrationStatus ) {
         // set new terms - takes names of terms not slugs...
         wp_set_post_terms( $single_local_service->ID, sanitize_text_field($api_response->registrationStatus) , 'cqc_reg_status', false );
         $reg_status = 'changed';
-        error_log('hw-feedback: tax_terms '.$tax_terms[0]);
+        error_log('hw-feedback: tax_terms '.$cqc_reg_status_tax_terms[0]);
       }
         // try and override Registered local_services to "Allow Comments"
       if ( $api_response->registrationStatus == "Registered" ) {
@@ -198,6 +198,22 @@ function hw_feedback_check_cqc_registration_status_single($post_id) {
       // set Inspection Categories
       $primary_inspection_category = hw_feedback_update_inspection_categories($single_local_service->ID,$api_response->inspectionCategories);
       error_log('hw-feedback: primary_inspection_category '.$primary_inspection_category);
+      // get the gacServiceTypes from the API response
+      $cqc_gac_service_types = $api_response->gacServiceTypes[0]->description;
+      error_log('hw-feedback: cqc_gac_service_types ' . $cqc_gac_service_types);
+
+      // get post service_type tax terms as names
+      $service_types_tax_terms = wp_get_post_terms($single_local_service->ID, 'service_types', array("fields" => "names"));
+      // check no terms are set (don't override manual input)
+      if (! isset($service_types_tax_terms[0] )) {
+        // check $primary_inspection_category maps to a service type and if so, set that, other wise map gac_category
+        $service_types_term_name = (hw_feedback_inspection_category_to_service_type($primary_inspection_category) !== false) ? hw_feedback_inspection_category_to_service_type($primary_inspection_category) : hw_feedback_gac_category_to_service_type($cqc_gac_service_types);
+        error_log('hw-feedback: service_types name ' . $service_types_term_name);
+        // convert the fetched name to an id
+        $service_types_term_id = get_term_by('name', $service_types_term_name, 'service_types', 'ARRAY_A');
+        // set service type tax term based on the id
+        wp_set_post_terms($single_local_service->ID, $service_types_term_id, 'service_types', false);
+      }
 
       // update the excerpt if blank
       if ( ! has_excerpt($single_local_service->ID) ) {
